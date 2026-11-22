@@ -54,6 +54,9 @@ eklenir. ink'in kendi anahtar sözcükleri (`VAR`, `INCLUDE`, `END`, `TODO` …)
 | snippet | parçacık | Ink menüsündeki hazır ink parçaları |
 | Go to anything | her şeye git | Ctrl+P, Ctrl+K |
 | go to definition | tanıma git | upstream'in Alt+tıklaması |
+| find, find and replace | bul, bul ve değiştir | düzenleyicinin arama çubuğu |
+| auto-complete, suggestions | otomatik tamamlama, öneriler | yazarken açılan liste; Ctrl+Space "Önerileri göster" |
+| vocabulary (completion) | sözcük | hikâyenin metninden gelen öneri |
 | step back, restart | bir seçim geri al, hikâyeyi baştan başlat | |
 | inspector | yan panel | düzenleyicinin yanındaki sekmeli panel |
 | compile | derlemek | |
