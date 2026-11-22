@@ -148,6 +148,26 @@ class KitEditorBufferTest {
     }
 
     @Test
+    fun `the line at the top of the view is the kit's, and setting it is where the view opens`() {
+        val (buffer, _) = buffer("line\n".repeat(50))
+
+        buffer.firstVisibleRow = 20
+
+        assertEquals(20, buffer.state.firstVisibleLine)
+        assertEquals(20, buffer.firstVisibleRow)
+    }
+
+    @Test
+    fun `a load keeps the line at the top of the view`() {
+        val (buffer, _) = buffer("line\n".repeat(50))
+        buffer.firstVisibleRow = 20
+
+        buffer.load("changed line\n".repeat(50))
+
+        assertEquals(20, buffer.firstVisibleRow)
+    }
+
+    @Test
     fun `the cursor is in rows and columns`() {
         val (buffer, _) = buffer("one\ntwo\nthree\n")
 

@@ -11,6 +11,9 @@ import androidx.compose.runtime.setValue
 /** The tabs of the inspector beside the editor in a wide window. */
 enum class InspectorTab { Player, Issues, Outline, Watches }
 
+/** The type the editor sets ink in: the theme's monospace face (upstream's look) or its proportional body face, for prose. */
+enum class EditorFace { Mono, Proportional }
+
 /**
  * The app's own settings, stored in shared preferences and observable from Compose: a composable
  * that reads a property is recomposed when it changes. One instance serves every window
@@ -52,6 +55,17 @@ class AppSettings(private val prefs: SharedPreferences) {
     /** The on-screen keyboard's own suggestions and autocorrect in the editor: ink is mostly prose. */
     var keyboardSuggestions by mutableStateOf(prefs.getBoolean(KEY_KEYBOARD_SUGGESTIONS, true))
         private set
+
+    /** The editor's type face (the kit's `CodeEditor(proportional = …)`); monospace as upstream unless changed. */
+    var editorFace by mutableStateOf(
+        EditorFace.entries.firstOrNull { it.name == prefs.getString(KEY_EDITOR_FACE, null) } ?: EditorFace.Mono,
+    )
+        private set
+
+    fun updateEditorFace(value: EditorFace) {
+        editorFace = value
+        prefs.edit().putString(KEY_EDITOR_FACE, value.name).apply()
+    }
 
     fun updateSoftWrap(value: Boolean) {
         softWrap = value
@@ -160,6 +174,7 @@ class AppSettings(private val prefs: SharedPreferences) {
         private const val KEY_LINE_NUMBERS = "editor_line_numbers"
         private const val KEY_AUTO_COMPLETE = "editor_auto_complete"
         private const val KEY_KEYBOARD_SUGGESTIONS = "editor_keyboard_suggestions"
+        private const val KEY_EDITOR_FACE = "editor_face"
         private const val KEY_PLAY_ANIMATION = "player_animation"
         private const val KEY_TAGS_VISIBLE = "player_tags_visible"
         private const val KEY_INSPECTOR_TAB = "inspector_tab"

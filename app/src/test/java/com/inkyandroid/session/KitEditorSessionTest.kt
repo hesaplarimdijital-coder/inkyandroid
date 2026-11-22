@@ -39,6 +39,27 @@ class KitEditorSessionTest {
     }
 
     @Test
+    fun `after the process died each file opens at its cursor and with the same line at the top`() = sessionTest {
+        onStorage("main.ink", "INCLUDE a.ink\n" + "line\n".repeat(80))
+        onStorage("a.ink", "line\n".repeat(80))
+        val first = open(kit = true)
+        kitEditor(first, "main.ink").state.apply { scrollToLine(30); select(offsetOf(35, 2)) }
+        first.show("a.ink")
+        kitEditor(first, "a.ink").state.apply { scrollToLine(60); select(offsetOf(61, 0)) }
+        first.flush()
+        kill()
+
+        val second = open(settings = settingsAfterRestart(), kit = true)
+
+        assertEquals("a.ink", second.state.value.activePath)
+        val a = kitEditor(second, "a.ink").state
+        assertEquals(60, a.firstVisibleLine)
+        assertEquals(TextPosition(61, 0), kitEditor(second, "a.ink").cursor)
+        assertEquals(30, kitEditor(second, "main.ink").state.firstVisibleLine)
+        assertEquals(TextPosition(35, 2), kitEditor(second, "main.ink").cursor)
+    }
+
+    @Test
     fun `the screens find the kit's state of each document`() = sessionTest {
         onStorage("main.ink", story)
         val session = open(kit = true)

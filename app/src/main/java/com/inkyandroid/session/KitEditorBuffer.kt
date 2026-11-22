@@ -41,7 +41,6 @@ class KitEditorBuffer(
     private var reportedVersion = state.version
     private var cachedVersion = -1
     private var cached = ""
-    private var viewRow = 0
     private val watcher = CoroutineScope(SupervisorJob() + watchContext)
 
     init {
@@ -70,12 +69,14 @@ class KitEditorBuffer(
 
     override fun load(text: String) {
         val at = state.cursorPosition
+        val top = state.firstVisibleLine
         lineBreak = LineBreak.of(text)
         state.setText(text)
         reportedVersion = state.version
-        // the kit puts the cursor at the start; the writer stays where they were as far as the new text allows
+        // the kit puts the cursor and the view at the start; the writer stays where they were as far
+        // as the new text allows
         state.select(state.offsetOf(at.line.coerceAtMost(state.lineCount - 1), at.column))
-        state.reveal(state.cursor)
+        state.scrollToLine(top)
     }
 
     override fun edit(start: Int, end: Int, replacement: String) {
@@ -87,17 +88,10 @@ class KitEditorBuffer(
         get() = state.cursorPosition.let { TextPosition(it.line, it.column) }
         set(value) = state.select(state.offsetOf(value.row, value.column))
 
-    /**
-     * The kit's editor does not tell its scroll position yet (requested): the value set here is
-     * kept and read back, and setting it brings the cursor into view when the editor shows the file,
-     * so a restored window returns to the cursor's line.
-     */
+    /** The line at the top of the view; set before an editor shows the file, it is where the view opens. */
     override var firstVisibleRow: Int
-        get() = viewRow
-        set(value) {
-            viewRow = value
-            state.reveal(state.cursor)
-        }
+        get() = state.firstVisibleLine
+        set(value) = state.scrollToLine(value)
 
     override var onTextChanged: (() -> Unit)? = null
 
