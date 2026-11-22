@@ -50,9 +50,16 @@ sealed interface ManualBlock {
         override val plainText: String get() = text.text
     }
 
-    /** A code example, indented or fenced; every example in the manual is ink. No final line break. */
+    /**
+     * A code example, indented or fenced; every example in the manual is ink. [code] is the source as
+     * written (copied and inserted as it is, tabs and all), with no final line break; it is shown and
+     * searched as [display], its tabs expanded to the editor's tab stops.
+     */
     data class Code(val code: String, override val listDepth: Int = 0, override val quoteDepth: Int = 0, val marker: String? = null) : ManualBlock {
-        override val plainText: String get() = code
+        /** [code] with its tabs expanded, and where each of its characters went. */
+        val expansion: TabExpansion by lazy { TabExpansion.of(code) }
+        val display: String get() = expansion.text
+        override val plainText: String get() = display
     }
 
     /** A thematic break. */
@@ -130,5 +137,47 @@ class Manual(val blocks: List<ManualBlock>) {
     companion object {
         /** How many heading levels the table of contents shows: parts, chapters and sections. */
         const val TOC_LEVELS = 3
+    }
+}
+
+/**
+ * A text with its tabs replaced by spaces up to the next tab stop, as the editor shows them, and
+ * [offsets]: where each character of the source (and its end) is in [text], so colours computed on
+ * the source land on the right characters.
+ */
+class TabExpansion private constructor(val text: String, val offsets: IntArray) {
+    /** Where the source's character at [index] (or its end, at its length) is in [text]. */
+    fun map(index: Int): Int = offsets[index]
+
+    companion object {
+        /** Columns between tab stops, as in the editor (upstream's Ace default). */
+        const val TAB_SIZE = 4
+
+        fun of(source: String): TabExpansion {
+            if ('\t' !in source) return TabExpansion(source, IntArray(source.length + 1) { it })
+            val out = StringBuilder(source.length + 16)
+            val offsets = IntArray(source.length + 1)
+            var column = 0
+            for (i in source.indices) {
+                offsets[i] = out.length
+                when (val c = source[i]) {
+                    '\t' -> {
+                        val spaces = TAB_SIZE - column % TAB_SIZE
+                        repeat(spaces) { out.append(' ') }
+                        column += spaces
+                    }
+                    '\n' -> {
+                        out.append(c)
+                        column = 0
+                    }
+                    else -> {
+                        out.append(c)
+                        column++
+                    }
+                }
+            }
+            offsets[source.length] = out.length
+            return TabExpansion(out.toString(), offsets)
+        }
     }
 }
