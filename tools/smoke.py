@@ -63,7 +63,8 @@ LARGE_WINDOW_DP = 1200
 #   ["save", "file.txt", "command"]  a device shell command, its output saved next to the report
 #
 # Checks (keyword arguments of step()):
-#   expect=["…"]      each text is visible (substring of a node's text or content description)
+#   expect=["…"]      each text is visible (substring of a node's text or content description,
+#                     ignoring case: the on-screen keyboard capitalises at the start of a line)
 #   played=["…"]      … visible outside the text fields (the player shows it, not only the editor)
 #   absent=["…"]      none of these is visible
 #   foreground=True   the app's activity is the resumed one (default True; False after ["home"])
@@ -83,143 +84,113 @@ def step(name, do=(), expect=(), played=(), absent=(), foreground=True, same_pro
                 wide=wide, only=only, soft=soft)
 
 
-# Scenario 0: the skeleton on android-port (one screen saying the app is being set up).
-S0_EN_TITLE = "Inky is being set up"
-S0_EN_TEXT = "skeleton of the Android port"
-S0_EN_NAV = "Story"
-S0_TR_TITLE = "Inky kuruluyor"
-S0_TR_TEXT = "Android portunun iskeleti"
-S0_TR_NAV = "Hikâye"
-
-
-def _lifecycle(lang, title, text, nav):
-    """The same screen through rotation, background, process death and force-stop."""
-    seen = [title, text, nav]
-    return [
-        step(f"{lang}-rotated", do=[["rotate", "flip"]], expect=seen, same_process=True),
-        step(f"{lang}-rotated-back", do=[["rotate", "natural"]], expect=seen, same_process=True),
-        step(f"{lang}-background", do=[["home"]], foreground=False, absent=[title]),
-        step(f"{lang}-foreground", do=[["launch"]], expect=seen, same_process=True),
-        step(f"{lang}-process-death-restored", do=[["home"], ["kill_background"], ["launch"]],
-             expect=seen, new_process=True),
-        step(f"{lang}-force-stop-relaunch", do=[["force_stop"], ["launch"]], expect=seen, new_process=True),
-    ]
-
-
-SCENARIO_0 = (
-    [
-        step("en-cold-start", do=[["locale", "en-US"], ["cold_start"]],
-             expect=[S0_EN_TITLE, S0_EN_TEXT, S0_EN_NAV], new_process=True),
-        step("en-large-window", only="tablet", expect=[APP_LABEL, S0_EN_NAV], wide=True),
-        step("en-compact-window", only="phone", expect=[S0_EN_NAV], wide=False),
-    ]
-    + _lifecycle("en", S0_EN_TITLE, S0_EN_TEXT, S0_EN_NAV)
-    + [
-        step("tr-cold-start", do=[["locale", "tr-TR"], ["cold_start"]],
-             expect=[S0_TR_TITLE, S0_TR_TEXT, S0_TR_NAV], absent=[S0_EN_TITLE], new_process=True),
-    ]
-    + _lifecycle("tr", S0_TR_TITLE, S0_TR_TEXT, S0_TR_NAV)
-    + [
-        step("en-again", do=[["locale", "en-US"], ["cold_start"]], expect=[S0_EN_TITLE], absent=[S0_TR_TITLE]),
-    ]
-)
-
-# The driver's own check of ime_type, in a system text field (Settings > About > Device name):
-# types through the on-screen keyboard. Not an app test; run it with --scenarios ime-probe.
-SCENARIO_IME_PROBE = [
-    step("ime-probe-field", foreground=False, soft=True, do=[
-        ["shell", "am start -W -a android.settings.DEVICE_INFO_SETTINGS"],
-        # Settings never goes idle for uiautomator here: the row is tapped where it is drawn
-        ["shell", "input tap 300 923"],
-        ["wait", 3],
-        ["ime_type", "smoke"],
-        ["save", "ime-window.txt", "settings get secure default_input_method; "
-                                   "dumpsys window windows | grep -A40 ' u0 InputMethod}:'"],
-    ]),
-]
-
-# Scenario 1: the real app (architecture 4.3): write, play, issues, files, the manual, settings,
-# and the text surviving a force-stop; on the tablet the large window's menu bar, sidebar, side by
-# side workspace, the command palette and shortcuts. The app's texts it looks for are collected
-# here; they are checked against the app as its screens land on android-port.
+# Scenario 1: the app (architecture 4.3), as the owner uses it. On the phone: the first-launch
+# project in the editor and the player, a line typed with key events and a word typed on the
+# on-screen keyboard, both played; choose, rewind, restart; an error in the issues and its fix;
+# files, documentation, settings; rotation, background, process death; text typed just before a
+# force-stop is there after relaunch; Turkish. In the large window: menu bar, sidebar, editor and
+# player side by side, palette (Ctrl+K), find (Ctrl+F), the File menu, issues, force-stop, the
+# rail layout when rotated, Turkish. The app's texts are collected in S1 (English) and S1_TR.
 S1 = dict(
-    write="Write", play="Play", files="Files", more="More", issues="Issues", docs="Manual",
-    settings="Settings", step_back="Step back", restart="Restart",
-    menus=["File", "Edit", "View", "Story", "Ink", "Help"],
-    main_file="main.ink",
-    # a line of the sample project's ink, and what the player shows of it
-    sample_ink="Once upon a time",
-    sample_story="Once upon a time",
-    sample_choice="There were two choices.",
+    write="Write", play="Play", files="Files", more="More", issues="Issues", docs="Documentation",
+    settings="Settings", rewind="Rewind a single choice", restart="Restart story",
+    menus=["File", "Edit", "View", "Story", "Help"],
+    main_file="First story.ink",
+    story_start="Once upon a time",
+    choice="There were two choices.",
     after_choice="They lived happily ever after.",
-    palette_hint="Go to anything",
+    no_issues="No issues",
+    palette_hint="File name, stitch, knot, line number, or text",
     find_hint="Find",
-    manual_text="Writing with ink",
-    settings_text="Autosave",
 )
+S1_TR = dict(write="Yaz", play="Oyna", files="Dosyalar", more="Daha fazla", menu_file="Dosya",
+             rewind="Bir seçim geri al")
 TYPED = "Smoke line from keys."
-IME_TYPED = "imeword"
+IME_WORD = "imeword"
+KEPT_WORD = "keptword"
 MISSING_KNOT = "smoke_missing_knot"
 
-_s1_type_first_line = [["tap_field", 1], ["key", "CTRL+MOVE_HOME"]]
+# the cursor to the start of the main file (the first text field is the editor)
+TOP = [["tap_field", 1], ["key", "CTRL+MOVE_HOME"]]
+# removes the first line (an error written there)
+DELETE_FIRST_LINE = TOP + [["key", "SHIFT+DPAD_DOWN"], ["key", "DEL"]]
 
 SCENARIO_1_PHONE = [
-    step("s1-cold-start", only="phone", do=[["locale", "en-US"], ["cold_start"]],
-         expect=[S1["write"], S1["play"], S1["files"], S1["sample_ink"]], new_process=True),
-    step("s1-play", only="phone", do=[["tap", S1["play"]]], played=[S1["sample_story"], S1["sample_choice"]]),
-    step("s1-type-line", only="phone",
-         do=[["tap", S1["write"]]] + _s1_type_first_line + [["type", TYPED], ["key", "ENTER"]], expect=[TYPED]),
-    step("s1-type-on-screen-keyboard", only="phone",
-         do=_s1_type_first_line + [["ime_type", IME_TYPED]]),
-    step("s1-play-typed", only="phone", do=[["hide_keyboard"], ["tap", S1["play"]]], played=[TYPED]),
-    step("s1-choose", only="phone", do=[["tap", S1["sample_choice"]]], played=[S1["after_choice"]]),
-    step("s1-step-back", only="phone", do=[["tap", S1["step_back"]]], played=[S1["sample_choice"]]),
-    step("s1-restart", only="phone", do=[["tap", S1["restart"]]], played=[TYPED]),
-    step("s1-error", only="phone",
-         do=[["tap", S1["write"]]] + _s1_type_first_line +
-            [["type", "-> " + MISSING_KNOT], ["key", "ENTER"], ["hide_keyboard"], ["wait", 3],
-             ["tap", S1["more"]], ["tap", S1["issues"]]],
+    step("cold-start-first-story", only="phone", do=[["locale", "en-US"], ["cold_start"]], wide=False,
+         expect=[S1["write"], S1["play"], S1["files"], S1["story_start"]], new_process=True),
+    step("play-first-story", only="phone", do=[["tap", S1["play"]]], played=[S1["story_start"], S1["choice"]]),
+    step("write-line-with-keys", only="phone", do=[["tap", S1["write"]]] + TOP + [["type", TYPED], ["key", "ENTER"]],
+         expect=[TYPED]),
+    step("write-word-on-screen-keyboard", only="phone", do=TOP + [["ime_type", IME_WORD], ["key", "ENTER"]],
+         expect=[IME_WORD]),
+    step("play-typed-text", only="phone", do=[["hide_keyboard"], ["tap", S1["play"]]], played=[IME_WORD, TYPED]),
+    step("choose", only="phone", do=[["tap", S1["choice"]]], played=[S1["after_choice"]]),
+    step("rewind", only="phone", do=[["tap", S1["rewind"]]], played=[S1["choice"]], absent=[S1["after_choice"]]),
+    step("restart", only="phone", do=[["tap", S1["restart"]]], played=[TYPED, S1["choice"]]),
+    step("error-in-issues", only="phone",
+         do=[["tap", S1["write"]]] + TOP + [["type", "-> " + MISSING_KNOT], ["key", "ENTER"], ["hide_keyboard"],
+                                            ["wait", 3], ["tap", S1["more"]], ["tap", S1["issues"]]],
          played=[MISSING_KNOT]),
-    step("s1-error-fixed", only="phone",
-         do=[["tap", S1["write"]]] + _s1_type_first_line +
-            [["key", "SHIFT+DPAD_DOWN"], ["key", "DEL"], ["hide_keyboard"], ["wait", 3],
-             ["tap", S1["more"]], ["tap", S1["issues"]]],
-         absent=[MISSING_KNOT]),
-    step("s1-files", only="phone", do=[["tap", S1["files"]]], expect=[S1["main_file"]]),
-    step("s1-manual", only="phone", do=[["tap", S1["more"]], ["tap", S1["docs"]]], expect=[S1["manual_text"]]),
-    step("s1-settings", only="phone", do=[["back"], ["tap", S1["more"]], ["tap", S1["settings"]]],
-         expect=[S1["settings_text"]]),
-    step("s1-text-survives-force-stop", only="phone",
-         do=[["home"], ["force_stop"], ["launch"], ["tap", S1["write"]]], expect=[TYPED], new_process=True),
+    step("error-fixed", only="phone",
+         do=[["tap", S1["write"]]] + DELETE_FIRST_LINE + [["hide_keyboard"], ["wait", 3],
+                                                          ["tap", S1["more"]], ["tap", S1["issues"]]],
+         expect=[S1["no_issues"]], absent=[MISSING_KNOT]),
+    step("files", only="phone", do=[["tap", S1["files"]]], expect=[S1["main_file"]]),
+    step("documentation", only="phone", do=[["tap", S1["more"]], ["tap", S1["docs"]], ["wait", 3]],
+         expect=[S1["docs"]]),
+    step("settings", only="phone", do=[["back"], ["tap", S1["more"]], ["tap", S1["settings"]]],
+         expect=[S1["settings"]]),
+    step("editor-again", only="phone", do=[["tap", S1["write"]]], expect=[TYPED, IME_WORD]),
+    step("rotated", only="phone", do=[["rotate", "flip"]], expect=[TYPED], same_process=True),
+    step("rotated-back", only="phone", do=[["rotate", "natural"]], expect=[TYPED], same_process=True),
+    step("background-foreground", only="phone", do=[["home"], ["launch"]], expect=[TYPED], same_process=True),
+    step("process-death-restored", only="phone", do=[["home"], ["kill_background"], ["launch"]],
+         expect=[TYPED, IME_WORD], new_process=True),
+    step("typed-then-force-stopped", only="phone",
+         do=[["tap", S1["write"]]] + TOP + [["ime_type", KEPT_WORD], ["key", "ENTER"], ["wait", 3],
+                                            ["force_stop"], ["launch"]],
+         expect=[KEPT_WORD, TYPED, IME_WORD], new_process=True),
+    step("turkish", only="phone", do=[["locale", "tr-TR"], ["cold_start"]],
+         expect=[S1_TR["write"], S1_TR["play"], S1_TR["files"], KEPT_WORD], new_process=True),
+    step("turkish-play", only="phone", do=[["tap", S1_TR["play"]]], played=[KEPT_WORD, S1["choice"]]),
 ]
 
 SCENARIO_1_TABLET = [
-    step("s1-large-cold-start", only="tablet", do=[["locale", "en-US"], ["cold_start"]], wide=True,
-         expect=S1["menus"] + [S1["main_file"], S1["sample_ink"]], played=[S1["sample_story"]], new_process=True),
-    step("s1-large-type-line", only="tablet", do=_s1_type_first_line + [["type", TYPED], ["key", "ENTER"]],
+    step("large-cold-start", only="tablet", do=[["locale", "en-US"], ["cold_start"]], wide=True,
+         expect=S1["menus"] + [S1["main_file"], S1["story_start"]], played=[S1["choice"]], new_process=True),
+    step("large-write-line", only="tablet", do=TOP + [["type", TYPED], ["key", "ENTER"], ["wait", 2]],
          expect=[TYPED], played=[TYPED]),
-    step("s1-large-choose", only="tablet", do=[["tap", S1["sample_choice"]]], played=[S1["after_choice"]]),
-    step("s1-large-palette", only="tablet", do=[["key", "CTRL+K"]], expect=[S1["palette_hint"]]),
-    step("s1-large-palette-closed", only="tablet", do=[["key", "ESCAPE"]], absent=[S1["palette_hint"]]),
-    step("s1-large-find", only="tablet", do=[["tap_field", 1], ["key", "CTRL+F"]], expect=[S1["find_hint"]]),
-    step("s1-large-file-menu", only="tablet", do=[["key", "ESCAPE"], ["tap", S1["menus"][0]]], soft=True),
-    step("s1-large-issues", only="tablet",
-         do=[["key", "ESCAPE"]] + _s1_type_first_line + [["type", "-> " + MISSING_KNOT], ["key", "ENTER"],
-                                                         ["wait", 3], ["tap", S1["issues"]]],
+    step("large-choose", only="tablet", do=[["tap", S1["choice"]]], played=[S1["after_choice"]]),
+    step("large-rewind", only="tablet", do=[["tap", S1["rewind"]]], played=[S1["choice"]],
+         absent=[S1["after_choice"]]),
+    step("large-palette", only="tablet", do=[["key", "CTRL+K"]], expect=[S1["palette_hint"]]),
+    step("large-palette-closed", only="tablet", do=[["key", "ESCAPE"]], absent=[S1["palette_hint"]]),
+    step("large-find", only="tablet", do=[["tap_field", 1], ["key", "CTRL+F"]], expect=[S1["find_hint"]]),
+    step("large-file-menu", only="tablet", do=[["key", "ESCAPE"], ["tap", S1["menus"][0]]], soft=True),
+    step("large-error-in-issues", only="tablet",
+         do=[["key", "ESCAPE"]] + TOP + [["type", "-> " + MISSING_KNOT], ["key", "ENTER"], ["wait", 3],
+                                         ["tap", S1["issues"]]],
          played=[MISSING_KNOT]),
-    step("s1-large-text-survives-force-stop", only="tablet", do=[["force_stop"], ["launch"]],
-         expect=[TYPED], new_process=True),
+    step("large-error-fixed", only="tablet",
+         do=[["tap", S1["write"]]] + DELETE_FIRST_LINE + [["wait", 3], ["tap", S1["issues"]]],
+         expect=[S1["no_issues"]], absent=[MISSING_KNOT]),
+    step("large-typed-then-force-stopped", only="tablet",
+         do=[["tap", S1["write"]]] + TOP + [["type", KEPT_WORD], ["key", "ENTER"], ["wait", 3],
+                                            ["force_stop"], ["launch"]],
+         expect=[KEPT_WORD, TYPED], new_process=True),
+    step("large-rotated-rail", only="tablet", do=[["rotate", "flip"]], expect=[KEPT_WORD], wide=False,
+         same_process=True),
+    step("large-process-death-restored", only="tablet",
+         do=[["rotate", "natural"], ["home"], ["kill_background"], ["launch"]], expect=[KEPT_WORD], new_process=True),
+    step("large-turkish", only="tablet", do=[["locale", "tr-TR"], ["cold_start"]], wide=True,
+         expect=[S1_TR["menu_file"], KEPT_WORD], played=[KEPT_WORD], new_process=True),
 ]
 
 SCENARIOS = {
-    "0": dict(title="Skeleton: the setup screen, in English and Turkish, through the lifecycle",
-              steps=SCENARIO_0),
-    "1": dict(title="The app: write, play, issues, files, manual, settings; the large window's workspace",
+    "1": dict(title="The app: write and play, issues, files, lifecycle, Turkish; the large window's workspace",
               steps=SCENARIO_1_PHONE + SCENARIO_1_TABLET),
-    "ime-probe": dict(title="The on-screen keyboard of a system text field (driver self-check)",
-                      steps=SCENARIO_IME_PROBE),
 }
-DEFAULT_SCENARIOS = ["0"]
+DEFAULT_SCENARIOS = ["1"]
 
 
 # ---------------------------------------------------------------------------------------------
@@ -734,18 +705,18 @@ class Smoke:
         checks = []
 
         for text in st["expect"]:
-            ok = any(text in t for t in labels)
+            ok = any(text.lower() in t.lower() for t in labels)
             checks.append(("seen" if ok else "MISSING") + f" '{text}'")
             if not ok:
                 self.problem(f"'{text}' is not on the screen")
         outside = self.visible_labels([n for n in nodes if n.cls != "android.widget.EditText"])
         for text in st["played"]:
-            ok = any(text in t for t in outside)
+            ok = any(text.lower() in t.lower() for t in outside)
             checks.append(("played" if ok else "NOT PLAYED") + f" '{text}'")
             if not ok:
                 self.problem(f"'{text}' is not on the screen outside the text fields")
         for text in st["absent"]:
-            ok = not any(text in t for t in labels)
+            ok = not any(text.lower() in t.lower() for t in labels)
             checks.append(("absent" if ok else "PRESENT") + f" '{text}'")
             if not ok:
                 self.problem(f"'{text}' is on the screen")
