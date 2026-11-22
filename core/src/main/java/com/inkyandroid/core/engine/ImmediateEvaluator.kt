@@ -30,7 +30,17 @@ internal class ImmediateEvaluator(
 ) {
     private var counter = 0
 
-    fun evaluate(input: String, allowDivert: Boolean): Evaluation {
+    /** The places in the messages are places in the typed text ("line 1"), which mean nothing to the reader: dropped. */
+    fun evaluate(input: String, allowDivert: Boolean): Evaluation =
+        when (val result = evaluateTyped(input, allowDivert)) {
+            is Evaluation.Value -> result.copy(issues = result.issues.map(::withoutPlace))
+            is Evaluation.Failed -> result.copy(issues = result.issues.map(::withoutPlace))
+            is Evaluation.Diverted -> result
+        }
+
+    private fun withoutPlace(issue: InkIssue) = issue.copy(file = null, line = null, runtimePath = null)
+
+    private fun evaluateTyped(input: String, allowDivert: Boolean): Evaluation {
         val issues = mutableListOf<InkIssue>()
         val parsed = parse(input, allowDivert, issues) ?: return Evaluation.Failed(issues)
 
@@ -79,7 +89,7 @@ internal class ImmediateEvaluator(
     private fun parse(input: String, allowDivert: Boolean, issues: MutableList<InkIssue>): ParsedObject? {
         val handler = com.bladecoder.ink.runtime.Error.ErrorHandler { message, type ->
             val fallback = if (type == com.bladecoder.ink.runtime.Error.ErrorType.Warning) IssueKind.Warning else IssueKind.Error
-            issues += compiled.sink.text.parse(message, fallback).copy(file = null, line = null)
+            issues += compiled.sink.text.parse(message, fallback)
         }
         val parsed: ParsedObject? = try {
             if (allowDivert && input.trimStart().startsWith("->")) {
