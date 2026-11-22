@@ -30,8 +30,8 @@ class SingleDocumentStore internal constructor(
     val documentUri: Uri,
     /** The file's name, which is also its only path. */
     val fileName: String,
-    /** Whether the file accepts writes; `false` for a file another app shared read-only. */
-    val isWritable: Boolean,
+    /** Whether the file accepts writes (`false` for a file shared read-only); asked on the I/O dispatcher, as it queries the provider. */
+    private val writable: () -> Boolean,
     private val permissionHeld: () -> Boolean,
     private val io: CoroutineDispatcher,
 ) : ProjectStore {
@@ -55,8 +55,8 @@ class SingleDocumentStore internal constructor(
 
     override suspend fun write(path: String, text: String): StoredFile {
         requireOwn(path)
-        if (!isWritable) throw ReadOnlyException("$fileName was shared read-only")
         return guarded("write") {
+            if (!writable()) throw ReadOnlyException("$fileName was shared read-only")
             val bytes = DocumentIo.encodeText(text)
             DocumentIo.writeBytes(resolver, documentUri, bytes)
             val after = current() ?: throw ProviderFailedException("$fileName is gone after writing it")

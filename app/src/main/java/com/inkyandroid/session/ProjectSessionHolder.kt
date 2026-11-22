@@ -50,6 +50,8 @@ class StorageProjectOpener(private val storage: ProjectStorage) : ProjectOpener 
 /**
  * What every window's session is built from; one for the process, made by the application.
  *
+ * @property live creates each project's live compile session: `LiveSessionLink.factory(inkDispatcher)`
+ *   with the app's one ink thread.
  * @property draftsDirectory the app-private directory under which each project gets its own drafts
  *   folder (`filesDir/drafts`).
  */

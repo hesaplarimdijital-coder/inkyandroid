@@ -1,7 +1,9 @@
 package com.inkyandroid.core.project
 
+import com.inkyandroid.core.engine.InkSources
 import com.inkyandroid.core.settings.ProjectSettings
 import com.inkyandroid.core.symbols.InkFileSymbols
+import com.inkyandroid.core.syntax.InkTokenizer
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,9 +22,30 @@ import java.io.IOException
 import java.nio.file.NoSuchFileException
 import kotlin.coroutines.CoroutineContext
 
-/** Turns a file's text into its symbols. The app builds one from the tokenizer for the project's settings. */
+/**
+ * What the project takes from a parse of one file: where its `INCLUDE` lines point, and the symbols
+ * it hands on to the rest of the app.
+ *
+ * @property includes the text after each `INCLUDE`, in order, as written.
+ * @property lastIncludeRow the zero-based row of the last `INCLUDE` line, -1 without one.
+ * @property symbols the file's symbols; the project only passes them on ([ProjectFile.symbols]).
+ */
+class ParsedInk(
+    val includes: List<String>,
+    val lastIncludeRow: Int,
+    val symbols: InkFileSymbols?,
+) {
+    constructor(symbols: InkFileSymbols) : this(symbols.includes, symbols.lastIncludeRow, symbols)
+}
+
+/** Parses a file's text. The app's is [InkFileParser.of] a tokenizer; the project's own tests use a line scanner. */
 fun interface InkFileParser {
-    fun parse(text: CharSequence): InkFileSymbols
+    fun parse(text: CharSequence): ParsedInk
+
+    companion object {
+        /** The real parser: the symbols of `core.symbols` over [tokenizer] (one per `instructionPrefix`). */
+        fun of(tokenizer: InkTokenizer): InkFileParser = InkFileParser { text -> ParsedInk(InkFileSymbols.parse(text, tokenizer)) }
+    }
 }
 
 /**
@@ -97,6 +120,7 @@ class InkProject private constructor(
         var conflict = false
         var symbols: InkFileSymbols? = null
         var includes: List<String> = emptyList()
+        var lastIncludeRow = -1
         var parsedRevision = -1L
         var parseJob: Job? = null
 
@@ -184,10 +208,10 @@ class InkProject private constructor(
     }
 
     /**
-     * The sources for the compiler: every file's text at this moment. (Becomes `core.engine`'s input
-     * type once that package defines it.)
+     * The sources for the compiler: the text of every file at this moment, spare files too (upstream
+     * copies every project file to the compiler's folder).
      */
-    fun texts(): ProjectTexts = ProjectTexts(mainPath, files.mapValues { (_, record) -> record.text().toString() })
+    fun sources(): InkSources = InkSources(mainPath, files.mapValues { (_, record) -> record.text().toString() })
 
     /**
      * Replaces the parser (the project's `instructionPrefix` changed, which changes the tokenizer)
@@ -643,7 +667,7 @@ class InkProject private constructor(
     private suspend fun parse(record: FileRecord, refresh: Boolean) {
         val revision = record.revision
         val text = record.text()
-        val symbols = try {
+        val parsed = try {
             withContext(parseContext) { parser.parse(text) }
         } catch (cancelled: CancellationException) {
             throw cancelled
@@ -653,8 +677,9 @@ class InkProject private constructor(
         }
         if (files[record.path] !== record || revision < record.parsedRevision) return
         record.parsedRevision = revision
-        record.symbols = symbols
-        record.includes = symbols.includes.mapNotNull(ProjectPaths::normalizeInclude)
+        record.symbols = parsed.symbols
+        record.lastIncludeRow = parsed.lastIncludeRow
+        record.includes = parsed.includes.mapNotNull(ProjectPaths::normalizeInclude)
         if (refresh) {
             refreshIncludes()
             publish()
@@ -726,7 +751,7 @@ class InkProject private constructor(
     private fun insertIncludeLine(main: FileRecord, path: String) {
         val text = main.text()
         val lineBreak = if (text.contains("\r\n")) "\r\n" else "\n"
-        val lastIncludeRow = main.symbols?.lastIncludeRow ?: -1
+        val lastIncludeRow = main.lastIncludeRow
         if (lastIncludeRow < 0) {
             applyEdit(main, 0, 0, "INCLUDE $path$lineBreak")
         } else {

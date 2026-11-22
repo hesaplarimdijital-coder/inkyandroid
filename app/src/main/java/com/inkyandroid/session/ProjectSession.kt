@@ -1,5 +1,7 @@
 package com.inkyandroid.session
 
+import com.inkyandroid.core.engine.InkIssue
+import com.inkyandroid.core.engine.InkIssues
 import com.inkyandroid.core.project.AddIncludeResult
 import com.inkyandroid.core.project.DeleteResult
 import com.inkyandroid.core.project.Draft
@@ -17,7 +19,6 @@ import com.inkyandroid.core.project.SaveReport
 import com.inkyandroid.core.project.SaveResult
 import com.inkyandroid.core.project.SyncReport
 import com.inkyandroid.core.settings.ProjectSettings
-import com.inkyandroid.core.symbols.InkFileSymbols
 import com.inkyandroid.core.syntax.InkTokenizer
 import com.inkyandroid.settings.AppSettings
 import com.inkyandroid.settings.FilePlace
@@ -94,7 +95,7 @@ class ProjectSession private constructor(
     val state: StateFlow<SessionState>
 
     /** The live compile session's link: the session feeds it; the screens read the player from the live session itself. */
-    val live: LiveLink = liveFactory.create(scope) { project.texts() }
+    val live: LiveLink = liveFactory.create(scope) { project.sources() }
 
     init {
         val last = settings.lastSession?.takeIf { it.project == reference }
@@ -118,6 +119,8 @@ class ProjectSession private constructor(
         // restored drafts are unsaved changes like any other: journal and autosave take over
         if (project.state.value.hasUnsavedChanges) scheduleAutosave()
         rememberSession()
+        live.setInstructionPrefix(projectSettings.instructionPrefix)
+        live.reloadNow()
     }
 
     // ------------------------------------------------------------------ documents
@@ -211,9 +214,9 @@ class ProjectSession private constructor(
     // ------------------------------------------------------------------ issues and watches
 
     /** Upstream's `gotoIssue`: shows the issue's file at its line and adds a history step. False when the issue names no file of the project. */
-    fun showIssue(issue: SessionIssue): Boolean {
-        val path = issue.path ?: return false
-        return show(path, TextPosition((issue.line - 1).coerceAtLeast(0)))
+    fun showIssue(issue: InkIssue): Boolean {
+        val path = issue.file ?: return false
+        return show(path, TextPosition(((issue.line ?: 1) - 1).coerceAtLeast(0)))
     }
 
     /** Upstream's "Next Issue" (Ctrl+.): goes to the issue after the one last gone to, wrapping; starts over after every recompile. */
@@ -230,10 +233,9 @@ class ProjectSession private constructor(
         live.setWatches(expressions)
     }
 
-    private fun issuesChanged(reported: List<SessionIssue>) {
+    private fun issuesChanged(reported: List<InkIssue>) {
         selectedIssue = -1
-        // upstream's toolbar order: by kind, then by line; the files interleave
-        mutableState.update { it.copy(issues = reported.sortedWith(compareBy<SessionIssue> { it.kind.ordinal }.thenBy { it.line })) }
+        mutableState.update { it.copy(issues = InkIssues.sorted(reported)) }
     }
 
     // ------------------------------------------------------------------ files
@@ -519,8 +521,8 @@ class ProjectSession private constructor(
         if (loaded.instructionPrefix != previous.projectSettings.instructionPrefix) {
             val tokenizer = InkTokenizer(loaded.instructionPrefix)
             mutableState.update { it.copy(projectSettings = loaded, tokenizer = tokenizer) }
-            project.setParser(parserFor(tokenizer))
-            live.edited()
+            project.setParser(InkFileParser.of(tokenizer))
+            live.setInstructionPrefix(loaded.instructionPrefix)
         } else {
             mutableState.update { it.copy(projectSettings = loaded) }
         }
@@ -575,7 +577,7 @@ class ProjectSession private constructor(
             try {
                 val projectSettings = readProjectSettings(store, mainPath)
                 val tokenizer = InkTokenizer(projectSettings.instructionPrefix)
-                val project = InkProject.open(scope, store, mainPath, parserFor(tokenizer), parseContext)
+                val project = InkProject.open(scope, store, mainPath, InkFileParser.of(tokenizer), parseContext)
                 val journal = DraftJournal(drafts)
                 val restored = try {
                     journal.restore(project)
@@ -589,8 +591,6 @@ class ProjectSession private constructor(
                 throw failed
             }
         }
-
-        private fun parserFor(tokenizer: InkTokenizer) = InkFileParser { text -> InkFileSymbols.parse(text, tokenizer) }
 
         /** The project's settings file; a missing or unreadable one is no settings (upstream: custom snippets vanish, nothing else). */
         private suspend fun readProjectSettings(store: ProjectStore, mainPath: String): ProjectSettings {

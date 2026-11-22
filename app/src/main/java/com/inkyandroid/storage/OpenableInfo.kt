@@ -2,6 +2,7 @@ package com.inkyandroid.storage
 
 import android.content.ContentResolver
 import android.net.Uri
+import android.os.Bundle
 import android.provider.OpenableColumns
 import android.util.Log
 
@@ -14,7 +15,7 @@ internal data class OpenableInfo(val name: String?, val size: Long?) {
     companion object {
         /** What the provider tells; `null` when it answers the query with nothing at all. Blocking. */
         fun query(resolver: ContentResolver, uri: Uri): OpenableInfo? = try {
-            resolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE), null, null, null)?.use { c ->
+            resolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE), null as Bundle?, null)?.use { c ->
                 if (!c.moveToFirst()) return null
                 val nameIndex = c.getColumnIndex(OpenableColumns.DISPLAY_NAME)
                 val sizeIndex = c.getColumnIndex(OpenableColumns.SIZE)

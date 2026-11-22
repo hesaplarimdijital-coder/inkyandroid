@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- app-extras: belgeler, ayarlar, hakkında ve lisanslar, istatistikler ve dışa aktarma (com.inkyandroid.ui.extras). -->
+<resources>
+    <!-- istatistikler: upstream'in "Word count and more" penceresi -->
+    <string name="statistics_title">Proje istatistikleri</string>
+    <string name="statistics_words">Sözcükler</string>
+    <string name="statistics_knots">Düğümler</string>
+    <string name="statistics_stitches">Dikişler</string>
+    <string name="statistics_functions">İşlevler</string>
+    <string name="statistics_choices">Seçenekler</string>
+    <string name="statistics_gathers">Birleşmeler</string>
+    <string name="statistics_diverts">Yönlendirmeler</string>
+    <string name="statistics_note">Sözcük sayısı doğrudur. Düğümlere işlevler de dahildir. Birleşmelere ve yönlendirmelere derleyicinin kendiliğinden eklediği bazıları da girebilir, örneğin örgünün içinde. Yönlendirmelere END ve DONE da dahildir.</string>
+    <string name="statistics_counting">Sayılıyor…</string>
+    <string name="statistics_failed">İstatistikler hesaplanamadı: %1$s</string>
+    <string name="statistics_close">Kapat</string>
+    <string name="statistics_unreadable">ink derleyicisi projeyi okuyamadı</string>
+
+    <!-- lisanslar -->
+    <string name="licences_title">Açık kaynak lisansları</string>
+    <string name="licences_note">Bu uygulamanın yapıldığı, başkalarına ait çalışmalar ve paylaşıldıkları lisanslar.</string>
+    <!-- belgeler: ink kılavuzu -->
+    <string name="docs_title">Belgeler</string>
+    <string name="docs_subtitle">Writing with ink: inkle’ın ink dili kılavuzu</string>
+    <string name="docs_contents">İçindekiler</string>
+    <string name="docs_find">Kılavuzda bul</string>
+    <string name="docs_find_hint">Kılavuzda bul</string>
+    <string name="docs_find_position">%1$d / %2$d</string>
+    <string name="docs_find_none">Sonuç yok</string>
+    <plurals name="docs_find_results">
+        <item quantity="one">%d sonuç</item>
+        <item quantity="other">%d sonuç</item>
+    </plurals>
+    <string name="docs_find_next">Sonraki sonuç</string>
+    <string name="docs_find_previous">Önceki sonuç</string>
+    <string name="docs_find_close">Bulmayı kapat</string>
+    <string name="docs_zoom_in">Yazıyı büyüt</string>
+    <string name="docs_zoom_out">Yazıyı küçült</string>
+    <string name="docs_copy">Örneği kopyala</string>
+    <string name="docs_insert">Düzenleyiciye ekle</string>
+    <!-- dışa aktarma -->
+    <string name="export_failed">Dışa aktarılamadı: %1$s</string>
+    <string name="export_has_errors">Ink metninde hatalar var. Dışa aktarmadan önce onları düzeltin.</string>
+    <string name="export_unexpected_error">ink derleyicisinde beklenmeyen bir hata oluştu</string>
+    <string name="export_done_file">%1$s olarak dışa aktarıldı</string>
+    <string name="export_done_web">Web sürümü %1$s klasöründe</string>
+</resources>
