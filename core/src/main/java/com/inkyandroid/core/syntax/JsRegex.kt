@@ -37,6 +37,22 @@ internal object JsRegex {
     private const val WORD_BOUNDARY = "(?:(?<=$WORD_CLASS)(?!$WORD_CLASS)|(?<!$WORD_CLASS)(?=$WORD_CLASS))"
     private const val NOT_WORD_BOUNDARY = "(?:(?<=$WORD_CLASS)(?=$WORD_CLASS)|(?<!$WORD_CLASS)(?!$WORD_CLASS))"
 
+    /** Whether [c] is JavaScript white space or a line terminator (`\s`, and what `String.trim` removes). */
+    fun isJsWhitespace(c: Char): Boolean {
+        val code = c.code
+        for (k in SPACE.indices step 2) if (code in SPACE[k]..SPACE[k + 1]) return true
+        return false
+    }
+
+    /** JavaScript's `String.prototype.trim`. */
+    fun jsTrim(text: String): String {
+        var start = 0
+        var end = text.length
+        while (start < end && isJsWhitespace(text[start])) start++
+        while (end > start && isJsWhitespace(text[end - 1])) end--
+        return text.substring(start, end)
+    }
+
     /** Thrown for a source JavaScript itself would reject, or that Java cannot express. */
     class SyntaxException(message: String) : IllegalArgumentException(message)
 
@@ -96,9 +112,9 @@ internal object JsRegex {
         }
     }
 
-    private class Translator(val s: String) {
-        private val out = StringBuilder(s.length * 2)
-        private var i = 0
+    private open class Translator(val s: String) {
+        protected val out = StringBuilder(s.length * 2)
+        protected var i = 0
         private val groupCount = Scanner(s).countGroups()
         private val namedGroups = Scanner(s).hasNamedGroups()
 
@@ -131,7 +147,7 @@ internal object JsRegex {
         }
 
         /** The index after a `{n}`, `{n,}` or `{n,m}` quantifier starting at [start], or -1. */
-        private fun quantifierEnd(start: Int): Int {
+        protected fun quantifierEnd(start: Int): Int {
             var j = start + 1
             val digitsStart = j
             while (j < s.length && s[j].isAsciiDigit()) j++
@@ -177,7 +193,7 @@ internal object JsRegex {
         }
 
         /** At s[i], a digit after a backslash that is not a backreference: up to three octal digits, else the digit. */
-        private fun legacyOctalOrDigit(): Int {
+        protected fun legacyOctalOrDigit(): Int {
             val c = s[i]
             if (c == '8' || c == '9') {
                 i++
@@ -199,7 +215,7 @@ internal object JsRegex {
          * The character a non-class escape `\d` stands for (the backslash and [d] already consumed), in a
          * class or outside one: control escapes, `\cX`, `\xHH`, `\uHHHH`, `\0`, legacy octal, else [d] itself.
          */
-        private fun characterEscape(d: Char): Int = when (d) {
+        protected fun characterEscape(d: Char): Int = when (d) {
             't' -> 0x09
             'n' -> 0x0A
             'v' -> 0x0B
@@ -236,6 +252,16 @@ internal object JsRegex {
         }
 
         private fun characterClass() {
+            val (negated, ranges) = parseClass()
+            when {
+                ranges.isEmpty() && !negated -> out.append("(?!)")
+                ranges.isEmpty() -> out.append("(?s:.)")
+                else -> out.append(if (negated) "[^" else "[").append(rangesSource(ranges)).append(']')
+            }
+        }
+
+        /** Parses a class at s[i] == '[': whether it is negated, and its (positive) set of units. */
+        fun parseClass(): Pair<Boolean, IntArray> {
             i++ // [
             val negated = i < s.length && s[i] == '^'
             if (negated) i++
@@ -263,15 +289,10 @@ internal object JsRegex {
                     first.addTo(set)
                 }
             }
-            val ranges = set.ranges()
-            when {
-                ranges.isEmpty() && !negated -> out.append("(?!)")
-                ranges.isEmpty() -> out.append("(?s:.)")
-                else -> out.append(if (negated) "[^" else "[").append(rangesSource(ranges)).append(']')
-            }
+            return negated to set.ranges()
         }
 
-        private sealed interface Atom {
+        protected sealed interface Atom {
             fun addTo(set: UnitSet)
 
             data class Unit(val code: Int) : Atom {
@@ -286,7 +307,7 @@ internal object JsRegex {
             }
         }
 
-        private fun classAtom(): Atom {
+        protected fun classAtom(): Atom {
             val c = s[i]
             if (c != '\\') {
                 i++
@@ -309,6 +330,199 @@ internal object JsRegex {
                     Atom.Unit(legacyOctalOrDigit())
                 }
                 else -> Atom.Unit(characterEscape(d))
+            }
+        }
+    }
+
+    /**
+     * Where a match of a regex can start, worked out from its JavaScript source, so that the tokenizer
+     * only tries it there. Conservative: when in doubt, anywhere.
+     */
+    class StartInfo(
+        /** Only at the start of the input (the regex begins with `^`, without the `m` flag). */
+        val onlyAtInputStart: Boolean,
+        /** The units a match can start with, or null if it can start anywhere (it can match empty, …). */
+        val firstUnits: java.util.BitSet?,
+        /** Text every match contains, or null: where the rest of the line lacks it, there is no match. */
+        val requiredText: String? = null,
+    )
+
+    /** [StartInfo] of the JavaScript [source]. */
+    fun startInfo(source: String): StartInfo {
+        val info = Analyzer(source).analyze()
+        return StartInfo(
+            onlyAtInputStart = info.anchored,
+            firstUnits = if (info.anything || info.nullable) null else info.first,
+            requiredText = info.required?.takeIf { it.isNotEmpty() },
+        )
+    }
+
+    /** What a piece of regex can start with. */
+    private class Info(
+        val first: java.util.BitSet = java.util.BitSet(),
+        var anything: Boolean = false,
+        var nullable: Boolean = false,
+        var anchored: Boolean = false,
+        /** Text every match contains. */
+        var required: String? = null,
+        /** The one unit this atom matches, if it is a single literal. */
+        var literal: Int = -1,
+    )
+
+    private class Analyzer(source: String) : Translator(source) {
+        fun analyze(): Info {
+            val info = alternation()
+            if (i < s.length) return Info(anything = true) // an unbalanced ")": let the regex engine judge
+            return info
+        }
+
+        private fun alternation(): Info {
+            val result = sequence()
+            while (i < s.length && s[i] == '|') {
+                i++
+                val branch = sequence()
+                result.first.or(branch.first)
+                result.anything = result.anything || branch.anything
+                result.nullable = result.nullable || branch.nullable
+                result.anchored = result.anchored && branch.anchored
+                result.required = null
+                result.literal = -1
+            }
+            return result
+        }
+
+        private fun sequence(): Info {
+            val result = Info(nullable = true)
+            var open = true // everything so far can match empty, so the next term can start the match
+            val run = StringBuilder() // consecutive single literals, all required
+            var terms = 0
+            fun keepLongest(candidate: String?) {
+                if (candidate != null && candidate.length > (result.required?.length ?: 0)) result.required = candidate
+            }
+            while (i < s.length && s[i] != '|' && s[i] != ')') {
+                val term = term()
+                terms++
+                if (term.literal >= 0) {
+                    run.append(term.literal.toChar())
+                } else {
+                    // ^, $, \b and lookarounds take no text: literals on both sides stay one run
+                    val zeroWidth = term.nullable && term.first.isEmpty && !term.anything
+                    if (!zeroWidth) {
+                        keepLongest(run.toString())
+                        run.setLength(0)
+                    }
+                    if (!term.nullable) keepLongest(term.required)
+                }
+                if (open) {
+                    if (term.anchored) result.anchored = true
+                    result.first.or(term.first)
+                    if (term.anything) result.anything = true
+                    if (!term.nullable) {
+                        open = false
+                        result.nullable = false
+                    }
+                }
+            }
+            keepLongest(run.toString())
+            if (terms == 1 && result.required?.length == 1 && !result.nullable) {
+                result.literal = result.required!![0].code
+            }
+            return result
+        }
+
+        private fun term(): Info {
+            val atom = atom()
+            if (i < s.length) {
+                val c = s[i]
+                var minimumZero = false
+                var quantified = true
+                when (c) {
+                    '*', '?' -> { minimumZero = true; i++ }
+                    '+' -> i++
+                    '{' -> {
+                        val end = quantifierEnd(i)
+                        if (end < 0) {
+                            quantified = false
+                        } else {
+                            minimumZero = s.substring(i + 1, end - 1).substringBefore(',').toInt() == 0
+                            i = end
+                        }
+                    }
+                    else -> quantified = false
+                }
+                if (quantified && i < s.length && s[i] == '?') i++ // lazy
+                if (quantified) atom.literal = -1 // no longer exactly one unit
+                if (minimumZero) {
+                    atom.nullable = true
+                    atom.anchored = false
+                    atom.required = null
+                }
+            }
+            return atom
+        }
+
+        private fun zeroWidth(anchored: Boolean = false) = Info(nullable = true, anchored = anchored)
+
+        private fun units(code: Int) = Info(required = code.toChar().toString(), literal = code).also { it.first.set(code) }
+
+        private fun ranges(ranges: IntArray, negated: Boolean): Info {
+            val info = Info()
+            val r = if (negated) complementOf(ranges) else ranges
+            for (k in r.indices step 2) info.first.set(r[k], r[k + 1] + 1)
+            // Java matches a character outside the BMP as one code point: be generous with surrogates
+            if (info.first.nextSetBit(0xD800) in 0xD800..0xDFFF) info.first.set(0xD800, 0xE000)
+            return info
+        }
+
+        private fun atom(): Info {
+            val c = s[i]
+            return when (c) {
+                '^' -> { i++; zeroWidth(anchored = true) }
+                '$' -> { i++; zeroWidth() }
+                '.' -> { i++; ranges(intArrayOf(0x0A, 0x0A, 0x0D, 0x0D, 0x2028, 0x2029), negated = true) }
+                '[' -> { val (negated, set) = parseClass(); ranges(set, negated) }
+                '(' -> group()
+                '\\' -> escape()
+                else -> { i++; units(c.code) }
+            }
+        }
+
+        private fun group(): Info {
+            i++ // (
+            var lookaround = false
+            if (s.startsWith("?:", i)) {
+                i += 2
+            } else if (s.startsWith("?=", i) || s.startsWith("?!", i)) {
+                i += 2
+                lookaround = true
+            } else if (s.startsWith("?<=", i) || s.startsWith("?<!", i)) {
+                i += 3
+                lookaround = true
+            } else if (s.startsWith("?<", i)) {
+                i = s.indexOf('>', i) + 1
+                if (i == 0) return Info(anything = true).also { i = s.length }
+            }
+            val inner = alternation()
+            if (i < s.length && s[i] == ')') i++
+            return if (lookaround) zeroWidth() else inner
+        }
+
+        private fun escape(): Info {
+            if (i + 1 >= s.length) return Info(anything = true).also { i = s.length }
+            val d = s[i + 1]
+            i += 2
+            return when (d) {
+                'd' -> ranges(DIGIT, negated = false)
+                'D' -> ranges(DIGIT, negated = true)
+                'w' -> ranges(WORD, negated = false)
+                'W' -> ranges(WORD, negated = true)
+                's' -> ranges(SPACE, negated = false)
+                'S' -> ranges(SPACE, negated = true)
+                'b', 'B' -> zeroWidth()
+                in '1'..'9', 'k' -> Info(anything = true, nullable = true).also {
+                    while (i < s.length && s[i].isDigit()) i++ // a backreference can match anything
+                }
+                else -> units(characterEscape(d))
             }
         }
     }

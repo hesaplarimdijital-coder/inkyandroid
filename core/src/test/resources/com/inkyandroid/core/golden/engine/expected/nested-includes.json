@@ -1,0 +1,147 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "chapters/deep/inner.ink",
+  "chapters/one.ink",
+  "chapters/two.ink",
+  "main.ink",
+  "shared.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 26,
+  "knots": 4,
+  "stitches": 0,
+  "functions": 1,
+  "choices": 2,
+  "gathers": 0,
+  "diverts": 7
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "\n"
+   },
+   {
+    "tags": [
+     "title: Includes"
+    ]
+   },
+   {
+    "text": "The main file speaks first.\n"
+   },
+   {
+    "text": "Chapter one, with Barış.\n"
+   },
+   {
+    "tags": [
+     "in one"
+    ]
+   },
+   {
+    "text": "The innermost file. Helped inner with 42.\n"
+   },
+   {
+    "text": "Chapter two. Helped two with 42.\n"
+   },
+   {
+    "choices": [
+     [
+      "Finish",
+      []
+     ],
+     [
+      "Again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": ""
+   },
+   {
+    "end": true
+   }
+  ],
+  "again": [
+   {
+    "text": "\n"
+   },
+   {
+    "tags": [
+     "title: Includes"
+    ]
+   },
+   {
+    "text": "The main file speaks first.\n"
+   },
+   {
+    "text": "Chapter one, with Barış.\n"
+   },
+   {
+    "tags": [
+     "in one"
+    ]
+   },
+   {
+    "text": "The innermost file. Helped inner with 42.\n"
+   },
+   {
+    "text": "Chapter two. Helped two with 42.\n"
+   },
+   {
+    "choices": [
+     [
+      "Finish",
+      []
+     ],
+     [
+      "Again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "Chapter one, with Barış.\n"
+   },
+   {
+    "tags": [
+     "in one"
+    ]
+   },
+   {
+    "text": "The innermost file. Helped inner with 42.\n"
+   },
+   {
+    "text": "Chapter two. Helped two with 42.\n"
+   },
+   {
+    "choices": [
+     [
+      "Finish",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": ""
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

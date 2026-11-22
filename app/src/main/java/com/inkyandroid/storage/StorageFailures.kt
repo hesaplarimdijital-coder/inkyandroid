@@ -3,6 +3,7 @@ package com.inkyandroid.storage
 import android.content.res.Resources
 import com.inkyandroid.R
 import java.io.IOException
+import java.nio.charset.CharacterCodingException
 import java.nio.file.FileAlreadyExistsException
 import java.nio.file.NoSuchFileException
 
@@ -65,13 +66,14 @@ enum class StorageProblem {
     )
 
     companion object {
-        /** The problem behind any exception a store of this package (or `DirectoryProjectStore`) threw. */
+        /** The problem behind any exception a store of this package (or `DirectoryProjectStore`, whose undecodable text is a [CharacterCodingException]) threw. */
         fun of(failure: Throwable): StorageProblem = when (failure) {
             is PermissionLostException -> PermissionLost
             is NoSuchFileException -> NotFound
             is FileAlreadyExistsException -> AlreadyExists
             is FolderTooLargeException -> FolderTooLarge
             is NotTextException -> NotText
+            is CharacterCodingException -> NotText
             is ReadOnlyException -> ReadOnly
             is SecurityException -> PermissionLost
             else -> ProviderFailed

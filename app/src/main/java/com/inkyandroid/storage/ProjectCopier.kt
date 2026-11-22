@@ -3,6 +3,7 @@ package com.inkyandroid.storage
 import android.util.Log
 import com.inkyandroid.core.project.ProjectStore
 import com.inkyandroid.core.project.StoredFile
+import java.io.IOException
 
 /** Copies a project's files from one store to another, through the stores' own text interface. */
 internal object ProjectCopier {
@@ -17,7 +18,9 @@ internal object ProjectCopier {
         for (file in from.list().sortedBy { it.path }) {
             val text = try {
                 from.read(file.path)
-            } catch (e: NotTextException) {
+            } catch (e: IOException) {
+                // NotTextException from the SAF stores, CharacterCodingException from core's store
+                if (StorageProblem.of(e) != StorageProblem.NotText) throw e
                 Log.i(LOG_TAG, "not copied, not text: ${file.path}")
                 skipped += file.path
                 continue

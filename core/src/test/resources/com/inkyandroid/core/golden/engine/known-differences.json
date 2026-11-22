@@ -1,0 +1,70 @@
+{
+ "random": {
+  "reason": "RANDOM, shuffles and LIST_RANDOM draw from java.util.Random here and from System.Random in the reference: the same seed gives other numbers in each engine.",
+  "cases": [
+   "pontoon_example",
+   "swindlestones",
+   "shuffle"
+  ]
+ },
+ "text": [
+  {
+   "case": "floats",
+   "reference": "Whole: 3. Var: 2. Big: 2000000. Bigger: 100000000.\n",
+   "port": "Whole: 3.0. Var: 2.0. Big: 2000000.0. Bigger: 1.0E8.\n",
+   "reason": "The library prints a float with Java's Float.toString, the reference with .NET's shortest form: 3.0 for 3, 1.0E8 for 100000000."
+  },
+  {
+   "case": "floats",
+   "reference": "Functions: 2, 2, 3, 1024.\n",
+   "port": "Functions: 2.0, 2, 3.0, 1024.0.\n",
+   "reason": "The library prints a float with Java's Float.toString, the reference with .NET's shortest form: 3.0 for 3, 1.0E8 for 100000000."
+  }
+ ],
+ "evaluate": [
+  {
+   "case": "watch",
+   "input": "x == 15",
+   "reference": "crash",
+   "port": "value: true",
+   "reason": "inklecate's play-mode grammar tries an assignment before an expression and dies on '=='."
+  },
+  {
+   "case": "watch",
+   "input": "x +",
+   "reference": "crash",
+   "port": "error: Expected right side of '+' expression but saw end of line",
+   "reason": "inklecate dies of the parse error; the engine reports it."
+  },
+  {
+   "case": "watch",
+   "input": "some_knot",
+   "reference": "nothing",
+   "port": "value: 0",
+   "reason": "inklecate prints nothing for a read count of zero; the engine prints it as ink would in the story."
+  },
+  {
+   "case": "watch",
+   "input": "\"{double(x)}\"",
+   "reference": "hang",
+   "port": "value: 30",
+   "reason": "inklecate never returns from a function call in typed input (it resolves the call inside the typed expression itself)."
+  },
+  {
+   "case": "watch",
+   "input": "double(x)",
+   "reference": "hang",
+   "port": "value: 30",
+   "reason": "as above."
+  }
+ ],
+ "compile": [
+  {
+   "case": "deep-nesting",
+   "port": [
+    "Error: The ink is nested too deeply for the compiler (braces or parentheses inside one another)"
+   ],
+   "reason": "24 nested braces overflow the parser's fixed stack of 200 states; inklecate dies with an unhandled exception."
+  }
+ ]
+}

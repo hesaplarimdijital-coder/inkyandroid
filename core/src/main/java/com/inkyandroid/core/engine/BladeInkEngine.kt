@@ -6,6 +6,7 @@ import com.bladecoder.ink.compiler.Stats
 import com.bladecoder.ink.runtime.Error.ErrorHandler
 import com.bladecoder.ink.runtime.Error.ErrorType
 import com.bladecoder.ink.runtime.Story
+import com.bladecoder.ink.runtime.inkyPrepareNativeFunctions
 import java.io.IOException
 
 /**
@@ -14,6 +15,11 @@ import java.io.IOException
  * of the app that touches the library.
  */
 internal object BladeInkEngine : InkEngine {
+
+    init {
+        // Once, before anything is compiled or played: the library's native function table, with its defects repaired.
+        inkyPrepareNativeFunctions()
+    }
 
     override fun compile(sources: InkSources): CompileResult {
         val paths = IncludePaths(sources.mainPath)
@@ -80,13 +86,14 @@ internal object BladeInkEngine : InkEngine {
     private fun crashed(failure: Throwable, issues: List<InkIssue>): CompileResult.Crashed =
         CompileResult.Crashed(failure.message ?: failure.javaClass.simpleName, diagnosticOf(failure), issues.toList())
 
-    /** The exception and the top of its stack: enough to report the problem, short enough to show. */
-    internal fun diagnosticOf(failure: Throwable): String =
-        (listOf(failure.toString()) + failure.stackTrace.take(DIAGNOSTIC_FRAMES).map { "    at $it" }).joinToString("\n")
-
     private const val PARSER_STACK_OVERFLOW = "Stack overflow in parser state"
-    private const val DIAGNOSTIC_FRAMES = 12
 }
+
+/** The exception and the top of its stack: enough to report a failure of the engine, short enough to show. */
+internal fun diagnosticOf(failure: Throwable): String =
+    (listOf(failure.toString()) + failure.stackTrace.take(DIAGNOSTIC_FRAMES).map { "    at $it" }).joinToString("\n")
+
+private const val DIAGNOSTIC_FRAMES = 12
 
 /**
  * The compiler reports through one handler fixed when it is created; the same handler later

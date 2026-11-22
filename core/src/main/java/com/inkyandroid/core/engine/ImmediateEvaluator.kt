@@ -27,10 +27,21 @@ internal class ImmediateEvaluator(
     private val compiled: BladeCompiledStory,
     private val session: BladePlaySession,
     private val budgetMillis: Long,
+    private val maxCallDepth: Int,
 ) {
     private var counter = 0
 
-    fun evaluate(input: String, allowDivert: Boolean): Evaluation {
+    /** The places in the messages are places in the typed text ("line 1"), which mean nothing to the reader: dropped. */
+    fun evaluate(input: String, allowDivert: Boolean): Evaluation =
+        when (val result = evaluateTyped(input, allowDivert)) {
+            is Evaluation.Value -> result.copy(issues = result.issues.map(::withoutPlace))
+            is Evaluation.Failed -> result.copy(issues = result.issues.map(::withoutPlace))
+            is Evaluation.Diverted -> result
+        }
+
+    private fun withoutPlace(issue: InkIssue) = issue.copy(file = null, line = null, runtimePath = null)
+
+    private fun evaluateTyped(input: String, allowDivert: Boolean): Evaluation {
         val issues = mutableListOf<InkIssue>()
         val parsed = parse(input, allowDivert, issues) ?: return Evaluation.Failed(issues)
 
@@ -79,7 +90,7 @@ internal class ImmediateEvaluator(
     private fun parse(input: String, allowDivert: Boolean, issues: MutableList<InkIssue>): ParsedObject? {
         val handler = com.bladecoder.ink.runtime.Error.ErrorHandler { message, type ->
             val fallback = if (type == com.bladecoder.ink.runtime.Error.ErrorType.Warning) IssueKind.Warning else IssueKind.Error
-            issues += compiled.sink.text.parse(message, fallback).copy(file = null, line = null)
+            issues += compiled.sink.text.parse(message, fallback)
         }
         val parsed: ParsedObject? = try {
             if (allowDivert && input.trimStart().startsWith("->")) {
@@ -121,15 +132,23 @@ internal class ImmediateEvaluator(
         val saved = story.state.toJson()
         val text = StringBuilder()
         var completed = false
+        var tooDeep = false
         var failure: String? = null
         root.addToNamedContentOnly(expression)
         try {
             story.switchFlow(EVAL_FLOW)
             story.choosePathString(name)
+            // made in the evaluation's own flow, whose call stack is the one that grows
+            val depth = CallDepthGuard(story, maxCallDepth)
             val deadline = System.nanoTime() + budgetMillis * 1_000_000
             while (story.canContinue() && System.nanoTime() < deadline) {
                 story.continueAsync(SLICE_MILLIS)
-                if (story.asyncContinueComplete()) text.append(story.currentText)
+                if (story.asyncContinueComplete()) {
+                    text.append(story.currentText)
+                } else if (depth.exceeded()) {
+                    tooDeep = true
+                    break
+                }
             }
             completed = !story.canContinue()
         } catch (e: Exception) {
@@ -155,6 +174,7 @@ internal class ImmediateEvaluator(
         }
         return when {
             failure != null -> Evaluation.Failed(issues + InkIssue(IssueKind.RuntimeError, null, null, failure))
+            tooDeep -> Evaluation.Failed(issues + InkIssue(IssueKind.RuntimeError, null, null, "The evaluation called functions inside one another more than $maxCallDepth deep: does one call itself without end?"))
             !completed -> Evaluation.Failed(issues + InkIssue(IssueKind.RuntimeError, null, null, "The evaluation took too long"))
             issues.any { it.kind == IssueKind.RuntimeError } -> Evaluation.Failed(issues.sortedBy { it.kind != IssueKind.RuntimeError })
             else -> Evaluation.Value(text.toString().trimEnd('\n'), issues)

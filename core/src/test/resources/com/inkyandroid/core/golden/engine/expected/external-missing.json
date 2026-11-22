@@ -1,0 +1,32 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 4,
+  "knots": 0,
+  "stitches": 0,
+  "functions": 0,
+  "choices": 0,
+  "gathers": 0,
+  "diverts": 2
+ },
+ "transcripts": {
+  "first": [
+   {
+    "issues": [
+     "ERROR: Missing function binding for external: 'greet' , and no fallback ink function found."
+    ]
+   },
+   {
+    "exit": 0
+   }
+  ]
+ }
+}

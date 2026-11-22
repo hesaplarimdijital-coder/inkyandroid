@@ -34,16 +34,17 @@ internal class UriPermissions(private val resolver: ContentResolver) {
     }
 
     /** Whether a persisted grant for [uri] (with read access, and write access when [write]) exists. */
-    fun holds(uri: String, write: Boolean = false): Boolean = resolver.persistedUriPermissions.any {
+    fun holds(uri: String, write: Boolean = false): Boolean = resolver.persistedUriPermissions.toList().any {
         it.uri.toString() == uri && it.isReadPermission && (!write || it.isWritePermission)
     }
 
     /** The URIs of every persisted grant, trees and single documents alike. */
-    fun persisted(): List<Uri> = resolver.persistedUriPermissions.map { it.uri }
+    fun persisted(): List<Uri> = resolver.persistedUriPermissions.toList().map { it.uri }
 
     /** Gives back every persisted grant that is not in [inUse]. */
     fun releaseAllExcept(inUse: Set<String>) {
-        for (permission in resolver.persistedUriPermissions) {
+        // a copy: releasing changes the list some implementations return
+        for (permission in resolver.persistedUriPermissions.toList()) {
             val uri = permission.uri
             if (uri.toString() in inUse) continue
             var modes = 0

@@ -1,0 +1,23 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "list_random_subset_of_size.ink",
+ "files": [
+  "list_random_subset_of_size.ink"
+ ],
+ "compile": {
+  "success": false,
+  "issues": [
+   "ERROR: 'list_random_subset_of_size.ink' line 22: Function call target not found: '-> pop_random'"
+  ]
+ },
+ "statistics": {
+  "words": 0,
+  "knots": 1,
+  "stitches": 0,
+  "functions": 1,
+  "choices": 0,
+  "gathers": 0,
+  "diverts": 2
+ },
+ "transcripts": {}
+}

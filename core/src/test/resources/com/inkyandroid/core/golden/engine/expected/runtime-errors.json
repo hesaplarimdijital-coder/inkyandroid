@@ -1,0 +1,198 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": [
+   "WARNING: 'main.ink' line 14: Apparent loose end exists where the flow runs out. Do you need a '-> DONE' statement, choice or divert?",
+   "WARNING: 'main.ink' line 18: Apparent loose end exists where the flow runs out. Do you need a '-> DONE' statement, choice or divert?"
+  ]
+ },
+ "statistics": {
+  "words": 45,
+  "knots": 2,
+  "stitches": 0,
+  "functions": 0,
+  "choices": 5,
+  "gathers": 0,
+  "diverts": 5
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "Before any error.\n"
+   },
+   {
+    "choices": [
+     [
+      "Multiply a string",
+      []
+     ],
+     [
+      "Run out of content",
+      []
+     ],
+     [
+      "Fall off a knot in a tunnel",
+      []
+     ],
+     [
+      "Divert to a variable target",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "A line before the error.\n"
+   },
+   {
+    "text": ""
+   },
+   {
+    "issues": [
+     "RUNTIME ERROR: 'main.ink' line 6: Cannot perform operation '*' on String"
+    ]
+   },
+   {
+    "end": true
+   }
+  ],
+  "run-out": [
+   {
+    "text": "Before any error.\n"
+   },
+   {
+    "choices": [
+     [
+      "Multiply a string",
+      []
+     ],
+     [
+      "Run out of content",
+      []
+     ],
+     [
+      "Fall off a knot in a tunnel",
+      []
+     ],
+     [
+      "Divert to a variable target",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "This knot has no end.\n"
+   },
+   {
+    "issues": [
+     "RUNTIME ERROR: 'main.ink' line 14: ran out of content. Do you need a '-> DONE' or '-> END'?"
+    ]
+   },
+   {
+    "end": true
+   }
+  ],
+  "tunnel": [
+   {
+    "text": "Before any error.\n"
+   },
+   {
+    "choices": [
+     [
+      "Multiply a string",
+      []
+     ],
+     [
+      "Run out of content",
+      []
+     ],
+     [
+      "Fall off a knot in a tunnel",
+      []
+     ],
+     [
+      "Divert to a variable target",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "Inside the tunnel.\n"
+   },
+   {
+    "choices": [
+     [
+      "Deeper",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Deeper inside, and no way back.\n"
+   },
+   {
+    "issues": [
+     "RUNTIME ERROR: 'main.ink' line 9: unexpectedly reached end of content. Do you need a '->->' to return from a tunnel?"
+    ]
+   },
+   {
+    "end": true
+   }
+  ],
+  "variable-target": [
+   {
+    "text": "Before any error.\n"
+   },
+   {
+    "choices": [
+     [
+      "Multiply a string",
+      []
+     ],
+     [
+      "Run out of content",
+      []
+     ],
+     [
+      "Fall off a knot in a tunnel",
+      []
+     ],
+     [
+      "Divert to a variable target",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": "This knot has no end.\n"
+   },
+   {
+    "issues": [
+     "RUNTIME ERROR: 'main.ink' line 14: ran out of content. Do you need a '-> DONE' or '-> END'?"
+    ]
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 49,
+  "knots": 4,
+  "stitches": 0,
+  "functions": 1,
+  "choices": 1,
+  "gathers": 0,
+  "diverts": 5
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "We hurried home to Savile Row as fast as we could.\n"
+   },
+   {
+    "text": "Hello, Ada!\n"
+   },
+   {
+    "text": "Spaces are collapsed and trimmed.\n"
+   },
+   {
+    "text": "Inline text and an Ada .\n"
+   },
+   {
+    "text": "A line after a divert.\n"
+   },
+   {
+    "choices": [
+     [
+      "Glue in a choice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The answer was simple.\n"
+   },
+   {
+    "text": "A function says \"hello there\" inline.\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}
