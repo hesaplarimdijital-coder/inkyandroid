@@ -335,17 +335,18 @@ class Smoke:
             if root is None:
                 return None
             nodes = [Node(e) for e in root.iter("node")]
-            dialog = next((n for n in nodes if "isn't responding" in n.text or "keeps stopping" in n.text
-                           or "has stopped" in n.text), None)
-            if dialog is None:
+            # the system's crash and ANR dialogs, known by their buttons' ids in any language
+            buttons = {n.rid: n for n in nodes if n.rid.startswith("android:id/aerr_") and n.visible()}
+            if not buttons:
                 return nodes
-            ours = APP_LABEL in dialog.text
+            title = " / ".join(n.text for n in nodes if n.pkg == "android" and n.text and not n.rid.startswith("android:id/aerr_"))
+            ours = APP_LABEL in title
             if ours:
-                self.problem("system dialog: " + dialog.text)
+                self.problem("system dialog about the app: " + title)
             else:
-                self.note("system dialog of another app waited out: " + dialog.text)
-            button = next((n for n in nodes if n.text in (("Close app",) if ours else ("Wait", "Close app"))
-                           and n.visible()), None)
+                self.note("system dialog about another app waited out: " + title)
+            button = buttons.get("android:id/aerr_close") if ours else (
+                buttons.get("android:id/aerr_wait") or buttons.get("android:id/aerr_close"))
             if button is not None:
                 self.tap_xy(*button.center())
             else:
@@ -410,10 +411,14 @@ class Smoke:
         shell(f"input tap {x} {y}")
 
     def tap_label(self, label, exact=True, long=False):
-        nodes = self.wait_idle(timeout=8)
-        n = self.find(nodes, label, exact)
-        if n is None:
-            raise StepFailure(f"'{label}' is not on the screen")
+        deadline = time.time() + 15
+        while True:
+            n = self.find(self.wait_idle(timeout=8), label, exact)
+            if n is not None:
+                break
+            if time.time() > deadline:
+                raise StepFailure(f"'{label}' is not on the screen")
+            time.sleep(1)
         x, y = n.center()
         if long:
             shell(f"input swipe {x} {y} {x} {y} 900")
