@@ -19,4 +19,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Inky"
-include(":core")
+include(":core", ":app")

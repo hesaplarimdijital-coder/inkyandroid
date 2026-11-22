@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- desktop-kit's page colour on the light theme; values-night has the dark one -->
+    <color name="window_background">#FFFAFBFC</color>
+    <!-- the launcher icon: the paper of Inky's own icon, under its ink (the mipmap layers) -->
+    <color name="ic_launcher_background">#FFEEECE9</color>
+</resources>
