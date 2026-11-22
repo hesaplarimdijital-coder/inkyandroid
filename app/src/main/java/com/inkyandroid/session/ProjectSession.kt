@@ -558,7 +558,8 @@ class ProjectSession private constructor(
          * @param reference the project's reference in its string form; stored in the settings as
          *   the last session and compared with it to find the places to restore.
          * @param drafts the drafts store of this project, in app-private storage.
-         * @param context the session's thread: the main thread in the app.
+         * @param context the session's thread: the main thread in the app. A `Job` in it becomes the
+         *   parent of everything the session runs.
          * @param parseContext where symbol parsing runs.
          */
         @Throws(IOException::class)
@@ -572,8 +573,9 @@ class ProjectSession private constructor(
             live: LiveLinkFactory,
             context: CoroutineContext = Dispatchers.Main.immediate,
             parseContext: CoroutineContext = Dispatchers.Default,
-        ): ProjectSession = withContext(context) {
-            val scope = CoroutineScope(SupervisorJob() + context)
+        ): ProjectSession = withContext(context.minusKey(Job)) {
+            // a child of the job in [context] when there is one: ending that job ends the session
+            val scope = CoroutineScope(context + SupervisorJob(context[Job]))
             try {
                 val projectSettings = readProjectSettings(store, mainPath)
                 val tokenizer = InkTokenizer(projectSettings.instructionPrefix)
