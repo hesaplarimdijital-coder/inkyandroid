@@ -26,6 +26,8 @@ dependencies {
     implementation(libs.blade.ink)
     implementation(libs.blade.ink.compiler)
     implementation(libs.coroutines.core)
+    // the project settings file (settings package), read with the JSON tree API
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)
 }
