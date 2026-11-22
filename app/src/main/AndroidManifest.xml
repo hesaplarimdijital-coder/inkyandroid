@@ -6,6 +6,7 @@
          allowBackup: nothing of the app is backed up; the stories live where the user keeps them.
          enableOnBackInvokedCallback: the predictive Back gesture plays the kit's transitions. -->
     <application
+        android:name=".InkyApplication"
         android:allowBackup="false"
         android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
