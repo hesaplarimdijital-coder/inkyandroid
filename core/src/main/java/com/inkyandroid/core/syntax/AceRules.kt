@@ -33,6 +33,9 @@ internal class AceRule(
 
     /** The rule's own regex anchored at both ends, used to split a match into its groups (Ace's `splitRegex`). */
     var splitRegex: java.util.regex.Pattern? = null
+
+    /** The JavaScript source [splitRegex] was compiled from. */
+    var splitSource: String? = null
 }
 
 /** Ace's two state-changing functions, which `normalizeRules` puts into `rule.next`. */

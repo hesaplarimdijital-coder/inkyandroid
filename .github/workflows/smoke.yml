@@ -1,0 +1,187 @@
+# Runs the app on Android emulators: a phone and a large landscape tablet. On request only, so that
+# the CI workflow stays quick: push a commit to a branch named smoke/<name>
+# (git push origin <commit>:refs/heads/smoke/<name>) or start the workflow by hand or through the
+# API with a ref and a name. It builds the APK of that commit, installs it on each emulator and
+# drives it with tools/smoke.py (its scenarios are data at the top of that file). Each profile's
+# screenshots, report, logcat and smoke log are force-pushed to the orphan branch
+# ci/smoke/<name>/<profile>, readable with plain git; a failed build is pushed to
+# ci/smoke/<name>/build. A failing step, a crash or an ANR fails the job.
+name: Device smoke
+
+on:
+  push:
+    branches: ['smoke/**']
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Commit or branch to build and test (empty: the commit the workflow runs on)'
+        required: false
+        default: ''
+      name:
+        description: 'Result name: results go to ci/smoke/<name>/<profile> (empty: dispatch-<run number>)'
+        required: false
+        default: ''
+      scenarios:
+        description: 'Scenarios to run, comma separated, e.g. 0 or 1 (empty: the driver''s default)'
+        required: false
+        default: ''
+
+concurrency:
+  group: smoke-${{ inputs.name || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    outputs:
+      name: ${{ steps.what.outputs.name }}
+      sha: ${{ steps.what.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+
+      - name: What is tested
+        id: what
+        env:
+          INPUT_NAME: ${{ inputs.name }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = push ]; then
+            name="${GITHUB_REF_NAME#smoke/}"
+          else
+            name="${INPUT_NAME:-dispatch-$GITHUB_RUN_NUMBER}"
+          fi
+          # one path segment of a branch name: smoke/a/b reports to ci/smoke/a-b/<profile>
+          name=$(printf '%s' "$name" | tr -c 'A-Za-z0-9._-' '-')
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "Testing $(git log -1 --format='%h %s') as '$name'"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      # The release build is what is installed on the devices (not debuggable, so Compose runs at
+      # its real speed). Without the signing secrets it is signed with the runner's debug key,
+      # which is all an emulator needs; the secrets are deliberately not handed to this workflow.
+      - name: Build the APK
+        run: |
+          ./gradlew :app:assembleRelease --stacktrace --console=plain 2>&1 | tee build.log
+          exit ${PIPESTATUS[0]}
+
+      - name: Annotate errors
+        if: failure()
+        run: python3 tools/annotate_gradle_errors.py build.log || true
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: smoke-apk
+          path: app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
+
+      - name: Push the failed build to ci/smoke/<name>/build
+        if: failure()
+        env:
+          TOKEN: ${{ github.token }}
+          TARGET: ci/smoke/${{ steps.what.outputs.name }}/build
+          SHA: ${{ steps.what.outputs.sha }}
+        run: |
+          out="$RUNNER_TEMP/build-result"
+          rm -rf "$out" && mkdir -p "$out"
+          [ -f build.log ] && cp build.log "$out/"
+          printf 'commit=%s\nprofile=build\nresult=fail\nrun=%s/%s/actions/runs/%s\n' \
+            "$SHA" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > "$out/STATUS"
+          cd "$out"
+          git init -q && git checkout -q --orphan "$TARGET"
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com add -A
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -q -m "Smoke build of ${SHA::7} failed"
+          git push -q --force "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/$TARGET"
+
+  device:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # the profile and image the owner's soulseekplus runs on, known to boot reliably
+          - profile: phone
+            api-level: '34'
+            device: pixel_6
+            hw-keyboard: 'false'
+            ram: 3072M
+          # 2560 x 1600 px at 320 dpi, landscape: 1280 dp, the kit's large window (menu bar and
+          # sidebar). Android 17 as on the owner's tablet, with a hardware keyboard as in DeX.
+          - profile: tablet
+            api-level: '37.0'
+            device: pixel_tablet
+            hw-keyboard: 'true'
+            ram: 4096M
+    steps:
+      # the driver of the commit the workflow runs on; the app of the commit that was built
+      - uses: actions/checkout@v5
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: smoke-apk
+          path: apk
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Run the scenarios on the emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        env:
+          SMOKE_PROFILE: ${{ matrix.profile }}
+          SMOKE_SCENARIOS: ${{ inputs.scenarios }}
+        with:
+          api-level: ${{ matrix.api-level }}
+          target: google_apis
+          arch: x86_64
+          profile: ${{ matrix.device }}
+          cores: 3
+          ram-size: ${{ matrix.ram }}
+          heap-size: 512M
+          disable-animations: true
+          enable-hw-keyboard: ${{ matrix.hw-keyboard }}
+          emulator-boot-timeout: 900
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-snapshot
+          script: bash tools/ci-smoke.sh apk smoke-out
+
+      - name: Push the results to ci/smoke/<name>/<profile>
+        if: always()
+        env:
+          TOKEN: ${{ github.token }}
+          TARGET: ci/smoke/${{ needs.build.outputs.name }}/${{ matrix.profile }}
+          SHA: ${{ needs.build.outputs.sha }}
+          PROFILE: ${{ matrix.profile }}
+          API_LEVEL: ${{ matrix.api-level }}
+          DEVICE: ${{ matrix.device }}
+        run: |
+          out="$RUNNER_TEMP/smoke"
+          rm -rf "$out" && mkdir -p "$out"
+          cp -r smoke-out/. "$out/" 2>/dev/null || true
+          [ -f "$out/smoke.log" ] || echo "no smoke log: the emulator did not start or the script did not run" > "$out/smoke.log"
+          # the driver writes RESULT: PASS as the report's last line only when every step passed
+          result=fail
+          [ -f "$out/report.txt" ] && tail -n 1 "$out/report.txt" | grep -qx 'RESULT: PASS' && result=pass
+          printf 'commit=%s\nprofile=%s\napi=%s\ndevice=%s\nresult=%s\nrun=%s/%s/actions/runs/%s\n' \
+            "$SHA" "$PROFILE" "$API_LEVEL" "$DEVICE" "$result" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > "$out/STATUS"
+          { echo "### $PROFILE (API $API_LEVEL, $DEVICE): $result"; echo; echo '```'; tail -n 60 "$out/report.txt" 2>/dev/null; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          cd "$out"
+          git init -q && git checkout -q --orphan "$TARGET"
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com add -A
+          git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -q -m "Smoke $PROFILE of ${SHA::7}: $result"
+          git push -q --force "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/$TARGET"
+          [ "$result" = pass ]
