@@ -85,6 +85,9 @@ interface WriteAhead {
      * the place of a stored file that cannot be read any more (a character cut in half).
      */
     suspend fun unfinishedSave(path: String): String?
+
+    /** The unsaved text of [path], if a draft holds it: what a file that is gone from storage opens with. */
+    suspend fun draftText(path: String): String? = null
 }
 
 /**
@@ -201,9 +204,13 @@ class DraftJournal(
         }
     }
 
-    override suspend fun unfinishedSave(path: String): String? = lock.withLock {
+    override suspend fun unfinishedSave(path: String): String? = draft(path)?.takeIf { it.saving }?.text
+
+    override suspend fun draftText(path: String): String? = draft(path)?.text
+
+    private suspend fun draft(path: String): Draft? = lock.withLock {
         try {
-            store.load().firstOrNull { it.path == path && it.saving }?.text
+            store.load().firstOrNull { it.path == path }
         } catch (unreadable: IOException) {
             null
         }

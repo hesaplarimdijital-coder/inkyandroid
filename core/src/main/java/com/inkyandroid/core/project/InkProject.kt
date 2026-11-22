@@ -913,26 +913,35 @@ class InkProject private constructor(
 
     private suspend fun load() {
         val listing = store.list()
-        val mainStored = listing.firstOrNull { it.path == mainPath } ?: store.stat(mainPath) ?: throw NoSuchFileException(mainPath)
+        val mainStored = listing.firstOrNull { it.path == mainPath } ?: store.stat(mainPath)
         val main = FileRecord(mainPath)
         files[mainPath] = main
-        val mainText = try {
-            store.read(mainPath)
-        } catch (unreadable: IOException) {
-            if (unreadable is NoSuchFileException) throw unreadable
-            // A save of ours that was cut short can leave the main file half written, even in the
-            // middle of a character (storage may write in place). Its draft holds the whole text,
-            // which takes the file's place; the next save writes it over the remains.
-            main.ownText = writeAhead?.unfinishedSave(mainPath) ?: throw unreadable
-            null
-        }
-        if (mainText != null) {
-            applyLoaded(main, mainText, mainStored)
-        } else {
-            main.stored = mainStored
+        if (mainStored == null) {
+            // Gone from storage, as a file deleted outside. With unsaved text in its draft the
+            // project opens with that text, as a file that is not on storage: the rule a file that
+            // vanishes with unsaved changes follows while the project is open.
+            main.ownText = writeAhead?.draftText(mainPath) ?: throw NoSuchFileException(mainPath)
             main.edited = true
-            main.saveUnfinished = true
             touched(main)
+        } else {
+            val mainText = try {
+                store.read(mainPath)
+            } catch (unreadable: IOException) {
+                if (unreadable is NoSuchFileException) throw unreadable
+                // A save of ours that was cut short can leave the main file half written, even in
+                // the middle of a character (storage may write in place). Its draft holds the whole
+                // text, which takes the file's place; the next save writes it over the remains.
+                main.ownText = writeAhead?.unfinishedSave(mainPath) ?: throw unreadable
+                null
+            }
+            if (mainText != null) {
+                applyLoaded(main, mainText, mainStored)
+            } else {
+                main.stored = mainStored
+                main.edited = true
+                main.saveUnfinished = true
+                touched(main)
+            }
         }
         for (file in listing.sortedBy { it.path }) {
             if (file.path == mainPath || !ProjectPaths.isInkFile(file.path)) continue
@@ -970,9 +979,11 @@ class InkProject private constructor(
          *
          * Throws an [IOException] when storage cannot be listed or the main file cannot be read
          * ([NoSuchFileException] when it does not exist). Other files that cannot be read are left
-         * out and named in [ProjectSnapshot.loadErrors]. One exception: a main file that cannot be
-         * read after a save of it was cut short opens with the text that save was writing, when
-         * [writeAhead] has it ([WriteAhead.unfinishedSave]).
+         * out and named in [ProjectSnapshot.loadErrors]. Two exceptions, both from [writeAhead]: a
+         * main file that cannot be read after a save of it was cut short opens with the text that
+         * save was writing ([WriteAhead.unfinishedSave]); a main file that is gone from storage
+         * opens with the unsaved text of its draft, as a file that is not on storage
+         * ([WriteAhead.draftText]).
          *
          * @param scope the project's timers and background look-ups run in it, on its dispatcher,
          *   which is the one thread the project is used from; cancelling it ends them.
