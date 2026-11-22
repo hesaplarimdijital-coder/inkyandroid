@@ -40,6 +40,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerType
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.input.pointer.isAltPressed
 import androidx.compose.ui.input.pointer.isCtrlPressed
 import androidx.compose.ui.input.pointer.pointerInput
@@ -268,7 +274,9 @@ private fun tagLine(tags: List<String>): String = "# " + tags.joinToString(", ")
 
 /**
  * One paragraph of the story. A tap asks for the ink behind the character that was hit; a mouse
- * click only with Ctrl or Alt held. A link inside the text keeps its own click.
+ * click only with Ctrl or Alt held, and while one of them is held the word under the mouse is
+ * underlined with a hand pointer, as upstream marks what an Alt+click would open. A link inside the
+ * text keeps its own click.
  */
 @Composable
 private fun Paragraph(item: TranscriptItem.Text, styles: PlayerStyles, onOpenSource: (SourceLocation) -> Unit) {
@@ -277,11 +285,19 @@ private fun Paragraph(item: TranscriptItem.Text, styles: PlayerStyles, onOpenSou
     // offsets into the drawn text are offsets into the ink's output only while no markup was taken out
     val plain = text.text.length == item.text.trimEnd('\n').length
     var layout by remember { mutableStateOf<TextLayoutResult?>(null) }
+    var pointedWord by remember { mutableStateOf<TextRange?>(null) }
+    val shown = remember(text, pointedWord) {
+        val word = pointedWord
+        if (word == null) text else buildAnnotatedString {
+            append(text)
+            addStyle(SpanStyle(textDecoration = TextDecoration.Underline), word.start, word.end)
+        }
+    }
     val open by rememberUpdatedState(onOpenSource)
     val label = stringResource(R.string.player_open_source)
     val sourceAt: (Int?) -> SourceLocation? = { offset -> (if (plain && offset != null) item.sourceAt(offset) else null) ?: item.source }
     Text(
-        text = text,
+        text = shown,
         style = if (item.isInstruction) styles.instruction else styles.story,
         onTextLayout = { layout = it },
         modifier = Modifier
@@ -289,6 +305,26 @@ private fun Paragraph(item: TranscriptItem.Text, styles: PlayerStyles, onOpenSou
             .padding(bottom = dimens.gapM)
             .semantics {
                 if (item.source != null) onClick(label) { sourceAt(null)?.let(open); true }
+            }
+            .then(if (pointedWord != null) Modifier.pointerHoverIcon(PointerIcon.Hand) else Modifier)
+            .pointerInput(item.key) {
+                // only watched, never taken: the mouse with Ctrl or Alt held over a word of a paragraph that has a source
+                awaitPointerEventScope {
+                    while (true) {
+                        val event = awaitPointerEvent(PointerEventPass.Initial)
+                        val change = event.changes.firstOrNull() ?: continue
+                        val held = event.keyboardModifiers.isCtrlPressed || event.keyboardModifiers.isAltPressed
+                        pointedWord = if (change.type != PointerType.Mouse || event.type == PointerEventType.Exit || !held || item.source == null) {
+                            null
+                        } else {
+                            layout?.let { laid ->
+                                val offset = laid.getOffsetForPosition(change.position)
+                                laid.getWordBoundary(offset.coerceAtMost((laid.layoutInput.text.length - 1).coerceAtLeast(0)))
+                                    .takeIf { !it.collapsed && !text.hasLinkAt(offset) }
+                            }
+                        }
+                    }
+                }
             }
             .pointerInput(item.key) {
                 awaitEachGesture {
