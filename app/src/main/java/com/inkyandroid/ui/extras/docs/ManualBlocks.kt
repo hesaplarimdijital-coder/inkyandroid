@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
@@ -33,8 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isSpecified
 import desktopkit.components.MenuEntry
 import desktopkit.input.ContextMenuArea
+import com.inkyandroid.ink.InkSpan
 import desktopkit.theme.DeskColors
 import desktopkit.theme.DeskDimens
+import desktopkit.theme.DeskSyntax
 import desktopkit.theme.DeskTheme
 import desktopkit.theme.DeskType
 
@@ -168,10 +169,11 @@ private fun CodeExample(
         )
     }
     ContextMenuArea(entries, accessibilityLabel = actions.copyLabel) {
+        // the tint of the editor's current line: every syntax colour is made to read on it
         Row(
             Modifier
                 .fillMaxWidth()
-                .background(styles.colors.surface, shape)
+                .background(DeskTheme.syntax.currentLine, shape)
                 .border(1.dp, styles.colors.border, shape),
             horizontalArrangement = Arrangement.spacedBy(dimens.gapXs),
         ) {
@@ -237,6 +239,24 @@ internal fun highlight(text: AnnotatedString, matches: BlockMatches, styles: Man
     }
 }
 
-/** An example's text without colours, for when the tokenizer cannot be used. */
-internal fun plainCode(block: ManualBlock.Code, colour: Color): AnnotatedString =
-    buildAnnotatedString { pushStyle(SpanStyle(color = colour)); append(block.display); pop() }
+/**
+ * An example's display text in the editor's colours: [spans] are the ink highlighter's, on the
+ * example's source; they land on the display text through its tab expansion.
+ */
+internal fun colourCode(block: ManualBlock.Code, spans: List<InkSpan>, syntax: DeskSyntax): AnnotatedString = buildAnnotatedString {
+    pushStyle(SpanStyle(color = syntax.plain))
+    append(block.display)
+    pop()
+    for (span in spans) {
+        val style = syntax[span.role]
+        addStyle(
+            SpanStyle(
+                color = style.color,
+                fontWeight = if (style.bold) FontWeight.Bold else null,
+                fontStyle = if (style.italic) FontStyle.Italic else null,
+            ),
+            block.expansion.map(span.start),
+            block.expansion.map(span.end),
+        )
+    }
+}

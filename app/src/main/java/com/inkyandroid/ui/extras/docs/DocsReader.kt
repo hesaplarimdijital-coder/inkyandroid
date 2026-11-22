@@ -59,6 +59,9 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.inkyandroid.R
+import com.inkyandroid.core.syntax.InkTokenizer
+import com.inkyandroid.ink.InkHighlight
+import com.inkyandroid.ink.inkSyntax
 import desktopkit.components.DeskIconButton
 import desktopkit.components.DeskIcons
 import desktopkit.components.DeskListRow
@@ -333,11 +336,20 @@ private fun ManualText(
     }
 }
 
-/** How the manual's examples are coloured: the editor's ink colours once the tokenizer is wired, plain text until then. */
+/**
+ * How the manual's examples are coloured: `:core`'s tokenizer in the editor's roles and colours
+ * (tags as the editor shows them while they are visible). Each example is coloured once per theme,
+ * when it first scrolls into view.
+ */
 @Composable
 private fun rememberCodeColouring(): (ManualBlock.Code) -> AnnotatedString {
-    val text = DeskTheme.colors.text
-    return remember(text) { { block -> plainCode(block, text) } }
+    val syntax = inkSyntax(DeskTheme.syntax, tagsVisible = true)
+    val tokenizer = remember { InkTokenizer() }
+    return remember(syntax) {
+        val coloured = HashMap<ManualBlock.Code, AnnotatedString>()
+        val colour = { block: ManualBlock.Code -> coloured.getOrPut(block) { colourCode(block, InkHighlight.spans(block.code, tokenizer), syntax) } }
+        colour
+    }
 }
 
 /** The table of contents: parts, chapters and sections, the reader's current one marked and kept in view. */
