@@ -58,6 +58,13 @@ fallback choices, read counts, TURNS_SINCE), `shuffle`, `variables-math`, `float
    given the same limit, produces the same 300 lines and stops with `StopReason.LineLimit`.
    Without output (case `loop-silent`) inklecate goes silent for good; the engine stops with
    `StopReason.TimeLimit`.
+   A story that **calls itself without end** (a function returning a call of itself, a tunnel
+   into itself, a knot that threads itself in) is not among the cases: ink keeps its call stack
+   on the heap without a bound, so inklecate grows by hundreds of megabytes a second until the
+   process runs out of memory, which is not something to do to the shared build machine. The
+   engine stops such a turn with `StopReason.DepthLimit` after 50,000 nested calls or started
+   threads, within a fraction of a second (`PlaySessionTest`, `EvaluationTest`); a phone would
+   otherwise run out of memory long before the time limit.
 6. **Typed input** (case `watch`; five inputs): `x == 15` and `x +` kill inklecate (its play-mode
    grammar tries an assignment first, and a parse error there is fatal); the engine answers `true`
    and reports the parse error. A read count of zero (`some_knot`) prints nothing in inklecate and

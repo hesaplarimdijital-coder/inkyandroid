@@ -1,7 +1,7 @@
 // This file is deliberately declared in the ink library's own package, and it is the only one.
 //
 // blade-ink 1.3.3 keeps a few members package-private that the reference C# runtime makes public,
-// and it has three defects in its table of native functions. Kotlin honours Java's package-private
+// and four entries of its table of native functions are wrong. Kotlin honours Java's package-private
 // access for code declared in the same package, so the functions below are the whole of what the
 // app reaches that way. Each says why. If a later version of the library makes the members public
 // and corrects the table, delete this file and call the library directly. The engine
@@ -20,6 +20,21 @@ import kotlin.math.floor
 internal fun Story.inkySetStorySeed(seed: Int) {
     state.setStorySeed(seed)
 }
+
+/**
+ * How many functions and tunnels the story is inside of, in its current thread (`StoryState.callStack`,
+ * public in the C# runtime). ink keeps its call stack on the heap, without a bound: a function that
+ * calls itself for ever grows it by up to a million calls a second, hundreds of megabytes within
+ * seconds. The play session watches this between the slices of a step and stops such a story.
+ */
+internal fun Story.inkyCallDepth(): Int = state.callStack.depth
+
+/**
+ * The number the runtime gave the current thread when it started it: the count of threads started
+ * in this flow so far, the current one included. A knot that threads itself in (`<- top` inside
+ * `top`) starts threads without end, each a copy of the last; watched like [inkyCallDepth].
+ */
+internal fun Story.inkyCurrentThreadNumber(): Int = state.callStack.getcurrentThread().threadIndex
 
 /**
  * Builds the library's table of native functions (`+`, `FLOOR`, `LIST_COUNT`, …) and replaces the

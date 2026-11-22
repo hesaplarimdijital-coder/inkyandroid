@@ -181,6 +181,65 @@ class PlaySessionTest {
         assertTrue((System.nanoTime() - started) / 1_000_000 < 3_000)
     }
 
+    /**
+     * ink keeps its call stack on the heap, without a bound: a function or a tunnel that calls
+     * itself for ever, or a knot that threads itself in, takes hundreds of megabytes within seconds,
+     * more than a phone gives an app, long before the time limit. Such a story is stopped at the
+     * depth limit, at once, and the session stays sound.
+     */
+    @Test
+    fun aStoryThatCallsItselfWithoutEndStopsAtTheDepthLimit() {
+        val runaways = mapOf(
+            "function" to "== function f(n) ==\n~ return f(n + 1)",
+            "tunnel" to "== t ==\n-> t ->\n-> DONE",
+            "thread" to "== t ==\n<- t\n-> DONE",
+        )
+        for ((name, knot) in runaways) {
+            val call = if (name == "function") "{f(1)}" else if (name == "tunnel") "-> t ->" else "-> t"
+            // a minute's budget: only the depth can stop these in time
+            val play = Stories.play("VAR x = 1\nBefore.\n* [Go]\n- $call\nAfter.\n-> END\n$knot", PlayLimits(turnBudgetMillis = 60_000))
+            assertEquals(name, listOf("Before.\n"), texts(play.continueToChoice()))
+            assertTrue(name, play.choose(0))
+            val started = System.nanoTime()
+            val turn = play.continueToChoice()
+            assertTrue(name, (System.nanoTime() - started) / 1_000_000 < 5_000)
+            assertEquals(name, StopReason.DepthLimit, turn.stop)
+            assertTrue(name, turn.ended)
+            assertTrue(name, play.ended)
+            assertTrue(name, play.choices.isEmpty())
+            // still answers
+            assertEquals(name, Evaluation.Value("1"), play.evaluate("x"))
+        }
+    }
+
+    @Test
+    fun deepButFiniteCallsAreNoRunaway() {
+        val play = Stories.play(
+            """
+            {count(5000)} calls, then {tunnels} tunnels.
+            -> into(300) ->
+            Back out.
+            -> END
+            == function count(n) ==
+            { n > 0:
+                ~ return count(n - 1) + 1
+            }
+            ~ return 0
+            == into(n) ==
+            ~ tunnels = tunnels + 1
+            { n > 0:
+                -> into(n - 1) ->
+            }
+            ->->
+            VAR tunnels = 0
+            """.trimIndent(),
+        )
+        val turn = play.continueToChoice()
+        assertEquals(null, turn.stop)
+        assertEquals(listOf("5000 calls, then 0 tunnels.\n", "Back out.\n"), texts(turn))
+        assertEquals(Evaluation.Value("301"), play.evaluate("tunnels"))
+    }
+
     @Test
     fun anIntegerDivisionByZeroEscapesTheRuntimeButNotTheSession() {
         val play = Stories.play("VAR z = 0\nBefore.\n* [Go]\n- {1 / z}\nAfter.")

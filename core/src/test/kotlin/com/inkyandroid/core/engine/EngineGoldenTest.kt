@@ -195,6 +195,8 @@ class EngineGoldenTest {
                 StopReason.EngineFailure -> out += "crash"
                 StopReason.LineLimit -> out += "cut"
                 StopReason.TimeLimit -> out += "timeout"
+                // no case recurses without end: the reference would fill the memory
+                StopReason.DepthLimit -> out += "depth"
                 null -> {
                     if (turn.issues.isNotEmpty()) out += "issues: ${sorted(turn.issues)}"
                     if (turn.ended) out += "end"
