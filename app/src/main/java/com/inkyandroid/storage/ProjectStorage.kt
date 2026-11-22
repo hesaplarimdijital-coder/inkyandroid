@@ -89,7 +89,7 @@ class ProjectStorage internal constructor(
             openCounts[ref.key] = ref to count + 1
             pendingGrants.remove(grantOf(ref))
         }
-        if (isRememberable(ref)) recents.add(ref)
+        if (withContext(io) { isRememberable(ref) }) recents.add(ref)
         return store
     }
 
@@ -112,7 +112,7 @@ class ProjectStorage internal constructor(
         is ProjectRef.SingleDocument -> {
             val uri = Uri.parse(ref.documentUri)
             SingleDocumentStore(
-                resolver, uri, ref.mainPath, isWritable = isWritable(uri),
+                resolver, uri, ref.mainPath, writable = { isWritable(uri) },
                 permissionHeld = { permissions.holds(ref.documentUri) || writeGranted(uri) }, io = io,
             )
         }
@@ -445,11 +445,19 @@ class ProjectStorage internal constructor(
     private fun mainChoiceKey(folder: PickedFolder) = "main\u0000${folder.treeUri}\u0000${folder.rootDocumentId}"
 
     companion object {
-        @Volatile private var instance: ProjectStorage? = null
+        /** The process's instance, with the application it was made for. */
+        @Volatile private var instance: Pair<Context, ProjectStorage>? = null
 
-        /** The process's instance. */
-        fun from(context: Context): ProjectStorage = instance ?: synchronized(this) {
-            instance ?: create(context.applicationContext).also { instance = it }
+        /**
+         * The process's instance. (A new application object, which only happens between tests run
+         * in one JVM, gets a new instance, so that no test sees another's files.)
+         */
+        fun from(context: Context): ProjectStorage {
+            val app = context.applicationContext
+            instance?.let { (owner, storage) -> if (owner === app) return storage }
+            return synchronized(this) {
+                instance?.takeIf { it.first === app }?.second ?: create(app).also { instance = app to it }
+            }
         }
 
         private fun create(app: Context) = ProjectStorage(
