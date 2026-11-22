@@ -38,6 +38,18 @@ class ParsedInk(
     constructor(symbols: InkFileSymbols) : this(symbols.includes, symbols.lastIncludeRow, symbols)
 }
 
+/** What storage holds of one path, as a restore of drafts needs to know it ([InkProject.storedVersion]). */
+internal sealed interface StoredVersion {
+    /** Text with this [hash]. */
+    data class Text(val hash: String, val stored: StoredFile) : StoredVersion
+
+    /** A file that cannot be read as text (or storage could not be asked: [stored] is null then). */
+    data class Unreadable(val stored: StoredFile?) : StoredVersion
+
+    /** No file. */
+    data object Absent : StoredVersion
+}
+
 /** Parses a file's text. The app's is [InkFileParser.of] a tokenizer; the project's own tests use a line scanner. */
 fun interface InkFileParser {
     fun parse(text: CharSequence): ParsedInk
@@ -102,6 +114,7 @@ class InkProject private constructor(
     private var parser: InkFileParser,
     private val parseContext: CoroutineContext,
     private val parseDelayMillis: Long,
+    private val writeAhead: WriteAhead?,
 ) {
     private class FileRecord(var path: String) {
         /** The text while no editor is attached; empty while one is. */
@@ -114,10 +127,20 @@ class InkProject private constructor(
         /** The file as storage reported it at our last read or write; null while it is not on storage. */
         var stored: StoredFile? = null
 
-        /** The hash of the text storage held at that moment. */
+        /**
+         * The hash of the text storage held at that moment; null while it is not on storage, and
+         * while storage holds a version the project cannot know (the remains of a failed write of
+         * its own, or a file that cannot be read as text).
+         */
         var storedHash: String? = null
         var edited = false
         var conflict = false
+
+        /**
+         * A write of this file began and has not been seen to succeed: storage may hold part of it
+         * (it may write in place). Every draft of the file says so until a write succeeds.
+         */
+        var saveUnfinished = false
         var symbols: InkFileSymbols? = null
         var includes: List<String> = emptyList()
         var lastIncludeRow = -1
@@ -133,7 +156,9 @@ class InkProject private constructor(
     }
 
     private val files = LinkedHashMap<String, FileRecord>()
-    private val loadErrors = LinkedHashMap<String, String>()
+
+    /** Files on storage that could not be read, with the failure; they are not in [files]. */
+    private val loadErrors = LinkedHashMap<String, IOException>()
 
     /** Paths an `INCLUDE` names that storage did not have when last asked; asked again after the next sync. */
     private val knownAbsent = HashSet<String>()
@@ -451,11 +476,22 @@ class InkProject private constructor(
             // Not cancellable: a write that reaches storage must be recorded, or the next save would
             // find a version it does not know and call its own work an outside change.
             return withContext(NonCancellable) {
-                val written = store.write(path, text)
+                // Storage may write in place (SAF), so a write cut short can leave part of the new
+                // text over the old: the whole text goes into a draft first, and that draft stays
+                // until a write of this file has succeeded.
+                record.saveUnfinished = true
+                writeAhead?.beforeWrite(path, text, record.storedHash, revision)
+                val written = try {
+                    store.write(path, text)
+                } catch (failed: IOException) {
+                    leftBehind(record)
+                    return@withContext SaveResult.Failed(failed)
+                }
                 if (files[path] === record) {
                     record.stored = written
                     record.storedHash = hash
                     record.conflict = false
+                    record.saveUnfinished = false
                     // typing during the write: what is on storage is no longer what is here
                     record.edited = record.revision != revision
                     publish()
@@ -465,6 +501,24 @@ class InkProject private constructor(
         } catch (failed: IOException) {
             return SaveResult.Failed(failed)
         }
+    }
+
+    /**
+     * A write of [record] has failed. What storage holds now is the old version, or part of the
+     * text that failed to be written: ours either way, never a change from outside. The project
+     * takes note of the file as storage now reports it, so the next save writes over it without a
+     * conflict and a look at storage does not reload it; a change made outside after this moment
+     * is still noticed. (When storage cannot even be asked, the next save compares contents as usual.)
+     */
+    private suspend fun leftBehind(record: FileRecord) {
+        val now = try {
+            store.stat(record.path)
+        } catch (unreachable: IOException) {
+            return
+        }
+        if (files[record.path] !== record || now == record.stored) return
+        record.stored = now
+        record.storedHash = null
     }
 
     // ------------------------------------------------------------------ storage
@@ -515,7 +569,8 @@ class InkProject private constructor(
                 }
                 continue
             }
-            if (theirs == seen && theirs.modified != 0L) continue
+            // an equal answer is trusted when storage tells times, or when there is no content to compare with
+            if (theirs == seen && (theirs.modified != 0L || record.storedHash == null)) continue
             val theirText = try {
                 store.read(path)
             } catch (failed: IOException) {
@@ -528,6 +583,11 @@ class InkProject private constructor(
                 // touched, or our own save seen with a later time stamp: the same content
                 record.stored = theirs
                 continue
+            }
+            if (!record.unsaved && record.live != null && TextHash.of(record.text()) != record.storedHash) {
+                // the editor holds a change it has not reported yet (it reports within the frame):
+                // that text is unsaved, and a reload must never replace it
+                record.edited = true
             }
             if (!record.unsaved) {
                 applyLoaded(record, theirText, theirs)
@@ -562,7 +622,7 @@ class InkProject private constructor(
                 added.add(path)
             } catch (failed: IOException) {
                 errors[path] = describe(failed)
-                loadErrors[path] = describe(failed)
+                loadErrors[path] = failed
             }
         }
 
@@ -608,6 +668,7 @@ class InkProject private constructor(
         record.storedHash = TextHash.of(text)
         record.edited = false
         record.conflict = false
+        record.saveUnfinished = false
         touched(record)
     }
 
@@ -624,24 +685,62 @@ class InkProject private constructor(
 
     // ------------------------------------------------------------------ drafts
 
+    /** Whether a write of [path] began and has not been seen to succeed (see [WriteAhead]); for the drafts journal. */
+    internal fun isSaveUnfinished(path: String): Boolean = files[path]?.saveUnfinished == true
+
     /**
-     * Brings a draft back as unsaved changes; see [DraftJournal.restore], which decides what to do
-     * with each draft and calls this.
-     *
-     * @param conflict the draft was written over another stored version than the one storage holds
-     *   now: the file is marked as a conflict as well.
+     * What storage holds of [path], for [DraftJournal.restore]: from what the project knows for
+     * its files, from storage for any other path.
      */
-    internal suspend fun restoreUnsaved(path: String, text: String, conflict: Boolean) {
+    internal suspend fun storedVersion(path: String): StoredVersion = storage.withLock {
+        files[path]?.let { record ->
+            val stored = record.stored ?: return StoredVersion.Absent
+            return record.storedHash?.let { StoredVersion.Text(it, stored) } ?: StoredVersion.Unreadable(stored)
+        }
+        val stored = try {
+            store.stat(path) ?: return StoredVersion.Absent
+        } catch (unreachable: IOException) {
+            return StoredVersion.Unreadable(null)
+        }
+        try {
+            StoredVersion.Text(TextHash.of(store.read(path)), stored)
+        } catch (unreadable: IOException) {
+            StoredVersion.Unreadable(stored)
+        }
+    }
+
+    /**
+     * Brings a draft back as unsaved changes; [DraftJournal.restore] decides what to do with each
+     * draft and calls this, right after the project was opened.
+     *
+     * @param version what [storedVersion] said storage holds; a file that is not in the project yet
+     *   joins it as storage has it, with the draft's text.
+     * @param conflict the draft was written over another stored version than the one storage holds
+     *   now (or storage's version cannot be read): the file is marked as a conflict as well.
+     * @param saveUnfinished the draft was written for a save that never finished: whatever storage
+     *   holds is the remains of it, which the next save writes over.
+     */
+    internal suspend fun restoreUnsaved(path: String, text: String, version: StoredVersion, conflict: Boolean, saveUnfinished: Boolean) {
         var record = files[path]
         if (record == null) {
             record = FileRecord(path)
             files[path] = record
             knownAbsent.remove(path)
+            loadErrors.remove(path)
+            when (version) {
+                is StoredVersion.Text -> {
+                    record.stored = version.stored
+                    record.storedHash = version.hash
+                }
+                is StoredVersion.Unreadable -> record.stored = version.stored
+                StoredVersion.Absent -> {}
+            }
         }
         val live = record.live
         if (live != null) live.edit(0, live.snapshot().length, text) else record.ownText = text
         record.edited = true
         record.conflict = conflict
+        record.saveUnfinished = saveUnfinished
         touched(record)
         parseNow(record, refresh = false)
         refreshIncludes()
@@ -742,7 +841,7 @@ class InkProject private constructor(
                 } catch (failed: IOException) {
                     // upstream: "Failed to load ink file"; the file stays out of the project
                     knownAbsent.add(path)
-                    loadErrors[path] = describe(failed)
+                    loadErrors[path] = failed
                 }
             }
         }
@@ -801,7 +900,8 @@ class InkProject private constructor(
                 )
             },
             missingIncludes = reached.filter { it !in files },
-            loadErrors = loadErrors.toMap(),
+            loadErrors = loadErrors.mapValues { (_, failed) -> describe(failed) },
+            loadFailures = loadErrors.toMap(),
         )
     }
 
@@ -810,7 +910,24 @@ class InkProject private constructor(
         val mainStored = listing.firstOrNull { it.path == mainPath } ?: store.stat(mainPath) ?: throw NoSuchFileException(mainPath)
         val main = FileRecord(mainPath)
         files[mainPath] = main
-        applyLoaded(main, store.read(mainPath), mainStored)
+        val mainText = try {
+            store.read(mainPath)
+        } catch (unreadable: IOException) {
+            if (unreadable is NoSuchFileException) throw unreadable
+            // A save of ours that was cut short can leave the main file half written, even in the
+            // middle of a character (storage may write in place). Its draft holds the whole text,
+            // which takes the file's place; the next save writes it over the remains.
+            main.ownText = writeAhead?.unfinishedSave(mainPath) ?: throw unreadable
+            null
+        }
+        if (mainText != null) {
+            applyLoaded(main, mainText, mainStored)
+        } else {
+            main.stored = mainStored
+            main.edited = true
+            main.saveUnfinished = true
+            touched(main)
+        }
         for (file in listing.sortedBy { it.path }) {
             if (file.path == mainPath || !ProjectPaths.isInkFile(file.path)) continue
             try {
@@ -818,7 +935,7 @@ class InkProject private constructor(
                 applyLoaded(record, store.read(file.path), file)
                 files[file.path] = record
             } catch (failed: IOException) {
-                loadErrors[file.path] = describe(failed)
+                loadErrors[file.path] = failed
             }
         }
         settingsFile = listing.firstOrNull { it.path == settingsPath }
@@ -847,12 +964,16 @@ class InkProject private constructor(
          *
          * Throws an [IOException] when storage cannot be listed or the main file cannot be read
          * ([NoSuchFileException] when it does not exist). Other files that cannot be read are left
-         * out and named in [ProjectSnapshot.loadErrors].
+         * out and named in [ProjectSnapshot.loadErrors]. One exception: a main file that cannot be
+         * read after a save of it was cut short opens with the text that save was writing, when
+         * [writeAhead] has it ([WriteAhead.unfinishedSave]).
          *
          * @param scope the project's timers and background look-ups run in it, on its dispatcher,
          *   which is the one thread the project is used from; cancelling it ends them.
          * @param parseContext where the parser runs (a background dispatcher: parsing a long file
          *   takes milliseconds that the UI thread does not have).
+         * @param writeAhead hears of every write before it begins: the drafts journal
+         *   ([DraftJournal]), so that no write that is cut short loses text.
          */
         @Throws(IOException::class)
         suspend fun open(
@@ -862,9 +983,10 @@ class InkProject private constructor(
             parser: InkFileParser,
             parseContext: CoroutineContext = Dispatchers.Default,
             parseDelayMillis: Long = PARSE_DELAY_MILLIS,
+            writeAhead: WriteAhead? = null,
         ): InkProject {
             ProjectPaths.requireValid(mainPath)
-            return InkProject(scope, store, mainPath, parser, parseContext, parseDelayMillis).also { it.load() }
+            return InkProject(scope, store, mainPath, parser, parseContext, parseDelayMillis, writeAhead).also { it.load() }
         }
 
         /**
@@ -879,9 +1001,10 @@ class InkProject private constructor(
             mainText: String = NewProject.MAIN_TEXT,
             parseContext: CoroutineContext = Dispatchers.Default,
             parseDelayMillis: Long = PARSE_DELAY_MILLIS,
+            writeAhead: WriteAhead? = null,
         ): InkProject {
             ProjectPaths.requireValid(mainPath)
-            return InkProject(scope, store, mainPath, parser, parseContext, parseDelayMillis).also { it.startNew(mainText) }
+            return InkProject(scope, store, mainPath, parser, parseContext, parseDelayMillis, writeAhead).also { it.startNew(mainText) }
         }
 
         private fun emptyFile(path: String) = ProjectFile(

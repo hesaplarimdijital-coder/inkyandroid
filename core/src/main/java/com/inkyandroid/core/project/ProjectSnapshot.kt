@@ -69,12 +69,15 @@ data class ProjectTree(
  *   on storage (the compiler reports these; nothing creates them).
  * @property loadErrors files that are on storage but could not be read, with the reason; they are
  *   not part of [files]. Cleared when a later attempt succeeds.
+ * @property loadFailures the same files with the failure itself, for a sentence in the user's
+ *   language (the app's storage tells a file that is not text from one it may not read).
  */
 data class ProjectSnapshot(
     val mainPath: String,
     val files: List<ProjectFile>,
     val missingIncludes: List<String> = emptyList(),
     val loadErrors: Map<String, String> = emptyMap(),
+    val loadFailures: Map<String, IOException> = emptyMap(),
 ) {
     private val byPath: Map<String, ProjectFile> = files.associateBy { it.path }
 

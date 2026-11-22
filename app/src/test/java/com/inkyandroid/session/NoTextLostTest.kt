@@ -1,11 +1,15 @@
 package com.inkyandroid.session
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.inkyandroid.core.project.ProjectText
 import com.inkyandroid.core.project.SaveResult
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -162,6 +166,85 @@ class NoTextLostTest {
         assertEquals(written, second.project.text("main.ink").toString())
     }
 
+    // ------------------------------------------------------------------ storage that writes in place (SAF)
+
+    @Test
+    fun `an autosave cut short in the middle of a character by the death of the process loses nothing`() = sessionTest {
+        onStorage("main.ink", story)
+        val first = open()
+        editor(first, "main.ink").type(written)
+        // the provider writes in place, and the process dies after the first byte of "ı"
+        store.tornAfterBytes = "Once upon a time\nBir varm".toByteArray().size + 1
+        pass(ProjectSession.AUTOSAVE_DELAY_MILLIS)
+        kill()
+        store.tornAfterBytes = null
+        assertFalse("storage holds no text any more", runCatching { ProjectText.decode(file("main.ink").readBytes()) }.isSuccess)
+
+        val second = open(settings = settingsAfterRestart())
+
+        assertEquals(written, editor(second, "main.ink").text.toString())
+        assertEquals(listOf("main.ink"), second.state.value.restoredDrafts?.restored)
+        assertTrue("the remains are no outside change", second.project.state.value.conflicts.isEmpty())
+        pass(ProjectSession.AUTOSAVE_DELAY_MILLIS)
+        assertEquals("autosave writes the whole text over the remains", written, file("main.ink").readText())
+        assertEquals(emptyMap<String, String>(), drafts())
+    }
+
+    @Test
+    fun `a save typed with Ctrl+S right after typing has its draft before storage is touched`() = sessionTest {
+        settings.updateAutosave(false)
+        onStorage("main.ink", story)
+        val first = open()
+        editor(first, "main.ink").type(written)
+        store.tornAfterBytes = 20
+
+        // within the second: no draft timer has fired; the save never returns (the process dies in it)
+        CoroutineScope(dispatcher).launch { first.saveAll() }
+        pass(0)
+        kill()
+        store.tornAfterBytes = null
+
+        assertEquals(mapOf("main.ink" to written), drafts())
+        assertEquals(written, open(settings = settingsAfterRestart()).project.text("main.ink").toString())
+    }
+
+    @Test
+    fun `a write that fails half way keeps the draft, and the retry writes over the remains without a conflict`() = sessionTest {
+        onStorage("main.ink", story)
+        val session = open()
+        editor(session, "main.ink").type(written)
+        store.tornAfterBytes = 12
+        store.writeFailure = IOException("Provider died")
+        pass(ProjectSession.AUTOSAVE_DELAY_MILLIS)
+
+        assertEquals(written.take(12), file("main.ink").readText())
+        assertEquals(mapOf("main.ink" to written), drafts())
+        assertEquals(mapOf("main.ink" to "Provider died"), session.state.value.saveProblem?.failed)
+        session.syncWithStorage()
+        assertTrue("its own remains are not an outside change", session.project.state.value.conflicts.isEmpty())
+
+        store.tornAfterBytes = null
+        store.writeFailure = null
+        assertTrue(session.saveAll().isComplete)
+
+        assertEquals(written, file("main.ink").readText())
+        assertEquals(emptyMap<String, String>(), drafts())
+        assertNull(session.state.value.saveProblem)
+    }
+
+    @Test
+    fun `a failed save gives the screens the failure itself, for a sentence in the user's language`() = sessionTest {
+        onStorage("main.ink", story)
+        val session = open()
+        val failure = IOException("Permission lost")
+        store.writeFailure = failure
+        editor(session, "main.ink").type(written)
+
+        pass(ProjectSession.AUTOSAVE_DELAY_MILLIS)
+
+        assertSame(failure, session.state.value.saveProblem?.errors?.get("main.ink"))
+    }
+
     // ------------------------------------------------------------------ a save fails
 
     @Test
@@ -173,7 +256,7 @@ class NoTextLostTest {
 
         pass(ProjectSession.AUTOSAVE_DELAY_MILLIS)
 
-        assertEquals(SaveProblem(mapOf("main.ink" to "Permission lost")), session.state.value.saveProblem)
+        assertEquals(mapOf("main.ink" to "Permission lost"), session.state.value.saveProblem?.failed)
         assertTrue(session.project.state.value.file("main.ink")!!.hasUnsavedChanges)
         assertEquals(written, editor(session, "main.ink").text.toString())
         assertEquals("the draft is never cleared by a failed save", mapOf("main.ink" to written), drafts())
