@@ -1,0 +1,22 @@
+Inky device smoke: profile phone, sdk_gphone64_x86_64, Android 14 (API 34), Physical size: 1080x2400, density 420
+navigation bar overlays: [ ] com.android.internal.systemui.navbar.gestural_wide_back; [x] com.android.internal.systemui.navbar.threebutton; [ ] com.android.internal.systemui.navbar.twobutton; [ ] com.android.internal.systemui.navbar.gestural_extra_wide_back; [ ] com.android.internal.systemui.navbar.transparent; [ ] com.android.internal.systemui.navbar.gestural; [ ] com.android.internal.systemui.navbar.gestural_narrow_back
+installed app-release.apk
+
+== Scenario ime-probe: The on-screen keyboard of a system text field (driver self-check)
+[01] ime-probe-field: WARN   (01-ime-probe-field.png, 1080x2400 px, 411 dp wide)
+     do: shell am start -W -a android.settings.DEVICE_INFO_SETTINGS; shell input tap 300 923; wait 3; ime_type smoke; save ime-window.txt settings get secure default_input_method; dumpsys window windows | grep -A40 ' u0 InputMethod}:'
+     $ am start -W -a android.settings.DEVICE_INFO_SETTINGS
+       Starting: Intent { act=android.settings.DEVICE_INFO_SETTINGS }
+Status: ok
+LaunchState: WARM
+Activity: com.android.settings/.Settings$MyDeviceInfoActivity
+TotalTime: 2884
+WaitTime: 2911
+Complete
+     $ input tap 300 923
+     uiautomator could not read the screen (it never went idle)
+     ! the on-screen keyboard is not shown
+     visible: 
+
+warning: ime-probe-field: the on-screen keyboard is not shown
+RESULT: PASS
