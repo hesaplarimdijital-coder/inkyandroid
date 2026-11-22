@@ -117,6 +117,21 @@ class KitEditorSessionTest {
     }
 
     @Test
+    fun `an editor asked for after the session ended is not watched`() = sessionTest {
+        onStorage("main.ink", "INCLUDE a.ink\n")
+        onStorage("a.ink", "A\n")
+        val session = open(kit = true)
+        assertTrue(session.requestClose())
+
+        val late = checkNotNull(session.document("a.ink")?.editorState)
+        late.replace(0, 0, "typed into a closed session")
+        applied()
+
+        assertFalse(session.project.state.value.hasUnsavedChanges)
+        assertEquals("A\n", session.project.text("a.ink").toString())
+    }
+
+    @Test
     fun `typing that the editor has not reported yet is never replaced by a reload`() = sessionTest {
         onStorage("main.ink", story)
         val session = open(kit = true)

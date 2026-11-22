@@ -131,6 +131,11 @@ class ProjectSession private constructor(
         documents[path]?.let { return it }
         val text = project.text(path) ?: return null
         val buffer = editors.create(path, text.toString())
+        if (state.value.closed) {
+            // asked for after the session ended (a screen recomposing on its way out): shown, never watched
+            buffer.close()
+            return OpenDocument(path, buffer)
+        }
         val document = OpenDocument(path, buffer)
         places[path]?.let { place ->
             buffer.cursor = TextPosition(place.row, place.column)
