@@ -201,7 +201,11 @@ class InkProject private constructor(
     /** How often the text of [path] has changed; -1 for a path that is not in the project. Two equal values mean the same text. */
     fun revision(path: String): Long = files[path]?.revision ?: -1
 
-    /** The hash of the version of [path] that storage holds as far as the project knows; null while the file is not on storage. */
+    /**
+     * The hash of the version of [path] that storage holds as far as the project knows; null while
+     * the file is not on storage, and while what storage holds cannot be known (it cannot be read
+     * as text, or a failed write of the project's own left part of a text there).
+     */
     fun storedHash(path: String): String? = files[path]?.storedHash
 
     /**
