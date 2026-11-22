@@ -1,0 +1,205 @@
+++ ls apk/app-release.apk
+++ head -1
++ APK=apk/app-release.apk
++ adb devices
+List of devices attached
+emulator-5554	device
+
++ ls -l /dev/kvm
+crw-rw-rw- 1 root kvm 10, 232 Nov 22 21:41 /dev/kvm
++ nproc
+4
++ uptime
+ 21:42:04 up 1 min,  0 users,  load average: 2.86, 1.00, 0.36
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:           15983        5907        2004          46        8463       10075
+Swap:           3071           0        3071
++ adb shell getprop ro.build.version.release
+17
++ adb shell getprop ro.build.version.sdk
+37
++ adb shell getprop ro.product.model
+sdk_gphone64_x86_64
++ adb shell wm size
+Physical size: 2560x1600
++ adb shell wm density
+Physical density: 320
++ adb shell getprop persist.sys.locale
+
++ adb shell getprop sys.boot_completed
+1
++ adb shell top -b -n 1 -m 15
+Tasks: 269 total,   7 running, 262 sleeping,   0 stopped,   0 zombie
+  Mem:  4006620K total,  3892960K used,   113660K free,   118672K buffers
+ Swap:  3004960K total,     8960K used,  2996000K free,  2777288K cached
+300%cpu  46%user  69%nice 115%sys   0%idle   4%iow   0%irq   4%sirq  62%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+ 1696 u0_a179      10 -10  16G 234M 155M R 57.6   5.9   0:00.68 com.google.android.inputmethod.latin
+  504 system       -3  -8  11G  36M  24M S 46.1   0.9   0:19.47 surfaceflinger
+  637 system       18  -2  18G 470M 339M R 38.4  12.0   0:24.55 system_server
+ 1412 u0_a229      20   0  16G 210M 151M S 23.0   5.3   0:01.35 com.google.android.gms.persistent
+ 1100 u0_a189      20   0  16G 234M 149M D 23.0   5.9   0:03.20 com.android.systemui
+ 1101 u0_a220      20   0  15G 144M  82M S  7.6   3.6   0:00.18 com.google.android.permissioncontroller
+  581 logd         30  10  10G 4.7M 4.0M R  7.6   0.1   0:02.38 logcat -f /dev/hvc1 *:V
+   69 root         20   0    0    0    0 R  7.6   0.0   0:00.56 [khvcd]
+ 2129 shell        20   0  10G 5.2M 4.4M R  3.8   0.1   0:00.01 top -b -n 1 -m 15
+ 1900 system       20   0  16G 100M  54M S  3.8   2.5   0:00.01 com.android.emulator.multidisplay
+ 1829 u0_a161      20   0  16G 142M  88M R  3.8   3.6   0:00.22 com.google.android.as
+ 1825 u0_a162      20   0  17G 172M 117M S  3.8   4.3   0:00.22 com.google.android.googlequicksearchbox:interactor
+ 1567 u0_a229      20   0  16G 203M 138M S  3.8   5.1   0:00.27 com.google.android.gms
+ 1260 radio        20   0  15G 157M 102M S  3.8   4.0   0:00.75 com.android.phone
+  277 logd         30  10  10G 7.4M 4.7M S  3.8   0.1   0:00.76 logd
++ adb root
+restarting adbd as root
++ sleep 3
++ adb wait-for-device
++ adb shell id
+uid=0(root) gid=0(root) groups=0(root),1004(input),1007(log),1011(adb),1015(sdcard_rw),1028(sdcard_r),1078(ext_data_rw),1079(ext_obb_rw),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats),3009(readproc),3011(uhid),3012(readtracefs) context=u:r:su:s0
++ adb logcat -G 16M
++ python3 tools/smoke.py apk/app-release.apk smoke-out --profile tablet --scenarios 0,ime-probe
+Inky device smoke: profile tablet, sdk_gphone64_x86_64, Android 17 (API 37), Physical size: 2560x1600, density 320
+installed app-release.apk
+
+== Scenario 0: Skeleton: the setup screen, in English and Turkish, through the lifecycle
+[01] en-cold-start: PASS   (01-en-cold-start.png, 2560x1600 px, 1280 dp wide)
+     do: locale en-US; cold_start
+     device language already en-US
+     launch: COLD 2765 ms
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; new process 4336
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+[02] en-large-window: PASS   (02-en-large-window.png, 2560x1600 px, 1280 dp wide)
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     checks: seen 'Inky'; seen 'Story'
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+[03] en-rotated: PASS   (03-en-rotated.png, 1600x2560 px, 800 dp wide)
+     do: rotate flip
+     rotated: 2560x1600 -> 1600x2560 px
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; same process 4336
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[04] en-rotated-back: PASS   (04-en-rotated-back.png, 2560x1600 px, 1280 dp wide)
+     do: rotate natural
+     rotated: 1600x2560 -> 2560x1600 px
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; same process 4336
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+[05] en-background: PASS   (05-en-background.png, 2560x1600 px, 1280 dp wide)
+     do: home
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     checks: absent 'Inky is being set up'
+     visible: At a glance | Sun, Nov 22 | Analog | 21:44 | Sunday, Nov 22, 9:44 PM | Folder: Google, 4 or more items | Google | Calendar schedule | Calendar | Sign in to view your schedule | Sign in | Home | Google search | Google app | Voice search | Camera search | Gmail | Chrome | YouTube | Photos | Messages | Predicted app: Messages | Inky | Predicted app: Inky
+[06] en-foreground: PASS   (06-en-foreground.png, 2560x1600 px, 1280 dp wide)
+     do: launch
+     launch: HOT 177 ms
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; same process 4336
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+[07] en-process-death-restored: PASS   (07-en-process-death-restored.png, 2560x1600 px, 1280 dp wide)
+     do: home; kill_background; launch
+     process 4336 killed in the background
+     launch: COLD 1207 ms
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; new process 5793
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+[08] en-force-stop-relaunch: PASS   (08-en-force-stop-relaunch.png, 2560x1600 px, 1280 dp wide)
+     do: force_stop; launch
+     launch: COLD 1681 ms
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     system dialog about another app waited out: Pixel Launcher isn't responding
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; new process 5923
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+[09] tr-cold-start: PASS   (09-tr-cold-start.png, 2560x1600 px, 1280 dp wide)
+     do: locale tr-TR; cold_start
+     device language switched to tr-TR (framework restarted)
+     launch: COLD 6623 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; absent 'Inky is being set up'; new process 7704
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Inky | Hikâye | Kenar çubuğunu daralt
+[10] tr-rotated: PASS   (10-tr-rotated.png, 1600x2560 px, 800 dp wide)
+     do: rotate flip
+     rotated: 2560x1600 -> 1600x2560 px
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; same process 7704
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Hikâye
+[11] tr-rotated-back: PASS   (11-tr-rotated-back.png, 2560x1600 px, 1280 dp wide)
+     do: rotate natural
+     rotated: 1600x2560 -> 2560x1600 px
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; same process 7704
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Inky | Hikâye | Kenar çubuğunu daralt
+[12] tr-background: PASS   (12-tr-background.png, 2560x1600 px, 1280 dp wide)
+     do: home
+     checks: absent 'Inky kuruluyor'
+     visible: Bir bakışta | 22 Kas Paz | Analog | 21:46 | 22 Kas Pazar ÖS 9:46 | Klasör Google, 4 veya daha fazla öğe | Google | Takvim progamı | Takvim | Programınızı görüntülemek için oturum açın | Oturum aç | Ana ekran | Ara | Google arama | Google uygulaması | Sesli arama | Kamera ile arama | Gmail | Chrome | YouTube | Fotoğraflar | Telefon | Tahmin edilen uygulama: Telefon | Mesajlar | Tahmin edilen uygulama: Mesajlar
+[13] tr-foreground: PASS   (13-tr-foreground.png, 2560x1600 px, 1280 dp wide)
+     do: launch
+     launch: HOT 173 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; same process 7704
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Inky | Hikâye | Kenar çubuğunu daralt
+[14] tr-process-death-restored: PASS   (14-tr-process-death-restored.png, 2560x1600 px, 1280 dp wide)
+     do: home; kill_background; launch
+     process 7704 killed in the background
+     launch: COLD 1305 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; new process 9400
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Inky | Hikâye | Kenar çubuğunu daralt
+[15] tr-force-stop-relaunch: PASS   (15-tr-force-stop-relaunch.png, 2560x1600 px, 1280 dp wide)
+     do: force_stop; launch
+     launch: COLD 1398 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; new process 9489
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Inky | Hikâye | Kenar çubuğunu daralt
+[16] en-again: PASS   (16-en-again.png, 2560x1600 px, 1280 dp wide)
+     do: locale en-US; cold_start
+     device language switched to en-US (framework restarted)
+     launch: COLD 3111 ms
+     checks: seen 'Inky is being set up'; absent 'Inky kuruluyor'
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+
+== Scenario ime-probe: The on-screen keyboard of a system text field (driver self-check)
+[17] ime-probe-field: WARN   (17-ime-probe-field.png, 2560x1600 px, 1280 dp wide)
+     do: shell am start -W -a android.settings.DEVICE_INFO_SETTINGS; tap Device name; wait 3; save ime-default.txt settings get secure default_input_method; ime list -s; dumpsys input_method | grep -iE 'mInputShown|mCurImeId|inputShown'; save ime-window.txt dumpsys window windows | grep -iE -A40 'Window #[0-9]+ Window\{[0-9a-f]+ u0 InputMethod'; save ime-dump-windows.xml uiautomator dump --windows /sdcard/w.xml >/dev/null 2>&1; cat /sdcard/w.xml; save ime-dump-active.xml uiautomator dump /sdcard/a.xml >/dev/null 2>&1; cat /sdcard/a.xml
+     $ am start -W -a android.settings.DEVICE_INFO_SETTINGS
+       Starting: Intent { act=android.settings.DEVICE_INFO_SETTINGS }
+Status: ok
+LaunchState: WARM
+Activity: com.android.settings/.Settings$MyDeviceInfoActivity
+TotalTime: 2604
+WaitTime: 2607
+Complete
+     the UI did not settle within 8 s
+     the UI did not settle within 20 s
+     ! 'Device name' is not on the screen
+     visible: 
+
+language changes: the device language
+warning: ime-probe-field: 'Device name' is not on the screen
+RESULT: PASS
++ uptime
+ 21:50:18 up 10 min,  0 users,  load average: 0.76, 2.66, 1.76
++ adb shell top -b -n 1 -m 15
+Tasks: 301 total,   1 running, 300 sleeping,   0 stopped,   0 zombie
+  Mem:  4006620K total,  3219932K used,   786688K free,    63444K buffers
+ Swap:  3004960K total,   430152K used,  2574808K free,  1839568K cached
+300%cpu   0%user   0%nice   0%sys 300%idle   0%iow   0%irq   0%sirq   0%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+12653 root         20   0  10G 5.4M 4.6M R  0.0   0.1   0:00.01 top -b -n 1 -m 15
+12200 u0_a184      20   0  40G 117M  73M S  0.0   2.9   0:00.08 com.android.chrome
+12154 u0_a113      20   0  16G 102M  58M S  0.0   2.5   0:00.01 com.android.externalstorage
+12132 u0_a224      20   0  16G 103M  59M S  0.0   2.6   0:00.02 com.google.android.photopicker
+12074 u0_a155      20   0  33G 144M 100M S  0.0   3.6   0:00.46 com.google.android.settings.intelligence
+12049 u0_a152      20   0  16G 107M  62M S  0.0   2.7   0:00.03 com.google.android.projection.gearhead:car
+12028 u0_a204      20   0  16G 115M  72M S  0.0   2.9   0:00.12 com.google.android.rkpdapp
+12013 u0_a150      20   0  16G 112M  68M S  0.0   2.8   0:00.13 com.google.android.partnersetup
+11968 u0_a120      20   0  16G  99M  55M S  0.0   2.5   0:00.01 com.google.android.packageinstaller
+11946 u0_a222      20   0  16G  99M  55M S  0.0   2.5   0:00.02 com.google.android.ondevicepersonalization.services
+11929 u0_a205      20   0  16G 104M  60M S  0.0   2.6   0:00.02 com.google.android.healthconnect.controller
+11910 u0_a223      20   0  16G  98M  54M S  0.0   2.5   0:00.02 com.google.android.federatedcompute
+11890 u0_a147      20   0  16G 108M  65M S  0.0   2.7   0:00.10 com.google.android.configupdater
+11851 u0_a158      20   0  16G 110M  67M S  0.0   2.8   0:00.08 com.google.android.apps.pulse
+11831 shell        20   0  16G 100M  56M S  0.0   2.5   0:00.02 com.android.shell
++ exit 0
