@@ -5,8 +5,9 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * How fast the tokenizer is on upstream's longest sample, after warming up. The bound is loose (the
- * build machine is shared); the measured numbers are printed and recorded in the status file.
+ * How fast the tokenizer is on upstream's longest sample, after warming up (about 90,000 lines a second
+ * on the build machine when it is quiet). The bound only catches a catastrophic regression, since builds
+ * share machines; the measured numbers are printed.
  */
 class TokenizerSpeedTest {
 
@@ -27,6 +28,6 @@ class TokenizerSpeedTest {
             "Tokenizer: %.0f tokens/s, %.0f lines/s, %.1f MB/s of text, %.2f ms per pass over %d lines"
                 .format(tokens / seconds, linesPerSecond, chars / seconds / 1e6, seconds * 1000 / rounds, lines.size),
         )
-        assertTrue("under 10,000 lines per second", linesPerSecond > 10_000)
+        assertTrue("at least 5,000 lines per second", linesPerSecond > 5_000)
     }
 }
