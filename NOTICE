@@ -21,5 +21,11 @@ It contains or ships the following third-party parts:
   - Haze (dev.chrisbanes.haze), Copyright 2023 Christopher Banes and the Haze project
     contributors, Apache License, Version 2.0.
 
+- commonmark-java (org.commonmark:commonmark, https://github.com/commonmark/commonmark-java),
+  Copyright (c) 2015, Atlassian Pty Ltd, BSD 2-Clause License: reads the bundled ink manual.
+
+- The ink manual "Writing with ink" (app/src/main/assets/docs/WritingWithInk.md), from Inky's
+  repository, Copyright (c) 2016 inkle Ltd., MIT License.
+
 AndroidX, Jetpack Compose and kotlinx.coroutines are used under the Apache License,
 Version 2.0.

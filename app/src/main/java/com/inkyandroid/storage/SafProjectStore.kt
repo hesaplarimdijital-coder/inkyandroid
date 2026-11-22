@@ -129,6 +129,7 @@ class SafProjectStore internal constructor(
      */
     suspend fun checkAccess(): StorageProblem? = try {
         guarded("check", null) {
+            if (!permissionHeld()) throw PermissionLostException("the permission for $displayName is gone")
             SafDocuments.document(resolver, treeUri, rootDocumentId)?.takeIf { it.isDirectory }
                 ?: throw NoSuchFileException(displayName, null, "the project folder is gone")
             null

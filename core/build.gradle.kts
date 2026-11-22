@@ -25,7 +25,8 @@ dependencies {
     // Kept out of :core's own API: the app sees ink through the types of this module.
     implementation(libs.blade.ink)
     implementation(libs.blade.ink.compiler)
-    implementation(libs.coroutines.core)
+    // part of :core's API: the project model publishes StateFlows and takes a CoroutineScope
+    api(libs.coroutines.core)
     // the project settings file (settings package), read with the JSON tree API
     implementation(libs.kotlinx.serialization.json)
 

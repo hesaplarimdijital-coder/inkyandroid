@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- app-extras: the documentation, settings, about and licences, statistics and export (com.inkyandroid.ui.extras). -->
+<resources>
+    <!-- statistics: upstream's "Word count and more" -->
+    <string name="statistics_title">Project statistics</string>
+    <string name="statistics_words">Words</string>
+    <string name="statistics_knots">Knots</string>
+    <string name="statistics_stitches">Stitches</string>
+    <string name="statistics_functions">Functions</string>
+    <string name="statistics_choices">Choices</string>
+    <string name="statistics_gathers">Gathers</string>
+    <string name="statistics_diverts">Diverts</string>
+    <string name="statistics_note">Words should be accurate. Knots include functions. Gathers and diverts may include some implicitly added ones by the compiler, for example in weave. Diverts include END and DONE.</string>
+    <string name="statistics_counting">Counting…</string>
+    <string name="statistics_failed">The statistics could not be computed: %1$s</string>
+    <string name="statistics_close">Close</string>
+    <string name="statistics_unreadable">the ink compiler could not read the project</string>
+
+    <!-- licences -->
+    <string name="licences_title">Open-source licences</string>
+    <string name="licences_note">Choose one to read its licence.</string>
+    <!-- documentation: the ink manual -->
+    <string name="docs_title">Documentation</string>
+    <string name="docs_subtitle">Writing with ink: the manual of the ink language, by inkle</string>
+    <string name="docs_contents">Contents</string>
+    <string name="docs_find">Find in the manual</string>
+    <string name="docs_find_hint">Find in the manual</string>
+    <string name="docs_find_position">%1$d / %2$d</string>
+    <string name="docs_find_none">No matches</string>
+    <plurals name="docs_find_results">
+        <item quantity="one">%d match</item>
+        <item quantity="other">%d matches</item>
+    </plurals>
+    <string name="docs_find_next">Next match</string>
+    <string name="docs_find_previous">Previous match</string>
+    <string name="docs_find_close">Close find</string>
+    <string name="docs_zoom_in">Larger text</string>
+    <string name="docs_zoom_out">Smaller text</string>
+    <string name="docs_copy">Copy the example</string>
+    <string name="docs_insert">Insert into the editor</string>
+    <!-- export -->
+    <string name="export_failed">Could not export: %1$s</string>
+    <string name="export_has_errors">The ink has errors. Fix them before exporting.</string>
+    <string name="export_unexpected_error">an unexpected error in the ink compiler</string>
+    <string name="export_done_file">Exported as %1$s</string>
+    <string name="export_done_web">The web version is in the folder %1$s</string>
+    <!-- settings: the app's own sections -->
+    <string name="settings_editor">Editor</string>
+    <string name="settings_soft_wrap">Wrap long lines</string>
+    <string name="settings_soft_wrap_note">Lines longer than the editor is wide continue on the next row.</string>
+    <string name="settings_line_numbers">Line numbers</string>
+    <string name="settings_auto_complete">Auto-complete</string>
+    <string name="settings_auto_complete_note">Offers knots, stitches, variables and words of the project while you type.</string>
+    <string name="settings_keyboard_suggestions">Keyboard suggestions</string>
+    <string name="settings_keyboard_suggestions_note">The on-screen keyboard’s suggestions and corrections in the editor.</string>
+    <string name="settings_player">Player</string>
+    <string name="settings_play_animation">Play view animation</string>
+    <string name="settings_play_animation_note">New text fades in after a choice.</string>
+    <string name="settings_tags_visible">Tags visible</string>
+    <string name="settings_tags_visible_note">Shows the tags of lines and choices in the player.</string>
+    <string name="settings_files">Files</string>
+    <string name="settings_autosave">Save automatically</string>
+    <string name="settings_autosave_on_note">Changes are saved two seconds after you stop typing. Unsaved text is always kept as a draft too.</string>
+    <string name="settings_autosave_off_note">Save with Ctrl+S or the save action. Unsaved text is still kept as a draft, and you are asked before a project with changes is closed.</string>
+    <string name="settings_projects_folder">Projects folder</string>
+    <string name="settings_projects_folder_none">None chosen: new projects are kept inside the app</string>
+    <string name="settings_projects_folder_choose">Choose…</string>
+    <string name="settings_projects_folder_change">Change…</string>
+    <string name="settings_projects_folder_clear">Keep inside the app</string>
+    <string name="settings_about">About</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_ink_version">ink</string>
+    <string name="settings_ink_version_value" translatable="false">1.2 (blade-ink 1.3.3)</string>
+    <string name="settings_about_note">An Android port of inkle’s Inky, the editor for the ink scripting language. Inky and ink are by inkle Ltd.</string>
+    <string name="settings_upstream">Inky on GitHub</string>
+</resources>
