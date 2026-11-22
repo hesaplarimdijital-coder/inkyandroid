@@ -110,16 +110,6 @@ data class ProjectSnapshot(
     }
 }
 
-/**
- * The sources of a project as the compiler needs them: the text of every file at one moment.
- * Spare files are included, as upstream copies every project file to the compiler's folder.
- */
-data class ProjectTexts(
-    val mainPath: String,
-    /** Root-relative path → text. */
-    val texts: Map<String, String>,
-)
-
 /** What "add new include" did. */
 sealed interface AddIncludeResult {
     /** The file [path] is in the project, empty and unsaved; when asked for, the main file names it in a new `INCLUDE` line. */

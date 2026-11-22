@@ -1,5 +1,6 @@
 package com.inkyandroid.session
 
+import com.inkyandroid.core.engine.InkIssue
 import com.inkyandroid.core.project.DraftRestoreReport
 import com.inkyandroid.core.settings.ProjectSettings
 import com.inkyandroid.core.syntax.InkTokenizer
@@ -37,8 +38,9 @@ enum class CloseAnswer { Save, DontSave, Cancel }
  *   until the notice is dismissed with [ProjectSession.dismissRestoredNotice]; null when there were none.
  * @property closeQuestion the user has to answer the save / don't save / cancel question
  *   ([ProjectSession.answerClose]).
- * @property issues the problems of the latest compile and run, in upstream's order (errors, runtime
- *   errors, warnings, runtime warnings, TODOs; by line within each).
+ * @property issues the problems of the latest compile and run, in upstream's order
+ *   (`InkIssues.upstreamOrder`: errors, runtime errors, warnings, runtime warnings, TODOs; by line
+ *   within each).
  * @property watches the watch expressions.
  * @property projectSettings the project's settings file (custom snippets, instruction prefix).
  * @property tokenizer the tokenizer for the project's instruction prefix: the editor colours with it.
@@ -57,13 +59,13 @@ data class SessionState(
     val draftProblem: String? = null,
     val restoredDrafts: DraftRestoreReport? = null,
     val closeQuestion: Boolean = false,
-    val issues: List<SessionIssue> = emptyList(),
+    val issues: List<InkIssue> = emptyList(),
     val watches: List<String> = emptyList(),
     val closed: Boolean = false,
 ) {
-    /** The issues of one file: the editor's markers. */
-    fun issuesOf(path: String): List<SessionIssue> = issues.filter { it.path == path }
+    /** The issues of one file: the editor's markers ([InkIssue.line] is one-based). */
+    fun issuesOf(path: String): List<InkIssue> = issues.filter { it.file == path }
 
     /** How many issues each file has, for the files view's badges. */
-    val issueCounts: Map<String, Int> get() = issues.mapNotNull { it.path }.groupingBy { it }.eachCount()
+    val issueCounts: Map<String, Int> get() = issues.mapNotNull { it.file }.groupingBy { it }.eachCount()
 }
