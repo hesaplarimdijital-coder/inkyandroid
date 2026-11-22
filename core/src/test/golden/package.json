@@ -1,0 +1,13 @@
+{
+  "name": "inky-android-core-goldens",
+  "private": true,
+  "description": "Generates the golden token, rule and symbol files of :core's tests by running upstream Inky's own ink mode and symbol parser in Ace 1.2.6 (the Ace version upstream Inky ships).",
+  "license": "MIT",
+  "scripts": {
+    "generate": "node generate.js"
+  },
+  "dependencies": {
+    "ace-builds": "1.2.6",
+    "lodash": "4.17.21"
+  }
+}

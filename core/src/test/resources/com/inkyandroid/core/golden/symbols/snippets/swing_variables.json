@@ -1,0 +1,345 @@
+{
+ "root": [
+  {
+   "name": "swing_count",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 52,
+   "column": 13
+  },
+  {
+   "name": "swing_ready",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 55,
+   "column": 13
+  },
+  {
+   "name": "raise",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 58,
+   "column": 13
+  },
+  {
+   "name": "elevate",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 63,
+   "column": 13
+  },
+  {
+   "name": "lower",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 68,
+   "column": 13
+  },
+  {
+   "name": "ditch",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 71,
+   "column": 12
+  },
+  {
+   "name": "demolish",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 76,
+   "column": 13
+  },
+  {
+   "name": "escalate",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 79,
+   "column": 13
+  },
+  {
+   "name": "upness",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 84,
+   "column": 13
+  },
+  {
+   "name": "downness",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 87,
+   "column": 13
+  },
+  {
+   "name": "high",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 91,
+   "column": 13
+  },
+  {
+   "name": "up",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 94,
+   "column": 13
+  },
+  {
+   "name": "down",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 97,
+   "column": 13
+  },
+  {
+   "name": "low",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 100,
+   "column": 13
+  },
+  {
+   "name": "mid",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 103,
+   "column": 13
+  }
+ ],
+ "topLevelKeys": ["swing_count","swing_ready","raise","elevate","lower","ditch","demolish","escalate","upness","downness","high","up","down","low","mid"],
+ "topLevelValues": ["52:13:swing_count","55:13:swing_ready","58:13:raise","63:13:elevate","68:13:lower","71:12:ditch","76:13:demolish","79:13:escalate","84:13:upness","87:13:downness","91:13:high","94:13:up","97:13:down","100:13:low","103:13:mid"],
+ "includes": [],
+ "lastIncludeRow": -1,
+ "globalTags": [],
+ "dictionaryTags": [],
+ "divertTargets": ["swing_count","swing_ready","raise","elevate","lower","ditch","demolish","escalate","upness","downness","high","up","down","low","mid"],
+ "variables": ["INITIAL_SWING","1001"],
+ "externals": [],
+ "vocabWords": [],
+ "symbolAtRow": ["52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","52:13:swing_count","55:13:swing_ready","55:13:swing_ready","55:13:swing_ready","58:13:raise","58:13:raise","58:13:raise","58:13:raise","58:13:raise","63:13:elevate","63:13:elevate","63:13:elevate","63:13:elevate","63:13:elevate","68:13:lower","68:13:lower","68:13:lower","71:12:ditch","71:12:ditch","71:12:ditch","71:12:ditch","71:12:ditch","76:13:demolish","76:13:demolish","76:13:demolish","79:13:escalate","79:13:escalate","79:13:escalate","79:13:escalate","79:13:escalate","84:13:upness","84:13:upness","84:13:upness","87:13:downness","87:13:downness","87:13:downness","87:13:downness","91:13:high","91:13:high","91:13:high","94:13:up","94:13:up","94:13:up","97:13:down","97:13:down","97:13:down","100:13:low","100:13:low","100:13:low","103:13:mid","103:13:mid","103:13:mid","103:13:mid","103:13:mid","103:13:mid"],
+ "flowAtRow": [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+   "Knot": "52:13:swing_count"
+  },
+  {
+   "Knot": "52:13:swing_count"
+  },
+  {
+   "Knot": "52:13:swing_count"
+  },
+  {
+   "Knot": "55:13:swing_ready"
+  },
+  {
+   "Knot": "55:13:swing_ready"
+  },
+  {
+   "Knot": "55:13:swing_ready"
+  },
+  {
+   "Knot": "58:13:raise"
+  },
+  {
+   "Knot": "58:13:raise"
+  },
+  {
+   "Knot": "58:13:raise"
+  },
+  {
+   "Knot": "58:13:raise"
+  },
+  {
+   "Knot": "58:13:raise"
+  },
+  {
+   "Knot": "63:13:elevate"
+  },
+  {
+   "Knot": "63:13:elevate"
+  },
+  {
+   "Knot": "63:13:elevate"
+  },
+  {
+   "Knot": "63:13:elevate"
+  },
+  {
+   "Knot": "63:13:elevate"
+  },
+  {
+   "Knot": "68:13:lower"
+  },
+  {
+   "Knot": "68:13:lower"
+  },
+  {
+   "Knot": "68:13:lower"
+  },
+  {
+   "Knot": "71:12:ditch"
+  },
+  {
+   "Knot": "71:12:ditch"
+  },
+  {
+   "Knot": "71:12:ditch"
+  },
+  {
+   "Knot": "71:12:ditch"
+  },
+  {
+   "Knot": "71:12:ditch"
+  },
+  {
+   "Knot": "76:13:demolish"
+  },
+  {
+   "Knot": "76:13:demolish"
+  },
+  {
+   "Knot": "76:13:demolish"
+  },
+  {
+   "Knot": "79:13:escalate"
+  },
+  {
+   "Knot": "79:13:escalate"
+  },
+  {
+   "Knot": "79:13:escalate"
+  },
+  {
+   "Knot": "79:13:escalate"
+  },
+  {
+   "Knot": "79:13:escalate"
+  },
+  {
+   "Knot": "84:13:upness"
+  },
+  {
+   "Knot": "84:13:upness"
+  },
+  {
+   "Knot": "84:13:upness"
+  },
+  {
+   "Knot": "87:13:downness"
+  },
+  {
+   "Knot": "87:13:downness"
+  },
+  {
+   "Knot": "87:13:downness"
+  },
+  {
+   "Knot": "87:13:downness"
+  },
+  {
+   "Knot": "91:13:high"
+  },
+  {
+   "Knot": "91:13:high"
+  },
+  {
+   "Knot": "91:13:high"
+  },
+  {
+   "Knot": "94:13:up"
+  },
+  {
+   "Knot": "94:13:up"
+  },
+  {
+   "Knot": "94:13:up"
+  },
+  {
+   "Knot": "97:13:down"
+  },
+  {
+   "Knot": "97:13:down"
+  },
+  {
+   "Knot": "97:13:down"
+  },
+  {
+   "Knot": "100:13:low"
+  },
+  {
+   "Knot": "100:13:low"
+  },
+  {
+   "Knot": "100:13:low"
+  },
+  {
+   "Knot": "103:13:mid"
+  },
+  {
+   "Knot": "103:13:mid"
+  },
+  {
+   "Knot": "103:13:mid"
+  },
+  {
+   "Knot": "103:13:mid"
+  },
+  {
+   "Knot": "103:13:mid"
+  },
+  {
+   "Knot": "103:13:mid"
+  }
+ ]
+}

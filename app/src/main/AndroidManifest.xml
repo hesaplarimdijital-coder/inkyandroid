@@ -25,6 +25,27 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- Opening an .ink file from another app (com.inkyandroid.storage). File managers
+                 send .ink files under many types (none is registered for ink), so the filters
+                 match by the path's extension with any type, and any file of unknown type;
+                 ProjectStorage.openFile then refuses what is not text. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" />
+                <data android:host="*" />
+                <data android:mimeType="*/*" />
+                <data android:pathPattern=".*\\.ink" />
+                <data android:pathPattern=".*\\..*\\.ink" />
+                <data android:pathPattern=".*\\..*\\..*\\.ink" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.ink" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="content" />
+                <data android:mimeType="application/octet-stream" />
+            </intent-filter>
             <!-- Android 15+: the system's window menus (DeX, the taskbar) offer "New window" -->
             <property
                 android:name="android.window.PROPERTY_SUPPORTS_MULTI_INSTANCE_SYSTEM_UI"

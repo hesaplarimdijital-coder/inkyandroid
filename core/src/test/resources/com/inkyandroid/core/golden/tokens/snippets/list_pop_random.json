@@ -1,0 +1,23 @@
+{
+ "stackNodes": [],
+ "lines": [
+  ["punctuation.definition.comment.json0",["punctuation.definition.comment.json","/*"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tTakes a random element from a list, and returns it, modifying the list."]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tReturns the empty list () if the source list is empty."]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tUsage: "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tLIST fruitBowl = (apple), (banana), (melon)"]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tI eat the {pop_random(fruitBowl)}. Now the bowl contains {fruitBowl}."]],
+  ["punctuation.definition.comment.json0"],
+  ["start",["punctuation.definition.comment.json","*/"]],
+  ["start"],
+  ["start",["flow.knot.declaration.punctuation","==="],["flow.knot.declaration"," "],["flow.knot.declaration.function","function"],["flow.knot.declaration"," "],["flow.knot.declaration.name","pop_random"],["flow.knot.declaration.parameters","(ref _list)"],["flow.knot.declaration"," "]],
+  ["start",["logic.tilda","    ~ temp el = LIST_RANDOM(_list) "]],
+  ["start",["logic.tilda","    ~ _list -= el"]],
+  ["start",["logic.tilda","    ~ return el "]],
+  ["start",["text","    "]]
+ ]
+}

@@ -1,0 +1,149 @@
+{
+ "files": ["main.ink","second.ink"],
+ "results": [
+  {
+   "name": "intro",
+   "activeFile": "main.ink",
+   "row": 2,
+   "found": {
+    "file": "main.ink",
+    "id": "4:4:intro"
+   }
+  },
+  {
+   "name": "intro.closing",
+   "activeFile": "main.ink",
+   "row": 6,
+   "found": {
+    "file": "main.ink",
+    "id": "11:2:closing"
+   }
+  },
+  {
+   "name": "after_label",
+   "activeFile": "main.ink",
+   "row": 8,
+   "found": null
+  },
+  {
+   "name": "after_label",
+   "activeFile": "second.ink",
+   "row": 2,
+   "found": {
+    "file": "second.ink",
+    "id": "3:3:after_label"
+   }
+  },
+  {
+   "name": "second_knot",
+   "activeFile": "main.ink",
+   "row": 9,
+   "found": {
+    "file": "second.ink",
+    "id": "0:4:second_knot"
+   }
+  },
+  {
+   "name": "opening.pick",
+   "activeFile": "main.ink",
+   "row": 12,
+   "found": {
+    "file": "main.ink",
+    "id": "6:3:pick"
+   }
+  },
+  {
+   "name": "pick",
+   "activeFile": "main.ink",
+   "row": 18,
+   "found": null
+  },
+  {
+   "name": "pick",
+   "activeFile": "second.ink",
+   "row": 2,
+   "found": {
+    "file": "second.ink",
+    "id": "2:3:pick"
+   }
+  },
+  {
+   "name": "shared",
+   "activeFile": "main.ink",
+   "row": 13,
+   "found": {
+    "file": "main.ink",
+    "id": "15:4:shared"
+   }
+  },
+  {
+   "name": "shared",
+   "activeFile": "second.ink",
+   "row": 4,
+   "found": {
+    "file": "second.ink",
+    "id": "5:4:shared"
+   }
+  },
+  {
+   "name": "shared_stitch",
+   "activeFile": "main.ink",
+   "row": 16,
+   "found": {
+    "file": "main.ink",
+    "id": "17:2:shared_stitch"
+   }
+  },
+  {
+   "name": "intro.opening.leave",
+   "activeFile": "main.ink",
+   "row": 19,
+   "found": {
+    "file": "main.ink",
+    "id": "7:3:leave"
+   }
+  },
+  {
+   "name": "intro.nonexistent.deeper",
+   "activeFile": "main.ink",
+   "row": 20,
+   "found": {
+    "file": "main.ink",
+    "id": "4:4:intro"
+   }
+  },
+  {
+   "name": "undefined",
+   "activeFile": "main.ink",
+   "row": 21,
+   "found": null
+  },
+  {
+   "name": "inner",
+   "activeFile": "main.ink",
+   "row": 0,
+   "found": null
+  },
+  {
+   "name": "helper",
+   "activeFile": "second.ink",
+   "row": 0,
+   "found": {
+    "file": "main.ink",
+    "id": "23:13:helper"
+   }
+  },
+  {
+   "name": "nowhere",
+   "activeFile": "main.ink",
+   "row": 3,
+   "found": null
+  },
+  {
+   "name": "x",
+   "activeFile": "main.ink",
+   "row": 24,
+   "found": null
+  }
+ ]
+}

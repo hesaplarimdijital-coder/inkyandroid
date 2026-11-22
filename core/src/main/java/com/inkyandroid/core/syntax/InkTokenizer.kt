@@ -21,13 +21,33 @@ class InkTokenizer(val instructionPrefix: String? = null) {
 
     /** Why [instructionPrefix] was not used, or null if it was used or there is none. */
     val instructionPrefixProblem: String?
-        get() = TODO()
+
+    internal val ace: AceTokenizer
+
+    init {
+        var problem: String? = null
+        val withPrefix = if (instructionPrefix.isNullOrEmpty()) {
+            null
+        } else {
+            try {
+                AceTokenizer(InkHighlightRules.build(instructionPrefix))
+            } catch (e: JsRegex.SyntaxException) {
+                // Deviation: upstream's `new InkMode(prefix)` throws here and the project keeps its old mode;
+                // the standard rules are the closest equivalent that keeps colouring working.
+                problem = e.message
+                null
+            }
+        }
+        ace = withPrefix ?: AceTokenizer(InkHighlightRules.build(null))
+        instructionPrefixProblem = problem
+    }
 
     /** The state at the start of a file. */
     val initialState: InkLineState get() = InkLineState.initial
 
     /** The tokens of [line] (one line, without its line break) when the previous line ended in [startState]. */
-    fun tokenizeLine(line: CharSequence, startState: InkLineState = initialState): InkLineTokens = TODO()
+    fun tokenizeLine(line: CharSequence, startState: InkLineState = initialState): InkLineTokens =
+        ace.getLineTokens(line, startState)
 
     /** The tokens of every line of [text], split as Ace splits lines ([InkLines.split]). */
     fun tokenize(text: CharSequence): List<InkLineTokens> = tokenizeLines(InkLines.split(text))

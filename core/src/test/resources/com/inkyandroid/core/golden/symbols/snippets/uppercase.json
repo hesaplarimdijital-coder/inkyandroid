@@ -1,0 +1,52 @@
+{
+ "root": [
+  {
+   "name": "UPPERCASE",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 19,
+   "column": 13
+  }
+ ],
+ "topLevelKeys": ["UPPERCASE"],
+ "topLevelValues": ["19:13:UPPERCASE"],
+ "includes": [],
+ "lastIncludeRow": -1,
+ "globalTags": [],
+ "dictionaryTags": [],
+ "divertTargets": ["UPPERCASE"],
+ "variables": ["UPPERCASE"],
+ "externals": ["UPPERCASE"],
+ "vocabWords": [],
+ "symbolAtRow": ["19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE","19:13:UPPERCASE"],
+ "flowAtRow": [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+   "Knot": "19:13:UPPERCASE"
+  },
+  {
+   "Knot": "19:13:UPPERCASE"
+  },
+  {
+   "Knot": "19:13:UPPERCASE"
+  }
+ ]
+}

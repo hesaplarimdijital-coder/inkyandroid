@@ -1,0 +1,1667 @@
+{
+ "start": {
+  "regExp": "(\\\\[\\[\\]()\\\\~{}\\/#*+-])|(\\/\\*\\*)|(\\/\\*)|((?:\\/\\/)(?:.*$))|(^(?:\\s*)(?:={2,})(?:\\s*)(?:(?:function)?)(?:\\s*)(?:\\w+)(?:\\s*)(?:\\([\\w,\\s->]*\\))?(?:\\s*)(?:(?:={1,})?))|(^(?:\\s*)(?:=)(?:\\s*)(?:\\w+)(?:\\s*)(?:\\([\\w,\\s->]*\\))?)|(\\/\\*\\*)|(\\/\\*)|((?:\\/\\/)(?:.*$))|(\\\\[\\[\\]()\\\\~{}\\/#*+-])|(^(?:\\s*)(?:TODO\\b)(?:.*))|(^(?:\\s*)(?:VAR|CONST)\\b)|(^(?:\\s*)(?:LIST)\\b)|((?:\\s*)(?:EXTERNAL\\b))|((?:\\s*)(?:INCLUDE\\b))|(^(?:\\s*)(?:(?:[\\*\\+]\\s?)+)(?:\\s*)(?:(?:\\(\\s*)(?:\\w+)(?:\\s*\\)))?)|(^(?:\\s*)(?:(?:-(?!>)\\s*)+))|(^(?:\\s*)(?:\\{)(?:(?:[^}:]+)(?::))?(?=[^}]*$))|(^\\s*~\\s*)|((?:\\{)(?:[^:\\|\\}]+:))|((?:\\{)(?:\\s*)(?:(?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|))|(\\{)|((?:->|<-)(?:\\s*)(?:DONE|END)(?:\\s*))|((?:->->)(?:\\s*)(?:\\w[\\w\\.\\s]*))|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?:\\())|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?![\\w\\.]))|(->)|(#[^\\[\\]$]+)|(<>)|((?:\\s*)(?:>>>)(?:.*))|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "\\\\[\\[\\]()\\\\~{}\\/#*+-]",
+    "token": "escape"
+   },
+   {
+    "regex": "\\/\\*\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json"
+   },
+   {
+    "regex": "\\/\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json0"
+   },
+   {
+    "regex": "(\\/\\/)(.*$)",
+    "token": null,
+    "tokenArray": ["punctuation.definition.comment.json","comment.line.double-slash.js"],
+    "splitRegex": "^(\\/\\/)(.*$)$"
+   },
+   {
+    "regex": "^(\\s*)(={2,})(\\s*)((?:function)?)(\\s*)(\\w+)(\\s*)(\\([\\w,\\s->]*\\))?(\\s*)((?:={1,})?)",
+    "token": null,
+    "tokenArray": ["","flow.knot.declaration.punctuation","flow.knot.declaration","flow.knot.declaration.function","flow.knot.declaration","flow.knot.declaration.name","flow.knot.declaration","flow.knot.declaration.parameters","flow.knot.declaration","flow.knot.declaration.punctuation"],
+    "splitRegex": "^(\\s*)(={2,})(\\s*)((?:function)?)(\\s*)(\\w+)(\\s*)(\\([\\w,\\s->]*\\))?(\\s*)((?:={1,})?)$"
+   },
+   {
+    "regex": "^(\\s*)(=)(\\s*)(\\w+)(\\s*)(\\([\\w,\\s->]*\\))?",
+    "token": null,
+    "tokenArray": ["flow.stitch.declaration","flow.stitch.declaration.punctuation","flow.stitch.declaration","flow.stitch.declaration.name","flow.stitch.declaration","flow.stitch.declaration.parameters"],
+    "splitRegex": "^(\\s*)(=)(\\s*)(\\w+)(\\s*)(\\([\\w,\\s->]*\\))?$"
+   },
+   {
+    "regex": "\\/\\*\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json"
+   },
+   {
+    "regex": "\\/\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json0"
+   },
+   {
+    "regex": "(\\/\\/)(.*$)",
+    "token": null,
+    "tokenArray": ["punctuation.definition.comment.json","comment.line.double-slash.js"],
+    "splitRegex": "^(\\/\\/)(.*$)$"
+   },
+   {
+    "regex": "\\\\[\\[\\]()\\\\~{}\\/#*+-]",
+    "token": "escape"
+   },
+   {
+    "regex": "^(\\s*)(TODO\\b)(.*)",
+    "token": null,
+    "tokenArray": ["todo","todo.TODO","todo"],
+    "splitRegex": "^(\\s*)(TODO\\b)(.*)$"
+   },
+   {
+    "regex": "^(\\s*)(VAR|CONST)\\b",
+    "token": null,
+    "tokenArray": ["var-decl","var-decl.keyword"],
+    "next": "pushState",
+    "nextState": "var-decl",
+    "splitRegex": "^(\\s*)(VAR|CONST)\\b$"
+   },
+   {
+    "regex": "^(\\s*)(LIST)\\b",
+    "token": null,
+    "tokenArray": ["list-decl","list-decl.keyword"],
+    "next": "pushState",
+    "nextState": "list-decl",
+    "splitRegex": "^(\\s*)(LIST)\\b$"
+   },
+   {
+    "regex": "(\\s*)(EXTERNAL\\b)",
+    "token": null,
+    "tokenArray": ["external","external.keyword"],
+    "next": "pushState",
+    "nextState": "external",
+    "splitRegex": "^(\\s*)(EXTERNAL\\b)$"
+   },
+   {
+    "regex": "(\\s*)(INCLUDE\\b)",
+    "token": null,
+    "tokenArray": ["include","include.keyword"],
+    "next": "pushState",
+    "nextState": "include",
+    "splitRegex": "^(\\s*)(INCLUDE\\b)$"
+   },
+   {
+    "regex": "^(\\s*)((?:[\\*\\+]\\s?)+)(\\s*)(?:(\\(\\s*)(\\w+)(\\s*\\)))?",
+    "token": null,
+    "tokenArray": ["choice","choice.bullets","choice","choice.label","choice.label.name","choice.label"],
+    "next": "pushState",
+    "nextState": "choice",
+    "splitRegex": "^(\\s*)((?:[\\*\\+]\\s?)+)(\\s*)(?:(\\(\\s*)(\\w+)(\\s*\\)))?$"
+   },
+   {
+    "regex": "^(\\s*)((?:-(?!>)\\s*)+)",
+    "token": null,
+    "tokenArray": ["gather","gather.bullets"],
+    "next": "pushState",
+    "nextState": "gather",
+    "splitRegex": "^(\\s*)((?:-(?!>)\\s*)+)$"
+   },
+   {
+    "regex": "^(\\s*)(\\{)(?:([^}:]+)(:))?(?=[^}]*$)",
+    "token": null,
+    "tokenArray": ["logic","logic.punctuation","logic.conditional.multiline.condition","logic.conditional.multiline.condition.punctuation"],
+    "next": "pushState",
+    "nextState": "logic",
+    "splitRegex": "^(\\s*)(\\{)(?:([^}:]+)(:))?$"
+   },
+   {
+    "include": "#endOfSection"
+   },
+   {
+    "regex": "^\\s*~\\s*",
+    "token": "logic.tilda",
+    "next": "pushState",
+    "nextState": "logic.tilda3"
+   },
+   {
+    "regex": "(\\{)([^:\\|\\}]+:)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.inline.conditional.condition"],
+    "next": "pushState",
+    "nextState": "logic.punctuation",
+    "splitRegex": "^(\\{)([^:\\|\\}]+:)$"
+   },
+   {
+    "regex": "(\\{)(\\s*)((?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.sequence","logic.sequence.operator"],
+    "next": "pushState",
+    "nextState": "logic.punctuation1",
+    "splitRegex": "^(\\{)(\\s*)((?:~|&|!|\\$)?)$"
+   },
+   {
+    "regex": "\\{",
+    "token": "logic.punctuation",
+    "next": "pushState",
+    "nextState": "logic.punctuation2"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(DONE|END)(\\s*)",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.to-special","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(DONE|END)(\\s*)$"
+   },
+   {
+    "regex": "(->->)(\\s*)(\\w[\\w\\.\\s]*)",
+    "token": null,
+    "tokenArray": ["divert.to-tunnel","divert","divert.target"],
+    "splitRegex": "^(->->)(\\s*)(\\w[\\w\\.\\s]*)$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert","divert.operator"],
+    "next": "pushState",
+    "nextState": "divert.operator",
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])$"
+   },
+   {
+    "regex": "->",
+    "token": "divert.operator"
+   },
+   {
+    "regex": "#[^\\[\\]$]+",
+    "token": "tag"
+   },
+   {
+    "regex": "<>",
+    "token": "glue"
+   },
+   {
+    "regex": "(\\s*)(>>>)(.*)",
+    "token": null,
+    "tokenArray": ["customInstruction","customInstruction.punctuation","customInstruction"],
+    "splitRegex": "^(\\s*)(>>>)(.*)$"
+   }
+  ]
+ },
+ "#TODO": {
+  "regExp": "(^(?:\\s*)(?:TODO\\b)(?:.*))|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "^(\\s*)(TODO\\b)(.*)",
+    "token": null,
+    "tokenArray": ["todo","todo.TODO","todo"],
+    "splitRegex": "^(\\s*)(TODO\\b)(.*)$"
+   }
+  ]
+ },
+ "#choice": {
+  "regExp": "(^(?:\\s*)(?:(?:[\\*\\+]\\s?)+)(?:\\s*)(?:(?:\\(\\s*)(?:\\w+)(?:\\s*\\)))?)|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "^(\\s*)((?:[\\*\\+]\\s?)+)(\\s*)(?:(\\(\\s*)(\\w+)(\\s*\\)))?",
+    "token": null,
+    "tokenArray": ["choice","choice.bullets","choice","choice.label","choice.label.name","choice.label"],
+    "next": "pushState",
+    "nextState": "choice",
+    "splitRegex": "^(\\s*)((?:[\\*\\+]\\s?)+)(\\s*)(?:(\\(\\s*)(\\w+)(\\s*\\)))?$"
+   }
+  ]
+ },
+ "#escapes": {
+  "regExp": "(\\\\[\\[\\]()\\\\~{}\\/#*+-])|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "\\\\[\\[\\]()\\\\~{}\\/#*+-]",
+    "token": "escape"
+   }
+  ]
+ },
+ "#comments": {
+  "regExp": "(\\/\\*\\*)|(\\/\\*)|((?:\\/\\/)(?:.*$))|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "\\/\\*\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json"
+   },
+   {
+    "regex": "\\/\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json0"
+   },
+   {
+    "regex": "(\\/\\/)(.*$)",
+    "token": null,
+    "tokenArray": ["punctuation.definition.comment.json","comment.line.double-slash.js"],
+    "splitRegex": "^(\\/\\/)(.*$)$"
+   }
+  ]
+ },
+ "#divert": {
+  "regExp": "((?:->|<-)(?:\\s*)(?:DONE|END)(?:\\s*))|((?:->->)(?:\\s*)(?:\\w[\\w\\.\\s]*))|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?:\\())|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?![\\w\\.]))|(->)|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "(->|<-)(\\s*)(DONE|END)(\\s*)",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.to-special","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(DONE|END)(\\s*)$"
+   },
+   {
+    "regex": "(->->)(\\s*)(\\w[\\w\\.\\s]*)",
+    "token": null,
+    "tokenArray": ["divert.to-tunnel","divert","divert.target"],
+    "splitRegex": "^(->->)(\\s*)(\\w[\\w\\.\\s]*)$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert","divert.operator"],
+    "next": "pushState",
+    "nextState": "divert.operator",
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])$"
+   },
+   {
+    "regex": "->",
+    "token": "divert.operator"
+   }
+  ]
+ },
+ "#functionCallInDivertParameter": {
+  "regExp": "(\\w+\\s*\\()|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "\\w+\\s*\\(",
+    "token": "divert.parameter",
+    "next": "pushState",
+    "nextState": "divert.parameter"
+   }
+  ]
+ },
+ "#gather": {
+  "regExp": "(^(?:\\s*)(?:(?:-(?!>)\\s*)+))|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "^(\\s*)((?:-(?!>)\\s*)+)",
+    "token": null,
+    "tokenArray": ["gather","gather.bullets"],
+    "next": "pushState",
+    "nextState": "gather",
+    "splitRegex": "^(\\s*)((?:-(?!>)\\s*)+)$"
+   }
+  ]
+ },
+ "#globalVAR": {
+  "regExp": "(^(?:\\s*)(?:VAR|CONST)\\b)|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "^(\\s*)(VAR|CONST)\\b",
+    "token": null,
+    "tokenArray": ["var-decl","var-decl.keyword"],
+    "next": "pushState",
+    "nextState": "var-decl",
+    "splitRegex": "^(\\s*)(VAR|CONST)\\b$"
+   }
+  ]
+ },
+ "#listDef": {
+  "regExp": "(^(?:\\s*)(?:LIST)\\b)|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "^(\\s*)(LIST)\\b",
+    "token": null,
+    "tokenArray": ["list-decl","list-decl.keyword"],
+    "next": "pushState",
+    "nextState": "list-decl",
+    "splitRegex": "^(\\s*)(LIST)\\b$"
+   }
+  ]
+ },
+ "#INCLUDE": {
+  "regExp": "((?:\\s*)(?:INCLUDE\\b))|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "(\\s*)(INCLUDE\\b)",
+    "token": null,
+    "tokenArray": ["include","include.keyword"],
+    "next": "pushState",
+    "nextState": "include",
+    "splitRegex": "^(\\s*)(INCLUDE\\b)$"
+   }
+  ]
+ },
+ "#EXTERNAL": {
+  "regExp": "((?:\\s*)(?:EXTERNAL\\b))|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "(\\s*)(EXTERNAL\\b)",
+    "token": null,
+    "tokenArray": ["external","external.keyword"],
+    "next": "pushState",
+    "nextState": "external",
+    "splitRegex": "^(\\s*)(EXTERNAL\\b)$"
+   }
+  ]
+ },
+ "#inlineConditional": {
+  "regExp": "((?:\\{)(?:[^:\\|\\}]+:))|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "(\\{)([^:\\|\\}]+:)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.inline.conditional.condition"],
+    "next": "pushState",
+    "nextState": "logic.punctuation",
+    "splitRegex": "^(\\{)([^:\\|\\}]+:)$"
+   }
+  ]
+ },
+ "#inlineSequence": {
+  "regExp": "((?:\\{)(?:\\s*)(?:(?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|))|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "(\\{)(\\s*)((?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.sequence","logic.sequence.operator"],
+    "next": "pushState",
+    "nextState": "logic.punctuation1",
+    "splitRegex": "^(\\{)(\\s*)((?:~|&|!|\\$)?)$"
+   }
+  ]
+ },
+ "#inlineLogic": {
+  "regExp": "(\\{)|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "\\{",
+    "token": "logic.punctuation",
+    "next": "pushState",
+    "nextState": "logic.punctuation2"
+   }
+  ]
+ },
+ "#multiLineLogic": {
+  "regExp": "(^(?:\\s*)(?:\\{)(?:(?:[^}:]+)(?::))?(?=[^}]*$))|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "^(\\s*)(\\{)(?:([^}:]+)(:))?(?=[^}]*$)",
+    "token": null,
+    "tokenArray": ["logic","logic.punctuation","logic.conditional.multiline.condition","logic.conditional.multiline.condition.punctuation"],
+    "next": "pushState",
+    "nextState": "logic",
+    "splitRegex": "^(\\s*)(\\{)(?:([^}:]+)(:))?$"
+   }
+  ]
+ },
+ "#logicLine": {
+  "regExp": "(^\\s*~\\s*)|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "^\\s*~\\s*",
+    "token": "logic.tilda",
+    "next": "pushState",
+    "nextState": "logic.tilda3"
+   }
+  ]
+ },
+ "#logicLineInsert": {
+  "regExp": "(\\s*~\\s*)|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "\\s*~\\s*",
+    "token": "logic.tilda",
+    "next": "pushState",
+    "nextState": "logic.tilda"
+   }
+  ]
+ },
+ "#tags": {
+  "regExp": "(#[^\\[\\]$]+)|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "#[^\\[\\]$]+",
+    "token": "tag"
+   }
+  ]
+ },
+ "#inlineContent": {
+  "regExp": "((?:\\{)(?:[^:\\|\\}]+:))|((?:\\{)(?:\\s*)(?:(?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|))|(\\{)|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "(\\{)([^:\\|\\}]+:)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.inline.conditional.condition"],
+    "next": "pushState",
+    "nextState": "logic.punctuation",
+    "splitRegex": "^(\\{)([^:\\|\\}]+:)$"
+   },
+   {
+    "regex": "(\\{)(\\s*)((?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.sequence","logic.sequence.operator"],
+    "next": "pushState",
+    "nextState": "logic.punctuation1",
+    "splitRegex": "^(\\{)(\\s*)((?:~|&|!|\\$)?)$"
+   },
+   {
+    "regex": "\\{",
+    "token": "logic.punctuation",
+    "next": "pushState",
+    "nextState": "logic.punctuation2"
+   }
+  ]
+ },
+ "#mixedContent": {
+  "regExp": "((?:\\{)(?:[^:\\|\\}]+:))|((?:\\{)(?:\\s*)(?:(?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|))|(\\{)|((?:->|<-)(?:\\s*)(?:DONE|END)(?:\\s*))|((?:->->)(?:\\s*)(?:\\w[\\w\\.\\s]*))|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?:\\())|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?![\\w\\.]))|(->)|(#[^\\[\\]$]+)|(<>)|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "(\\{)([^:\\|\\}]+:)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.inline.conditional.condition"],
+    "next": "pushState",
+    "nextState": "logic.punctuation",
+    "splitRegex": "^(\\{)([^:\\|\\}]+:)$"
+   },
+   {
+    "regex": "(\\{)(\\s*)((?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.sequence","logic.sequence.operator"],
+    "next": "pushState",
+    "nextState": "logic.punctuation1",
+    "splitRegex": "^(\\{)(\\s*)((?:~|&|!|\\$)?)$"
+   },
+   {
+    "regex": "\\{",
+    "token": "logic.punctuation",
+    "next": "pushState",
+    "nextState": "logic.punctuation2"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(DONE|END)(\\s*)",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.to-special","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(DONE|END)(\\s*)$"
+   },
+   {
+    "regex": "(->->)(\\s*)(\\w[\\w\\.\\s]*)",
+    "token": null,
+    "tokenArray": ["divert.to-tunnel","divert","divert.target"],
+    "splitRegex": "^(->->)(\\s*)(\\w[\\w\\.\\s]*)$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert","divert.operator"],
+    "next": "pushState",
+    "nextState": "divert.operator",
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])$"
+   },
+   {
+    "regex": "->",
+    "token": "divert.operator"
+   },
+   {
+    "regex": "#[^\\[\\]$]+",
+    "token": "tag"
+   },
+   {
+    "regex": "<>",
+    "token": "glue"
+   }
+  ]
+ },
+ "#statements": {
+  "regExp": "(\\/\\*\\*)|(\\/\\*)|((?:\\/\\/)(?:.*$))|(\\\\[\\[\\]()\\\\~{}\\/#*+-])|(^(?:\\s*)(?:TODO\\b)(?:.*))|(^(?:\\s*)(?:VAR|CONST)\\b)|(^(?:\\s*)(?:LIST)\\b)|((?:\\s*)(?:EXTERNAL\\b))|((?:\\s*)(?:INCLUDE\\b))|(^(?:\\s*)(?:(?:[\\*\\+]\\s?)+)(?:\\s*)(?:(?:\\(\\s*)(?:\\w+)(?:\\s*\\)))?)|(^(?:\\s*)(?:(?:-(?!>)\\s*)+))|(^(?:\\s*)(?:\\{)(?:(?:[^}:]+)(?::))?(?=[^}]*$))|(^\\s*~\\s*)|((?:\\{)(?:[^:\\|\\}]+:))|((?:\\{)(?:\\s*)(?:(?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|))|(\\{)|((?:->|<-)(?:\\s*)(?:DONE|END)(?:\\s*))|((?:->->)(?:\\s*)(?:\\w[\\w\\.\\s]*))|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?:\\())|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?![\\w\\.]))|(->)|(#[^\\[\\]$]+)|(<>)|((?:\\s*)(?:>>>)(?:.*))|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "\\/\\*\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json"
+   },
+   {
+    "regex": "\\/\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json0"
+   },
+   {
+    "regex": "(\\/\\/)(.*$)",
+    "token": null,
+    "tokenArray": ["punctuation.definition.comment.json","comment.line.double-slash.js"],
+    "splitRegex": "^(\\/\\/)(.*$)$"
+   },
+   {
+    "regex": "\\\\[\\[\\]()\\\\~{}\\/#*+-]",
+    "token": "escape"
+   },
+   {
+    "regex": "^(\\s*)(TODO\\b)(.*)",
+    "token": null,
+    "tokenArray": ["todo","todo.TODO","todo"],
+    "splitRegex": "^(\\s*)(TODO\\b)(.*)$"
+   },
+   {
+    "regex": "^(\\s*)(VAR|CONST)\\b",
+    "token": null,
+    "tokenArray": ["var-decl","var-decl.keyword"],
+    "next": "pushState",
+    "nextState": "var-decl",
+    "splitRegex": "^(\\s*)(VAR|CONST)\\b$"
+   },
+   {
+    "regex": "^(\\s*)(LIST)\\b",
+    "token": null,
+    "tokenArray": ["list-decl","list-decl.keyword"],
+    "next": "pushState",
+    "nextState": "list-decl",
+    "splitRegex": "^(\\s*)(LIST)\\b$"
+   },
+   {
+    "regex": "(\\s*)(EXTERNAL\\b)",
+    "token": null,
+    "tokenArray": ["external","external.keyword"],
+    "next": "pushState",
+    "nextState": "external",
+    "splitRegex": "^(\\s*)(EXTERNAL\\b)$"
+   },
+   {
+    "regex": "(\\s*)(INCLUDE\\b)",
+    "token": null,
+    "tokenArray": ["include","include.keyword"],
+    "next": "pushState",
+    "nextState": "include",
+    "splitRegex": "^(\\s*)(INCLUDE\\b)$"
+   },
+   {
+    "regex": "^(\\s*)((?:[\\*\\+]\\s?)+)(\\s*)(?:(\\(\\s*)(\\w+)(\\s*\\)))?",
+    "token": null,
+    "tokenArray": ["choice","choice.bullets","choice","choice.label","choice.label.name","choice.label"],
+    "next": "pushState",
+    "nextState": "choice",
+    "splitRegex": "^(\\s*)((?:[\\*\\+]\\s?)+)(\\s*)(?:(\\(\\s*)(\\w+)(\\s*\\)))?$"
+   },
+   {
+    "regex": "^(\\s*)((?:-(?!>)\\s*)+)",
+    "token": null,
+    "tokenArray": ["gather","gather.bullets"],
+    "next": "pushState",
+    "nextState": "gather",
+    "splitRegex": "^(\\s*)((?:-(?!>)\\s*)+)$"
+   },
+   {
+    "regex": "^(\\s*)(\\{)(?:([^}:]+)(:))?(?=[^}]*$)",
+    "token": null,
+    "tokenArray": ["logic","logic.punctuation","logic.conditional.multiline.condition","logic.conditional.multiline.condition.punctuation"],
+    "next": "pushState",
+    "nextState": "logic",
+    "splitRegex": "^(\\s*)(\\{)(?:([^}:]+)(:))?$"
+   },
+   {
+    "include": "#endOfSection"
+   },
+   {
+    "regex": "^\\s*~\\s*",
+    "token": "logic.tilda",
+    "next": "pushState",
+    "nextState": "logic.tilda3"
+   },
+   {
+    "regex": "(\\{)([^:\\|\\}]+:)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.inline.conditional.condition"],
+    "next": "pushState",
+    "nextState": "logic.punctuation",
+    "splitRegex": "^(\\{)([^:\\|\\}]+:)$"
+   },
+   {
+    "regex": "(\\{)(\\s*)((?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.sequence","logic.sequence.operator"],
+    "next": "pushState",
+    "nextState": "logic.punctuation1",
+    "splitRegex": "^(\\{)(\\s*)((?:~|&|!|\\$)?)$"
+   },
+   {
+    "regex": "\\{",
+    "token": "logic.punctuation",
+    "next": "pushState",
+    "nextState": "logic.punctuation2"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(DONE|END)(\\s*)",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.to-special","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(DONE|END)(\\s*)$"
+   },
+   {
+    "regex": "(->->)(\\s*)(\\w[\\w\\.\\s]*)",
+    "token": null,
+    "tokenArray": ["divert.to-tunnel","divert","divert.target"],
+    "splitRegex": "^(->->)(\\s*)(\\w[\\w\\.\\s]*)$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert","divert.operator"],
+    "next": "pushState",
+    "nextState": "divert.operator",
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])$"
+   },
+   {
+    "regex": "->",
+    "token": "divert.operator"
+   },
+   {
+    "regex": "#[^\\[\\]$]+",
+    "token": "tag"
+   },
+   {
+    "regex": "<>",
+    "token": "glue"
+   },
+   {
+    "regex": "(\\s*)(>>>)(.*)",
+    "token": null,
+    "tokenArray": ["customInstruction","customInstruction.punctuation","customInstruction"],
+    "splitRegex": "^(\\s*)(>>>)(.*)$"
+   }
+  ]
+ },
+ "punctuation.definition.comment.json": {
+  "regExp": "(\\*\\/)|($)",
+  "flags": "g",
+  "defaultToken": "comment.block.documentation.json",
+  "rules": [
+   {
+    "regex": "\\*\\/",
+    "token": "punctuation.definition.comment.json",
+    "next": "popState"
+   },
+   {
+    "defaultToken": "comment.block.documentation.json"
+   }
+  ]
+ },
+ "punctuation.definition.comment.json0": {
+  "regExp": "(\\*\\/)|($)",
+  "flags": "g",
+  "defaultToken": "comment.block.json",
+  "rules": [
+   {
+    "regex": "\\*\\/",
+    "token": "punctuation.definition.comment.json",
+    "next": "popState"
+   },
+   {
+    "defaultToken": "comment.block.json"
+   }
+  ]
+ },
+ "var-decl": {
+  "regExp": "((?:\\s*)(?:\\w+)(?:\\s*))|($)|(\\/\\*\\*)|(\\/\\*)|((?:\\/\\/)(?:.*$))|($)",
+  "flags": "g",
+  "defaultToken": "var-decl",
+  "rules": [
+   {
+    "regex": "(\\s*)(\\w+)(\\s*)",
+    "token": null,
+    "tokenArray": ["var-decl","var-decl.name","var-decl"],
+    "splitRegex": "^(\\s*)(\\w+)(\\s*)$"
+   },
+   {
+    "regex": "$",
+    "token": "var-decl",
+    "next": "popState"
+   },
+   {
+    "regex": "\\/\\*\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json"
+   },
+   {
+    "regex": "\\/\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json0"
+   },
+   {
+    "regex": "(\\/\\/)(.*$)",
+    "token": null,
+    "tokenArray": ["punctuation.definition.comment.json","comment.line.double-slash.js"],
+    "splitRegex": "^(\\/\\/)(.*$)$"
+   },
+   {
+    "defaultToken": "var-decl"
+   }
+  ]
+ },
+ "list-decl": {
+  "regExp": "((?:\\s*)(?:\\w+)(?:\\s*))|($)|(\\/\\*\\*)|(\\/\\*)|((?:\\/\\/)(?:.*$))|($)",
+  "flags": "g",
+  "defaultToken": "list-decl",
+  "rules": [
+   {
+    "regex": "(\\s*)(\\w+)(\\s*)",
+    "token": null,
+    "tokenArray": ["list-decl","list-decl.name","list-decl"],
+    "splitRegex": "^(\\s*)(\\w+)(\\s*)$"
+   },
+   {
+    "regex": "$",
+    "token": "list-decl",
+    "next": "popState"
+   },
+   {
+    "regex": "\\/\\*\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json"
+   },
+   {
+    "regex": "\\/\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json0"
+   },
+   {
+    "regex": "(\\/\\/)(.*$)",
+    "token": null,
+    "tokenArray": ["punctuation.definition.comment.json","comment.line.double-slash.js"],
+    "splitRegex": "^(\\/\\/)(.*$)$"
+   },
+   {
+    "defaultToken": "list-decl"
+   }
+  ]
+ },
+ "external": {
+  "regExp": "((?:\\s*)(?:\\w+)(?:\\([\\w,\\s->]*\\))?)|($)|($)",
+  "flags": "g",
+  "defaultToken": "external",
+  "rules": [
+   {
+    "regex": "(\\s*)(\\w+)(\\([\\w,\\s->]*\\))?",
+    "token": null,
+    "tokenArray": ["external","external.declaration.name","external.declaration.parameters"],
+    "splitRegex": "^(\\s*)(\\w+)(\\([\\w,\\s->]*\\))?$"
+   },
+   {
+    "regex": "$",
+    "token": "external",
+    "next": "popState"
+   },
+   {
+    "defaultToken": "external"
+   }
+  ]
+ },
+ "include": {
+  "regExp": "((?:\\s*)(?:[^\\r\\n]+))|($)|($)",
+  "flags": "g",
+  "defaultToken": "include",
+  "rules": [
+   {
+    "regex": "(\\s*)([^\\r\\n]+)",
+    "token": null,
+    "tokenArray": ["include","include.filepath"],
+    "splitRegex": "^(\\s*)([^\\r\\n]+)$"
+   },
+   {
+    "regex": "$",
+    "token": "include",
+    "next": "popState"
+   },
+   {
+    "defaultToken": "include"
+   }
+  ]
+ },
+ "choice": {
+  "regExp": "($)|(\\s*\\[\\s*)|(^(?:\\s*)(?:(?:[\\*\\+]\\s?)+)(?:\\s*)(?:(?:\\(\\s*)(?:\\w+)(?:\\s*\\)))?)|(^(?:\\s*)(?:(?:-(?!>)\\s*)+))|((?:\\{)(?:[^:\\|\\}]+:))|((?:\\{)(?:\\s*)(?:(?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|))|(\\{)|((?:->|<-)(?:\\s*)(?:DONE|END)(?:\\s*))|((?:->->)(?:\\s*)(?:\\w[\\w\\.\\s]*))|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?:\\())|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?![\\w\\.]))|(->)|(#[^\\[\\]$]+)|(<>)|(\\/\\*\\*)|(\\/\\*)|((?:\\/\\/)(?:.*$))|($)",
+  "flags": "g",
+  "defaultToken": "choice",
+  "rules": [
+   {
+    "regex": "$",
+    "token": "choice",
+    "next": "popState"
+   },
+   {
+    "regex": "\\s*\\[\\s*",
+    "token": "choice.weaveBracket",
+    "next": "pushState",
+    "nextState": "choice.weaveBracket"
+   },
+   {
+    "regex": "^(\\s*)((?:[\\*\\+]\\s?)+)(\\s*)(?:(\\(\\s*)(\\w+)(\\s*\\)))?",
+    "token": null,
+    "tokenArray": ["choice","choice.bullets","choice","choice.label","choice.label.name","choice.label"],
+    "next": "pushState",
+    "nextState": "choice",
+    "splitRegex": "^(\\s*)((?:[\\*\\+]\\s?)+)(\\s*)(?:(\\(\\s*)(\\w+)(\\s*\\)))?$"
+   },
+   {
+    "regex": "^(\\s*)((?:-(?!>)\\s*)+)",
+    "token": null,
+    "tokenArray": ["gather","gather.bullets"],
+    "next": "pushState",
+    "nextState": "gather",
+    "splitRegex": "^(\\s*)((?:-(?!>)\\s*)+)$"
+   },
+   {
+    "regex": "(\\{)([^:\\|\\}]+:)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.inline.conditional.condition"],
+    "next": "pushState",
+    "nextState": "logic.punctuation",
+    "splitRegex": "^(\\{)([^:\\|\\}]+:)$"
+   },
+   {
+    "regex": "(\\{)(\\s*)((?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.sequence","logic.sequence.operator"],
+    "next": "pushState",
+    "nextState": "logic.punctuation1",
+    "splitRegex": "^(\\{)(\\s*)((?:~|&|!|\\$)?)$"
+   },
+   {
+    "regex": "\\{",
+    "token": "logic.punctuation",
+    "next": "pushState",
+    "nextState": "logic.punctuation2"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(DONE|END)(\\s*)",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.to-special","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(DONE|END)(\\s*)$"
+   },
+   {
+    "regex": "(->->)(\\s*)(\\w[\\w\\.\\s]*)",
+    "token": null,
+    "tokenArray": ["divert.to-tunnel","divert","divert.target"],
+    "splitRegex": "^(->->)(\\s*)(\\w[\\w\\.\\s]*)$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert","divert.operator"],
+    "next": "pushState",
+    "nextState": "divert.operator",
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])$"
+   },
+   {
+    "regex": "->",
+    "token": "divert.operator"
+   },
+   {
+    "regex": "#[^\\[\\]$]+",
+    "token": "tag"
+   },
+   {
+    "regex": "<>",
+    "token": "glue"
+   },
+   {
+    "regex": "\\/\\*\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json"
+   },
+   {
+    "regex": "\\/\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json0"
+   },
+   {
+    "regex": "(\\/\\/)(.*$)",
+    "token": null,
+    "tokenArray": ["punctuation.definition.comment.json","comment.line.double-slash.js"],
+    "splitRegex": "^(\\/\\/)(.*$)$"
+   },
+   {
+    "defaultToken": "choice"
+   }
+  ]
+ },
+ "choice.weaveBracket": {
+  "regExp": "(\\s*\\]\\s*)|((?:\\{)(?:[^:\\|\\}]+:))|((?:\\{)(?:\\s*)(?:(?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|))|(\\{)|($)",
+  "flags": "g",
+  "defaultToken": "choice.weaveInsideBrackets",
+  "rules": [
+   {
+    "regex": "\\s*\\]\\s*",
+    "token": "choice.weaveBracket",
+    "next": "start"
+   },
+   {
+    "regex": "(\\{)([^:\\|\\}]+:)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.inline.conditional.condition"],
+    "next": "pushState",
+    "nextState": "logic.punctuation",
+    "splitRegex": "^(\\{)([^:\\|\\}]+:)$"
+   },
+   {
+    "regex": "(\\{)(\\s*)((?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.sequence","logic.sequence.operator"],
+    "next": "pushState",
+    "nextState": "logic.punctuation1",
+    "splitRegex": "^(\\{)(\\s*)((?:~|&|!|\\$)?)$"
+   },
+   {
+    "regex": "\\{",
+    "token": "logic.punctuation",
+    "next": "pushState",
+    "nextState": "logic.punctuation2"
+   },
+   {
+    "defaultToken": "choice.weaveInsideBrackets"
+   }
+  ]
+ },
+ "logic.punctuation": {
+  "regExp": "(\\})|(\\|)|((?:\\{)(?:[^:\\|\\}]+:))|((?:\\{)(?:\\s*)(?:(?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|))|(\\{)|((?:->|<-)(?:\\s*)(?:DONE|END)(?:\\s*))|((?:->->)(?:\\s*)(?:\\w[\\w\\.\\s]*))|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?:\\())|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?![\\w\\.]))|(->)|(#[^\\[\\]$]+)|(<>)|($)",
+  "flags": "g",
+  "defaultToken": "logic.inline.innerContent",
+  "rules": [
+   {
+    "regex": "\\}",
+    "token": "logic.inline.conditional.punctuation",
+    "next": "popState"
+   },
+   {
+    "regex": "\\|",
+    "token": "logic.inline.conditional.punctuation"
+   },
+   {
+    "regex": "(\\{)([^:\\|\\}]+:)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.inline.conditional.condition"],
+    "next": "pushState",
+    "nextState": "logic.punctuation",
+    "splitRegex": "^(\\{)([^:\\|\\}]+:)$"
+   },
+   {
+    "regex": "(\\{)(\\s*)((?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.sequence","logic.sequence.operator"],
+    "next": "pushState",
+    "nextState": "logic.punctuation1",
+    "splitRegex": "^(\\{)(\\s*)((?:~|&|!|\\$)?)$"
+   },
+   {
+    "regex": "\\{",
+    "token": "logic.punctuation",
+    "next": "pushState",
+    "nextState": "logic.punctuation2"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(DONE|END)(\\s*)",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.to-special","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(DONE|END)(\\s*)$"
+   },
+   {
+    "regex": "(->->)(\\s*)(\\w[\\w\\.\\s]*)",
+    "token": null,
+    "tokenArray": ["divert.to-tunnel","divert","divert.target"],
+    "splitRegex": "^(->->)(\\s*)(\\w[\\w\\.\\s]*)$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert","divert.operator"],
+    "next": "pushState",
+    "nextState": "divert.operator",
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])$"
+   },
+   {
+    "regex": "->",
+    "token": "divert.operator"
+   },
+   {
+    "regex": "#[^\\[\\]$]+",
+    "token": "tag"
+   },
+   {
+    "regex": "<>",
+    "token": "glue"
+   },
+   {
+    "defaultToken": "logic.inline.innerContent"
+   }
+  ]
+ },
+ "logic.punctuation1": {
+  "regExp": "(\\})|(\\|(?!\\|))|((?:\\{)(?:[^:\\|\\}]+:))|((?:\\{)(?:\\s*)(?:(?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|))|(\\{)|((?:->|<-)(?:\\s*)(?:DONE|END)(?:\\s*))|((?:->->)(?:\\s*)(?:\\w[\\w\\.\\s]*))|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?:\\())|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?![\\w\\.]))|(->)|(#[^\\[\\]$]+)|(<>)|($)",
+  "flags": "g",
+  "defaultToken": "logic.sequence.innerContent",
+  "rules": [
+   {
+    "regex": "\\}",
+    "token": "logic.punctuation",
+    "next": "popState"
+   },
+   {
+    "regex": "\\|(?!\\|)",
+    "token": "logic.sequence.punctuation"
+   },
+   {
+    "regex": "(\\{)([^:\\|\\}]+:)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.inline.conditional.condition"],
+    "next": "pushState",
+    "nextState": "logic.punctuation",
+    "splitRegex": "^(\\{)([^:\\|\\}]+:)$"
+   },
+   {
+    "regex": "(\\{)(\\s*)((?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.sequence","logic.sequence.operator"],
+    "next": "pushState",
+    "nextState": "logic.punctuation1",
+    "splitRegex": "^(\\{)(\\s*)((?:~|&|!|\\$)?)$"
+   },
+   {
+    "regex": "\\{",
+    "token": "logic.punctuation",
+    "next": "pushState",
+    "nextState": "logic.punctuation2"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(DONE|END)(\\s*)",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.to-special","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(DONE|END)(\\s*)$"
+   },
+   {
+    "regex": "(->->)(\\s*)(\\w[\\w\\.\\s]*)",
+    "token": null,
+    "tokenArray": ["divert.to-tunnel","divert","divert.target"],
+    "splitRegex": "^(->->)(\\s*)(\\w[\\w\\.\\s]*)$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert","divert.operator"],
+    "next": "pushState",
+    "nextState": "divert.operator",
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])$"
+   },
+   {
+    "regex": "->",
+    "token": "divert.operator"
+   },
+   {
+    "regex": "#[^\\[\\]$]+",
+    "token": "tag"
+   },
+   {
+    "regex": "<>",
+    "token": "glue"
+   },
+   {
+    "defaultToken": "logic.sequence.innerContent"
+   }
+  ]
+ },
+ "logic.punctuation2": {
+  "regExp": "(\\})|($)",
+  "flags": "g",
+  "defaultToken": "logic.inline",
+  "rules": [
+   {
+    "regex": "\\}",
+    "token": "logic.punctuation",
+    "next": "popState"
+   },
+   {
+    "defaultToken": "logic.inline"
+   }
+  ]
+ },
+ "divert.operator": {
+  "regExp": "((?:->)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?![\\w\\.]))|(\\w+\\s*\\()|(\\))|($)",
+  "flags": "g",
+  "defaultToken": "divert.parameter",
+  "rules": [
+   {
+    "regex": "(->)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])",
+    "token": null,
+    "tokenArray": ["divert.parameter.operator","divert.parameter","divert.target","divert.parameter"],
+    "splitRegex": "^(->)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])$"
+   },
+   {
+    "regex": "\\w+\\s*\\(",
+    "token": "divert.parameter",
+    "next": "pushState",
+    "nextState": "divert.parameter"
+   },
+   {
+    "regex": "\\)",
+    "token": "divert.parameter.operator",
+    "next": "popState"
+   },
+   {
+    "defaultToken": "divert.parameter"
+   }
+  ]
+ },
+ "divert.parameter": {
+  "regExp": "(\\w+\\s*\\()|(\\))|($)",
+  "flags": "g",
+  "defaultToken": "divert.parameter",
+  "rules": [
+   {
+    "regex": "\\w+\\s*\\(",
+    "token": "divert.parameter",
+    "next": "pushState",
+    "nextState": "divert.parameter"
+   },
+   {
+    "regex": "\\)",
+    "token": "divert.parameter",
+    "next": "popState"
+   },
+   {
+    "defaultToken": "divert.parameter"
+   }
+  ]
+ },
+ "gather": {
+  "regExp": "($)|(\\\\[\\[\\]()\\\\~{}\\/#*+-])|(^(?:\\s*)(?:(?:-(?!>)\\s*)+))|(\\/\\*\\*)|(\\/\\*)|((?:\\/\\/)(?:.*$))|(\\s*~\\s*)|((?:\\(\\s*)(?:\\w+)(?:\\s*\\)\\s*))|(^(?:\\s*)(?:(?:[\\*\\+]\\s?)+)(?:\\s*)(?:(?:\\(\\s*)(?:\\w+)(?:\\s*\\)))?)|((?:\\{)(?:[^:\\|\\}]+:))|((?:\\{)(?:\\s*)(?:(?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|))|(\\{)|((?:->|<-)(?:\\s*)(?:DONE|END)(?:\\s*))|((?:->->)(?:\\s*)(?:\\w[\\w\\.\\s]*))|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?:\\())|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?![\\w\\.]))|(->)|(#[^\\[\\]$]+)|(<>)|($)",
+  "flags": "g",
+  "defaultToken": "gather.innerContent",
+  "rules": [
+   {
+    "regex": "$",
+    "token": "gather",
+    "next": "popState"
+   },
+   {
+    "regex": "\\\\[\\[\\]()\\\\~{}\\/#*+-]",
+    "token": "escape"
+   },
+   {
+    "regex": "^(\\s*)((?:-(?!>)\\s*)+)",
+    "token": null,
+    "tokenArray": ["gather","gather.bullets"],
+    "next": "pushState",
+    "nextState": "gather",
+    "splitRegex": "^(\\s*)((?:-(?!>)\\s*)+)$"
+   },
+   {
+    "regex": "\\/\\*\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json"
+   },
+   {
+    "regex": "\\/\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json0"
+   },
+   {
+    "regex": "(\\/\\/)(.*$)",
+    "token": null,
+    "tokenArray": ["punctuation.definition.comment.json","comment.line.double-slash.js"],
+    "splitRegex": "^(\\/\\/)(.*$)$"
+   },
+   {
+    "regex": "\\s*~\\s*",
+    "token": "logic.tilda",
+    "next": "pushState",
+    "nextState": "logic.tilda"
+   },
+   {
+    "regex": "(\\(\\s*)(\\w+)(\\s*\\)\\s*)",
+    "token": null,
+    "tokenArray": ["gather.label","gather.label.name","gather.label"],
+    "splitRegex": "^(\\(\\s*)(\\w+)(\\s*\\)\\s*)$"
+   },
+   {
+    "regex": "^(\\s*)((?:[\\*\\+]\\s?)+)(\\s*)(?:(\\(\\s*)(\\w+)(\\s*\\)))?",
+    "token": null,
+    "tokenArray": ["choice","choice.bullets","choice","choice.label","choice.label.name","choice.label"],
+    "next": "pushState",
+    "nextState": "choice",
+    "splitRegex": "^(\\s*)((?:[\\*\\+]\\s?)+)(\\s*)(?:(\\(\\s*)(\\w+)(\\s*\\)))?$"
+   },
+   {
+    "regex": "(\\{)([^:\\|\\}]+:)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.inline.conditional.condition"],
+    "next": "pushState",
+    "nextState": "logic.punctuation",
+    "splitRegex": "^(\\{)([^:\\|\\}]+:)$"
+   },
+   {
+    "regex": "(\\{)(\\s*)((?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.sequence","logic.sequence.operator"],
+    "next": "pushState",
+    "nextState": "logic.punctuation1",
+    "splitRegex": "^(\\{)(\\s*)((?:~|&|!|\\$)?)$"
+   },
+   {
+    "regex": "\\{",
+    "token": "logic.punctuation",
+    "next": "pushState",
+    "nextState": "logic.punctuation2"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(DONE|END)(\\s*)",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.to-special","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(DONE|END)(\\s*)$"
+   },
+   {
+    "regex": "(->->)(\\s*)(\\w[\\w\\.\\s]*)",
+    "token": null,
+    "tokenArray": ["divert.to-tunnel","divert","divert.target"],
+    "splitRegex": "^(->->)(\\s*)(\\w[\\w\\.\\s]*)$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert","divert.operator"],
+    "next": "pushState",
+    "nextState": "divert.operator",
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])$"
+   },
+   {
+    "regex": "->",
+    "token": "divert.operator"
+   },
+   {
+    "regex": "#[^\\[\\]$]+",
+    "token": "tag"
+   },
+   {
+    "regex": "<>",
+    "token": "glue"
+   },
+   {
+    "defaultToken": "gather.innerContent"
+   }
+  ]
+ },
+ "logic.tilda": {
+  "regExp": "($)|(\\\\[\\[\\]()\\\\~{}\\/#*+-])|(\\/\\*\\*)|(\\/\\*)|((?:\\/\\/)(?:.*$))|($)",
+  "flags": "g",
+  "defaultToken": "logic.tilda",
+  "rules": [
+   {
+    "regex": "$",
+    "token": "logic.tilda",
+    "next": "popState"
+   },
+   {
+    "regex": "\\\\[\\[\\]()\\\\~{}\\/#*+-]",
+    "token": "escape"
+   },
+   {
+    "regex": "\\/\\*\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json"
+   },
+   {
+    "regex": "\\/\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json0"
+   },
+   {
+    "regex": "(\\/\\/)(.*$)",
+    "token": null,
+    "tokenArray": ["punctuation.definition.comment.json","comment.line.double-slash.js"],
+    "splitRegex": "^(\\/\\/)(.*$)$"
+   },
+   {
+    "defaultToken": "logic.tilda"
+   }
+  ]
+ },
+ "logic": {
+  "regExp": "(\\})|(^\\s*else\\s*\\:)|(^(?:\\s*)(?:-)(?!>)(?:(?:\\s?[^:\\{}]+):)?)|(\\/\\*\\*)|(\\/\\*)|((?:\\/\\/)(?:.*$))|(\\\\[\\[\\]()\\\\~{}\\/#*+-])|(^(?:\\s*)(?:TODO\\b)(?:.*))|(^(?:\\s*)(?:VAR|CONST)\\b)|(^(?:\\s*)(?:LIST)\\b)|((?:\\s*)(?:EXTERNAL\\b))|((?:\\s*)(?:INCLUDE\\b))|(^(?:\\s*)(?:(?:[\\*\\+]\\s?)+)(?:\\s*)(?:(?:\\(\\s*)(?:\\w+)(?:\\s*\\)))?)|(^(?:\\s*)(?:(?:-(?!>)\\s*)+))|(^(?:\\s*)(?:\\{)(?:(?:[^}:]+)(?::))?(?=[^}]*$))|(^\\s*~\\s*)|((?:\\{)(?:[^:\\|\\}]+:))|((?:\\{)(?:\\s*)(?:(?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|))|(\\{)|((?:->|<-)(?:\\s*)(?:DONE|END)(?:\\s*))|((?:->->)(?:\\s*)(?:\\w[\\w\\.\\s]*))|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?:\\())|((?:->|<-)(?:\\s*)(?:\\w[\\w\\.\\s]*?)(?:\\s*)(?![\\w\\.]))|(->)|(#[^\\[\\]$]+)|(<>)|((?:\\s*)(?:>>>)(?:.*))|($)",
+  "flags": "g",
+  "defaultToken": "logic.multiline.innerContent",
+  "rules": [
+   {
+    "regex": "\\}",
+    "token": "logic.punctuation",
+    "next": "popState"
+   },
+   {
+    "regex": "^\\s*else\\s*\\:",
+    "token": "conditional.multiline.else"
+   },
+   {
+    "regex": "^(\\s*)(-)(?!>)((?:\\s?[^:\\{}]+):)?",
+    "token": null,
+    "tokenArray": ["logic.multiline.branch","logic.multiline.branch.operator","logic.multiline.branch.condition"],
+    "splitRegex": "^(\\s*)(-)(?!>)((?:\\s?[^:\\{}]+):)?$"
+   },
+   {
+    "regex": "\\/\\*\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json"
+   },
+   {
+    "regex": "\\/\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json0"
+   },
+   {
+    "regex": "(\\/\\/)(.*$)",
+    "token": null,
+    "tokenArray": ["punctuation.definition.comment.json","comment.line.double-slash.js"],
+    "splitRegex": "^(\\/\\/)(.*$)$"
+   },
+   {
+    "regex": "\\\\[\\[\\]()\\\\~{}\\/#*+-]",
+    "token": "escape"
+   },
+   {
+    "regex": "^(\\s*)(TODO\\b)(.*)",
+    "token": null,
+    "tokenArray": ["todo","todo.TODO","todo"],
+    "splitRegex": "^(\\s*)(TODO\\b)(.*)$"
+   },
+   {
+    "regex": "^(\\s*)(VAR|CONST)\\b",
+    "token": null,
+    "tokenArray": ["var-decl","var-decl.keyword"],
+    "next": "pushState",
+    "nextState": "var-decl",
+    "splitRegex": "^(\\s*)(VAR|CONST)\\b$"
+   },
+   {
+    "regex": "^(\\s*)(LIST)\\b",
+    "token": null,
+    "tokenArray": ["list-decl","list-decl.keyword"],
+    "next": "pushState",
+    "nextState": "list-decl",
+    "splitRegex": "^(\\s*)(LIST)\\b$"
+   },
+   {
+    "regex": "(\\s*)(EXTERNAL\\b)",
+    "token": null,
+    "tokenArray": ["external","external.keyword"],
+    "next": "pushState",
+    "nextState": "external",
+    "splitRegex": "^(\\s*)(EXTERNAL\\b)$"
+   },
+   {
+    "regex": "(\\s*)(INCLUDE\\b)",
+    "token": null,
+    "tokenArray": ["include","include.keyword"],
+    "next": "pushState",
+    "nextState": "include",
+    "splitRegex": "^(\\s*)(INCLUDE\\b)$"
+   },
+   {
+    "regex": "^(\\s*)((?:[\\*\\+]\\s?)+)(\\s*)(?:(\\(\\s*)(\\w+)(\\s*\\)))?",
+    "token": null,
+    "tokenArray": ["choice","choice.bullets","choice","choice.label","choice.label.name","choice.label"],
+    "next": "pushState",
+    "nextState": "choice",
+    "splitRegex": "^(\\s*)((?:[\\*\\+]\\s?)+)(\\s*)(?:(\\(\\s*)(\\w+)(\\s*\\)))?$"
+   },
+   {
+    "regex": "^(\\s*)((?:-(?!>)\\s*)+)",
+    "token": null,
+    "tokenArray": ["gather","gather.bullets"],
+    "next": "pushState",
+    "nextState": "gather",
+    "splitRegex": "^(\\s*)((?:-(?!>)\\s*)+)$"
+   },
+   {
+    "regex": "^(\\s*)(\\{)(?:([^}:]+)(:))?(?=[^}]*$)",
+    "token": null,
+    "tokenArray": ["logic","logic.punctuation","logic.conditional.multiline.condition","logic.conditional.multiline.condition.punctuation"],
+    "next": "pushState",
+    "nextState": "logic",
+    "splitRegex": "^(\\s*)(\\{)(?:([^}:]+)(:))?$"
+   },
+   {
+    "include": "#endOfSection"
+   },
+   {
+    "regex": "^\\s*~\\s*",
+    "token": "logic.tilda",
+    "next": "pushState",
+    "nextState": "logic.tilda3"
+   },
+   {
+    "regex": "(\\{)([^:\\|\\}]+:)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.inline.conditional.condition"],
+    "next": "pushState",
+    "nextState": "logic.punctuation",
+    "splitRegex": "^(\\{)([^:\\|\\}]+:)$"
+   },
+   {
+    "regex": "(\\{)(\\s*)((?:~|&|!|\\$)?)(?=[^\\|\\}]*\\|)",
+    "token": null,
+    "tokenArray": ["logic.punctuation","logic.sequence","logic.sequence.operator"],
+    "next": "pushState",
+    "nextState": "logic.punctuation1",
+    "splitRegex": "^(\\{)(\\s*)((?:~|&|!|\\$)?)$"
+   },
+   {
+    "regex": "\\{",
+    "token": "logic.punctuation",
+    "next": "pushState",
+    "nextState": "logic.punctuation2"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(DONE|END)(\\s*)",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.to-special","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(DONE|END)(\\s*)$"
+   },
+   {
+    "regex": "(->->)(\\s*)(\\w[\\w\\.\\s]*)",
+    "token": null,
+    "tokenArray": ["divert.to-tunnel","divert","divert.target"],
+    "splitRegex": "^(->->)(\\s*)(\\w[\\w\\.\\s]*)$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert","divert.operator"],
+    "next": "pushState",
+    "nextState": "divert.operator",
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(\\()$"
+   },
+   {
+    "regex": "(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])",
+    "token": null,
+    "tokenArray": ["divert.operator","divert","divert.target","divert"],
+    "splitRegex": "^(->|<-)(\\s*)(\\w[\\w\\.\\s]*?)(\\s*)(?![\\w\\.])$"
+   },
+   {
+    "regex": "->",
+    "token": "divert.operator"
+   },
+   {
+    "regex": "#[^\\[\\]$]+",
+    "token": "tag"
+   },
+   {
+    "regex": "<>",
+    "token": "glue"
+   },
+   {
+    "regex": "(\\s*)(>>>)(.*)",
+    "token": null,
+    "tokenArray": ["customInstruction","customInstruction.punctuation","customInstruction"],
+    "splitRegex": "^(\\s*)(>>>)(.*)$"
+   },
+   {
+    "defaultToken": "logic.multiline.innerContent"
+   }
+  ]
+ },
+ "logic.tilda3": {
+  "regExp": "($)|(\\\\[\\[\\]()\\\\~{}\\/#*+-])|(\\/\\*\\*)|(\\/\\*)|((?:\\/\\/)(?:.*$))|($)",
+  "flags": "g",
+  "defaultToken": "logic.tilda",
+  "rules": [
+   {
+    "regex": "$",
+    "token": "logic.tilda",
+    "next": "popState"
+   },
+   {
+    "regex": "\\\\[\\[\\]()\\\\~{}\\/#*+-]",
+    "token": "escape"
+   },
+   {
+    "regex": "\\/\\*\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json"
+   },
+   {
+    "regex": "\\/\\*",
+    "token": "punctuation.definition.comment.json",
+    "next": "pushState",
+    "nextState": "punctuation.definition.comment.json0"
+   },
+   {
+    "regex": "(\\/\\/)(.*$)",
+    "token": null,
+    "tokenArray": ["punctuation.definition.comment.json","comment.line.double-slash.js"],
+    "splitRegex": "^(\\/\\/)(.*$)$"
+   },
+   {
+    "defaultToken": "logic.tilda"
+   }
+  ]
+ },
+ "#customInstruction": {
+  "regExp": "((?:\\s*)(?:>>>)(?:.*))|($)",
+  "flags": "g",
+  "defaultToken": "text",
+  "rules": [
+   {
+    "regex": "(\\s*)(>>>)(.*)",
+    "token": null,
+    "tokenArray": ["customInstruction","customInstruction.punctuation","customInstruction"],
+    "splitRegex": "^(\\s*)(>>>)(.*)$"
+   }
+  ]
+ }
+}
