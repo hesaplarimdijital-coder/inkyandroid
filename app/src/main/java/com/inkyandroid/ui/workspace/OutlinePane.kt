@@ -11,7 +11,9 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -67,6 +69,7 @@ fun outlineRows(symbols: InkFileSymbols): List<OutlineRow> {
  *
  * @param symbols the file's symbols, null while it has not been parsed yet.
  * @param cursorRow the zero-based row of the cursor, for the marks.
+ * @param fileName the file's name, said above the outline where nothing else says which file it is.
  */
 @Composable
 fun OutlinePane(
@@ -76,6 +79,7 @@ fun OutlinePane(
     modifier: Modifier = Modifier,
     listState: LazyListState = rememberLazyListState(),
     contentPadding: PaddingValues = PaddingValues(0.dp),
+    fileName: String? = null,
 ) {
     val colors = DeskTheme.colors
     val dimens = DeskTheme.dimens
@@ -98,6 +102,18 @@ fun OutlinePane(
         modifier = modifier.fillMaxSize().background(colors.background).verticalScrollbar(listState),
         contentPadding = contentPadding,
     ) {
+        if (fileName != null) {
+            item(key = "file") {
+                Text(
+                    fileName,
+                    style = DeskTheme.type.labelSmall,
+                    color = colors.textTertiary,
+                    maxLines = 1,
+                    overflow = TextOverflow.MiddleEllipsis,
+                    modifier = Modifier.padding(start = dimens.pagePadding, end = dimens.pagePadding, top = dimens.gapM),
+                )
+            }
+        }
         items(rows.size, key = { index -> rowKey(rows[index], index) }) { index ->
             when (val row = rows[index]) {
                 is OutlineRow.Group -> SectionCaption(

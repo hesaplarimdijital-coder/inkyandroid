@@ -149,7 +149,7 @@ fun FilesScreen(session: ProjectSession, state: SessionState, project: ProjectSn
             if (ui.filesTab == 0) {
                 FilesList(project, state.activePath, issues, fileActions, listState = ui.filesList, showAddButton = false)
             } else {
-                OutlinePane(active.symbols, cursorRow(session, state), { symbol -> actions.openSymbol(active.path, symbol) }, listState = ui.outlineList)
+                OutlinePane(active.symbols, cursorRow(session, state), { symbol -> actions.openSymbol(active.path, symbol) }, listState = ui.outlineList, fileName = active.name)
             }
         }
     }

@@ -26,6 +26,8 @@ import com.inkyandroid.ui.WindowDialog
 import com.inkyandroid.ui.WindowUi
 import com.inkyandroid.ui.awaitSession
 import com.inkyandroid.ui.awaitStory
+import com.inkyandroid.ui.clickText
+import com.inkyandroid.ui.waitFor
 import com.inkyandroid.ui.workspace.editorStateOf
 import desktopkit.shell.ShellTransitions
 import desktopkit.theme.DensityPreference
@@ -65,6 +67,7 @@ class AppScreenshotTest {
     private val commands = CommandHost()
 
     private fun launch(holder: ProjectSessionHolder, theme: ThemeMode, density: DensityPreference = DensityPreference.Touch) {
+        UiWorld.resetSettings()
         val prefs = testPrefs(theme, density)
         // the test activity's theme has an action bar; the app's has none
         compose.runOnUiThread { compose.activity.actionBar?.hide() }
@@ -95,13 +98,40 @@ class AppScreenshotTest {
 
     private fun tab(name: String) = compose.onNode(hasText(name) and isSelectable()).performClick()
 
+    /**
+     * Draws the screen into `<screenshots>/<name>.png`: the activity's window, and over it every
+     * window it has up (a dialog, with the dim the system lays under one), where each one is.
+     */
     private fun capture(name: String) {
         compose.waitForIdle()
         val window = compose.activity.window.decorView
         val bitmap = Bitmap.createBitmap(window.width, window.height, Bitmap.Config.ARGB_8888)
-        compose.runOnIdle { window.draw(Canvas(bitmap)) }
+        compose.runOnIdle {
+            val canvas = Canvas(bitmap)
+            window.draw(canvas)
+            windowsAbove(window).forEach { view ->
+                val params = view.layoutParams as? android.view.WindowManager.LayoutParams
+                if (params != null && params.flags and android.view.WindowManager.LayoutParams.FLAG_DIM_BEHIND != 0) {
+                    canvas.drawColor(android.graphics.Color.argb((params.dimAmount * 255).toInt(), 0, 0, 0))
+                }
+                val at = IntArray(2).also(view::getLocationOnScreen)
+                val origin = IntArray(2).also(window::getLocationOnScreen)
+                canvas.save()
+                canvas.translate((at[0] - origin[0]).toFloat(), (at[1] - origin[1]).toFloat())
+                view.draw(canvas)
+                canvas.restore()
+            }
+        }
         directory.mkdirs()
         FileOutputStream(File(directory, "$name.png")).use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
+    }
+
+    /** The windows over the activity's own ([main]), bottom to top. */
+    @Suppress("UNCHECKED_CAST")
+    private fun windowsAbove(main: android.view.View): List<android.view.View> {
+        val global = Class.forName("android.view.WindowManagerGlobal").getMethod("getInstance").invoke(null)
+        val views = global.javaClass.getDeclaredField("mViews").apply { isAccessible = true }.get(global) as List<android.view.View>
+        return views.dropWhile { it !== main }.drop(1).filter { it.isAttachedToWindow && it.visibility == android.view.View.VISIBLE }
     }
 
     // ------------------------------------------------------------------ phone
@@ -129,12 +159,10 @@ class AppScreenshotTest {
     fun phonePlayEndedDark() {
         val holder = story(ThemeMode.Dark)
         tab("Oyna")
-        compose.onNodeWithText("Bekleme salonuna gir").performClick()
-        compose.waitUntil(10_000) { holder.session!!.live.session!!.state.value.transcript.choices.isNotEmpty() }
-        compose.onNodeWithText("Sessizce otur").performClick()
-        compose.waitUntil(10_000) { holder.session!!.live.session!!.state.value.transcript.choices.size == 2 }
-        compose.onNodeWithText("Bekle").performClick()
-        compose.waitUntil(10_000) { holder.session!!.live.session!!.state.value.transcript.isOver }
+        compose.clickText("Bekleme salonuna gir")
+        compose.clickText("Sessizce otur")
+        compose.clickText("Bekle")
+        compose.waitFor(10_000) { holder.session!!.live.session!!.state.value.transcript.isOver }
         capture("app-phone-play-ended-dark")
     }
 

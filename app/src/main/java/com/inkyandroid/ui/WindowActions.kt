@@ -89,8 +89,8 @@ class WindowActions(
     /** The exports and the statistics of the open project; null while none is open. */
     var extras: WindowExtras? = null
 
-    /** Opens the command palette ("Go to anything") with [query] typed into it. */
-    var openPalette: (query: String) -> Unit = {}
+    /** Opens the command palette ("Go to anything") with [query] typed into it, showing only [group] when one is given. */
+    var openPalette: (query: String, group: String?) -> Unit = { _, _ -> }
 
     /** Opens another window of the app; null where the platform gives none (a test without an activity). */
     var newWindow: (() -> Unit)? = null
@@ -530,6 +530,13 @@ class WindowActions(
         }
     }
 
+    /** The snippets in the palette, those of [category] (its label) first when one is given: the way to them until the kit's menus nest. */
+    fun openSnippets(category: String? = null): Boolean {
+        if (session == null) return false
+        openPalette(category.orEmpty(), strings.getString(R.string.snippets_group))
+        return true
+    }
+
     /** Whether this build has the command [id] at all; a command it lacks is listed nowhere. */
     fun available(id: String): Boolean = when (id) {
         // the kit's editor brings its find bar and its line commands with its next build
@@ -589,12 +596,12 @@ class WindowActions(
             Commands.SHOW_WATCHES -> showTab(InspectorTab.Watches)
             CommonShortcuts.TOGGLE_SIDEBAR -> toggleSidebar()
             CommonShortcuts.SEARCH, Commands.GOTO_ANYTHING -> {
-                openPalette("")
+                openPalette("", null)
                 true
             }
             // upstream's "go to line" prompt is "Go to anything" with a number: it lists that line first
             Commands.GOTO_LINE -> session != null && run {
-                openPalette("")
+                openPalette("", null)
                 true
             }
             CommonShortcuts.SETTINGS -> {
@@ -603,6 +610,11 @@ class WindowActions(
             }
             CommonShortcuts.SHORTCUT_LIST -> {
                 ui.dialog = WindowDialog.Shortcuts
+                true
+            }
+            Commands.INSERT_SNIPPET -> openSnippets()
+            Commands.OPEN_RECENT -> {
+                navigate(Routes.PROJECTS)
                 true
             }
             Commands.DOCUMENTATION -> {
@@ -642,6 +654,7 @@ class WindowActions(
         return when (id) {
             Commands.NEW_INCLUDE, Commands.SAVE, Commands.RELOAD, Commands.CLOSE_PROJECT, Commands.NEXT_ISSUE, Commands.ADD_WATCH,
             Commands.RESTART, Commands.SHOW_PLAYER, Commands.SHOW_ISSUES, Commands.SHOW_OUTLINE, Commands.SHOW_WATCHES, Commands.GOTO_LINE,
+            Commands.INSERT_SNIPPET,
             -> session != null
             Commands.EXPORT_JSON, Commands.EXPORT_WEB, Commands.EXPORT_JS, Commands.STATISTICS -> session != null && extras != null
             Commands.UNDO -> editor?.canUndo == true

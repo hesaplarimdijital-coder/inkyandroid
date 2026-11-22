@@ -26,6 +26,7 @@ import com.inkyandroid.ui.projects.ProjectsScreen
 import desktopkit.components.DeskIcons
 import desktopkit.components.DeskProgressBar
 import desktopkit.screens.MessageScreen
+import desktopkit.shell.CompactTopBar
 import desktopkit.shell.shellContentPadding
 import desktopkit.theme.DeskTheme
 import kotlinx.coroutines.delay
@@ -50,6 +51,7 @@ internal fun NoProject(route: String, window: WindowProject, storage: ProjectSto
         )
         // the editor's place is where one starts: the ways to a project, right there
         else -> if (Routes.isWorkspace(route)) {
+            CompactTopBar(title = stringResource(R.string.no_project_title), showOnRail = true)
             ProjectsScreen(storage, null, ui, actions)
         } else {
             MessageScreen(

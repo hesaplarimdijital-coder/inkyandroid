@@ -39,6 +39,7 @@ class AppBehaviourTest {
     private val commands = CommandHost()
 
     private fun launch(holder: ProjectSessionHolder, density: DensityPreference = DensityPreference.Touch) {
+        UiWorld.resetSettings()
         val prefs = testPrefs(ThemeMode.Light, density)
         compose.setContent {
             InkyApp(holder, UiWorld.app.settings, UiWorld.app.storage, ui, prefs = prefs, transitions = ShellTransitions.None, commands = commands)
@@ -54,7 +55,7 @@ class AppBehaviourTest {
         compose.onNode(hasText("Play") and isSelectable()).performClick()
         compose.onNodeWithText("Once upon a time...").assertExists()
         compose.onNodeWithText("There were two choices.").performClick()
-        compose.waitUntil(10_000) { session.live.session!!.state.value.transcript.isOver }
+        compose.waitFor(10_000) { session.live.session!!.state.value.transcript.isOver }
         compose.onNodeWithText("They lived happily ever after.").assertExists()
         compose.onNodeWithText("End of story").assertExists()
         // the choice taken is part of the story now, its row is gone
@@ -71,7 +72,7 @@ class AppBehaviourTest {
         val state = compose.awaitStory(session, CompileStatus.Errors)
         val issue = state.issues.first { it.file == "other.ink" }
         compose.runOnUiThread { session.showIssue(issue) }
-        compose.waitUntil(5_000) { session.state.value.activePath == "other.ink" && session.state.value.showRequest == null }
+        compose.waitFor(5_000) { session.state.value.activePath == "other.ink" && session.state.value.showRequest == null }
         val editor = editorStateOf(session.document("other.ink")!!.buffer)
         assertEquals(issue.line!! - 1, editor.cursorPosition.line)
     }
@@ -89,7 +90,7 @@ class AppBehaviourTest {
         compose.waitForIdle()
         compose.runOnUiThread { assertTrue(ui.editor != null && ui.editor!!.linkAtCursor() != null) }
         compose.runOnUiThread { assertTrue(commands.perform(Commands.GOTO_DEFINITION)) }
-        compose.waitUntil(5_000) { session.state.value.activePath == "chapters.ink" && session.state.value.showRequest == null }
+        compose.waitFor(5_000) { session.state.value.activePath == "chapters.ink" && session.state.value.showRequest == null }
         val target = editorStateOf(session.document("chapters.ink")!!.buffer)
         assertEquals(0, target.cursorPosition.line)
         // the jump is a step of the history: Back returns to where it started
@@ -119,7 +120,7 @@ class AppBehaviourTest {
         compose.awaitStory(session)
         compose.onNode(hasText("Files.ink") and isSelectable()).assertIsSelected()
         compose.onNode(hasText("intro.ink") and isSelectable()).performClick()
-        compose.waitUntil(5_000) { session.state.value.activePath == "intro.ink" }
+        compose.waitFor(5_000) { session.state.value.activePath == "intro.ink" }
         compose.onNode(hasText("intro.ink") and isSelectable()).assertIsSelected()
     }
 
@@ -132,9 +133,9 @@ class AppBehaviourTest {
         compose.awaitStory(session)
         val editor = editorStateOf(session.activeDocument.buffer)
         compose.runOnUiThread { editor.replace(editor.length, editor.length, "Second line.\n") }
-        compose.waitUntil(5_000) { session.project.state.value.hasUnsavedChanges }
+        compose.waitFor(5_000) { session.project.state.value.hasUnsavedChanges }
         compose.runOnUiThread { assertTrue(commands.perform(Commands.SAVE)) }
-        compose.waitUntil(10_000) { !session.project.state.value.hasUnsavedChanges }
+        compose.waitFor(10_000) { !session.project.state.value.hasUnsavedChanges }
         val stored = runBlocking { UiWorld.app.storage.internalProjects.store(ref).read(ref.mainPath) }
         assertEquals("First line.\nSecond line.\n", stored)
         compose.onNodeWithContentDescription("Saved.ink, unsaved changes", substring = true).assertDoesNotExist()

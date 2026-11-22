@@ -126,14 +126,17 @@ fun EditorPane(
     }
 
     Column(modifier.fillMaxSize()) {
-        ProjectBanners(
-            state = state,
-            project = project,
-            singleFile = ui.singleFile,
-            actions = rememberBannerActions(session, ui, actions),
-            modifier = Modifier.padding(top = contentPadding.calculateTopPadding()),
-        )
+        // the banners stand under the phone's top bar; without them the text runs under it
         val banners = hasBanners(state, project, ui.singleFile)
+        if (banners) {
+            ProjectBanners(
+                state = state,
+                project = project,
+                singleFile = ui.singleFile,
+                actions = rememberBannerActions(session, ui, actions),
+                modifier = Modifier.padding(top = contentPadding.calculateTopPadding()),
+            )
+        }
         val padding = if (banners) PaddingValues(bottom = contentPadding.calculateBottomPadding()) else contentPadding
         Box(
             Modifier

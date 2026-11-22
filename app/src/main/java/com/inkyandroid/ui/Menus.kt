@@ -2,7 +2,11 @@ package com.inkyandroid.ui
 
 import android.content.res.Resources
 import com.inkyandroid.R
+import com.inkyandroid.core.snippets.InkSnippets
+import com.inkyandroid.core.snippets.SnippetNode
 import com.inkyandroid.settings.AppSettings
+import com.inkyandroid.ui.extras.snippets.SnippetEntry
+import com.inkyandroid.ui.extras.snippets.SnippetLocaliser
 import desktopkit.components.ActionGroup
 import desktopkit.components.MenuEntry
 import desktopkit.components.MenuSpec
@@ -23,8 +27,7 @@ import desktopkit.input.ShortcutRegistry
  * @param enabled whether a command has something to do right now.
  * @param available whether this build has the command at all (the exports and the statistics come
  *   with their screens); what is not available is not listed.
- * @param recent desktop Inky's "Open Recent" submenu, null until the kit's menus can nest.
- * @param ink the Ink menu's entries (the snippets), empty until they exist.
+ * @param ink the Ink menu's entries (the snippets, [inkMenu]); empty while no project is open.
  */
 class WindowMenus(
     private val resources: Resources,
@@ -34,7 +37,6 @@ class WindowMenus(
     private val enabled: (String) -> Boolean,
     private val available: (String) -> Boolean,
     private val showKeys: Boolean,
-    private val recent: MenuEntry? = null,
     private val ink: List<MenuEntry> = emptyList(),
 ) {
     private fun item(id: String): MenuEntry.Item? {
@@ -66,7 +68,7 @@ class WindowMenus(
 
     private fun file(): List<MenuEntry> = menu(
         listOf(item(Commands.NEW_PROJECT), item(Commands.NEW_INCLUDE)),
-        listOf(item(Commands.OPEN_FOLDER), item(Commands.OPEN_FILE), recent),
+        listOf(item(Commands.OPEN_FOLDER), item(Commands.OPEN_FILE), plain(Commands.OPEN_RECENT, R.string.action_open_recent)),
         listOf(item(Commands.SAVE), item(Commands.RELOAD)),
         listOf(item(Commands.EXPORT_JSON), plain(Commands.EXPORT_WEB, R.string.action_export_web), item(Commands.EXPORT_JS)),
         listOf(item(CommonShortcuts.NEW_WINDOW), item(Commands.CLOSE_PROJECT)),
@@ -142,6 +144,22 @@ class WindowMenus(
                 item(Commands.CLOSE_PROJECT),
             ),
         ),
+        ActionGroup(resources.getString(R.string.menu_ink), listOfNotNull(plain(Commands.INSERT_SNIPPET, R.string.action_insert_snippet))),
         ActionGroup(resources.getString(desktopkit.R.string.dk_menu_view), listOf(autoComplete, playAnimation)),
     ).filter { it.actions.isNotEmpty() }
 }
+
+/**
+ * The Ink menu: upstream's snippet categories in its order and with its separators, in the
+ * window's language, then the project's own snippets. Until the kit's menus can nest, a category
+ * opens the palette on its snippets (all of them, to choose by name or search); a custom snippet
+ * outside any category is inserted at once.
+ */
+fun inkMenu(custom: List<SnippetNode>, resources: Resources, actions: WindowActions): List<MenuEntry> =
+    SnippetLocaliser.of(resources).localise(InkSnippets.menu(custom)).map { entry ->
+        when (entry) {
+            SnippetEntry.Separator -> MenuEntry.Separator
+            is SnippetEntry.Category -> MenuEntry.Item(resources.getString(R.string.menu_snippet_category, entry.label), { actions.openSnippets(entry.label) })
+            is SnippetEntry.Snippet -> MenuEntry.Item(entry.label, { actions.insertSnippet(entry.ink) })
+        }
+    }

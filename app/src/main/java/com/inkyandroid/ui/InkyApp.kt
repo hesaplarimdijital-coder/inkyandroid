@@ -135,7 +135,10 @@ fun InkyApp(
                 statistics = true,
             )
         }
-        actions.openPalette = { query -> palette.open(query) }
+        actions.openPalette = { query, group ->
+            palette.open(query)
+            palette.filter = group
+        }
         actions.newWindow = activity?.let { host -> { DeskWindows.openNewWindow(host) } }
         commands?.perform = actions::perform
     }
@@ -172,6 +175,8 @@ fun InkyApp(
     val issuesDescribed = pluralStringResource(R.plurals.issues_count, issueCount, issueCount)
     val fileActions = rememberFileActions(actions, ui)
     val showKeys = showShortcutHints()
+    val customSnippets = state?.projectSettings?.customInkSnippets.orEmpty()
+    val ink = remember(customSnippets, resources, session) { if (session == null) emptyList() else inkMenu(customSnippets, resources, actions) }
     val menus = WindowMenus(
         resources = resources,
         registry = shortcuts,
@@ -180,6 +185,7 @@ fun InkyApp(
         enabled = actions::enabled,
         available = actions::available,
         showKeys = showKeys,
+        ink = ink,
     )
     val editorZoom = rememberCodeEditorZoom(prefs, EDITOR_ZOOM_KEY)
     val playerZoom = rememberCodeEditorZoom(prefs, PLAYER_ZOOM_KEY)

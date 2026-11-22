@@ -174,6 +174,7 @@ fun WorkspaceScreen(
                         cursorRow = cursorRow(session, state),
                         onOpen = { symbol -> actions.openSymbol(file.path, symbol) },
                         listState = ui.outlineList,
+                        fileName = file.name,
                     )
                     SettingsTab.Watches -> WatchesPane(
                         watches = state.watches,
@@ -222,6 +223,7 @@ private fun EditorTopBar(file: ProjectFile, state: SessionState, actions: Window
             add(TopBarAction(InkIcons.Redo, stringResource(R.string.action_redo), { actions.perform(Commands.REDO) }, enabled = editor?.canRedo == true))
             if (actions.available(Commands.FIND)) add(TopBarAction(DeskIcons.Search, stringResource(R.string.action_find), { actions.perform(Commands.FIND) }))
             add(TopBarAction(InkIcons.ArrowRight, stringResource(R.string.action_goto_definition), { actions.perform(Commands.GOTO_DEFINITION) }))
+            add(TopBarAction(InkIcons.Snippet, stringResource(R.string.action_insert_snippet), { actions.perform(Commands.INSERT_SNIPPET) }))
         },
         // a narrow window with a rail has the same single pane, and wants the same bar
         showOnRail = true,

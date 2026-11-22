@@ -33,6 +33,8 @@
     <string name="action_open_folder">Klasör aç…</string>
     <string name="action_open_file">Dosya aç…</string>
     <string name="action_open_recent">Son kullanılanlar</string>
+    <string name="action_insert_snippet">Parçacık ekle…</string>
+    <string name="menu_snippet_category">%1$s…</string>
     <string name="action_clear_recent">Listeyi temizle</string>
     <string name="action_save">Projeyi kaydet</string>
     <string name="action_reload">Depolamadan yeniden yükle</string>
@@ -159,7 +161,7 @@
     <string name="files_conflict">Inky dışında değişti</string>
     <string name="files_missing_title">Var olmayan INCLUDE dosyaları</string>
     <string name="files_missing_create">Oluştur</string>
-    <string name="files_add_include">Yeni ek dosya</string>
+    <string name="files_add_include">Yeni ink dosyası</string>
     <string name="files_no_project_title">Açık proje yok</string>
     <string name="files_no_project_description">Bir klasör ya da tek bir ink dosyası açın, veya yeni bir proje başlatın.</string>
     <string name="files_root_folder">Proje klasörü</string>

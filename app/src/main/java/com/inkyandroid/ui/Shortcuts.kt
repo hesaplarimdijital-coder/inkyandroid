@@ -22,6 +22,7 @@ object Commands {
     const val EXPORT_JSON = "export.json"
     const val EXPORT_WEB = "export.web"
     const val EXPORT_JS = "export.js"
+    const val OPEN_RECENT = "project.open_recent"
 
     const val UNDO = "edit.undo"
     const val REDO = "edit.redo"
@@ -50,6 +51,7 @@ object Commands {
     const val FORWARD = "story.forward"
     const val ADD_WATCH = "story.add_watch"
     const val STATISTICS = "story.statistics"
+    const val INSERT_SNIPPET = "ink.insert_snippet"
     const val STEP_BACK = "story.step_back"
     const val RESTART = "story.restart"
 
