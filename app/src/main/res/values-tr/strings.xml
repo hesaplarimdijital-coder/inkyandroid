@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_story">Hikâye</string>
+    <string name="setup_title">Inky kuruluyor</string>
+    <string name="setup_description">Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek.</string>
+</resources>
