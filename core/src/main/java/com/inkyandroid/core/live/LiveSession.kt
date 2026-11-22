@@ -386,8 +386,14 @@ class LiveSession(
         } catch (e: Throwable) {
             crashed(e)
         }
-        compiledSources = current
-        compiled = result
+        // A crash is not remembered: asking again (reload, step back) is the way to try again.
+        if (result is CompileResult.Crashed) {
+            compiledSources = null
+            compiled = null
+        } else {
+            compiledSources = current
+            compiled = result
+        }
         return result
     }
 
