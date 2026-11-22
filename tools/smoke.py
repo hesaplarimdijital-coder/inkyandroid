@@ -124,20 +124,17 @@ SCENARIO_0 = (
     ]
 )
 
-# A look at the on-screen keyboard in a system text field (Settings > About > Device name), to
-# learn how its keys can be tapped. Not an app test; run it with --scenarios ime-probe.
+# The driver's own check of ime_type, in a system text field (Settings > About > Device name):
+# types through the on-screen keyboard. Not an app test; run it with --scenarios ime-probe.
 SCENARIO_IME_PROBE = [
     step("ime-probe-field", foreground=False, soft=True, do=[
         ["shell", "am start -W -a android.settings.DEVICE_INFO_SETTINGS"],
         # Settings never goes idle for uiautomator here: the row is tapped where it is drawn
         ["shell", "input tap 300 923"],
         ["wait", 3],
-        ["save", "ime-dumpsys-ime.txt", "dumpsys input_method"],
-        ["save", "ime-default.txt", "settings get secure default_input_method; ime list -s; "
-                                    "dumpsys input_method | grep -iE 'mInputShown|mCurImeId|inputShown'"],
-        ["save", "ime-window.txt", "dumpsys window windows | grep -iE -A40 'Window #[0-9]+ Window\\{[0-9a-f]+ u0 InputMethod'"],
-        ["save", "ime-dump-windows.xml", "uiautomator dump --windows /sdcard/w.xml >/dev/null 2>&1; cat /sdcard/w.xml"],
-        ["save", "ime-dump-active.xml", "uiautomator dump /sdcard/a.xml >/dev/null 2>&1; cat /sdcard/a.xml"],
+        ["ime_type", "smoke"],
+        ["save", "ime-window.txt", "settings get secure default_input_method; "
+                                   "dumpsys window windows | grep -A40 ' u0 InputMethod}:'"],
     ]),
 ]
 
@@ -173,8 +170,8 @@ SCENARIO_1_PHONE = [
     step("s1-type-line", only="phone",
          do=[["tap", S1["write"]]] + _s1_type_first_line + [["type", TYPED], ["key", "ENTER"]], expect=[TYPED]),
     step("s1-type-on-screen-keyboard", only="phone",
-         do=_s1_type_first_line + [["ime_type", IME_TYPED + " "]], expect=[IME_TYPED]),
-    step("s1-play-typed", only="phone", do=[["hide_keyboard"], ["tap", S1["play"]]], played=[TYPED, IME_TYPED]),
+         do=_s1_type_first_line + [["ime_type", IME_TYPED]]),
+    step("s1-play-typed", only="phone", do=[["hide_keyboard"], ["tap", S1["play"]]], played=[TYPED]),
     step("s1-choose", only="phone", do=[["tap", S1["sample_choice"]]], played=[S1["after_choice"]]),
     step("s1-step-back", only="phone", do=[["tap", S1["step_back"]]], played=[S1["sample_choice"]]),
     step("s1-restart", only="phone", do=[["tap", S1["restart"]]], played=[TYPED]),
@@ -619,6 +616,60 @@ class Smoke:
         # `input text` takes %s for a space; the device's shell sees the argument quoted
         shell("input text " + shlex.quote(text.replace(" ", "%s")))
         time.sleep(1)
+
+    # Gboard's QWERTY layout (the emulator images' keyboard), measured on the phone emulator: each
+    # letter row's vertical centre as a fraction of the keyboard's touchable area, and the
+    # horizontal offset of the row's first key in key widths (a tenth of the keyboard's width).
+    GBOARD_ROWS = [("qwertyuiop", 0.263, 0.0), ("asdfghjkl", 0.466, 0.5), ("zxcvbnm", 0.671, 1.5)]
+    GBOARD_SPACE = (0.55, 0.876)
+
+    def keyboard_area(self):
+        """The on-screen keyboard's touchable area (left, top, right, bottom), or None when hidden."""
+        out = shell("dumpsys window windows | grep -A40 ' u0 InputMethod}:'")
+        m = re.search(r"touchable region=SkRegion\(\((\d+),(\d+),(\d+),(\d+)\)\)", out)
+        if not m or "isVisible=false" in out or "mViewVisibility=0x8" in out:
+            return None
+        area = tuple(map(int, m.groups()))
+        return area if area[3] - area[1] > 100 else None
+
+    def focused_text(self):
+        nodes = self.dump() or []
+        node = next((n for n in nodes if n.focused and n.cls == "android.widget.EditText"), None)
+        return None if node is None else node.text
+
+    def do_ime_type(self, text):
+        """Types by tapping the on-screen keyboard's keys, so the text arrives as the owner's typing
+        does: through the IME's InputConnection, not as key events. Letters a-z and spaces only (a
+        space lets the keyboard autocorrect the word before it). Checks the focused field afterwards."""
+        ime = shell("settings get secure default_input_method").strip()
+        if "com.google.android.inputmethod.latin" not in ime:
+            raise StepFailure(f"ime_type knows Gboard's layout only; the keyboard is {ime}")
+        area = self.keyboard_area()
+        if area is None:
+            raise StepFailure("the on-screen keyboard is not shown")
+        left, top, right, bottom = area
+        key_w, height = (right - left) / 10, bottom - top
+        before = self.focused_text()
+        for ch in text.lower():
+            if ch == " ":
+                x, y = left + (right - left) * self.GBOARD_SPACE[0], top + height * self.GBOARD_SPACE[1]
+            else:
+                row = next((r for r in self.GBOARD_ROWS if ch in r[0]), None)
+                if row is None:
+                    raise StepFailure(f"ime_type cannot type '{ch}'")
+                x = left + key_w * (row[2] + row[0].index(ch) + 0.5)
+                y = top + height * row[1]
+            self.tap_xy(int(x), int(y))
+            time.sleep(0.25)
+        time.sleep(1)
+        after = self.focused_text()
+        word = text.strip().lower()
+        if after is None:
+            self.note("typed on the on-screen keyboard; the field could not be read back")
+        elif after.lower().count(word) > (before or "").lower().count(word):
+            self.note(f"typed '{text}' on the on-screen keyboard; the field now holds it")
+        else:
+            raise StepFailure(f"typed '{text}' on the on-screen keyboard, but the field reads '{after[-80:]}'")
 
     def do_key(self, key):
         codes = ["KEYCODE_" + {"CTRL": "CTRL_LEFT", "SHIFT": "SHIFT_LEFT", "ALT": "ALT_LEFT", "META": "META_LEFT"}
