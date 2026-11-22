@@ -70,6 +70,9 @@ android {
                 it.maxHeapSize = "2g"
                 // Robolectric 4.17 reads FileDescriptor internals on Java 17+
                 it.jvmArgs("--add-opens=java.base/jdk.internal.access=ALL-UNNAMED")
+                // File names are UTF-8 on Android; a build machine without a locale would make
+                // Java read the storage tests' "Hikâye/" as "Hik??ye/"
+                it.environment("LC_ALL", "C.UTF-8")
                 val screenshots = layout.buildDirectory.dir("outputs/screenshots")
                 it.systemProperty("inky.screenshotDir", screenshots.get().asFile.path)
                 // declared so a test result restored from the build cache brings the screenshots along

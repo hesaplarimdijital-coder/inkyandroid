@@ -51,6 +51,9 @@ class TestDocumentsProvider : DocumentsProvider() {
 
         /** The size column is left out. */
         var omitSize = false
+
+        /** Device-relative paths of files without FLAG_SUPPORTS_WRITE (and refusing writes). */
+        val readOnlyPaths = HashSet<String>()
     }
 
     override fun onCreate(): Boolean = true
@@ -79,6 +82,9 @@ class TestDocumentsProvider : DocumentsProvider() {
         if (mode == "wt" && behaviour.refuseTruncateMode) throw IllegalArgumentException("Unsupported mode: wt")
         val file = fileOf(documentId)
         if (!file.isFile) throw FileNotFoundException("Missing file for $documentId")
+        if (mode != "r" && file.relativeTo(rootDir).invariantSeparatorsPath in behaviour.readOnlyPaths) {
+            throw SecurityException("read-only: $documentId")
+        }
         val target = if (mode != "r" && behaviour.loseWrites) File.createTempFile("lost", null) else file
         ParcelFileDescriptor.open(target, ParcelFileDescriptor.parseMode(mode))
     }
@@ -147,7 +153,7 @@ class TestDocumentsProvider : DocumentsProvider() {
         var flags = 0
         if (file.isDirectory) {
             flags = flags or Document.FLAG_DIR_SUPPORTS_CREATE
-        } else {
+        } else if (file.relativeTo(rootDir).invariantSeparatorsPath !in behaviour.readOnlyPaths) {
             flags = flags or Document.FLAG_SUPPORTS_WRITE
         }
         flags = flags or Document.FLAG_SUPPORTS_DELETE
