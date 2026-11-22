@@ -332,6 +332,73 @@ class ProjectSessionHolderTest {
         assertEquals(listOf("open single"), log)
     }
 
+    // ------------------------------------------------------------------ one window per project
+
+    @Test
+    fun `a project open in one window is not opened in a second, which says why`() = test {
+        val root = folder("story").apply { File(this, "main.ink").writeText(story) }
+        val environment = environment(mapOf("ref" to root))
+        val first = ProjectSessionHolder(environment)
+        val second = ProjectSessionHolder(environment)
+        first.open("ref")
+        pass()
+
+        second.open("ref")
+        pass()
+
+        val failed = second.project.value as WindowProject.Failed
+        assertTrue(failed.cause is ProjectOpenElsewhereException)
+        assertEquals(listOf("open ref"), log)
+    }
+
+    @Test
+    fun `a new window beside the one that has the last project open starts without a project`() = test {
+        val root = folder("story").apply { File(this, "main.ink").writeText(story) }
+        val environment = environment(mapOf("ref" to root))
+        val first = ProjectSessionHolder(environment)
+        first.open("ref")
+        pass()
+
+        val second = ProjectSessionHolder(environment)
+        second.restore(savedReference = null)
+        pass()
+
+        assertEquals(WindowProject.None, second.project.value)
+    }
+
+    @Test
+    fun `once the first window has closed the project, another window opens it with the drafts the first one left`() = test {
+        val root = folder("story").apply { File(this, "main.ink").writeText(story) }
+        val environment = environment(mapOf("ref" to root)).also { it.settings.updateAutosave(false) }
+        val first = ProjectSessionHolder(environment)
+        val second = ProjectSessionHolder(environment)
+        first.open("ref")
+        pass()
+        first.editor("main.ink").type(written)
+
+        // the window is finished for good (its unsaved text stays in the drafts), then the other opens the project
+        first.closed()
+        second.open("ref")
+        pass()
+
+        assertEquals(written, second.open().project.text("main.ink").toString())
+    }
+
+    @Test
+    fun `opening the open project again in the same window waits for its last drafts`() = test {
+        val root = folder("story").apply { File(this, "main.ink").writeText(story) }
+        val holder = ProjectSessionHolder(environment(mapOf("ref" to root)).also { it.settings.updateAutosave(false) })
+        holder.open("ref")
+        pass()
+        holder.editor("main.ink").type(written)
+
+        // within the second after typing: no draft yet
+        holder.open("ref")
+        pass()
+
+        assertEquals(written, holder.open().project.text("main.ink").toString())
+    }
+
     // ------------------------------------------------------------------ the activity's hooks
 
     @Test

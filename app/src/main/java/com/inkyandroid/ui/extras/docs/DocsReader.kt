@@ -67,6 +67,9 @@ import desktopkit.components.GlassBottomSheet
 import desktopkit.components.HorizontalSplitPane
 import desktopkit.components.rememberSplitState
 import desktopkit.components.verticalScrollbar
+import desktopkit.editor.CodeEditorZoom
+import desktopkit.editor.rememberCodeEditorZoom
+import desktopkit.editor.textZoom
 import desktopkit.screens.PageHeader
 import desktopkit.settings.DeskPreferences
 import desktopkit.shell.CompactTopBar
@@ -105,7 +108,8 @@ internal fun DocsReader(
     val scope = rememberCoroutineScope()
     val density = LocalDensity.current
 
-    val zoom = remember(memory) { DocsZoom(memory.scale, memory::updateScale) }
+    // the editor's zoom (its steps, keys, wheel and pinch), with a size of the manual's own
+    val zoom = rememberCodeEditorZoom(prefs, DOCS_ZOOM_KEY)
     val listState = remember(manual, memory) {
         val position = memory.position
         LazyListState(position.block.coerceIn(0, manual.blocks.lastIndex), position.offset.coerceAtLeast(0))
@@ -183,7 +187,7 @@ internal fun DocsReader(
         ManualText(
             manual = manual,
             listState = listState,
-            scale = zoom.scale,
+            zoom = zoom,
             matches = matches,
             current = current,
             contentPadding = padding,
@@ -213,8 +217,8 @@ internal fun DocsReader(
                 TopBarAction(DeskIcons.ListView, stringResource(R.string.docs_contents), { contentsSheet = true }),
                 TopBarAction(DeskIcons.Search, stringResource(R.string.docs_find), openFind),
                 // past the bar's room: they go to its "⋮" menu
-                TopBarAction(DeskIcons.Plus, stringResource(R.string.docs_zoom_in), { zoom.zoomIn() }, enabled = zoom.canZoomIn),
-                TopBarAction(DeskIcons.Minus, stringResource(R.string.docs_zoom_out), { zoom.zoomOut() }, enabled = zoom.canZoomOut),
+                TopBarAction(DeskIcons.Plus, stringResource(R.string.docs_zoom_in), zoom::zoomIn, enabled = zoom.scale < zoom.maxScale),
+                TopBarAction(DeskIcons.Minus, stringResource(R.string.docs_zoom_out), zoom::zoomOut, enabled = zoom.scale > zoom.minScale),
             ),
             showSearch = false,
             showOnRail = true,
@@ -243,7 +247,7 @@ internal fun DocsReader(
 }
 
 /** Ctrl+F, F3 / Shift+F3, Ctrl with + − 0, as in the editor; true if the key was used. */
-private fun docsKey(event: KeyEvent, zoom: DocsZoom, openFind: () -> Unit, next: () -> Unit, previous: () -> Unit): Boolean {
+private fun docsKey(event: KeyEvent, zoom: CodeEditorZoom, openFind: () -> Unit, next: () -> Unit, previous: () -> Unit): Boolean {
     if (event.type != KeyEventType.KeyDown) return false
     val ctrl = event.isCtrlPressed || event.isMetaPressed
     val char = event.utf16CodePoint.toChar()
@@ -277,7 +281,7 @@ private fun RememberPosition(listState: LazyListState, memory: DocsMemory) {
 private fun ManualText(
     manual: Manual,
     listState: LazyListState,
-    scale: Float,
+    zoom: CodeEditorZoom,
     matches: List<ManualMatch>,
     current: ManualMatch?,
     contentPadding: PaddingValues,
@@ -287,6 +291,7 @@ private fun ManualText(
     val type = DeskTheme.type
     val colors = DeskTheme.colors
     val dimens = DeskTheme.dimens
+    val scale = zoom.scale
     val styles = remember(type, colors, dimens, scale) { ManualStyles(type, colors, dimens, scale) }
     val byBlock = remember(matches) { matches.groupBy { it.block } }
     val uriHandler = LocalUriHandler.current
@@ -310,7 +315,8 @@ private fun ManualText(
         LazyColumn(
             state = listState,
             contentPadding = contentPadding,
-            modifier = Modifier.fillMaxSize().verticalScrollbar(listState).testTag(DocsTags.TEXT),
+            // Ctrl with the wheel and a pinch over the text, as over the editor
+            modifier = Modifier.fillMaxSize().textZoom(zoom).verticalScrollbar(listState).testTag(DocsTags.TEXT),
         ) {
             itemsIndexed(manual.blocks, contentType = { _, block -> block::class }) { index, block ->
                 val found = byBlock[index]
@@ -410,9 +416,9 @@ private fun FindControls(
 
 /** − and + for the text size; Ctrl+0 (and nothing on screen) goes back to the theme's. */
 @Composable
-private fun ZoomButtons(zoom: DocsZoom) {
-    DeskIconButton(DeskIcons.Minus, stringResource(R.string.docs_zoom_out), { zoom.zoomOut() }, enabled = zoom.canZoomOut, shortcut = "Ctrl+−")
-    DeskIconButton(DeskIcons.Plus, stringResource(R.string.docs_zoom_in), { zoom.zoomIn() }, enabled = zoom.canZoomIn, shortcut = "Ctrl++")
+private fun ZoomButtons(zoom: CodeEditorZoom) {
+    DeskIconButton(DeskIcons.Minus, stringResource(R.string.docs_zoom_out), zoom::zoomOut, enabled = zoom.scale > zoom.minScale, shortcut = "Ctrl+−")
+    DeskIconButton(DeskIcons.Plus, stringResource(R.string.docs_zoom_in), zoom::zoomIn, enabled = zoom.scale < zoom.maxScale, shortcut = "Ctrl++")
 }
 
 private val CONTENTS_WIDTH = 280.dp
@@ -424,6 +430,9 @@ private val SHEET_LIST_HEIGHT = 520.dp
 /** About 75 characters of body text to a line: the measure books are set to. */
 private val MEASURE = 680.dp
 private const val SPLIT_KEY = "docs"
+
+/** The key of the manual's text size among the kit's preferences (the editor's is another). */
+internal const val DOCS_ZOOM_KEY = "docs"
 private const val CONTENTS_CONTEXT = 3
 private const val ANIMATED_SCROLL_BLOCKS = 12
 private const val FOCUS_DELAY_MS = 50L

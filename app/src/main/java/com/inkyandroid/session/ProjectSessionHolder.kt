@@ -91,6 +91,35 @@ class SessionEnvironment(
     fun draftsFolder(reference: String): File =
         File(draftsDirectory, TextHash.of(opener.identity(reference)).take(DRAFT_FOLDER_LENGTH))
 
+    /** Project identity → the window that has it open. */
+    private val windows = HashMap<String, Any>()
+
+    /**
+     * [window] opens [reference]. False when another window has the same project open: one window
+     * per project, so two sessions never share one drafts folder (each would restore, and on saving
+     * remove, the other's drafts). Upstream opens a second window and notes it should switch to the first.
+     */
+    internal fun claim(reference: String, window: Any): Boolean = synchronized(windows) {
+        val identity = opener.identity(reference)
+        val owner = windows[identity]
+        if (owner != null && owner !== window) return false
+        windows[identity] = window
+        true
+    }
+
+    /** [window] no longer has [reference] open. */
+    internal fun release(reference: String, window: Any) {
+        synchronized(windows) {
+            val identity = opener.identity(reference)
+            if (windows[identity] === window) windows.remove(identity)
+        }
+    }
+
+    /** Whether a window other than [window] has the project of [reference] open. */
+    internal fun isOpenElsewhere(reference: String, window: Any): Boolean = synchronized(windows) {
+        windows[opener.identity(reference)]?.let { it !== window } == true
+    }
+
     companion object {
         private const val DRAFT_FOLDER_LENGTH = 32
 
@@ -117,6 +146,12 @@ class SessionEnvironment(
         }
     }
 }
+
+/**
+ * The project is open in another window of the app ([WindowProject.Failed.cause]): a project is open
+ * in one window at a time.
+ */
+class ProjectOpenElsewhereException(val reference: String) : IOException("The project is open in another window")
 
 /** What a window is doing about its project. */
 sealed interface WindowProject {
@@ -180,6 +215,8 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
         if (restored) return
         restored = true
         val reference = savedReference ?: environment.settings.lastSession?.project ?: return
+        // a new window beside the one that has the last project open starts without a project
+        if (environment.isOpenElsewhere(reference, this)) return
         open(reference)
     }
 
@@ -208,55 +245,78 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
         restored = true
         opening?.cancel()
         val previous = session
-        if (carried == null) previous?.let(::end)
+        val ended = if (carried == null) previous?.let(::end) else null
         mutableProject.value = WindowProject.Opening(reference)
         opening = viewModelScope.launch {
-            val drafts = environment.draftsFor(reference)
-            if (carried != null) {
-                // the drafts move to where the new place files them, unless that is where they are
-                val target = drafts.takeIf { environment.draftsFolder(reference) != environment.draftsFolder(carried.reference) }
-                try {
-                    carried.handOver(target)
-                } catch (failed: IOException) {
-                    // the unsaved text could not be carried over: the window keeps the project it has
-                    carried.draftsFailed(failed)
-                    mutableProject.value = WindowProject.Open(carried)
-                    return@launch
-                }
-                environment.opener.close(carried.reference)
+            // the project that was open has written its last drafts before anything reads drafts again
+            ended?.join()
+            if (!environment.claim(reference, this@ProjectSessionHolder)) {
+                val elsewhere = ProjectOpenElsewhereException(reference)
+                mutableProject.value = WindowProject.Failed(reference, elsewhere.message.orEmpty(), elsewhere)
+                return@launch
             }
-            mutableProject.value = try {
-                val opened = environment.opener.open(reference)
-                val session = try {
-                    ProjectSession.open(
-                        reference = reference,
-                        store = opened.store,
-                        mainPath = opened.mainPath,
-                        drafts = drafts,
-                        settings = environment.settings,
-                        editors = environment.editors,
-                        live = environment.live,
-                        context = environment.sessionContext,
-                        parseContext = environment.parseContext,
-                    )
-                } catch (failed: Throwable) {
-                    // storage counts the project as open in a window: it is not
-                    environment.opener.close(reference)
-                    throw failed
+            // from here the project is this window's until it is open, or the opening fails or is given up
+            var opened = false
+            try {
+                val drafts = environment.draftsFor(reference)
+                if (carried != null) {
+                    // the drafts move to where the new place files them, unless that is where they are
+                    val target = drafts.takeIf { environment.draftsFolder(reference) != environment.draftsFolder(carried.reference) }
+                    try {
+                        carried.handOver(target)
+                    } catch (failed: IOException) {
+                        // the unsaved text could not be carried over: the window keeps the project it has
+                        carried.draftsFailed(failed)
+                        mutableProject.value = WindowProject.Open(carried)
+                        return@launch
+                    }
+                    environment.opener.close(carried.reference)
+                    environment.release(carried.reference, this@ProjectSessionHolder)
+                    // the same project under another reference has the same identity: still this window's
+                    environment.claim(reference, this@ProjectSessionHolder)
                 }
-                WindowProject.Open(session)
-            } catch (failed: IOException) {
-                WindowProject.Failed(reference, failed.message?.takeIf { it.isNotBlank() } ?: failed.javaClass.simpleName, failed)
+                mutableProject.value = try {
+                    WindowProject.Open(openSession(reference, drafts)).also { opened = true }
+                } catch (failed: IOException) {
+                    WindowProject.Failed(reference, failed.message?.takeIf { it.isNotBlank() } ?: failed.javaClass.simpleName, failed)
+                }
+            } finally {
+                if (!opened) environment.release(reference, this@ProjectSessionHolder)
             }
         }
     }
 
+    /** Opens the session of [reference]; storage's count of the project as open is given back when that fails. */
+    private suspend fun openSession(reference: String, drafts: DraftStore): ProjectSession {
+        val opened = environment.opener.open(reference)
+        return try {
+            ProjectSession.open(
+                reference = reference,
+                store = opened.store,
+                mainPath = opened.mainPath,
+                drafts = drafts,
+                settings = environment.settings,
+                editors = environment.editors,
+                live = environment.live,
+                context = environment.sessionContext,
+                parseContext = environment.parseContext,
+            )
+        } catch (failed: Throwable) {
+            environment.opener.close(reference)
+            throw failed
+        }
+    }
+
     /**
-     * Ends [session] without asking and gives its project's storage back once the session's last
-     * flush (drafts, and with autosave a save) is done: storage must stay usable until then.
+     * Ends [session] without asking and gives its project back (to storage, and to the other
+     * windows) once the session's last flush (drafts, and with autosave a save) is done: storage
+     * must stay usable, and the drafts nobody else's, until then.
      */
-    private fun end(session: ProjectSession) {
-        session.abandon().invokeOnCompletion { environment.opener.close(session.reference) }
+    private fun end(session: ProjectSession): Job = session.abandon().also { last ->
+        last.invokeOnCompletion {
+            environment.opener.close(session.reference)
+            environment.release(session.reference, this)
+        }
     }
 
     /** The window shows no project any more: after [ProjectSession.requestClose] or [ProjectSession.answerClose] returned true, or to leave a failed opening. */
