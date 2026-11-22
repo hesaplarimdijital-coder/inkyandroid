@@ -8,6 +8,8 @@ import com.inkyandroid.core.project.FileDraftStore
 import com.inkyandroid.core.project.ProjectStore
 import com.inkyandroid.core.project.TextHash
 import com.inkyandroid.settings.AppSettings
+import com.inkyandroid.storage.ProjectRef
+import com.inkyandroid.storage.ProjectStorage
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,11 +23,28 @@ class OpenedProject(val store: ProjectStore, val mainPath: String)
 
 /**
  * Turns a project reference in its string form into the project's storage: the storage package's
- * part of opening a project (`ProjectRef.decode` and its store factory).
+ * part of opening a project. [StorageProjectOpener] is the app's; tests use their own.
  */
-fun interface ProjectOpener {
+interface ProjectOpener {
+    /** The storage of the project with [reference], for a window that opens it. */
     @Throws(IOException::class)
     suspend fun open(reference: String): OpenedProject
+
+    /** The window that opened [reference] shows it no longer. */
+    fun close(reference: String) {}
+}
+
+/** Opens projects through the app's [ProjectStorage]: a reference is `ProjectRef.encode()`. */
+class StorageProjectOpener(private val storage: ProjectStorage) : ProjectOpener {
+
+    override suspend fun open(reference: String): OpenedProject {
+        val ref = ProjectRef.decode(reference) ?: throw IOException("Not a project reference")
+        return OpenedProject(storage.open(ref), ref.mainPath)
+    }
+
+    override fun close(reference: String) {
+        ProjectRef.decode(reference)?.let(storage::close)
+    }
 }
 
 /**
@@ -112,22 +131,41 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
 
     /**
      * Opens the project with [reference] in this window, replacing the one that is open. The open
-     * session is ended without asking: ask it first with [ProjectSession.requestClose] when the
-     * user's unsaved changes should be saved or confirmed (its drafts are kept either way).
+     * session is ended without asking ([ProjectSession.abandon]: with autosave its files are saved,
+     * its drafts are kept either way): ask it first with [ProjectSession.requestClose] when the
+     * user's unsaved changes should be confirmed.
      */
     fun open(reference: String) {
+        start(reference, carried = null)
+    }
+
+    /**
+     * Opens [reference] as the same project in another place: a single file whose folder was
+     * granted afterwards, an internal project copied out to a folder. The unsaved changes of the
+     * open session move along by file path, as unsaved changes of the new one; nothing is asked
+     * and nothing is saved to the old place.
+     */
+    fun switchTo(reference: String) {
+        start(reference, carried = session)
+    }
+
+    private fun start(reference: String, carried: ProjectSession?) {
         opening?.cancel()
-        session?.abandon()
+        val previous = session
+        if (carried == null) previous?.abandon()
         mutableProject.value = WindowProject.Opening(reference)
         opening = viewModelScope.launch {
             mutableProject.value = try {
+                val drafts = environment.draftsFor(reference)
+                if (carried != null) for (draft in carried.handOver()) drafts.put(draft)
+                if (previous != null) environment.opener.close(previous.reference)
                 val opened = environment.opener.open(reference)
                 WindowProject.Open(
                     ProjectSession.open(
                         reference = reference,
                         store = opened.store,
                         mainPath = opened.mainPath,
-                        drafts = environment.draftsFor(reference),
+                        drafts = drafts,
                         settings = environment.settings,
                         editors = environment.editors,
                         live = environment.live,
@@ -142,7 +180,10 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
     /** The window shows no project any more: after [ProjectSession.requestClose] or [ProjectSession.answerClose] returned true, or to leave a failed opening. */
     fun closed() {
         opening?.cancel()
-        session?.abandon()
+        session?.let { session ->
+            session.abandon()
+            environment.opener.close(session.reference)
+        }
         mutableProject.value = WindowProject.None
     }
 
@@ -159,8 +200,11 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
     }
 
     override fun onCleared() {
-        // the window is gone for good; unsaved text is in the drafts and, with autosave, was saved in onStop
-        session?.abandon()
+        // the window is gone for good; unsaved text is in the drafts and, with autosave, is saved once more
+        session?.let { session ->
+            session.abandon()
+            environment.opener.close(session.reference)
+        }
     }
 
     /** Creates the holder for an activity: `ViewModelProvider(activity, ProjectSessionHolder.Factory(environment))[ProjectSessionHolder::class.java]`. */

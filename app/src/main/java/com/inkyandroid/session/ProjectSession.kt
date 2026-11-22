@@ -2,6 +2,7 @@ package com.inkyandroid.session
 
 import com.inkyandroid.core.project.AddIncludeResult
 import com.inkyandroid.core.project.DeleteResult
+import com.inkyandroid.core.project.Draft
 import com.inkyandroid.core.project.DraftJournal
 import com.inkyandroid.core.project.DraftRestoreReport
 import com.inkyandroid.core.project.DraftStore
@@ -429,6 +430,29 @@ class ProjectSession private constructor(
                 scope.cancel()
             }
         }
+    }
+
+    /**
+     * Ends the session and hands its unsaved changes to a successor: the same project opened from
+     * another place ([ProjectSessionHolder.switchTo]). Nothing is saved; the drafts are returned
+     * for the new session's journal and removed from this one's.
+     */
+    suspend fun handOver(): List<Draft> {
+        if (state.value.closed) return emptyList()
+        cancelTimers()
+        rememberSession()
+        val drafts = journalLock.withLock {
+            journal.flush(project)
+            val unsaved = project.state.value.unsavedFiles.mapNotNull { file ->
+                project.text(file.path)?.let { Draft(file.path, it.toString(), project.storedHash(file.path), System.currentTimeMillis()) }
+            }
+            journal.discardAll()
+            unsaved
+        }
+        mutableState.update { it.copy(closed = true) }
+        live.close()
+        scope.cancel()
+        return drafts
     }
 
     private fun finish() {
