@@ -1,0 +1,384 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 104,
+  "knots": 2,
+  "stitches": 0,
+  "functions": 0,
+  "choices": 14,
+  "gathers": 4,
+  "diverts": 8
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "\"What's that?\" my master asked.\n"
+   },
+   {
+    "choices": [
+     [
+      "\"I am somewhat tired.\"",
+      []
+     ],
+     [
+      "\"Nothing, Monsieur!\"",
+      []
+     ],
+     [
+      "\"I said, this journey is appalling.\"",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"I am somewhat tired,\" I repeated.\n"
+   },
+   {
+    "text": "\"Really,\" he responded. \"How deleterious.\"\n"
+   },
+   {
+    "text": "With that Monsieur Fogg left the room.\n"
+   },
+   {
+    "choices": [
+     [
+      "Follow him",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The corridor.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look left",
+      []
+     ],
+     [
+      "Look right",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Nothing left.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look right",
+      []
+     ],
+     [
+      "Give up",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Nothing right.\n"
+   },
+   {
+    "choices": [
+     [
+      "Give up",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": ""
+   },
+   {
+    "end": true
+   }
+  ],
+  "truth-loud": [
+   {
+    "text": "\"What's that?\" my master asked.\n"
+   },
+   {
+    "choices": [
+     [
+      "\"I am somewhat tired.\"",
+      []
+     ],
+     [
+      "\"Nothing, Monsieur!\"",
+      []
+     ],
+     [
+      "\"I said, this journey is appalling.\"",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "\"I said, this journey is appalling and I want no more of it.\"\n"
+   },
+   {
+    "text": "\"Ah,\" he replied, not unkindly. \"I see you are feeling frustrated.\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Agree",
+      []
+     ],
+     [
+      "Deny",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"I am.\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Loudly",
+      []
+     ],
+     [
+      "Quietly",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"LOUDLY.\"\n"
+   },
+   {
+    "text": "He nodded.\n"
+   },
+   {
+    "text": "He smiled.\n"
+   },
+   {
+    "text": "With that Monsieur Fogg left the room. He had heard the truth.\n"
+   },
+   {
+    "text": "He had nodded, once.\n"
+   },
+   {
+    "choices": [
+     [
+      "Follow him",
+      []
+     ],
+     [
+      "Sulk",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I sulked.\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "truth-deny": [
+   {
+    "text": "\"What's that?\" my master asked.\n"
+   },
+   {
+    "choices": [
+     [
+      "\"I am somewhat tired.\"",
+      []
+     ],
+     [
+      "\"Nothing, Monsieur!\"",
+      []
+     ],
+     [
+      "\"I said, this journey is appalling.\"",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "\"I said, this journey is appalling and I want no more of it.\"\n"
+   },
+   {
+    "text": "\"Ah,\" he replied, not unkindly. \"I see you are feeling frustrated.\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Agree",
+      []
+     ],
+     [
+      "Deny",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\"I am not.\"\n"
+   },
+   {
+    "text": "He smiled.\n"
+   },
+   {
+    "text": "With that Monsieur Fogg left the room. He had heard the truth.\n"
+   },
+   {
+    "choices": [
+     [
+      "Follow him",
+      []
+     ],
+     [
+      "Sulk",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The corridor.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look left",
+      []
+     ],
+     [
+      "Look right",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   }
+  ],
+  "nothing": [
+   {
+    "text": "\"What's that?\" my master asked.\n"
+   },
+   {
+    "choices": [
+     [
+      "\"I am somewhat tired.\"",
+      []
+     ],
+     [
+      "\"Nothing, Monsieur!\"",
+      []
+     ],
+     [
+      "\"I said, this journey is appalling.\"",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\"Nothing, Monsieur!\" I replied.\n"
+   },
+   {
+    "text": "\"Very good, then.\"\n"
+   },
+   {
+    "text": "With that Monsieur Fogg left the room.\n"
+   },
+   {
+    "choices": [
+     [
+      "Follow him",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The corridor.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look left",
+      []
+     ],
+     [
+      "Look right",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   }
+  ]
+ }
+}

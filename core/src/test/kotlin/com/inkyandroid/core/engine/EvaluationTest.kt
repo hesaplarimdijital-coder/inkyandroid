@@ -95,7 +95,7 @@ class EvaluationTest {
             "-> nowhere" to "Divert target not found: '-> nowhere'",
             "double(\"a\")" to "Cannot perform operation '*' on String",
             "1 / 0" to "/ by zero",
-            "forever()" to "The evaluation took too long",
+            "forever()" to "The evaluation called functions inside one another more than 50000 deep: does one call itself without end?",
             "x = 3" to "Unexpected text after the expression: '= 3'",
             "" to "Not an ink expression",
             "~ x = 3" to "Not an ink expression",
@@ -116,6 +116,20 @@ class EvaluationTest {
     }
 
     @Test
+    fun anExpressionThatCallsItselfWithoutEndIsStoppedBeforeItFillsTheMemory() {
+        // ink's call stack grows by up to a million calls a second: a time budget alone would let
+        // it take hundreds of megabytes first. With a minute's budget only the depth can stop it.
+        val play = Stories.play(sources, PlayLimits(evaluationBudgetMillis = 60_000))
+        play.continueToChoice()
+        val started = System.nanoTime()
+        val result = play.evaluate("forever()")
+        assertTrue((System.nanoTime() - started) / 1_000_000 < 5_000)
+        assertTrue(result.toString(), result is Evaluation.Failed)
+        assertEquals(2, play.choices.size)
+        assertEquals("5", value(play, "x"))
+    }
+
+    @Test
     fun anEvaluationLeavesNoTrace() {
         val play = atFirstChoice()
         val before = play.saveState()
@@ -125,6 +139,77 @@ class EvaluationTest {
         assertEquals("105", value(play, "bump()"))
         assertEquals("5", value(play, "x"))
         assertEquals(before, play.saveState())
+    }
+
+    /**
+     * The evaluations at one choice point share one snapshot of the state, so the snapshot must be
+     * the state of the moment: after a choice, a loaded state or a divert, a function that assigns
+     * is undone back to the new state, not to an older one.
+     */
+    @Test
+    fun anEvaluationPutsBackTheStateOfTheMomentNeverAnOlderOne() {
+        val play = Stories.play(
+            """
+            VAR x = 1
+            Start.
+            * [Up]
+              ~ x = 2
+              Up.
+              * * [Again]
+                ~ x = 3
+                Again.
+                -> END
+            == jump ==
+            ~ x = 7
+            Jumped.
+            -> END
+            == function bump() ==
+            ~ x = x + 100
+            ~ return x
+            """.trimIndent(),
+        )
+        play.continueToChoice()
+        assertEquals("101", value(play, "bump()"))
+        assertEquals("1", value(play, "x"))
+
+        assertTrue(play.choose(0))
+        assertEquals(listOf("Up.\n"), play.continueToChoice().lines.map { it.text })
+        assertEquals("102", value(play, "bump()"))
+        assertEquals("2", value(play, "x"))
+        val atTwo = play.saveState()
+
+        assertTrue(play.choose(0))
+        assertEquals(listOf("Again.\n"), play.continueToChoice().lines.map { it.text })
+        assertEquals("103", value(play, "bump()"))
+        assertEquals("3", value(play, "x"))
+
+        assertTrue(play.loadState(atTwo))
+        assertEquals("102", value(play, "bump()"))
+        assertEquals("2", value(play, "x"))
+        assertEquals(listOf("Again"), play.choices.map { it.text })
+
+        assertEquals(Evaluation.Diverted("jump"), play.evaluate("-> jump"))
+        assertEquals(listOf("Jumped.\n"), play.continueToChoice().lines.map { it.text })
+        assertEquals("107", value(play, "bump()"))
+        assertEquals("7", value(play, "x"))
+    }
+
+    /** A compiled watch is kept for the playthrough: asked again, it reads the story as it is then. */
+    @Test
+    fun aWatchAskedAgainSeesTheStoryAsItIsThen() {
+        val play = Stories.play("VAR x = 1\n- (top) Turn {x}.\n~ x = x * 2\n+ [Again] -> top\n== function triple(n) ==\n~ return n * 3")
+        play.continueToChoice()
+        val seen = (1..4).map {
+            val value = play.evaluateWatch("{x} and {triple(x)}")
+            assertTrue(play.choose(0))
+            play.continueToChoice()
+            value
+        }
+        assertEquals(listOf("2 and 6", "4 and 12", "8 and 24", "16 and 48").map { Evaluation.Value(it) }, seen)
+        // one that cannot be compiled says so every time, and so does one that fails when it runs
+        repeat(2) { assertEquals("Unresolved variable: nope", (play.evaluateWatch("{nope}") as Evaluation.Failed).message) }
+        repeat(2) { assertEquals("/ by zero", (play.evaluateWatch("{x / 0}") as Evaluation.Failed).message) }
+        assertEquals(Evaluation.Value("32 and 96"), play.evaluateWatch("{x} and {triple(x)}"))
     }
 
     @Test

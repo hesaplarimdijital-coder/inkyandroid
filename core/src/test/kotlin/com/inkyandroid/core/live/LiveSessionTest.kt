@@ -514,6 +514,11 @@ class LiveSessionTest {
         assertEquals(listOf("STOPPED TimeLimit"), live.shown())
         assertFalse(live.state.busy)
 
+        // a function that calls itself for ever would fill the memory first: stopped by its depth
+        live.typeAndWait("Before {f(1)}.\n== function f(n) ==\n~ return f(n + 1)\n")
+        assertEquals(listOf("STOPPED DepthLimit"), live.shown())
+        assertFalse(live.state.busy)
+
         live.typeAndWait("Fine again.\n")
         assertEquals(listOf("Fine again.", "END"), live.shown())
     }

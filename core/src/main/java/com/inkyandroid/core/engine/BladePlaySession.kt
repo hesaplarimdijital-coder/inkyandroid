@@ -5,6 +5,8 @@ import com.bladecoder.ink.runtime.Error.ErrorType
 import com.bladecoder.ink.runtime.Path
 import com.bladecoder.ink.runtime.Story
 import com.bladecoder.ink.runtime.StoryException
+import com.bladecoder.ink.runtime.inkyCallDepth
+import com.bladecoder.ink.runtime.inkyCurrentThreadNumber
 import com.bladecoder.ink.runtime.inkySetStorySeed
 
 /**
@@ -32,10 +34,17 @@ internal class BladePlaySession(
     /** The state at the last moment the story was known to be sound: where it is rebuilt after the runtime threw. */
     private var lastGoodState: String = story.state.toJson()
 
+    /**
+     * The state as JSON while it is known not to have changed since it was taken: at each choice
+     * point it is [lastGoodState], and the evaluations made there (the watches, after every turn)
+     * share it instead of each serialising the state again. Null once the story moves on.
+     */
+    private var unchangedState: String? = lastGoodState
+
     /** The story was stopped or threw: it is over, whatever the rebuilt `Story` object says. */
     private var over = false
 
-    private val evaluator = ImmediateEvaluator(compiled, this, limits.evaluationBudgetMillis)
+    private val evaluator = ImmediateEvaluator(compiled, this, limits.evaluationBudgetMillis, limits.maxCallDepth)
 
     override val choices: List<StoryChoice>
         get() = if (over) emptyList() else story.currentChoices.map { StoryChoice(it.index, it.text, it.tags.orEmpty()) }
@@ -58,15 +67,14 @@ internal class BladePlaySession(
         var broken = false
         val deadline = System.nanoTime() + limits.turnBudgetMillis * NANOS_PER_MILLI
         try {
+            val depth = CallDepthGuard(story, limits.maxCallDepth)
             while (story.canContinue()) {
                 if (lines.size >= limits.maxLinesPerTurn) {
                     stop = StopReason.LineLimit
                     break
                 }
-                if (!continueOneLine(deadline)) {
-                    stop = StopReason.TimeLimit
-                    break
-                }
+                stop = continueOneLine(deadline, depth)
+                if (stop != null) break
                 lines += currentLine(drainIssues())
             }
         } catch (e: StoryException) {
@@ -91,8 +99,11 @@ internal class BladePlaySession(
             over = true
             return StoryTurn(lines, emptyList(), ended = true, stop = stop, issues = loose)
         }
-        lastGoodState = story.state.toJson()
+        // Reading the choices numbers them in the state (`Story.getCurrentChoices`): read them first,
+        // so that the snapshot is the state as it stays from now on.
         val offered = choices
+        lastGoodState = story.state.toJson()
+        unchangedState = lastGoodState
         return StoryTurn(lines, offered, ended = offered.isEmpty(), issues = loose)
     }
 
@@ -100,6 +111,7 @@ internal class BladePlaySession(
         if (over || index !in story.currentChoices.indices) return false
         return try {
             story.chooseChoiceIndex(index)
+            unchangedState = null
             true
         } catch (e: Exception) {
             recover(lastGoodState)
@@ -125,6 +137,7 @@ internal class BladePlaySession(
         return try {
             story.state.loadJson(state)
             lastGoodState = state
+            unchangedState = state
             over = false
             true
         } catch (e: Exception) {
@@ -135,9 +148,13 @@ internal class BladePlaySession(
 
     /** Jumps to a runtime path, as inklecate does for `-> path` typed in play mode. Throws what the runtime throws. */
     internal fun divertTo(path: String) {
+        unchangedState = null
         story.choosePathString(path)
         over = false
     }
+
+    /** The state as ink's save JSON, now: what an evaluation puts back afterwards. */
+    internal fun stateNow(): String = unchangedState ?: story.state.toJson().also { unchangedState = it }
 
     internal fun drainIssues(): List<InkIssue> = pendingIssues.toList().also { pendingIssues.clear() }
 
@@ -148,16 +165,22 @@ internal class BladePlaySession(
     internal fun recover(stateJson: String) {
         story = newStory()
         story.state.loadJson(stateJson)
+        unchangedState = stateJson
         pendingIssues.clear()
     }
 
-    /** One step of the story in slices, so that a loop without output cannot hold the thread; false when [deadline] passed first. */
-    private fun continueOneLine(deadline: Long): Boolean {
-        do {
+    /**
+     * One step of the story, in slices, so that a loop without output cannot hold the thread and a
+     * story that calls itself without end cannot fill the memory. Null when the line is complete,
+     * otherwise what stopped it.
+     */
+    private fun continueOneLine(deadline: Long, depth: CallDepthGuard): StopReason? {
+        while (true) {
             story.continueAsync(SLICE_MILLIS)
-            if (story.asyncContinueComplete()) return true
-        } while (System.nanoTime() < deadline)
-        return false
+            if (story.asyncContinueComplete()) return null
+            if (depth.exceeded()) return StopReason.DepthLimit
+            if (System.nanoTime() >= deadline) return StopReason.TimeLimit
+        }
     }
 
     private fun currentLine(issues: List<InkIssue>): StoryLine {
@@ -178,8 +201,25 @@ internal class BladePlaySession(
     private companion object {
         const val NANOS_PER_MILLI = 1_000_000L
 
-        /** What `continueAsync` gets at a time; the deadline is checked between slices. */
-        const val SLICE_MILLIS = 50f
+        /**
+         * What `continueAsync` gets at a time; the deadline and the depth are checked between
+         * slices. A runaway call stack grows by a few megabytes in one slice.
+         */
+        const val SLICE_MILLIS = 20f
         const val STACK_OVERFLOW = "Stack overflow"
     }
+}
+
+/**
+ * Watches the call stack of the flow [story] is running, from the moment it is made: whether
+ * functions and tunnels are called inside one another more than [limit] deep, or more than [limit]
+ * threads were started. ink keeps its call stack on the heap without a bound, so a story that calls
+ * itself without end (a function, a tunnel, a knot that threads itself in) takes hundreds of
+ * megabytes within seconds, more than a phone gives an app. Checked between the slices of a step.
+ */
+internal class CallDepthGuard(private val story: Story, private val limit: Int) {
+    private val threadsBefore = story.inkyCurrentThreadNumber()
+
+    fun exceeded(): Boolean =
+        story.inkyCallDepth() > limit || story.inkyCurrentThreadNumber() - threadsBefore > limit
 }

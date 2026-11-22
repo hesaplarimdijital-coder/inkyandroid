@@ -53,14 +53,18 @@ LARGE_WINDOW_DP = 1200
 #   ["rotate", "flip"|"natural"|"landscape"|"portrait"]
 #   ["tap", "Text"]           tap the node whose text or content description is exactly "Text"
 #   ["tap_contains", "Te"]    … that contains "Te"
+#   ["tap_field", 1]          tap the first text field (EditText, top to bottom), e.g. the editor
 #   ["long_press", "Text"]
 #   ["type", "some text"]     type with key events (`input text`), as a hardware keyboard does
 #   ["ime_type", "some text"] type by tapping the on-screen keyboard's keys (the IME's own path)
 #   ["key", "ENTER"]          one key event (KEYCODE_ENTER); ["key", "CTRL+K"] a key combination
 #   ["hide_keyboard"], ["back"], ["wait", seconds], ["wait_text", "Text", seconds]
+#   ["shell", "command"]      a device shell command, its output in the report
+#   ["save", "file.txt", "command"]  a device shell command, its output saved next to the report
 #
 # Checks (keyword arguments of step()):
 #   expect=["…"]      each text is visible (substring of a node's text or content description)
+#   played=["…"]      … visible outside the text fields (the player shows it, not only the editor)
 #   absent=["…"]      none of these is visible
 #   foreground=True   the app's activity is the resumed one (default True; False after ["home"])
 #   same_process=True the app's process is the one of the previous step (it was not restarted)
@@ -72,9 +76,9 @@ LARGE_WINDOW_DP = 1200
 # ---------------------------------------------------------------------------------------------
 
 
-def step(name, do=(), expect=(), absent=(), foreground=True, same_process=False, new_process=False,
+def step(name, do=(), expect=(), played=(), absent=(), foreground=True, same_process=False, new_process=False,
          wide=None, only=None, soft=False):
-    return dict(name=name, do=[list(a) for a in do], expect=list(expect), absent=list(absent),
+    return dict(name=name, do=[list(a) for a in do], expect=list(expect), played=list(played), absent=list(absent),
                 foreground=foreground, same_process=same_process, new_process=new_process,
                 wide=wide, only=only, soft=soft)
 
@@ -120,9 +124,100 @@ SCENARIO_0 = (
     ]
 )
 
+# The driver's own check of ime_type, in a system text field (Settings > About > Device name):
+# types through the on-screen keyboard. Not an app test; run it with --scenarios ime-probe.
+SCENARIO_IME_PROBE = [
+    step("ime-probe-field", foreground=False, soft=True, do=[
+        ["shell", "am start -W -a android.settings.DEVICE_INFO_SETTINGS"],
+        # Settings never goes idle for uiautomator here: the row is tapped where it is drawn
+        ["shell", "input tap 300 923"],
+        ["wait", 3],
+        ["ime_type", "smoke"],
+        ["save", "ime-window.txt", "settings get secure default_input_method; "
+                                   "dumpsys window windows | grep -A40 ' u0 InputMethod}:'"],
+    ]),
+]
+
+# Scenario 1: the real app (architecture 4.3): write, play, issues, files, the manual, settings,
+# and the text surviving a force-stop; on the tablet the large window's menu bar, sidebar, side by
+# side workspace, the command palette and shortcuts. The app's texts it looks for are collected
+# here; they are checked against the app as its screens land on android-port.
+S1 = dict(
+    write="Write", play="Play", files="Files", more="More", issues="Issues", docs="Manual",
+    settings="Settings", step_back="Step back", restart="Restart",
+    menus=["File", "Edit", "View", "Story", "Ink", "Help"],
+    main_file="main.ink",
+    # a line of the sample project's ink, and what the player shows of it
+    sample_ink="Once upon a time",
+    sample_story="Once upon a time",
+    sample_choice="There were two choices.",
+    after_choice="They lived happily ever after.",
+    palette_hint="Go to anything",
+    find_hint="Find",
+    manual_text="Writing with ink",
+    settings_text="Autosave",
+)
+TYPED = "Smoke line from keys."
+IME_TYPED = "imeword"
+MISSING_KNOT = "smoke_missing_knot"
+
+_s1_type_first_line = [["tap_field", 1], ["key", "CTRL+MOVE_HOME"]]
+
+SCENARIO_1_PHONE = [
+    step("s1-cold-start", only="phone", do=[["locale", "en-US"], ["cold_start"]],
+         expect=[S1["write"], S1["play"], S1["files"], S1["sample_ink"]], new_process=True),
+    step("s1-play", only="phone", do=[["tap", S1["play"]]], played=[S1["sample_story"], S1["sample_choice"]]),
+    step("s1-type-line", only="phone",
+         do=[["tap", S1["write"]]] + _s1_type_first_line + [["type", TYPED], ["key", "ENTER"]], expect=[TYPED]),
+    step("s1-type-on-screen-keyboard", only="phone",
+         do=_s1_type_first_line + [["ime_type", IME_TYPED]]),
+    step("s1-play-typed", only="phone", do=[["hide_keyboard"], ["tap", S1["play"]]], played=[TYPED]),
+    step("s1-choose", only="phone", do=[["tap", S1["sample_choice"]]], played=[S1["after_choice"]]),
+    step("s1-step-back", only="phone", do=[["tap", S1["step_back"]]], played=[S1["sample_choice"]]),
+    step("s1-restart", only="phone", do=[["tap", S1["restart"]]], played=[TYPED]),
+    step("s1-error", only="phone",
+         do=[["tap", S1["write"]]] + _s1_type_first_line +
+            [["type", "-> " + MISSING_KNOT], ["key", "ENTER"], ["hide_keyboard"], ["wait", 3],
+             ["tap", S1["more"]], ["tap", S1["issues"]]],
+         played=[MISSING_KNOT]),
+    step("s1-error-fixed", only="phone",
+         do=[["tap", S1["write"]]] + _s1_type_first_line +
+            [["key", "SHIFT+DPAD_DOWN"], ["key", "DEL"], ["hide_keyboard"], ["wait", 3],
+             ["tap", S1["more"]], ["tap", S1["issues"]]],
+         absent=[MISSING_KNOT]),
+    step("s1-files", only="phone", do=[["tap", S1["files"]]], expect=[S1["main_file"]]),
+    step("s1-manual", only="phone", do=[["tap", S1["more"]], ["tap", S1["docs"]]], expect=[S1["manual_text"]]),
+    step("s1-settings", only="phone", do=[["back"], ["tap", S1["more"]], ["tap", S1["settings"]]],
+         expect=[S1["settings_text"]]),
+    step("s1-text-survives-force-stop", only="phone",
+         do=[["home"], ["force_stop"], ["launch"], ["tap", S1["write"]]], expect=[TYPED], new_process=True),
+]
+
+SCENARIO_1_TABLET = [
+    step("s1-large-cold-start", only="tablet", do=[["locale", "en-US"], ["cold_start"]], wide=True,
+         expect=S1["menus"] + [S1["main_file"], S1["sample_ink"]], played=[S1["sample_story"]], new_process=True),
+    step("s1-large-type-line", only="tablet", do=_s1_type_first_line + [["type", TYPED], ["key", "ENTER"]],
+         expect=[TYPED], played=[TYPED]),
+    step("s1-large-choose", only="tablet", do=[["tap", S1["sample_choice"]]], played=[S1["after_choice"]]),
+    step("s1-large-palette", only="tablet", do=[["key", "CTRL+K"]], expect=[S1["palette_hint"]]),
+    step("s1-large-palette-closed", only="tablet", do=[["key", "ESCAPE"]], absent=[S1["palette_hint"]]),
+    step("s1-large-find", only="tablet", do=[["tap_field", 1], ["key", "CTRL+F"]], expect=[S1["find_hint"]]),
+    step("s1-large-file-menu", only="tablet", do=[["key", "ESCAPE"], ["tap", S1["menus"][0]]], soft=True),
+    step("s1-large-issues", only="tablet",
+         do=[["key", "ESCAPE"]] + _s1_type_first_line + [["type", "-> " + MISSING_KNOT], ["key", "ENTER"],
+                                                         ["wait", 3], ["tap", S1["issues"]]],
+         played=[MISSING_KNOT]),
+    step("s1-large-text-survives-force-stop", only="tablet", do=[["force_stop"], ["launch"]],
+         expect=[TYPED], new_process=True),
+]
+
 SCENARIOS = {
     "0": dict(title="Skeleton: the setup screen, in English and Turkish, through the lifecycle",
               steps=SCENARIO_0),
+    "1": dict(title="The app: write, play, issues, files, manual, settings; the large window's workspace",
+              steps=SCENARIO_1_PHONE + SCENARIO_1_TABLET),
+    "ime-probe": dict(title="The on-screen keyboard of a system text field (driver self-check)",
+                      steps=SCENARIO_IME_PROBE),
 }
 DEFAULT_SCENARIOS = ["0"]
 
@@ -316,17 +411,18 @@ class Smoke:
             if root is None:
                 return None
             nodes = [Node(e) for e in root.iter("node")]
-            dialog = next((n for n in nodes if "isn't responding" in n.text or "keeps stopping" in n.text
-                           or "has stopped" in n.text), None)
-            if dialog is None:
+            # the system's crash and ANR dialogs, known by their buttons' ids in any language
+            buttons = {n.rid: n for n in nodes if n.rid.startswith("android:id/aerr_") and n.visible()}
+            if not buttons:
                 return nodes
-            ours = APP_LABEL in dialog.text
+            title = " / ".join(n.text for n in nodes if n.pkg == "android" and n.text and not n.rid.startswith("android:id/aerr_"))
+            ours = APP_LABEL in title
             if ours:
-                self.problem("system dialog: " + dialog.text)
+                self.problem("system dialog about the app: " + title)
             else:
-                self.note("system dialog of another app waited out: " + dialog.text)
-            button = next((n for n in nodes if n.text in (("Close app",) if ours else ("Wait", "Close app"))
-                           and n.visible()), None)
+                self.note("system dialog about another app waited out: " + title)
+            button = buttons.get("android:id/aerr_close") if ours else (
+                buttons.get("android:id/aerr_wait") or buttons.get("android:id/aerr_close"))
             if button is not None:
                 self.tap_xy(*button.center())
             else:
@@ -366,7 +462,8 @@ class Smoke:
                 return nodes
             previous = sig
             time.sleep(0.8)
-        self.note(f"the UI did not settle within {timeout} s")
+        self.note(f"the UI did not settle within {timeout} s" if nodes else
+                  "uiautomator could not read the screen (it never went idle)")
         return nodes or []
 
     @staticmethod
@@ -391,10 +488,14 @@ class Smoke:
         shell(f"input tap {x} {y}")
 
     def tap_label(self, label, exact=True, long=False):
-        nodes = self.wait_idle(timeout=8)
-        n = self.find(nodes, label, exact)
-        if n is None:
-            raise StepFailure(f"'{label}' is not on the screen")
+        deadline = time.time() + 15
+        while True:
+            n = self.find(self.wait_idle(timeout=8), label, exact)
+            if n is not None:
+                break
+            if time.time() > deadline:
+                raise StepFailure(f"'{label}' is not on the screen")
+            time.sleep(1)
         x, y = n.center()
         if long:
             shell(f"input swipe {x} {y} {x} {y} 900")
@@ -494,6 +595,17 @@ class Smoke:
     def do_tap(self, label):
         self.tap_label(label)
 
+    def fields(self, nodes):
+        found = [n for n in nodes if n.cls == "android.widget.EditText" and n.visible()]
+        return sorted(found, key=lambda n: (n.bounds[1], n.bounds[0]))
+
+    def do_tap_field(self, index=1):
+        fields = self.fields(self.wait_idle(timeout=8))
+        if len(fields) < int(index):
+            raise StepFailure(f"there is no text field {index} on the screen ({len(fields)} found)")
+        self.tap_xy(*fields[int(index) - 1].center())
+        time.sleep(1)
+
     def do_tap_contains(self, label):
         self.tap_label(label, exact=False)
 
@@ -504,6 +616,60 @@ class Smoke:
         # `input text` takes %s for a space; the device's shell sees the argument quoted
         shell("input text " + shlex.quote(text.replace(" ", "%s")))
         time.sleep(1)
+
+    # Gboard's QWERTY layout (the emulator images' keyboard), measured on the phone emulator: each
+    # letter row's vertical centre as a fraction of the keyboard's touchable area, and the
+    # horizontal offset of the row's first key in key widths (a tenth of the keyboard's width).
+    GBOARD_ROWS = [("qwertyuiop", 0.263, 0.0), ("asdfghjkl", 0.466, 0.5), ("zxcvbnm", 0.671, 1.5)]
+    GBOARD_SPACE = (0.55, 0.876)
+
+    def keyboard_area(self):
+        """The on-screen keyboard's touchable area (left, top, right, bottom), or None when hidden."""
+        out = shell("dumpsys window windows | grep -A40 ' u0 InputMethod}:'")
+        m = re.search(r"touchable region=SkRegion\(\((\d+),(\d+),(\d+),(\d+)\)\)", out)
+        if not m or "isVisible=false" in out or "mViewVisibility=0x8" in out:
+            return None
+        area = tuple(map(int, m.groups()))
+        return area if area[3] - area[1] > 100 else None
+
+    def focused_text(self):
+        nodes = self.dump() or []
+        node = next((n for n in nodes if n.focused and n.cls == "android.widget.EditText"), None)
+        return None if node is None else node.text
+
+    def do_ime_type(self, text):
+        """Types by tapping the on-screen keyboard's keys, so the text arrives as the owner's typing
+        does: through the IME's InputConnection, not as key events. Letters a-z and spaces only (a
+        space lets the keyboard autocorrect the word before it). Checks the focused field afterwards."""
+        ime = shell("settings get secure default_input_method").strip()
+        if "com.google.android.inputmethod.latin" not in ime:
+            raise StepFailure(f"ime_type knows Gboard's layout only; the keyboard is {ime}")
+        area = self.keyboard_area()
+        if area is None:
+            raise StepFailure("the on-screen keyboard is not shown")
+        left, top, right, bottom = area
+        key_w, height = (right - left) / 10, bottom - top
+        before = self.focused_text()
+        for ch in text.lower():
+            if ch == " ":
+                x, y = left + (right - left) * self.GBOARD_SPACE[0], top + height * self.GBOARD_SPACE[1]
+            else:
+                row = next((r for r in self.GBOARD_ROWS if ch in r[0]), None)
+                if row is None:
+                    raise StepFailure(f"ime_type cannot type '{ch}'")
+                x = left + key_w * (row[2] + row[0].index(ch) + 0.5)
+                y = top + height * row[1]
+            self.tap_xy(int(x), int(y))
+            time.sleep(0.25)
+        time.sleep(1)
+        after = self.focused_text()
+        word = text.strip().lower()
+        if after is None:
+            self.note("typed on the on-screen keyboard; the field could not be read back")
+        elif after.lower().count(word) > (before or "").lower().count(word):
+            self.note(f"typed '{text}' on the on-screen keyboard; the field now holds it")
+        else:
+            raise StepFailure(f"typed '{text}' on the on-screen keyboard, but the field reads '{after[-80:]}'")
 
     def do_key(self, key):
         codes = ["KEYCODE_" + {"CTRL": "CTRL_LEFT", "SHIFT": "SHIFT_LEFT", "ALT": "ALT_LEFT", "META": "META_LEFT"}
@@ -525,6 +691,15 @@ class Smoke:
 
     def do_wait(self, seconds):
         time.sleep(float(seconds))
+
+    def do_shell(self, command):
+        out = shell(command, timeout=120).strip()
+        self.note(f"$ {command}" + (f"\n       {out[:400]}" if out else ""))
+
+    def do_save(self, filename, command):
+        with open(os.path.join(self.out, filename), "w") as f:
+            f.write(shell(command, timeout=120))
+        self.note(f"saved {filename}: $ {command}")
 
     def do_wait_text(self, text, seconds=30):
         deadline = time.time() + float(seconds)
@@ -563,6 +738,12 @@ class Smoke:
             checks.append(("seen" if ok else "MISSING") + f" '{text}'")
             if not ok:
                 self.problem(f"'{text}' is not on the screen")
+        outside = self.visible_labels([n for n in nodes if n.cls != "android.widget.EditText"])
+        for text in st["played"]:
+            ok = any(text in t for t in outside)
+            checks.append(("played" if ok else "NOT PLAYED") + f" '{text}'")
+            if not ok:
+                self.problem(f"'{text}' is not on the screen outside the text fields")
         for text in st["absent"]:
             ok = not any(text in t for t in labels)
             checks.append(("absent" if ok else "PRESENT") + f" '{text}'")
@@ -629,6 +810,15 @@ class Smoke:
                  f"{shell('wm size').strip().splitlines()[-1] if shell('wm size').strip() else '?'}, "
                  f"density {self.density()}")
         self.wake()
+        # The launcher of these images often stops responding for a while after boot; its ANR
+        # dialog would cover the app. Without error dialogs Android still logs every ANR and crash
+        # (what the driver looks for) and kills an app that does not respond instead of asking.
+        shell("settings put global hide_error_dialogs 1")
+        if self.profile == "phone":
+            # the owner's phone uses three-button navigation, not gestures
+            shell("cmd overlay enable-exclusive --category com.android.internal.systemui.navbar.threebutton")
+            nav = shell("cmd overlay list android | grep -i navbar").strip().replace("\n", "; ")
+            self.log("navigation bar overlays: " + nav)
         # the launcher and other system apps are slow right after boot: let them settle
         time.sleep(20)
         self.wait_idle()

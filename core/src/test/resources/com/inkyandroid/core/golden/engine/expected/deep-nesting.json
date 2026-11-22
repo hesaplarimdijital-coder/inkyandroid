@@ -1,0 +1,14 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": false,
+  "issues": [],
+  "crash": "Unhandled exception. System.Exception: Stack overflow in parser state"
+ },
+ "statistics": null,
+ "transcripts": {}
+}

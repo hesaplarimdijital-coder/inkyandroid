@@ -1,0 +1,85 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink",
+  "parts/loose.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": [
+   "TODO: 'parts/loose.ink' line 1: write this knot properly",
+   "TODO: 'main.ink' line 2: a note in the main file",
+   "TODO: 'parts/loose.ink' line 4: and a note inside the knot",
+   "WARNING: 'main.ink' line 10: Apparent loose end exists where the flow runs out. Do you need a '-> DONE' statement, choice or divert?"
+  ]
+ },
+ "statistics": {
+  "words": 19,
+  "knots": 2,
+  "stitches": 0,
+  "functions": 0,
+  "choices": 2,
+  "gathers": 0,
+  "diverts": 2
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "The story starts.\n"
+   },
+   {
+    "choices": [
+     [
+      "Go on",
+      []
+     ],
+     [
+      "Stop",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "A line in the included file.\n"
+   },
+   {
+    "issues": [
+     "RUNTIME ERROR: 'parts/loose.ink' line 3: ran out of content. Do you need a '-> DONE' or '-> END'?"
+    ]
+   },
+   {
+    "end": true
+   }
+  ],
+  "stop": [
+   {
+    "text": "The story starts.\n"
+   },
+   {
+    "choices": [
+     [
+      "Go on",
+      []
+     ],
+     [
+      "Stop",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "Stopped.\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

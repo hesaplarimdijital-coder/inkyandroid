@@ -1,0 +1,36 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 20,
+  "knots": 0,
+  "stitches": 0,
+  "functions": 0,
+  "choices": 0,
+  "gathers": 0,
+  "diverts": 5
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "Half: 0.5. A third: 0.33333334. Mixed: 1.5.\n"
+   },
+   {
+    "text": "Whole: 3. Var: 2. Big: 2000000. Bigger: 100000000.\n"
+   },
+   {
+    "text": "Functions: 2, 2, 3, 1024.\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

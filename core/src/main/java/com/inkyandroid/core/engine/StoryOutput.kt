@@ -38,7 +38,7 @@ enum class StopReason {
     /** More than [PlayLimits.maxLinesPerTurn] lines without a choice: the story most likely loops. */
     LineLimit,
 
-    /** One line took longer than [PlayLimits.turnBudgetMillis]: the story most likely loops without output. */
+    /** The turn took longer than [PlayLimits.turnBudgetMillis]: the story most likely loops without output. */
     TimeLimit,
 
     /**
@@ -46,6 +46,14 @@ enum class StopReason {
      * overflow). The reference player crashes on these ("the ink compiler crashed").
      */
     EngineFailure,
+
+    /**
+     * Functions or tunnels called inside one another, or threads started, more than
+     * [PlayLimits.maxCallDepth] times without returning: the story most likely calls itself
+     * without end. ink keeps its call stack in memory, so such a story would fill the memory within
+     * seconds, long before [TimeLimit]; the reference player runs on until it does.
+     */
+    DepthLimit,
 }
 
 /**

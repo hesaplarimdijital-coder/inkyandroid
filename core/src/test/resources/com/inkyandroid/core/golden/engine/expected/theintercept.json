@@ -1,0 +1,2209 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "theintercept.ink",
+ "files": [
+  "theintercept.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 14728,
+  "knots": 32,
+  "stitches": 30,
+  "functions": 2,
+  "choices": 343,
+  "gathers": 95,
+  "diverts": 230
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "They are keeping me waiting.\n"
+   },
+   {
+    "choices": [
+     [
+      "Hut 14",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Hut 14. The door was locked after I sat down.\n"
+   },
+   {
+    "text": "I don't even have a pen to do any work. There's a copy of the morning's intercept in my pocket, but staring at the jumbled letters will only drive me mad.\n"
+   },
+   {
+    "text": "I am not a machine, whatever they say about me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Think",
+      []
+     ],
+     [
+      "Plan",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "They suspect me to be a traitor. They think I stole the component from the calculating machine. They will be searching my bunk and cases.\n"
+   },
+   {
+    "text": "When they don't find it, they'll come back and demand I talk.\n"
+   },
+   {
+    "text": "I rattle my fingers on the field table.\n"
+   },
+   {
+    "choices": [
+     [
+      "Plan",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I am a problem—solver. Good with figures, quick with crosswords, excellent at chess.\n"
+   },
+   {
+    "text": "But in this scenario — in this trap — what is the winning play?\n"
+   },
+   {
+    "choices": [
+     [
+      "Co—operate",
+      []
+     ],
+     [
+      "Dissemble",
+      []
+     ],
+     [
+      "Divert",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "I must co—operate. My credibility is my main asset. To contradict myself, or another source, would be fatal.\n"
+   },
+   {
+    "text": "I must simply hope they do not ask the questions I do not want to answer.\n"
+   },
+   {
+    "text": "Half an hour goes by before Commander Harris returns. He closes the door behind him quickly, as though afraid a loose word might slip inside.\n"
+   },
+   {
+    "text": "\"Well, then,\" he begins, awkwardly. This is an unseemly situation.\n"
+   },
+   {
+    "choices": [
+     [
+      "\"Commander.\"",
+      []
+     ],
+     [
+      "\"Tell me what this is about.\"",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"Commander.\"\n"
+   },
+   {
+    "text": "He nods. He has brought two cups of tea in metal mugs: he sets them down on the tabletop between us.\n"
+   },
+   {
+    "choices": [
+     [
+      "Take one",
+      []
+     ],
+     [
+      "\"What's going on?\"",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I take a mug and warm my hands. It's a small gesture of friendship.\n"
+   },
+   {
+    "text": "Enough to give me hope?\n"
+   },
+   {
+    "choices": [
+     [
+      "Drink",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "I raise the cup to my mouth but it's too hot to drink.\n"
+   },
+   {
+    "text": "\"Quite a difficult situation,\" Harris begins, sternly. I've seen him adopt this stiff tone of voice before, but only when talking to the brass. \"I'm sure you agree.\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Agree",
+      []
+     ],
+     [
+      "Disagree",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"Awkward,\" I reply, sipping at my tea as though we were old friends.\n"
+   },
+   {
+    "choices": [
+     [
+      "Watch him",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ],
+     [
+      "Smile",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "His face is telling me nothing. I've seen Harris broad and full of laughter. Today he is tight, as much part of the military machine as the device in Hut 5.\n"
+   },
+   {
+    "text": "\"We need that component,\" he says.\n"
+   },
+   {
+    "choices": [
+     [
+      "The stolen component...",
+      []
+     ],
+     [
+      "Shrug",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The reel went missing from the Bombe this afternoon. The four of us were in the Hut, working on the latest German intercept. The results were garbage. It was Russell who found the gap in the plugboard.\n"
+   },
+   {
+    "text": "Any of us could have taken it; and no one else would have known its worth.\n"
+   },
+   {
+    "choices": [
+     [
+      "Panic",
+      []
+     ],
+     [
+      "Calculate",
+      []
+     ],
+     [
+      "Deny",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "They will pin it on me. They need a scapegoat so that the work can continue. I'm a likely target. Weaker than the rest.\n"
+   },
+   {
+    "text": "\"So. Do you have it?\" Harris is wasting no time: Bletchley is his watch. \"Do you know where it is?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"I do.\"\n"
+   },
+   {
+    "text": "Harris smiles with satisfaction, as if your willingness to talk was somehow his doing.\n"
+   },
+   {
+    "text": "\"I see.\"\n"
+   },
+   {
+    "text": "There's a long pause, like the delay between feeding a line of cypher into the Bombe and waiting for its valves to warm up enough to begin processing.\n"
+   },
+   {
+    "text": "\"You want to explain that?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Explain",
+      []
+     ],
+     [
+      "Say nothing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "I pause a moment, trying to choose my words. To just come out and say it, after a lifetime of hiding... that is a circle I cannot square.\n"
+   },
+   {
+    "choices": [
+     [
+      "Explain",
+      []
+     ],
+     [
+      "Say nothing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"I've done things,\" I begin. \"Things I didn't want to do. I tried not to. But in the end, it felt like cutting off my own arm to resist.\"\n"
+   },
+   {
+    "text": "\"You mean you've left yourself open,\" Harris answers. \"To pressure. Is that what you're saying?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"That's it,\" I reply. \"There are some things... which a man shouldn't do.\"\n"
+   },
+   {
+    "text": "Harris doesn't stiffen. Doesn't lean away, as though my condition might be infectious. I had thought they trained them in the army to shoot my kind on sight.\n"
+   },
+   {
+    "text": "He offers no sympathy either. He nods, once. His understanding of me is a mere turning cog in his calculations, with no meaning to it.\n"
+   },
+   {
+    "text": "\"I've seen it before. A young man like you — clever, removed. The kind that doesn't go to parties. Who takes himself too seriously. Who takes things too far.\"\n"
+   },
+   {
+    "text": "He slides his thumb between two fingers.\n"
+   },
+   {
+    "text": "\"Now they own you.\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Agree",
+      []
+     ],
+     [
+      "Disagree",
+      []
+     ],
+     [
+      "Apologise",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"What could I do?\" I'm shaking now. The night is cold and the heat—lamp in the Hut has been removed. \"I don't want to go to prison.\"\n"
+   },
+   {
+    "text": "\"Smart man,\" he replies. \"You wouldn't last. So why don't you tell me, right now. Where is it?\"\n"
+   },
+   {
+    "text": "His eyes bear down like carbonised drill—bits.\n"
+   },
+   {
+    "choices": [
+     [
+      "Confess",
+      []
+     ],
+     [
+      "Dissemble",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"All right. I'll tell you what happened.\" And never mind my shame.\n"
+   },
+   {
+    "text": "\"I can imagine how it starts,\" he replies.\n"
+   },
+   {
+    "choices": [
+     [
+      "Talk",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"There was a young man. I met him in the town. A few months ago now. We got to talking. Not about work. And I used my cover story, but he seemed to know it wasn't true. That got me wondering if he might be one of us.\"\n"
+   },
+   {
+    "text": "Harris is not letting me off any more.\n"
+   },
+   {
+    "text": "\"You seriously entertained that possibility?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"Yes, I considered it. He seemed to know all about me. He... he was quite enchanted by my achievements.\"\n"
+   },
+   {
+    "text": "The way Harris is staring I expect him to strike me, but he does not. He replies, \"I can see how that must have been attractive to you,\" with such plain—spokeness that I think I must have misheard.\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"It's a lonely life in this place,\" I reply. \"Lonely - and still one never gets a moment to oneself.\"\n"
+   },
+   {
+    "text": "\"That's how it is in the Service,\" Harris answers.\n"
+   },
+   {
+    "choices": [
+     [
+      "Argue",
+      []
+     ],
+     [
+      "Agree",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"I'm not in the Service.\"\n"
+   },
+   {
+    "text": "Harris shakes his head. \"Yes, you are.\"\n"
+   },
+   {
+    "text": "Then he waves the thought aside.\n"
+   },
+   {
+    "text": "\"Go on with your confession.\"\n"
+   },
+   {
+    "text": "That gives me pause. I hadn't thought of it as such. But I suppose he's right. I am about to admit what I did.\n"
+   },
+   {
+    "text": "\"There's not much else to say. I took the part from Bombe computing device. You seem to know that already. I had to. He was going to expose me if I didn't.\"\n"
+   },
+   {
+    "text": "\"This young man was blackmailing you over your affair?\"\n"
+   },
+   {
+    "text": "As Harris speaks I find myself suddenly sharply aware, as if waking from a long sleep. The table, the corrugated walls of the hut, everything seems suddenly more tangible than a moment before.\n"
+   },
+   {
+    "text": "Whatever it was they put in my drink is wearing off.\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Tell the truth",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"Yes. I suppose he was their agent. I should have realised but I didn't. Then he threatened to tell you. I thought you would have me locked up: I couldn't bear the thought of it. I love working here. I've never been so happy, so successful, anywhere before. I didn't want to lose it.\"\n"
+   },
+   {
+    "text": "\"So what did you do with the component?\" Harris talks urgently. He grips his gloves tightly in one hand, perhaps prepared to lift them and strike if it is required. \"Have you passed it to this man already? Have you left it somewhere for him to find?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "I have it",
+      []
+     ],
+     [
+      "I don't have it",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Tell the truth",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"I still have it. Not on me, of course. The missing component of the Bombe computer is hidden in a small cavity in a breeze—block supporting the left rear post of Hut 2. I put in there anticipating a search. I intended to dispose of it once the fuss had died down. I suppose I was foolish to think that it might.\"\n"
+   },
+   {
+    "text": "\"Indeed. And Mr Manning: God help you if you're lying to me.\"\n"
+   },
+   {
+    "text": "Harris stands, and slips away smartly. Then the door closes. I am alone again, as I have been for most of my short life.\n"
+   },
+   {
+    "choices": [
+     [
+      "Make your peace",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I am waiting again. I have no God to make my peace with. I find it difficult to believe in goodness of any kind, in a world such as this.\n"
+   },
+   {
+    "text": "But I am no traitor. Not to my country. To my sex, perhaps. But how could I support the Reich? If the Nazis were to come to power, I would be worse off than ever.\n"
+   },
+   {
+    "text": "I have no place here. No way to fit. I am caught, in the middle, cryptic and understood only thinly, through my machines.\n"
+   },
+   {
+    "choices": [
+     [
+      "I must seem very calm.",
+      []
+     ],
+     [
+      "Perhaps I should try to escape.",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I must seem very calm. I suppose I do not believe they will hang me. They will lock me up and continue to use my brain, if they can. I wonder what they will tell the world — perhaps that I have taken my own life. That would be simplest. The few who know me would believe it.\n"
+   },
+   {
+    "text": "Well, then. Not a bad existence, in prison. Removed from temptation.\n"
+   },
+   {
+    "text": "A monastic life, with plenty of problems to keep me going.\n"
+   },
+   {
+    "text": "I wonder what else I might yet unravel before I'm done?\n"
+   },
+   {
+    "choices": [
+     [
+      "The door is opening.",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The door is opening. Harris is returning. Our little calculation here is complete. We are just pieces in this machine; interchangeable and prone to wear.\n"
+   },
+   {
+    "text": "That is the true secret of the calculating engine, and the source of its power. It is not the components that matter, they are quite repetitive. What matters is how they are wired; the diversity of the patterns and structures they can form. Much like people — it is how they connect that determines our victories and tragedies, and not their genius.\n"
+   },
+   {
+    "text": "Which makes me wonder. Should I give up my beautiful young man to them as well as myself?\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "But of course I will. A little vengeance, disguised as doing something good.\n"
+   },
+   {
+    "text": "Harris put the cuffs around my wrists. \"I still have the intercept in my pocket,\" I remark. \"Wherever we're going, could I have a pencil?\"\n"
+   },
+   {
+    "text": "He looks me in the eye.\n"
+   },
+   {
+    "text": "\"Of course. And one of your computing things, if I get my way. And when we're old, and smoking pipes together in The Rag like heroes, I'll explain to you the way that decent men have affairs. You scientists.\"\n"
+   },
+   {
+    "text": "He drags me up to my feet.\n"
+   },
+   {
+    "text": "\"You think you have to re—invent everything.\"\n"
+   },
+   {
+    "text": "With that, he hustles me out of the door and I can't help thinking that, with a little more strategy, I could still have won the day. But too late now, of course.\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-1": [
+   {
+    "text": "They are keeping me waiting.\n"
+   },
+   {
+    "choices": [
+     [
+      "Hut 14",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Hut 14. The door was locked after I sat down.\n"
+   },
+   {
+    "text": "I don't even have a pen to do any work. There's a copy of the morning's intercept in my pocket, but staring at the jumbled letters will only drive me mad.\n"
+   },
+   {
+    "text": "I am not a machine, whatever they say about me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Think",
+      []
+     ],
+     [
+      "Plan",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "Half an hour goes by before Commander Harris returns. He closes the door behind him quickly, as though afraid a loose word might slip inside.\n"
+   },
+   {
+    "text": "\"Well, then,\" he begins, awkwardly. This is an unseemly situation.\n"
+   },
+   {
+    "choices": [
+     [
+      "\"Commander.\"",
+      []
+     ],
+     [
+      "\"Tell me what this is about.\"",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"Commander.\"\n"
+   },
+   {
+    "text": "He nods. He has brought two cups of tea in metal mugs: he sets them down on the tabletop between us.\n"
+   },
+   {
+    "choices": [
+     [
+      "Take one",
+      []
+     ],
+     [
+      "\"What's going on?\"",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\"What's going on?\"\n"
+   },
+   {
+    "text": "\"You know already.\"\n"
+   },
+   {
+    "text": "He pushes one mug halfway towards me: a small gesture of friendship.\n"
+   },
+   {
+    "text": "Enough to give me hope?\n"
+   },
+   {
+    "choices": [
+     [
+      "Take it",
+      []
+     ],
+     [
+      "Don't take it",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "I take the mug, and blow away the steam. It is too hot to drink.\n"
+   },
+   {
+    "text": "Harris picks his own up and just holds it.\n"
+   },
+   {
+    "text": "\"Quite a difficult situation,\" he begins, sternly. I've seen him adopt this stiff tone of voice before, but only when talking to the brass. \"I'm sure you agree.\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Agree",
+      []
+     ],
+     [
+      "Disagree",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"I'm sure you've handled worse,\" I reply casually, sipping at my tea as though we were old friends.\n"
+   },
+   {
+    "choices": [
+     [
+      "Watch him",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ],
+     [
+      "Smile",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I wait to see how he'll respond.\n"
+   },
+   {
+    "text": "\"We need that component,\" he says.\n"
+   },
+   {
+    "choices": [
+     [
+      "The stolen component...",
+      []
+     ],
+     [
+      "Shrug",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I shrug.\n"
+   },
+   {
+    "text": "\"So. Do you have it?\" Harris is wasting no time: Bletchley is his watch. \"Do you know where it is?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"The component?\"\n"
+   },
+   {
+    "text": "\"Don't play stupid,\" he replies. \"Where is it?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Co-operate",
+      []
+     ],
+     [
+      "Delay",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\"I know nothing about it.\" My voice shakes; I'm unaccustomed to facing off against men with holstered guns.\n"
+   },
+   {
+    "text": "There's an icy silence.\n"
+   },
+   {
+    "text": "\"Now drink your tea and talk.\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Drink",
+      []
+     ],
+     [
+      "Put the cup down",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I lift the cup to my lips and sip. He waits for me to swallow before speaking again.\n"
+   },
+   {
+    "text": "\"Lapsang Souchong,\" he remarks, placing his own cup back on the table untouched. \"Such a curious flavour. It might almost not be tea at all. You might say it hides a multitude of sins. As do you. Isn't that right?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Agree",
+      []
+     ],
+     [
+      "Disagree",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "I open my mouth to disagree, but the words I want won't come. It is like Harris has taken a screwdriver to the sides of my jaw.\n"
+   },
+   {
+    "text": "\"I've done things,\" I begin helplessly. \"Things I didn't want to do. I tried not to. But in the end, it felt like cutting off my own arm to resist.\"\n"
+   },
+   {
+    "text": "\"You mean you've left yourself open,\" Harris answers. \"To pressure. Is that what you're saying?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"That's it,\" I reply. \"There are some things... which a man shouldn't do.\"\n"
+   },
+   {
+    "text": "Harris doesn't stiffen. Doesn't lean away, as though my condition might be infectious. I had thought they trained them in the army to shoot my kind on sight.\n"
+   },
+   {
+    "text": "He offers no sympathy either. He nods, once. His understanding of me is a mere turning cog in his calculations, with no meaning to it.\n"
+   },
+   {
+    "text": "\"I've seen it before. A young man like you — clever, removed. The kind that doesn't go to parties. Who takes himself too seriously. Who takes things too far.\"\n"
+   },
+   {
+    "text": "He slides his thumb between two fingers.\n"
+   },
+   {
+    "text": "\"Now they own you.\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Agree",
+      []
+     ],
+     [
+      "Disagree",
+      []
+     ],
+     [
+      "Apologise",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"I can still fix this.\"\n"
+   },
+   {
+    "text": "Harris shakes his head. \"You'll do nothing. This is beyond you now. You may go to prison or may go to firing squad - or we can change your name and move you somewhere where your indiscretions can't hurt you. But right now, none of that matters. What happens to you doesn't matter. All that matters is where that component is. So why don't you tell me, right now. Where is it?\"\n"
+   },
+   {
+    "text": "His eyes bear down like carbonised drill—bits.\n"
+   },
+   {
+    "choices": [
+     [
+      "Confess",
+      []
+     ],
+     [
+      "Dissemble",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "My plan now is to blame Hooper, but I cannot seem to tell the story. Whatever they put in my tea, it rules my tongue. I am desperate to tell him everything. I am weeping with shame.\n"
+   },
+   {
+    "choices": [
+     [
+      "Talk",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"There was a young man. I met him in the town. A few months ago now. We got to talking. Not about work. And I used my cover story, but he seemed to know it wasn't true. That got me wondering if he might be one of us.\"\n"
+   },
+   {
+    "text": "Harris is not letting me off any more.\n"
+   },
+   {
+    "text": "\"You seriously entertained that possibility?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"I was quite certain, after a while. After we'd been talking. He seemed to know all about me. He... he was quite enchanted by my achievements.\"\n"
+   },
+   {
+    "text": "The way Harris is staring I expect him to strike me, but he does not. He replies, \"I can see how that must have been attractive to you,\" with such plain—spokeness that I think I must have misheard.\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"It wasn't,\" I reply. \"But I doubt you'd understand.\"\n"
+   },
+   {
+    "text": "He simply nods.\n"
+   },
+   {
+    "text": "\"Go on with your confession.\"\n"
+   },
+   {
+    "text": "That gives me pause. I hadn't thought of it as such. But I suppose he's right. I am about to admit what I did.\n"
+   },
+   {
+    "text": "\"There's not much else to say. I took the part from Bombe computing device. You seem to know that already. I had to. He was going to expose me if I didn't.\"\n"
+   },
+   {
+    "text": "\"This young man was blackmailing you over your affair?\"\n"
+   },
+   {
+    "text": "As Harris speaks I find myself suddenly sharply aware, as if waking from a long sleep. The table, the corrugated walls of the hut, everything seems suddenly more tangible than a moment before.\n"
+   },
+   {
+    "text": "Whatever it was they put in my drink is wearing off.\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Tell the truth",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"Yes. I suppose he was their agent. I should have realised but I didn't. Then he threatened to tell you. I thought you would have me locked up: I couldn't bear the thought of it. I love working here. I've never been so happy, so successful, anywhere before. I didn't want to lose it.\"\n"
+   },
+   {
+    "text": "\"So what did you do with the component?\" Harris talks urgently. He grips his gloves tightly in one hand, perhaps prepared to lift them and strike if it is required. \"Have you passed it to this man already? Have you left it somewhere for him to find?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "I have it",
+      []
+     ],
+     [
+      "I don't have it",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Tell the truth",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\"I don't have it any more. I passed it through the fence to my contact straight after taking it, before it was discovered to be missing. It would have been idiocy to do differently. It's long gone, I'm afraid.\"\n"
+   },
+   {
+    "text": "\"You fool, Manning,\" Harris curses, getting quickly to his feet. \"You utter fool. Do you suppose you will be any better off living under Hitler? It's men like you who will get us all killed. Men too feeble, too weak in their hearts to stand up and take a man's responsibility for the world. You're happier to stay a child all your life and play with your little childish toys.\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Answer back",
+      []
+     ],
+     [
+      "Say nothing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"Really, Commander,\" I reply. \"It rather sounds like you want to spank me.\"\n"
+   },
+   {
+    "text": "\"For God's sake,\" he declares with thick disgust, then swoops away out of the room.\n"
+   },
+   {
+    "text": "Then the door closes. I am alone again, as I have been for most of my short life.\n"
+   },
+   {
+    "choices": [
+     [
+      "Make your peace",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I am waiting again. I have no God to make my peace with. I find it difficult to believe in goodness of any kind, in a world such as this.\n"
+   },
+   {
+    "text": "But I am no traitor. Not to my country. To my sex, perhaps. But how could I support the Reich? If the Nazis were to come to power, I would be worse off than ever.\n"
+   },
+   {
+    "text": "I have no place here. No way to fit. I am caught, in the middle, cryptic and understood only thinly, through my machines.\n"
+   },
+   {
+    "choices": [
+     [
+      "I must seem very calm.",
+      []
+     ],
+     [
+      "Perhaps I should try to escape.",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I must seem very calm. I suppose I do not believe they will hang me. They will lock me up and continue to use my brain, if they can. I wonder what they will tell the world — perhaps that I have taken my own life. That would be simplest. The few who know me would believe it.\n"
+   },
+   {
+    "text": "Well, then. Not a bad existence, in prison. Removed from temptation.\n"
+   },
+   {
+    "text": "A monastic life, with plenty of problems to keep me going.\n"
+   },
+   {
+    "text": "I wonder what else I might yet unravel before I'm done?\n"
+   },
+   {
+    "choices": [
+     [
+      "The door is opening.",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The door is opening. Harris is returning. Our little calculation here is complete. I can only hope one of the others will be able to explain to him that the part I stole will mean nothing to the Germans.\n"
+   },
+   {
+    "text": "That is the true secret of the calculating engine, and the source of its power. It is not the components that matter, they are quite repetitive. What matters is how they are wired; the diversity of the patterns and structures they can form. Much like people — it is how they connect that determines our victories and tragedies, and not their genius.\n"
+   },
+   {
+    "text": "Which makes me wonder. Should I give up my beautiful young man to them as well as myself?\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "But of course I will. A little vengeance, disguised as doing something good.\n"
+   },
+   {
+    "text": "Harris put the cuffs around my wrists. \"I still have the intercept in my pocket,\" I remark. \"Wherever we're going, could I have a pencil?\"\n"
+   },
+   {
+    "text": "He looks me in the eye.\n"
+   },
+   {
+    "text": "\"Of course. And one of your computing things, if I get my way. And when we're old, and smoking pipes together in The Rag like heroes, I'll explain to you the way that decent men have affairs. You scientists.\"\n"
+   },
+   {
+    "text": "He drags me up to my feet.\n"
+   },
+   {
+    "text": "\"You think you have to re—invent everything.\"\n"
+   },
+   {
+    "text": "With that, he hustles me out of the door and I can't help thinking that, with a little more strategy, I could still have won the day. But too late now, of course.\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-2": [
+   {
+    "text": "They are keeping me waiting.\n"
+   },
+   {
+    "choices": [
+     [
+      "Hut 14",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Hut 14. The door was locked after I sat down.\n"
+   },
+   {
+    "text": "I don't even have a pen to do any work. There's a copy of the morning's intercept in my pocket, but staring at the jumbled letters will only drive me mad.\n"
+   },
+   {
+    "text": "I am not a machine, whatever they say about me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Think",
+      []
+     ],
+     [
+      "Plan",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "They suspect me to be a traitor. They think I stole the component from the calculating machine. They will be searching my bunk and cases.\n"
+   },
+   {
+    "text": "When they don't find it, they'll come back and demand I talk.\n"
+   },
+   {
+    "text": "I rattle my fingers on the field table.\n"
+   },
+   {
+    "choices": [
+     [
+      "Plan",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I am a problem—solver. Good with figures, quick with crosswords, excellent at chess.\n"
+   },
+   {
+    "text": "But in this scenario — in this trap — what is the winning play?\n"
+   },
+   {
+    "choices": [
+     [
+      "Co—operate",
+      []
+     ],
+     [
+      "Dissemble",
+      []
+     ],
+     [
+      "Divert",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "Misinformation, then. Just as the war in Europe is one of plans and interceptions, not planes and bombs.\n"
+   },
+   {
+    "text": "My best hope is a story they prefer to the truth.\n"
+   },
+   {
+    "text": "Half an hour goes by before Commander Harris returns. He closes the door behind him quickly, as though afraid a loose word might slip inside.\n"
+   },
+   {
+    "text": "\"Well, then,\" he begins, awkwardly. This is an unseemly situation.\n"
+   },
+   {
+    "choices": [
+     [
+      "\"Commander.\"",
+      []
+     ],
+     [
+      "\"Tell me what this is about.\"",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"Commander.\"\n"
+   },
+   {
+    "text": "He nods. He has brought two cups of tea in metal mugs: he sets them down on the tabletop between us.\n"
+   },
+   {
+    "choices": [
+     [
+      "Take one",
+      []
+     ],
+     [
+      "\"What's going on?\"",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "I wait for him to speak.\n"
+   },
+   {
+    "text": "He pushes one mug halfway towards me: a small gesture of friendship.\n"
+   },
+   {
+    "text": "Enough to give me hope?\n"
+   },
+   {
+    "choices": [
+     [
+      "Take it",
+      []
+     ],
+     [
+      "Don't take it",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "Just a cup of insipid canteen tea. I leave it where it is.\n"
+   },
+   {
+    "text": "\"Quite a difficult situation,\" Harris begins. I've seen him adopt this stiff tone of voice before, but only when talking to the brass. \"I'm sure you agree.\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Agree",
+      []
+     ],
+     [
+      "Disagree",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"I don't see why,\" I reply.\n"
+   },
+   {
+    "choices": [
+     [
+      "Watch him",
+      []
+     ],
+     [
+      "Wait",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "His face is telling me nothing. I've seen Harris broad and full of laughter. Today he is tight, as much part of the military machine as the device in Hut 5.\n"
+   },
+   {
+    "text": "\"We need that component,\" he says.\n"
+   },
+   {
+    "choices": [
+     [
+      "The stolen component...",
+      []
+     ],
+     [
+      "Shrug",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The reel went missing from the Bombe this afternoon. The four of us were in the Hut, working on the latest German intercept. The results were garbage. It was Russell who found the gap in the plugboard.\n"
+   },
+   {
+    "text": "Any of us could have taken it; and no one else would have known its worth.\n"
+   },
+   {
+    "choices": [
+     [
+      "Calculate",
+      []
+     ],
+     [
+      "Deny",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "My odds, then, are one in four. Not bad; although the stakes themselves are higher than I would like.\n"
+   },
+   {
+    "text": "\"So. Do you have it?\" Harris is wasting no time: Bletchley is his watch. \"Do you know where it is?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"The component?\"\n"
+   },
+   {
+    "text": "\"Don't play stupid,\" he replies. \"Where is it?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Co-operate",
+      []
+     ],
+     [
+      "Delay",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"I don't know what gives you the right to pick on me. I demand a lawyer.\"\n"
+   },
+   {
+    "text": "\"This is time of war,\" Harris answers. \"And by God, if I have to shoot you to recover the component, I will. Understand?\" He points at the mug, \"Now drink your tea and talk.\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Take the cup",
+      []
+     ],
+     [
+      "Don't take it",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "I leave the cup where it is.\n"
+   },
+   {
+    "text": "\"Why?\" I ask coldly. \"What's in it?\"\n"
+   },
+   {
+    "text": "\"Lapsang Souchong,\" he replies, placing his own cup back on the table untouched. \"Such a curious flavour. It might almost not be tea at all. You might say it hides a multitude of sins. As do you. Isn't that right?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Agree",
+      []
+     ],
+     [
+      "Disagree",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"None of us are blameless, Harris. But you're not my priest and I'm not yours. Now, please. Let me go. I'll help you find this damn component, of course I will.\"\n"
+   },
+   {
+    "text": "He appears to consider the offer.\n"
+   },
+   {
+    "text": "\"Tell me, then,\" he asks. \"What's your theory? You're a smart fellow — as smart as they come around here, and that's saying something. What's your opinion on the missing component? Accident, perhaps? Or do you blame one of the other men? \"\n"
+   },
+   {
+    "choices": [
+     [
+      "Blame no—one",
+      []
+     ],
+     [
+      "Blame someone",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\"I saw Hooper take it.\"\n"
+   },
+   {
+    "text": "\"I see.\" He is starting to lose his patience. I have seen Harris angry a few times, with lackeys and secretaries. But never with us. With the 'brains' he has always been cautious, treating us like children.\n"
+   },
+   {
+    "text": "And now I see that, like a father, he wants to smack us when we disobey him.\n"
+   },
+   {
+    "text": "\"Just get to the truth, man. Every <i>minute</i> matters.\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Tell the truth",
+      []
+     ],
+     [
+      "Persist with this",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"Very well. I see there's no point in covering up. You know everything anyway.\"\n"
+   },
+   {
+    "text": "Harris nods, and waits for me to continue.\n"
+   },
+   {
+    "choices": [
+     [
+      "Talk",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\"There was a young man. I met him in the town. A few months ago now. We got to talking. Not about work. And I used my cover story, but he seemed to know it wasn't true. That got me wondering if he might be one of us.\"\n"
+   },
+   {
+    "text": "Harris is not letting me off any more.\n"
+   },
+   {
+    "text": "\"You seriously entertained that possibility?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"No. Not for more than a moment, of course. Everyone here is marked out by how little we would be willing to say about it.\"\n"
+   },
+   {
+    "text": "\"Only you told this young man more than a little, didn't you?\"\n"
+   },
+   {
+    "text": "I nod. \"He seemed to know all about me. He... he was quite enchanted by my achievements.\"\n"
+   },
+   {
+    "text": "The way Harris is staring I expect him to strike me, but he does not. He replies, \"I can see how that must have been attractive to you,\" with such plain—spokeness that I think I must have misheard.\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\"The boy was a pretty simpleton. Quite inferior. His good opinion meant nothing to be. Harris, do not misunderstand. I was simply after his body.\"\n"
+   },
+   {
+    "text": "Harris, to his credit, doesn't flinch; but I can see he will have nightmares of this moment later tonight. I'm tempted to reach out and take his hand to worsen it for him.\n"
+   },
+   {
+    "text": "\"Go on with your confession.\"\n"
+   },
+   {
+    "text": "\"There's not much else to say. I took the part from Bombe computing device. You seem to know that already. I had to. He was going to expose me if I didn't.\"\n"
+   },
+   {
+    "text": "\"This young man was blackmailing you over your affair?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Tell the truth",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"Yes. I suppose he was their agent. I should have realised but I didn't. Then he threatened to tell you. I thought you would have me locked up: I couldn't bear the thought of it. I love working here. I've never been so happy, so successful, anywhere before. I didn't want to lose it.\"\n"
+   },
+   {
+    "text": "\"So what did you do with the component?\" Harris talks urgently. He grips his gloves tightly in one hand, perhaps prepared to lift them and strike if it is required. \"Have you passed it to this man already? Have you left it somewhere for him to find?\"\n"
+   },
+   {
+    "choices": [
+     [
+      "I have it",
+      []
+     ],
+     [
+      "I don't have it",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Tell the truth",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "\"I still have it. Not on me, of course. The missing component of the Bombe computer is hidden in a small cavity in a breeze—block supporting the left rear post of Hut 2. I put in there anticipating a search. I intended to dispose of it once the fuss had died down. I suppose I was foolish to think that it might.\"\n"
+   },
+   {
+    "text": "\"Indeed. And Mr Manning: God help you if you're lying to me.\"\n"
+   },
+   {
+    "text": "Harris stands, and slips away smartly. Then the door closes. I am alone again, as I have been for most of my short life.\n"
+   },
+   {
+    "choices": [
+     [
+      "Make your peace",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I am waiting again. I have no God to make my peace with. I find it difficult to believe in goodness of any kind, in a world such as this.\n"
+   },
+   {
+    "text": "But I am no traitor. Not to my country. To my sex, perhaps. But how could I support the Reich? If the Nazis were to come to power, I would be worse off than ever.\n"
+   },
+   {
+    "text": "I have no place here. No way to fit. I am caught, in the middle, cryptic and understood only thinly, through my machines.\n"
+   },
+   {
+    "choices": [
+     [
+      "I must seem very calm.",
+      []
+     ],
+     [
+      "Perhaps I should try to escape.",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I must seem very calm. I suppose I do not believe they will hang me. They will lock me up and continue to use my brain, if they can. I wonder what they will tell the world — perhaps that I have taken my own life. That would be simplest. The few who know me would believe it.\n"
+   },
+   {
+    "text": "Well, then. Not a bad existence, in prison. Removed from temptation.\n"
+   },
+   {
+    "text": "A monastic life, with plenty of problems to keep me going.\n"
+   },
+   {
+    "text": "I wonder what else I might yet unravel before I'm done?\n"
+   },
+   {
+    "choices": [
+     [
+      "The door is opening.",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The door is opening. Harris is returning. Our little calculation here is complete. We are just pieces in this machine; interchangeable and prone to wear.\n"
+   },
+   {
+    "text": "That is the true secret of the calculating engine, and the source of its power. It is not the components that matter, they are quite repetitive. What matters is how they are wired; the diversity of the patterns and structures they can form. Much like people — it is how they connect that determines our victories and tragedies, and not their genius.\n"
+   },
+   {
+    "text": "Which makes me wonder. Should I give up my beautiful young man to them as well as myself?\n"
+   },
+   {
+    "choices": [
+     [
+      "Yes",
+      []
+     ],
+     [
+      "No",
+      []
+     ],
+     [
+      "Lie",
+      []
+     ],
+     [
+      "Evade",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "No. What would be the use? He will be long gone, and the name he told me is no doubt hokum. No: I was alone before in guilt, and I am thus alone again.\n"
+   },
+   {
+    "text": "Harris put the cuffs around my wrists. \"I still have the intercept in my pocket,\" I remark. \"Wherever we're going, could I have a pencil?\"\n"
+   },
+   {
+    "text": "He looks me in the eye.\n"
+   },
+   {
+    "text": "\"Of course. And one of your computing things, if I get my way. And when we're old, and smoking pipes together in The Rag like heroes, I'll explain to you the way that decent men have affairs. You scientists.\"\n"
+   },
+   {
+    "text": "He drags me up to my feet.\n"
+   },
+   {
+    "text": "\"You think you have to re—invent everything.\"\n"
+   },
+   {
+    "text": "With that, he hustles me out of the door and I can't help thinking that, with a little more strategy, I could still have won the day. But too late now, of course.\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}
