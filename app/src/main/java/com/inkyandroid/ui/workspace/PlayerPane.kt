@@ -78,6 +78,8 @@ import desktopkit.components.collectState
 import desktopkit.components.deskClickable
 import desktopkit.components.focusRing
 import desktopkit.components.verticalScrollbar
+import desktopkit.editor.CodeEditorZoom
+import desktopkit.editor.textZoom
 import desktopkit.screens.MessageScreen
 import desktopkit.theme.DeskMotion
 import desktopkit.theme.DeskTheme
@@ -109,7 +111,7 @@ class PlayerActions(
  * swapped in place: the list keeps its position by the items' keys.
  *
  * The text keeps a comfortable measure in a wide pane, and is set in the theme's reading size
- * times [scale] (the zoom the editor has too).
+ * times [zoom], which has the editor's gestures (pinch, Ctrl with the wheel).
  *
  * A tap on a paragraph asks for its source; with a mouse that takes Ctrl or Alt, so a plain click
  * and a drag select text as they do everywhere.
@@ -124,7 +126,7 @@ fun PlayerPane(
     modifier: Modifier = Modifier,
     tagsVisible: Boolean = true,
     animate: Boolean = true,
-    scale: Float = 1f,
+    zoom: CodeEditorZoom? = null,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
     val colors = DeskTheme.colors
@@ -132,7 +134,7 @@ fun PlayerPane(
     val transcript = state.transcript
     val tier = LocalMotionTier.current
     val moving = animate && tier != MotionTier.Reduced
-    val styles = rememberPlayerStyles(scale)
+    val styles = rememberPlayerStyles(zoom?.scale ?: 1f)
 
     // Only what a choice just appended fades in, and only once: when its turn has settled the items
     // are as solid as the rest, also for a row that scrolls out of the list and back in.
@@ -149,7 +151,8 @@ fun PlayerPane(
         settled = transcript.generation
     }
 
-    Box(modifier.fillMaxSize().background(colors.background)) {
+    // the editor's gestures for the player's text: Ctrl with the wheel, two fingers, the zoom keys while it has the focus
+    Box(modifier.fillMaxSize().background(colors.background).then(if (zoom != null) Modifier.textZoom(zoom) else Modifier)) {
         when {
             // nothing has ever compiled: say why there is no story instead of an empty page
             transcript.items.isEmpty() && transcript.choices.isEmpty() -> EmptyPlayer(state, actions, contentPadding)

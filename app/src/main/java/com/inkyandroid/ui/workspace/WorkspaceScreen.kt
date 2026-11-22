@@ -165,7 +165,7 @@ fun WorkspaceScreen(
                             actions = rememberPlayerActions(liveSession, actions),
                             tagsVisible = settings.tagsVisible,
                             animate = settings.playAnimation,
-                            scale = playerZoom.scale,
+                            zoom = playerZoom,
                         )
                     }
                     SettingsTab.Issues -> IssuesPane(state.issues, project.files.map { it.path }, actions::openIssue, listState = ui.issuesList)

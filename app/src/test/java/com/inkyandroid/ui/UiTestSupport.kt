@@ -10,7 +10,12 @@ import com.inkyandroid.InkyApplication
 import com.inkyandroid.core.live.CompileStatus
 import com.inkyandroid.core.live.LiveState
 import com.inkyandroid.session.ProjectSession
+import com.inkyandroid.session.KitEditorBuffer
+import com.inkyandroid.session.LiveSessionLink
 import com.inkyandroid.session.ProjectSessionHolder
+import com.inkyandroid.session.SessionEnvironment
+import com.inkyandroid.session.StorageProjectOpener
+import kotlinx.coroutines.asCoroutineDispatcher
 import com.inkyandroid.session.WindowProject
 import com.inkyandroid.storage.ProjectRef
 import kotlinx.coroutines.runBlocking
@@ -51,8 +56,29 @@ object UiWorld {
         }
     }
 
+    /** The one ink thread of the tests, as the app has one: the ink library must never run on two threads at once. */
+    private val ink = java.util.concurrent.Executors.newSingleThreadExecutor { work -> Thread(work, "ink").apply { isDaemon = true } }.asCoroutineDispatcher()
+
+    private val environments = java.util.WeakHashMap<InkyApplication, SessionEnvironment>()
+
+    /**
+     * The session environment of this test's app, made as the app's own is. Not the process's
+     * ([SessionEnvironment.of]): that one keeps the first application it saw, and every test has
+     * an application of its own, with its own files.
+     */
+    val environment: SessionEnvironment
+        get() = environments.getOrPut(app) {
+            SessionEnvironment(
+                settings = app.settings,
+                opener = StorageProjectOpener(app.storage),
+                editors = KitEditorBuffer.Factory,
+                live = LiveSessionLink.factory(ink),
+                draftsDirectory = java.io.File(app.filesDir, "drafts"),
+            )
+        }
+
     /** A window's holder with [ref] being opened in it, as the activity's would be. */
-    fun holder(ref: ProjectRef? = null): ProjectSessionHolder = ProjectSessionHolder(app.sessionEnvironment).also { holder ->
+    fun holder(ref: ProjectRef? = null): ProjectSessionHolder = ProjectSessionHolder(environment).also { holder ->
         if (ref != null) holder.open(ref.encode())
     }
 }

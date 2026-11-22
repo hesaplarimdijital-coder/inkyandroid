@@ -29,6 +29,7 @@ class AppSettingsTest {
         assertTrue(settings.lineNumbers)
         assertTrue(settings.autoComplete)
         assertTrue(settings.keyboardSuggestions)
+        assertEquals(EditorFace.Mono, settings.editorFace)
         assertTrue(settings.playAnimation)
         assertTrue(settings.tagsVisible)
         assertEquals(InspectorTab.Player, settings.inspectorTab)
@@ -45,6 +46,7 @@ class AppSettingsTest {
             updateLineNumbers(false)
             updateAutoComplete(false)
             updateKeyboardSuggestions(false)
+            updateEditorFace(EditorFace.Proportional)
             updatePlayAnimation(false)
             updateTagsVisible(false)
             updateInspectorTab(InspectorTab.Outline)
@@ -59,6 +61,7 @@ class AppSettingsTest {
         assertFalse(restarted.lineNumbers)
         assertFalse(restarted.autoComplete)
         assertFalse(restarted.keyboardSuggestions)
+        assertEquals(EditorFace.Proportional, restarted.editorFace)
         assertFalse(restarted.playAnimation)
         assertFalse(restarted.tagsVisible)
         assertEquals(InspectorTab.Outline, restarted.inspectorTab)
@@ -82,6 +85,12 @@ class AppSettingsTest {
         assertEquals(AppSettings.MIN_INSPECTOR_SHARE, settings.inspectorShare)
         settings.updateInspectorShare(7f)
         assertEquals(AppSettings.MAX_INSPECTOR_SHARE, settings().inspectorShare)
+    }
+
+    @Test
+    fun `an editor face this version does not know reads as monospace`() {
+        context.getSharedPreferences(AppSettings.FILE, Context.MODE_PRIVATE).edit().putString("editor_face", "Handwriting").commit()
+        assertEquals(EditorFace.Mono, settings().editorFace)
     }
 
     @Test

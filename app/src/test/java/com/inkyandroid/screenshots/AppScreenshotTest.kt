@@ -28,7 +28,6 @@ import com.inkyandroid.ui.awaitSession
 import com.inkyandroid.ui.awaitStory
 import com.inkyandroid.ui.clickText
 import com.inkyandroid.ui.waitFor
-import com.inkyandroid.ui.workspace.editorStateOf
 import desktopkit.shell.ShellTransitions
 import desktopkit.theme.DensityPreference
 import desktopkit.theme.ThemeMode
@@ -170,7 +169,7 @@ class AppScreenshotTest {
     fun phonePlayStaleWhileTheInkHasErrorsDark() {
         val holder = story(ThemeMode.Dark)
         val session = holder.session!!
-        val editor = editorStateOf(session.activeDocument.buffer)
+        val editor = session.activeDocument.editorState!!
         compose.runOnUiThread { editor.replace(editor.length, editor.length, "{ unclosed\n") }
         compose.awaitStory(session, CompileStatus.Errors)
         tab("Oyna")

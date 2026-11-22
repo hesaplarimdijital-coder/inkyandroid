@@ -4,7 +4,6 @@ import com.inkyandroid.core.engine.InkIssue
 import com.inkyandroid.core.engine.InkIssues
 import com.inkyandroid.core.project.AddIncludeResult
 import com.inkyandroid.core.project.DeleteResult
-import com.inkyandroid.core.project.Draft
 import com.inkyandroid.core.project.DraftJournal
 import com.inkyandroid.core.project.DraftRestoreReport
 import com.inkyandroid.core.project.DraftStore
@@ -35,8 +34,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import kotlin.coroutines.CoroutineContext
@@ -82,7 +79,7 @@ class ProjectSession private constructor(
     private val documents = LinkedHashMap<String, OpenDocument>()
     private val places = HashMap<String, FilePlace>()
     private val history = NavigationHistory()
-    private val journalLock = Mutex()
+    private var draftsDiscarded = false
     private var draftDebounce: Job? = null
     private var draftDeadline: Job? = null
     private var autosaveTimer: Job? = null
@@ -134,6 +131,11 @@ class ProjectSession private constructor(
         documents[path]?.let { return it }
         val text = project.text(path) ?: return null
         val buffer = editors.create(path, text.toString())
+        if (state.value.closed) {
+            // asked for after the session ended (a screen recomposing on its way out): shown, never watched
+            buffer.close()
+            return OpenDocument(path, buffer)
+        }
         val document = OpenDocument(path, buffer)
         places[path]?.let { place ->
             buffer.cursor = TextPosition(place.row, place.column)
@@ -146,6 +148,7 @@ class ProjectSession private constructor(
                 override fun snapshot(): CharSequence = buffer.text
                 override fun load(text: String) = buffer.load(text)
                 override fun edit(start: Int, end: Int, replacement: String) = buffer.edit(start, end, replacement)
+                override fun hasUnreportedChanges(): Boolean = buffer.hasUnreportedChanges
             },
         )
         documents[path] = document
@@ -280,7 +283,7 @@ class ProjectSession private constructor(
     private fun projectChanged() {
         val gone = documents.keys.filter { it !in project }
         for (path in gone) {
-            documents.remove(path)
+            documents.remove(path)?.buffer?.close()
             places.remove(path)
             history.removed(path)
         }
@@ -302,8 +305,8 @@ class ProjectSession private constructor(
         } finally {
             mutableState.update { it.copy(saving = false) }
         }
-        val failed = report.failed.mapValues { (_, error) -> describe(error) }
-        mutableState.update { it.copy(saveProblem = if (failed.isEmpty()) null else SaveProblem(failed)) }
+        val failed = report.failed
+        mutableState.update { it.copy(saveProblem = if (failed.isEmpty()) null else SaveProblem(failed.mapValues { (_, error) -> describe(error) }, failed)) }
         writeDrafts()
         return report
     }
@@ -313,7 +316,7 @@ class ProjectSession private constructor(
         val reverted = try {
             project.revert(path)
         } catch (failed: IOException) {
-            mutableState.update { it.copy(storageProblem = describe(failed)) }
+            storageFailed(failed)
             false
         }
         if (reverted) writeDrafts()
@@ -329,10 +332,11 @@ class ProjectSession private constructor(
         try {
             val result = project.resolveConflict(path, keepMine)
             if (result is SaveResult.Failed) {
-                mutableState.update { it.copy(saveProblem = SaveProblem(mapOf(path to describe(result.error)))) }
+                mutableState.update { it.copy(saveProblem = SaveProblem(mapOf(path to describe(result.error)), mapOf(path to result.error))) }
             }
         } catch (failed: IOException) {
-            mutableState.update { it.copy(storageProblem = describe(failed)) }
+            // storage's version cannot be read ("load theirs"): this text stays, unsaved
+            storageFailed(failed)
         }
         writeDrafts()
     }
@@ -348,12 +352,16 @@ class ProjectSession private constructor(
         val report = try {
             project.syncWithStorage()
         } catch (failed: IOException) {
-            mutableState.update { it.copy(storageProblem = describe(failed)) }
+            storageFailed(failed)
             return null
         }
-        mutableState.update { it.copy(storageProblem = null) }
+        mutableState.update { it.copy(storageProblem = null, storageError = null) }
         if (report.settingsChanged) reloadProjectSettings()
         return report
+    }
+
+    private fun storageFailed(error: IOException) {
+        mutableState.update { it.copy(storageProblem = describe(error), storageError = error) }
     }
 
     /**
@@ -403,7 +411,9 @@ class ProjectSession private constructor(
             }
             CloseAnswer.DontSave -> {
                 cancelTimers()
-                journalLock.withLock { journal.discardAll() }
+                // a draft write under way must not bring back what was just thrown away
+                draftsDiscarded = true
+                journal.discardAll()
             }
         }
         finish()
@@ -418,17 +428,19 @@ class ProjectSession private constructor(
     /**
      * Ends the session without asking: the window is destroyed, or another project takes its place.
      * What [flush] does is done one last time (drafts, and with autosave a save); unsaved text that
-     * stays unsaved is in the drafts and comes back when the project is opened again.
+     * stays unsaved is in the drafts and comes back when the project is opened again. The returned
+     * job ends when that last flush is done (the holder gives the project's storage back then).
      */
-    fun abandon() {
-        if (state.value.closed) return
+    fun abandon(): Job {
+        if (state.value.closed) return Job().apply { complete() }
         mutableState.update { it.copy(closed = true) }
         live.close()
         cancelTimers()
-        scope.launch {
+        return scope.launch {
             try {
                 flush()
             } finally {
+                closeDocuments()
                 scope.cancel()
             }
         }
@@ -436,25 +448,29 @@ class ProjectSession private constructor(
 
     /**
      * Ends the session and hands its unsaved changes to a successor: the same project opened from
-     * another place ([ProjectSessionHolder.switchTo]). Nothing is saved; the drafts are returned
-     * for the new session's journal and removed from this one's.
+     * another place ([ProjectSessionHolder.switchTo]). Nothing is saved. The unsaved texts go into
+     * [target], the successor's drafts, and are forgotten here only once all of them are there; a
+     * null [target] means the successor keeps its drafts where this session does: they are brought
+     * up to date and left. When that fails the session goes on as it was and the failure is thrown.
      */
-    suspend fun handOver(): List<Draft> {
-        if (state.value.closed) return emptyList()
+    @Throws(IOException::class)
+    internal suspend fun handOver(target: DraftStore?) {
+        if (state.value.closed) return
+        do {
+            val revision = project.contentRevision.value
+            if (target != null) {
+                journal.moveTo(project, target)
+            } else {
+                journal.flush(project).values.firstOrNull()?.let { throw it }
+            }
+            // typed while the drafts moved: move them again
+        } while (project.contentRevision.value != revision)
         cancelTimers()
         rememberSession()
-        val drafts = journalLock.withLock {
-            journal.flush(project)
-            val unsaved = project.state.value.unsavedFiles.mapNotNull { file ->
-                project.text(file.path)?.let { Draft(file.path, it.toString(), project.storedHash(file.path), System.currentTimeMillis()) }
-            }
-            journal.discardAll()
-            unsaved
-        }
         mutableState.update { it.copy(closed = true) }
         live.close()
+        closeDocuments()
         scope.cancel()
-        return drafts
     }
 
     private fun finish() {
@@ -463,7 +479,12 @@ class ProjectSession private constructor(
         if (settings.lastSession?.project == reference) settings.updateLastSession(null)
         mutableState.update { it.copy(closed = true) }
         live.close()
+        closeDocuments()
         scope.cancel()
+    }
+
+    private fun closeDocuments() {
+        for (document in documents.values) document.buffer.close()
     }
 
     // ------------------------------------------------------------------ the machinery
@@ -509,9 +530,14 @@ class ProjectSession private constructor(
     }
 
     private suspend fun writeDrafts() {
-        val failures = journalLock.withLock { journal.flush(project) }
-        val problem = failures.values.firstOrNull()?.let(::describe)
-        mutableState.update { if (it.draftProblem == problem) it else it.copy(draftProblem = problem) }
+        if (draftsDiscarded) return
+        draftsFailed(journal.flush(project).values.firstOrNull())
+    }
+
+    /** The drafts could not be written ([error]), or could again (null). */
+    internal fun draftsFailed(error: IOException?) {
+        val problem = error?.let(::describe)
+        mutableState.update { if (it.draftProblem == problem) it else it.copy(draftProblem = problem, draftError = error) }
     }
 
     private suspend fun reloadProjectSettings() {
@@ -579,8 +605,9 @@ class ProjectSession private constructor(
             try {
                 val projectSettings = readProjectSettings(store, mainPath)
                 val tokenizer = InkTokenizer(projectSettings.instructionPrefix)
-                val project = InkProject.open(scope, store, mainPath, InkFileParser.of(tokenizer), parseContext)
+                // the journal hears of every write before it begins: a write cut short loses nothing
                 val journal = DraftJournal(drafts)
+                val project = InkProject.open(scope, store, mainPath, InkFileParser.of(tokenizer), parseContext, writeAhead = journal)
                 val restored = try {
                     journal.restore(project)
                 } catch (unreadable: IOException) {

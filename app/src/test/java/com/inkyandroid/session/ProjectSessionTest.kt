@@ -559,7 +559,7 @@ class ProjectSessionTest {
 
         assertFalse("autosave could not save: ask", session.requestClose())
         assertTrue(session.state.value.closeQuestion)
-        assertEquals(SaveProblem(mapOf("main.ink" to "Permission lost")), session.state.value.saveProblem)
+        assertEquals(mapOf("main.ink" to "Permission lost"), session.state.value.saveProblem?.failed)
 
         assertFalse(session.answerClose(CloseAnswer.Save))
         assertFalse(session.state.value.closed)

@@ -1,5 +1,7 @@
 package com.inkyandroid.session
 
+import desktopkit.editor.CodeEditorState
+
 /** A place in a file's text. Rows and columns are zero-based; columns count UTF-16 units. */
 data class TextPosition(val row: Int, val column: Int = 0)
 
@@ -39,9 +41,17 @@ interface EditorBuffer {
 
     /**
      * Called after every change of the text that the user made or that came through [edit]; never
-     * for [load]. The session sets it once, when it creates the buffer.
+     * for [load]. It may come a moment after the change (the kit's editor reports changes once
+     * Compose has applied them, within the frame); [text] is always the text as it is now. The
+     * session sets it once, when it creates the buffer.
      */
     var onTextChanged: (() -> Unit)?
+
+    /** The text has changed and [onTextChanged] has not been called for it yet; a reload never replaces such a text. */
+    val hasUnreportedChanges: Boolean get() = false
+
+    /** The session is over or the file left the project: the buffer stops reporting changes. */
+    fun close() {}
 }
 
 /** Creates the editor buffer of a file the first time the file is opened. */
@@ -56,4 +66,7 @@ fun interface EditorBufferFactory {
 class OpenDocument internal constructor(path: String, val buffer: EditorBuffer) {
     var path: String = path
         internal set
+
+    /** The kit's editor state of this file, for `CodeEditor(state = …)`; null only for a buffer that is not the kit's (tests). */
+    val editorState: CodeEditorState? get() = (buffer as? KitEditorBuffer)?.state
 }

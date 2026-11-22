@@ -34,6 +34,13 @@ internal class BladePlaySession(
     /** The state at the last moment the story was known to be sound: where it is rebuilt after the runtime threw. */
     private var lastGoodState: String = story.state.toJson()
 
+    /**
+     * The state as JSON while it is known not to have changed since it was taken: at each choice
+     * point it is [lastGoodState], and the evaluations made there (the watches, after every turn)
+     * share it instead of each serialising the state again. Null once the story moves on.
+     */
+    private var unchangedState: String? = lastGoodState
+
     /** The story was stopped or threw: it is over, whatever the rebuilt `Story` object says. */
     private var over = false
 
@@ -92,8 +99,11 @@ internal class BladePlaySession(
             over = true
             return StoryTurn(lines, emptyList(), ended = true, stop = stop, issues = loose)
         }
-        lastGoodState = story.state.toJson()
+        // Reading the choices numbers them in the state (`Story.getCurrentChoices`): read them first,
+        // so that the snapshot is the state as it stays from now on.
         val offered = choices
+        lastGoodState = story.state.toJson()
+        unchangedState = lastGoodState
         return StoryTurn(lines, offered, ended = offered.isEmpty(), issues = loose)
     }
 
@@ -101,6 +111,7 @@ internal class BladePlaySession(
         if (over || index !in story.currentChoices.indices) return false
         return try {
             story.chooseChoiceIndex(index)
+            unchangedState = null
             true
         } catch (e: Exception) {
             recover(lastGoodState)
@@ -126,6 +137,7 @@ internal class BladePlaySession(
         return try {
             story.state.loadJson(state)
             lastGoodState = state
+            unchangedState = state
             over = false
             true
         } catch (e: Exception) {
@@ -136,9 +148,13 @@ internal class BladePlaySession(
 
     /** Jumps to a runtime path, as inklecate does for `-> path` typed in play mode. Throws what the runtime throws. */
     internal fun divertTo(path: String) {
+        unchangedState = null
         story.choosePathString(path)
         over = false
     }
+
+    /** The state as ink's save JSON, now: what an evaluation puts back afterwards. */
+    internal fun stateNow(): String = unchangedState ?: story.state.toJson().also { unchangedState = it }
 
     internal fun drainIssues(): List<InkIssue> = pendingIssues.toList().also { pendingIssues.clear() }
 
@@ -149,6 +165,7 @@ internal class BladePlaySession(
     internal fun recover(stateJson: String) {
         story = newStory()
         story.state.loadJson(stateJson)
+        unchangedState = stateJson
         pendingIssues.clear()
     }
 

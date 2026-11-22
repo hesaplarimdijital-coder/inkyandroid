@@ -1,5 +1,6 @@
 package com.inkyandroid.session
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -13,12 +14,14 @@ import com.inkyandroid.storage.ProjectStorage
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
+import java.util.concurrent.Executors
 import kotlin.coroutines.CoroutineContext
 
 /** A project reference resolved to its storage. */
@@ -68,6 +71,8 @@ class StorageProjectOpener(private val storage: ProjectStorage) : ProjectOpener 
  *   folder (`filesDir/drafts`).
  * @property io where the drafts are read and written.
  * @property parseContext where the files' symbols are parsed.
+ * @property sessionContext the sessions' thread (the main thread); a `Job` in it is the parent of every
+ *   session (a test ends it to play the death of the process).
  */
 class SessionEnvironment(
     val settings: AppSettings,
@@ -77,13 +82,39 @@ class SessionEnvironment(
     val draftsDirectory: File,
     val io: CoroutineDispatcher = Dispatchers.IO,
     val parseContext: CoroutineContext = Dispatchers.Default,
+    val sessionContext: CoroutineContext = Dispatchers.Main.immediate,
 ) {
     /** The drafts store of the project with [reference]: a folder named after the hash of the project's identity. */
-    fun draftsFor(reference: String): DraftStore =
-        FileDraftStore(File(draftsDirectory, TextHash.of(opener.identity(reference)).take(DRAFT_FOLDER_LENGTH)), io)
+    fun draftsFor(reference: String): DraftStore = FileDraftStore(draftsFolder(reference), io)
 
-    private companion object {
-        const val DRAFT_FOLDER_LENGTH = 32
+    /** The folder [draftsFor] keeps the drafts of [reference] in. */
+    fun draftsFolder(reference: String): File =
+        File(draftsDirectory, TextHash.of(opener.identity(reference)).take(DRAFT_FOLDER_LENGTH))
+
+    companion object {
+        private const val DRAFT_FOLDER_LENGTH = 32
+
+        @Volatile
+        private var shared: SessionEnvironment? = null
+
+        /**
+         * The app's environment, one for the process (every window's holder uses it): the app's
+         * settings, its project storage, the kit's editors, one thread for all ink work (the ink
+         * library must never run on two threads at once) and the drafts under `filesDir/drafts`.
+         */
+        fun of(context: Context): SessionEnvironment = shared ?: synchronized(this) {
+            shared ?: context.applicationContext.let { app ->
+                SessionEnvironment(
+                    settings = AppSettings.of(app),
+                    opener = StorageProjectOpener(ProjectStorage.from(app)),
+                    editors = KitEditorBuffer.Factory,
+                    live = LiveSessionLink.factory(
+                        Executors.newSingleThreadExecutor { work -> Thread(work, "ink").apply { isDaemon = true } }.asCoroutineDispatcher(),
+                    ),
+                    draftsDirectory = File(app.filesDir, "drafts"),
+                )
+            }.also { shared = it }
+        }
     }
 }
 
@@ -98,8 +129,12 @@ sealed interface WindowProject {
     /** The project is open. */
     data class Open(val session: ProjectSession) : WindowProject
 
-    /** The project with [reference] could not be opened; [message] is storage's reason. */
-    data class Failed(val reference: String, val message: String) : WindowProject
+    /**
+     * The project with [reference] could not be opened; [message] is storage's reason, [cause] the
+     * failure itself for a sentence in the user's language (`StorageProblem.of(cause)`): the main
+     * file is gone, is not text, the permission was withdrawn….
+     */
+    data class Failed(val reference: String, val message: String, val cause: IOException? = null) : WindowProject
 }
 
 /**
@@ -138,8 +173,8 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
 
     /**
      * Reopens what the window had open: [savedReference] (from the activity's saved instance state)
-     * or else the project of the last session. Does nothing after the first call, so it is safe in
-     * every `onCreate`.
+     * or else the project of the last session. Does nothing after the first call, or once a project
+     * was opened explicitly, so it is safe in every `onCreate`.
      */
     fun restore(savedReference: String?) {
         if (restored) return
@@ -169,17 +204,30 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
     }
 
     private fun start(reference: String, carried: ProjectSession?) {
+        // what the window shows now was chosen: there is nothing left to restore
+        restored = true
         opening?.cancel()
         val previous = session
-        if (carried == null) previous?.abandon()
+        if (carried == null) previous?.let(::end)
         mutableProject.value = WindowProject.Opening(reference)
         opening = viewModelScope.launch {
+            val drafts = environment.draftsFor(reference)
+            if (carried != null) {
+                // the drafts move to where the new place files them, unless that is where they are
+                val target = drafts.takeIf { environment.draftsFolder(reference) != environment.draftsFolder(carried.reference) }
+                try {
+                    carried.handOver(target)
+                } catch (failed: IOException) {
+                    // the unsaved text could not be carried over: the window keeps the project it has
+                    carried.draftsFailed(failed)
+                    mutableProject.value = WindowProject.Open(carried)
+                    return@launch
+                }
+                environment.opener.close(carried.reference)
+            }
             mutableProject.value = try {
-                val drafts = environment.draftsFor(reference)
-                if (carried != null) for (draft in carried.handOver()) drafts.put(draft)
-                if (previous != null) environment.opener.close(previous.reference)
                 val opened = environment.opener.open(reference)
-                WindowProject.Open(
+                val session = try {
                     ProjectSession.open(
                         reference = reference,
                         store = opened.store,
@@ -188,22 +236,33 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
                         settings = environment.settings,
                         editors = environment.editors,
                         live = environment.live,
+                        context = environment.sessionContext,
                         parseContext = environment.parseContext,
-                    ),
-                )
+                    )
+                } catch (failed: Throwable) {
+                    // storage counts the project as open in a window: it is not
+                    environment.opener.close(reference)
+                    throw failed
+                }
+                WindowProject.Open(session)
             } catch (failed: IOException) {
-                WindowProject.Failed(reference, failed.message?.takeIf { it.isNotBlank() } ?: failed.javaClass.simpleName)
+                WindowProject.Failed(reference, failed.message?.takeIf { it.isNotBlank() } ?: failed.javaClass.simpleName, failed)
             }
         }
+    }
+
+    /**
+     * Ends [session] without asking and gives its project's storage back once the session's last
+     * flush (drafts, and with autosave a save) is done: storage must stay usable until then.
+     */
+    private fun end(session: ProjectSession) {
+        session.abandon().invokeOnCompletion { environment.opener.close(session.reference) }
     }
 
     /** The window shows no project any more: after [ProjectSession.requestClose] or [ProjectSession.answerClose] returned true, or to leave a failed opening. */
     fun closed() {
         opening?.cancel()
-        session?.let { session ->
-            session.abandon()
-            environment.opener.close(session.reference)
-        }
+        session?.let(::end)
         mutableProject.value = WindowProject.None
     }
 
@@ -220,11 +279,9 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
     }
 
     override fun onCleared() {
-        // the window is gone for good; unsaved text is in the drafts and, with autosave, is saved once more
-        session?.let { session ->
-            session.abandon()
-            environment.opener.close(session.reference)
-        }
+        // the window is gone for good (not a configuration change: the holder outlives those);
+        // unsaved text is in the drafts and, with autosave, is saved once more
+        session?.let(::end)
     }
 
     /** Creates the holder for an activity: `ViewModelProvider(activity, ProjectSessionHolder.Factory(environment))[ProjectSessionHolder::class.java]`. */

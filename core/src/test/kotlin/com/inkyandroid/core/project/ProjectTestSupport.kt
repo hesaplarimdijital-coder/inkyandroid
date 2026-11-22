@@ -1,6 +1,7 @@
 package com.inkyandroid.core.project
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceTimeBy
@@ -30,6 +31,16 @@ class MemoryStore(override val displayName: String = "memory") : ProjectStore {
 
     /** How long a write takes, in virtual time. */
     var writeDelayMillis = 0L
+
+    /**
+     * Storage that writes in place, as the Storage Access Framework does: a write that fails, or
+     * that never returns ([writeHangs]), leaves what this gives of the new text in the file. Null:
+     * the old text stays (an atomic store).
+     */
+    var leavesBehind: ((text: String) -> String)? = null
+
+    /** A write that never returns: the process dies while storage is being written. */
+    var writeHangs = false
 
     /** False for a provider that does not tell modification times: every file reports 0. */
     var reportsTimes = true
@@ -71,7 +82,13 @@ class MemoryStore(override val displayName: String = "memory") : ProjectStore {
     }
 
     override suspend fun write(path: String, text: String): StoredFile {
-        called("write", path)
+        ProjectPaths.requireValid(path)
+        log.add("write $path")
+        val failed = failure("write", path)
+        val torn = leavesBehind
+        if (torn != null && (failed != null || writeHangs)) entries[path] = Entry(torn(text), ++clock)
+        failed?.let { throw it }
+        if (writeHangs) awaitCancellation()
         delay(writeDelayMillis)
         val entry = Entry(text, ++clock)
         entries[path] = entry
@@ -164,11 +181,22 @@ class FakeEditor(initial: String) : LiveText {
     /** A real editor may report a load like any other change; the project must not take that for typing. */
     var echoesLoads = false
 
+    private var unreported = false
+
     /** The user changes the text to [newText]. */
     fun type(newText: String) {
         text = newText
+        unreported = false
         onChange()
     }
+
+    /** The user changes the text and the editor has not reported it yet (the kit's reports within the frame). */
+    fun typeUnreported(newText: String) {
+        text = newText
+        unreported = true
+    }
+
+    override fun hasUnreportedChanges(): Boolean = unreported
 
     override fun snapshot(): CharSequence {
         snapshots++
@@ -192,8 +220,8 @@ class FakeEditor(initial: String) : LiveText {
 class ProjectFixture(val scope: TestScope) {
     val store = MemoryStore()
 
-    suspend fun open(mainPath: String = "main.ink", parser: InkFileParser = LineScanParser): InkProject =
-        InkProject.open(scope.backgroundScope, store, mainPath, parser, parseContext = EmptyCoroutineContext)
+    suspend fun open(mainPath: String = "main.ink", parser: InkFileParser = LineScanParser, writeAhead: WriteAhead? = null): InkProject =
+        InkProject.open(scope.backgroundScope, store, mainPath, parser, parseContext = EmptyCoroutineContext, writeAhead = writeAhead)
 
     suspend fun createNew(mainPath: String = "main.ink"): InkProject =
         InkProject.createNew(scope.backgroundScope, store, mainPath, LineScanParser, parseContext = EmptyCoroutineContext)

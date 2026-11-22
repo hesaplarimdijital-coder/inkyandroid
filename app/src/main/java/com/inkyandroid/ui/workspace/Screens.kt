@@ -59,7 +59,7 @@ fun PlayScreen(session: ProjectSession, live: LiveState, settings: AppSettings, 
         actions = rememberPlayerActions(session.live.session, actions),
         tagsVisible = settings.tagsVisible,
         animate = settings.playAnimation,
-        scale = zoom.scale,
+        zoom = zoom,
         contentPadding = rememberShellContentPadding(),
     )
 }

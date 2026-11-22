@@ -4,7 +4,7 @@
 [versions]
 agp = "9.4.1"
 kotlin = "2.4.20"
-desktopKit = "93877227ed"
+desktopKit = "71a0bfa942"
 activityCompose = "1.13.0"
 # ink: blade-ink is the Java port of ink's runtime and compiler, at the level of ink 1.2.0;
 # the runtime and the compiler are released together under one version.

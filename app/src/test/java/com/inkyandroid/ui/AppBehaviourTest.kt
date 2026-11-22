@@ -15,7 +15,6 @@ import com.inkyandroid.core.live.TranscriptItem
 import com.inkyandroid.core.project.NewProject
 import com.inkyandroid.session.ProjectSessionHolder
 import com.inkyandroid.testPrefs
-import com.inkyandroid.ui.workspace.editorStateOf
 import desktopkit.shell.ShellTransitions
 import desktopkit.theme.DensityPreference
 import desktopkit.theme.ThemeMode
@@ -73,7 +72,7 @@ class AppBehaviourTest {
         val issue = state.issues.first { it.file == "other.ink" }
         compose.runOnUiThread { session.showIssue(issue) }
         compose.waitFor(5_000) { session.state.value.activePath == "other.ink" && session.state.value.showRequest == null }
-        val editor = editorStateOf(session.document("other.ink")!!.buffer)
+        val editor = session.document("other.ink")!!.editorState!!
         assertEquals(issue.line!! - 1, editor.cursorPosition.line)
     }
 
@@ -85,13 +84,13 @@ class AppBehaviourTest {
         launch(holder)
         val session = compose.awaitSession(holder)
         compose.awaitStory(session)
-        val editor = editorStateOf(session.document(session.state.value.activePath)!!.buffer)
+        val editor = session.document(session.state.value.activePath)!!.editorState!!
         compose.runOnUiThread { editor.select(editor.text.indexOf("the_end") + 2) }
         compose.waitForIdle()
         compose.runOnUiThread { assertTrue(ui.editor != null && ui.editor!!.linkAtCursor() != null) }
         compose.runOnUiThread { assertTrue(commands.perform(Commands.GOTO_DEFINITION)) }
         compose.waitFor(5_000) { session.state.value.activePath == "chapters.ink" && session.state.value.showRequest == null }
-        val target = editorStateOf(session.document("chapters.ink")!!.buffer)
+        val target = session.document("chapters.ink")!!.editorState!!
         assertEquals(0, target.cursorPosition.line)
         // the jump is a step of the history: Back returns to where it started
         assertTrue(session.state.value.canGoBack)
@@ -131,7 +130,7 @@ class AppBehaviourTest {
         launch(holder)
         val session = compose.awaitSession(holder)
         compose.awaitStory(session)
-        val editor = editorStateOf(session.activeDocument.buffer)
+        val editor = session.activeDocument.editorState!!
         compose.runOnUiThread { editor.replace(editor.length, editor.length, "Second line.\n") }
         compose.waitFor(5_000) { session.project.state.value.hasUnsavedChanges }
         compose.runOnUiThread { assertTrue(commands.perform(Commands.SAVE)) }

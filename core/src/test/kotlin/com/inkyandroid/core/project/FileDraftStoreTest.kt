@@ -32,6 +32,19 @@ class FileDraftStoreTest {
     }
 
     @Test
+    fun `the draft of a save that has begun says so, and an older draft without the mark is no such draft`() = scope.runTest {
+        val saving = Draft("main.ink", "the text being written", baseHash = TextHash.of("old"), writtenAt = 7L, saving = true)
+        store.put(saving)
+        assertEquals(listOf(saving), store.load())
+
+        // a draft as the first version of the app wrote it: no "saving" line
+        directory.listFiles()!!.single().writeText(
+            "inky-draft 1\npath: main.ink\nbase: -\nwritten: 2\nsha256: ${TextHash.of("old text")}\n\nold text",
+        )
+        assertEquals(listOf(Draft("main.ink", "old text", baseHash = null, writtenAt = 2L, saving = false)), store.load())
+    }
+
+    @Test
     fun `a draft of a file that was never stored has no base`() = scope.runTest {
         val draft = Draft("new.ink", "", baseHash = null, writtenAt = 1L)
         store.put(draft)

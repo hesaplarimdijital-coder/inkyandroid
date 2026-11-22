@@ -43,6 +43,7 @@ import com.inkyandroid.session.ProjectSession
 import com.inkyandroid.session.SessionState
 import com.inkyandroid.session.TextPosition
 import com.inkyandroid.settings.AppSettings
+import com.inkyandroid.settings.EditorFace
 import com.inkyandroid.ui.WindowActions
 import com.inkyandroid.ui.WindowUi
 import desktopkit.components.MenuEntry
@@ -86,7 +87,7 @@ fun EditorPane(
 ) {
     val path = state.activePath
     val document = remember(session, path) { session.document(path) } ?: return
-    val editor = editorStateOf(document.buffer)
+    val editor = document.editorState ?: return
     val tokenizer = remember(state.tokenizer) { InkEditorTokenizer(state.tokenizer) }
     val lines = remember(document) { EditorLines(InkLineCache(state.tokenizer)) }
     lines.tokenizer = state.tokenizer
@@ -159,6 +160,7 @@ fun EditorPane(
                 zoom = zoom,
                 softWrap = settings.softWrap,
                 lineNumbers = settings.lineNumbers,
+                proportional = settings.editorFace == EditorFace.Proportional,
                 autoCorrect = settings.keyboardSuggestions,
                 capitalizeSentences = settings.keyboardSuggestions,
                 indent = INK_INDENT,

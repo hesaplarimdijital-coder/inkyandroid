@@ -22,7 +22,9 @@ import com.inkyandroid.storage.StorageProblem
 import desktopkit.components.BannerTone
 import desktopkit.components.ToastState
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.cancellation.CancellationException
 
 /**
@@ -133,20 +135,22 @@ private class ExportFlow(
     }
 
     override fun exportStoryJs() = start { json ->
-        pending = PendingExport.File(InkExport.storyJs(json))
+        val script = withContext(Dispatchers.Default) { InkExport.storyJs(json) }
+        pending = PendingExport.File(script)
         chooseFile(ExportFileRequest.javascript(InkExport.jsFileName(source.mainPath)))
     }
 
     override fun exportForWeb() = start { json ->
         val folderName = ExportNames.webFolder(source.mainPath)
         val title = InkExport.webTitle(source.titleTag(), folderName)
-        val files = InkExport.webPlayer(json, source.mainPath, title).map { it.name to it.content }
+        // the template and inkjs are read from :core's resources: not on the main thread
+        val files = withContext(Dispatchers.Default) { InkExport.webPlayer(json, source.mainPath, title).map { it.name to it.content } }
         pending = PendingExport.Web(folderName, files)
         chooseFolder()
     }
 
     /** Compiles, then hands the JSON to [then] (which opens a picker), or says why there is nothing to export. */
-    private fun start(then: (String) -> Unit) {
+    private fun start(then: suspend (String) -> Unit) {
         if (busy) return
         busy = true
         scope.launch {

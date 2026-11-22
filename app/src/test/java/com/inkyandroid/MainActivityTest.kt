@@ -6,7 +6,6 @@ import androidx.compose.ui.test.isSelectable
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.inkyandroid.ui.awaitSession
-import com.inkyandroid.ui.workspace.editorStateOf
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -31,6 +30,6 @@ class MainActivityTest {
         }
         val session = compose.awaitSession(holder)
         assertEquals("İlk hikâye.ink", session.state.value.activePath)
-        assertTrue(editorStateOf(session.activeDocument.buffer).text.startsWith("Once upon a time"))
+        assertTrue(session.activeDocument.editorState!!.text.startsWith("Once upon a time"))
     }
 }

@@ -86,6 +86,8 @@ class ExportActionsTest {
 
     private fun run(action: ExportActions.() -> Unit) {
         compose.runOnUiThread { actions.action() }
+        // the story.js and web files are made off the main thread: wait for the export to end
+        compose.waitUntil(5_000) { !actions.busy }
         compose.waitForIdle()
     }
 
@@ -101,6 +103,28 @@ class ExportActionsTest {
         assertEquals(json, writer.files[pickers.answer])
         assertEquals("night.json olarak dışa aktarıldı", toast())
         assertFalse(actions.busy)
+    }
+
+    @Test
+    fun storyJsIsTheJsonAsAScript() {
+        pickers.answer = Uri.parse("content://docs/document/night.js")
+        launch()
+        run { exportStoryJs() }
+        assertEquals("night.js", (pickers.asked.single() as ExportFileRequest).suggestedName)
+        assertEquals("var storyContent = $json;", writer.files[pickers.answer])
+    }
+
+    @Test
+    fun theWebVersionIsAFolderOfThePlayer() {
+        pickers.answer = Uri.parse("content://docs/tree/primary%3ADocuments")
+        launch()
+        run { exportForWeb() }
+        val files = writer.folders.getValue("night").toMap()
+        assertEquals(setOf("night.js", "index.html", "ink.js", "style.css", "main.js"), files.keys)
+        // no title tag: the folder's name is the page's title
+        assertTrue(files.getValue("index.html").contains("<title>night</title>"))
+        assertTrue(files.getValue("index.html").contains("night.js"))
+        assertEquals("Web sürümü night klasöründe", toast())
     }
 
     @Test
