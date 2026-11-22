@@ -4,6 +4,7 @@ import android.content.res.Resources
 import com.inkyandroid.R
 import com.inkyandroid.core.snippets.InkSnippets
 import com.inkyandroid.core.snippets.SnippetNode
+import com.inkyandroid.session.ProjectSession
 import com.inkyandroid.ui.extras.snippets.SnippetLocaliser
 import com.inkyandroid.ui.extras.snippets.flatten
 import desktopkit.components.PaletteItem
@@ -16,6 +17,10 @@ import desktopkit.components.PaletteItem
  */
 fun snippetPaletteItems(custom: List<SnippetNode>, resources: Resources, insert: (String) -> Unit): List<PaletteItem> =
     paletteItems(InkSnippets.menu(custom), resources, insert)
+
+/** [snippetPaletteItems] with the custom snippets of the settings file of the project open in [session]. */
+fun snippetPaletteItems(session: ProjectSession, resources: Resources, insert: (String) -> Unit): List<PaletteItem> =
+    snippetPaletteItems(session.state.value.projectSettings.customInkSnippets, resources, insert)
 
 /** The palette's items for the whole tree [nodes] (built-in and custom). */
 internal fun paletteItems(nodes: List<SnippetNode>, resources: Resources, insert: (String) -> Unit): List<PaletteItem> {

@@ -17,6 +17,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import com.inkyandroid.R
+import com.inkyandroid.core.engine.InkStatistics
+import com.inkyandroid.session.ProjectSession
 import desktopkit.components.DeskButton
 import desktopkit.components.DeskDialog
 import desktopkit.components.DeskProgressBar
@@ -46,6 +48,25 @@ object StatisticsTags {
     const val BUSY = "statistics-busy"
     const val FAILED = "statistics-failed"
 }
+
+/**
+ * "Word count and more" for the project open in [session]: its live session's statistics (inklecate's
+ * `-s`, which counts ink with errors too).
+ */
+@Composable
+fun StatisticsDialog(session: ProjectSession, onDismiss: () -> Unit) {
+    val unreadable = stringResource(R.string.statistics_unreadable)
+    StatisticsDialog(
+        statistics = {
+            val numbers = session.live.session?.statistics() ?: throw IllegalStateException(unreadable)
+            numbers.toStoryStatistics()
+        },
+        onDismiss = onDismiss,
+    )
+}
+
+/** The engine's numbers as the dialog shows them. */
+internal fun InkStatistics.toStoryStatistics() = StoryStatistics(words, knots, stitches, functions, choices, gathers, diverts)
 
 /**
  * "Word count and more": the project's statistics in a dialog, computed when it opens. The numbers

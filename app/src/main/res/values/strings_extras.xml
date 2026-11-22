@@ -14,6 +14,7 @@
     <string name="statistics_counting">Counting…</string>
     <string name="statistics_failed">The statistics could not be computed: %1$s</string>
     <string name="statistics_close">Close</string>
+    <string name="statistics_unreadable">the ink compiler could not read the project</string>
 
     <!-- licences -->
     <string name="licences_title">Open-source licences</string>
@@ -37,4 +38,10 @@
     <string name="docs_zoom_out">Smaller text</string>
     <string name="docs_copy">Copy the example</string>
     <string name="docs_insert">Insert into the editor</string>
+    <!-- export -->
+    <string name="export_failed">Could not export: %1$s</string>
+    <string name="export_has_errors">The ink has errors. Fix them before exporting.</string>
+    <string name="export_unexpected_error">an unexpected error in the ink compiler</string>
+    <string name="export_done_file">Exported as %1$s</string>
+    <string name="export_done_web">The web version is in the folder %1$s</string>
 </resources>

@@ -14,6 +14,7 @@
     <string name="statistics_counting">Sayılıyor…</string>
     <string name="statistics_failed">İstatistikler hesaplanamadı: %1$s</string>
     <string name="statistics_close">Kapat</string>
+    <string name="statistics_unreadable">ink derleyicisi projeyi okuyamadı</string>
 
     <!-- lisanslar -->
     <string name="licences_title">Açık kaynak lisansları</string>
@@ -37,4 +38,10 @@
     <string name="docs_zoom_out">Yazıyı küçült</string>
     <string name="docs_copy">Örneği kopyala</string>
     <string name="docs_insert">Düzenleyiciye ekle</string>
+    <!-- dışa aktarma -->
+    <string name="export_failed">Dışa aktarılamadı: %1$s</string>
+    <string name="export_has_errors">Ink metninde hatalar var. Dışa aktarmadan önce onları düzeltin.</string>
+    <string name="export_unexpected_error">ink derleyicisinde beklenmeyen bir hata oluştu</string>
+    <string name="export_done_file">%1$s olarak dışa aktarıldı</string>
+    <string name="export_done_web">Web sürümü %1$s klasöründe</string>
 </resources>
