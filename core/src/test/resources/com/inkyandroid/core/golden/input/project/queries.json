@@ -1,0 +1,20 @@
+[
+ {"name": "intro", "activeFile": "main.ink", "row": 2},
+ {"name": "intro.closing", "activeFile": "main.ink", "row": 6},
+ {"name": "after_label", "activeFile": "main.ink", "row": 8},
+ {"name": "after_label", "activeFile": "second.ink", "row": 2},
+ {"name": "second_knot", "activeFile": "main.ink", "row": 9},
+ {"name": "opening.pick", "activeFile": "main.ink", "row": 12},
+ {"name": "pick", "activeFile": "main.ink", "row": 18},
+ {"name": "pick", "activeFile": "second.ink", "row": 2},
+ {"name": "shared", "activeFile": "main.ink", "row": 13},
+ {"name": "shared", "activeFile": "second.ink", "row": 4},
+ {"name": "shared_stitch", "activeFile": "main.ink", "row": 16},
+ {"name": "intro.opening.leave", "activeFile": "main.ink", "row": 19},
+ {"name": "intro.nonexistent.deeper", "activeFile": "main.ink", "row": 20},
+ {"name": "undefined", "activeFile": "main.ink", "row": 21},
+ {"name": "inner", "activeFile": "main.ink", "row": 0},
+ {"name": "helper", "activeFile": "second.ink", "row": 0},
+ {"name": "nowhere", "activeFile": "main.ink", "row": 3},
+ {"name": "x", "activeFile": "main.ink", "row": 24}
+]

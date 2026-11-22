@@ -1,0 +1,384 @@
+{
+ "root": [
+  {
+   "name": "_getValueOfState",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 53,
+   "column": 13
+  },
+  {
+   "name": "_setValueOfState",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 77,
+   "column": 13
+  },
+  {
+   "name": "_setBinaryValuesForState",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 99,
+   "column": 13
+  },
+  {
+   "name": "_removeValuesForState",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 125,
+   "column": 13
+  },
+  {
+   "name": "_alterValueForState",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 143,
+   "column": 13
+  }
+ ],
+ "topLevelKeys": ["_getValueOfState","_setValueOfState","_setBinaryValuesForState","_removeValuesForState","_alterValueForState"],
+ "topLevelValues": ["53:13:_getValueOfState","77:13:_setValueOfState","99:13:_setBinaryValuesForState","125:13:_removeValuesForState","143:13:_alterValueForState"],
+ "includes": [],
+ "lastIncludeRow": -1,
+ "globalTags": [],
+ "dictionaryTags": [],
+ "divertTargets": ["_getValueOfState","_setValueOfState","_setBinaryValuesForState","_removeValuesForState","_alterValueForState"],
+ "variables": ["Wallet","Coins","Notes","Cards","StatesNegative","StatesBinary1","StatesBinary2","StatesBinary4","StatesBinary8","StatesBinary16","StatesBinary32","StatesBinary64","StatesBinary128","StatesBinary256","StatesBinary512","StatesBinary1024","StatesBinary2048","MAX_BINARY_BIT","2048","StatesInStorage"],
+ "externals": [],
+ "vocabWords": ["have","coins","and","cards","right","now","Now","Yikes"],
+ "symbolAtRow": ["53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","53:13:_getValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","77:13:_setValueOfState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","99:13:_setBinaryValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","125:13:_removeValuesForState","143:13:_alterValueForState","143:13:_alterValueForState","143:13:_alterValueForState"],
+ "flowAtRow": [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "53:13:_getValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "77:13:_setValueOfState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "99:13:_setBinaryValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "125:13:_removeValuesForState"
+  },
+  {
+   "Knot": "143:13:_alterValueForState"
+  },
+  {
+   "Knot": "143:13:_alterValueForState"
+  },
+  {
+   "Knot": "143:13:_alterValueForState"
+  }
+ ]
+}

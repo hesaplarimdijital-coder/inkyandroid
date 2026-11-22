@@ -1,0 +1,31 @@
+{
+ "stackNodes": [],
+ "lines": [
+  ["start",["include.keyword","INCLUDE"],["include"," "],["include.filepath","second.ink"]],
+  ["start",["tag","# title: Project for findSymbol"]],
+  ["start",["text","Start of the story. "],["divert.operator","->"],["divert"," "],["divert.target","intro"]],
+  ["start"],
+  ["start",["flow.knot.declaration.punctuation","==="],["flow.knot.declaration"," "],["flow.knot.declaration.name","intro"],["flow.knot.declaration"," "],["flow.knot.declaration.punctuation","==="]],
+  ["start",["flow.stitch.declaration.punctuation","="],["flow.stitch.declaration"," "],["flow.stitch.declaration.name","opening"]],
+  ["start",["choice.bullets","* "],["choice.label","("],["choice.label.name","pick"],["choice.label",")"],["choice"," Pick it up "],["divert.operator","->"],["divert"," "],["divert.target","intro.closing"]],
+  ["start",["choice.bullets","* "],["choice.label","("],["choice.label.name","leave"],["choice.label",")"],["choice"," Leave it"]],
+  ["start",["gather.bullets","- "],["gather.label","("],["gather.label.name","after"],["gather.label",") "],["gather.innerContent","After the choice. "],["divert.operator","->"],["divert"," "],["divert.target","after_label"]],
+  ["start",["divert.operator","->"],["divert"," "],["divert.target","second_knot"]],
+  ["start"],
+  ["start",["flow.stitch.declaration.punctuation","="],["flow.stitch.declaration"," "],["flow.stitch.declaration.name","closing"]],
+  ["start",["gather.bullets","- "],["gather.label","("],["gather.label.name","end_gather"],["gather.label",") "],["gather.innerContent","The end. "],["divert.operator","->"],["divert"," "],["divert.target","opening.pick"]],
+  ["start",["divert.operator","->"],["divert"," "],["divert.target","shared"]],
+  ["start"],
+  ["start",["flow.knot.declaration.punctuation","==="],["flow.knot.declaration"," "],["flow.knot.declaration.name","shared"],["flow.knot.declaration"," "],["flow.knot.declaration.punctuation","==="]],
+  ["start",["text","In main. "],["divert.operator","->"],["divert"," "],["divert.target","shared_stitch"]],
+  ["start",["flow.stitch.declaration.punctuation","="],["flow.stitch.declaration"," "],["flow.stitch.declaration.name","shared_stitch"]],
+  ["start",["divert.operator","->"],["divert"," "],["divert.target","pick"]],
+  ["start",["divert.operator","->"],["divert"," "],["divert.target","intro.opening.leave"]],
+  ["start",["divert.operator","->"],["divert"," "],["divert.target","intro.nonexistent.deeper"]],
+  ["start",["divert.operator","->"],["divert"," "],["divert.target","undefined"]],
+  ["start"],
+  ["start",["flow.knot.declaration.punctuation","==="],["flow.knot.declaration"," "],["flow.knot.declaration.function","function"],["flow.knot.declaration"," "],["flow.knot.declaration.name","helper"],["flow.knot.declaration.parameters","(x)"]],
+  ["start",["logic.tilda","~ return x"]],
+  ["start"]
+ ]
+}

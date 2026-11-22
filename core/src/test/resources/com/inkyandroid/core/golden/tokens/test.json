@@ -1,0 +1,11 @@
+{
+ "stackNodes": [],
+ "lines": [
+  ["start",["text","This is a test ink file that's useful for automatically loading some content during development."]],
+  ["start"],
+  ["start",["choice.bullets","* "],["choice","A choice"]],
+  ["start",["choice.bullets","* "],["choice","Another choice"]],
+  ["start",["gather.bullets","- "],["gather.innerContent","A gather"]],
+  ["start",["divert.operator","->"],["divert"," "],["divert.to-special","DONE"]]
+ ]
+}

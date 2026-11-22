@@ -1,0 +1,408 @@
+{
+ "root": [
+  {
+   "name": "opts",
+   "flowType": "Gather",
+   "isfunc": false,
+   "row": 14,
+   "column": 3
+  },
+  {
+   "name": "listAvailableStorylets",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 29,
+   "column": 3
+  },
+  {
+   "name": "computeStorylets",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 34,
+   "column": 12
+  },
+  {
+   "name": "offerStorylets",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 47,
+   "column": 4
+  },
+  {
+   "name": "StoryletDatabase",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 69,
+   "column": 13
+  },
+  {
+   "name": "StoryletData_Avocado",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 78,
+   "column": 13
+  },
+  {
+   "name": "witch_content",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 85,
+   "column": 4
+  },
+  {
+   "name": "StoryletData_Bananas",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 91,
+   "column": 13
+  },
+  {
+   "name": "boy_content",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 98,
+   "column": 4
+  },
+  {
+   "name": "StoryletData_Crumpets",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 103,
+   "column": 13
+  },
+  {
+   "name": "king_content",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 110,
+   "column": 4
+  }
+ ],
+ "topLevelKeys": ["opts","listAvailableStorylets","computeStorylets","offerStorylets","StoryletDatabase","StoryletData_Avocado","witch_content","StoryletData_Bananas","boy_content","StoryletData_Crumpets","king_content"],
+ "topLevelValues": ["14:3:opts","29:3:listAvailableStorylets","34:12:computeStorylets","47:4:offerStorylets","69:13:StoryletDatabase","78:13:StoryletData_Avocado","85:4:witch_content","91:13:StoryletData_Bananas","98:4:boy_content","103:13:StoryletData_Crumpets","110:4:king_content"],
+ "includes": [],
+ "lastIncludeRow": -1,
+ "globalTags": [],
+ "dictionaryTags": [],
+ "divertTargets": ["opts","listAvailableStorylets","offerStorylets","computeStorylets","whereTo","backTo","StoryletDatabase","StoryletData_Avocado","StoryletData_Bananas","StoryletData_Crumpets","witch_content","boy_content","king_content"],
+ "variables": ["AvailableStorylets","Props","Content","Condition","ChoiceText","Storylets","StoryA","StoryB","StoryC"],
+ "externals": [],
+ "vocabWords": ["The","beginning","You","visit","the","witch","boy","king"],
+ "symbolAtRow": ["14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","14:3:opts","29:3:listAvailableStorylets","29:3:listAvailableStorylets","29:3:listAvailableStorylets","29:3:listAvailableStorylets","29:3:listAvailableStorylets","34:12:computeStorylets","34:12:computeStorylets","34:12:computeStorylets","34:12:computeStorylets","34:12:computeStorylets","34:12:computeStorylets","34:12:computeStorylets","34:12:computeStorylets","34:12:computeStorylets","34:12:computeStorylets","34:12:computeStorylets","34:12:computeStorylets","34:12:computeStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","47:4:offerStorylets","69:13:StoryletDatabase","69:13:StoryletDatabase","69:13:StoryletDatabase","69:13:StoryletDatabase","69:13:StoryletDatabase","69:13:StoryletDatabase","69:13:StoryletDatabase","69:13:StoryletDatabase","69:13:StoryletDatabase","78:13:StoryletData_Avocado","78:13:StoryletData_Avocado","78:13:StoryletData_Avocado","78:13:StoryletData_Avocado","78:13:StoryletData_Avocado","78:13:StoryletData_Avocado","78:13:StoryletData_Avocado","85:4:witch_content","85:4:witch_content","85:4:witch_content","85:4:witch_content","85:4:witch_content","85:4:witch_content","91:13:StoryletData_Bananas","91:13:StoryletData_Bananas","91:13:StoryletData_Bananas","91:13:StoryletData_Bananas","91:13:StoryletData_Bananas","91:13:StoryletData_Bananas","91:13:StoryletData_Bananas","98:4:boy_content","98:4:boy_content","98:4:boy_content","98:4:boy_content","98:4:boy_content","103:13:StoryletData_Crumpets","103:13:StoryletData_Crumpets","103:13:StoryletData_Crumpets","103:13:StoryletData_Crumpets","103:13:StoryletData_Crumpets","103:13:StoryletData_Crumpets","103:13:StoryletData_Crumpets","110:4:king_content","110:4:king_content","110:4:king_content","110:4:king_content"],
+ "flowAtRow": [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Gather": "14:3:opts"
+  },
+  {
+   "Knot": "29:3:listAvailableStorylets"
+  },
+  {
+   "Knot": "29:3:listAvailableStorylets"
+  },
+  {
+   "Knot": "29:3:listAvailableStorylets"
+  },
+  {
+   "Knot": "29:3:listAvailableStorylets"
+  },
+  {
+   "Knot": "29:3:listAvailableStorylets"
+  },
+  {
+   "Knot": "34:12:computeStorylets"
+  },
+  {
+   "Knot": "34:12:computeStorylets"
+  },
+  {
+   "Knot": "34:12:computeStorylets"
+  },
+  {
+   "Knot": "34:12:computeStorylets"
+  },
+  {
+   "Knot": "34:12:computeStorylets"
+  },
+  {
+   "Knot": "34:12:computeStorylets"
+  },
+  {
+   "Knot": "34:12:computeStorylets"
+  },
+  {
+   "Knot": "34:12:computeStorylets"
+  },
+  {
+   "Knot": "34:12:computeStorylets"
+  },
+  {
+   "Knot": "34:12:computeStorylets"
+  },
+  {
+   "Knot": "34:12:computeStorylets"
+  },
+  {
+   "Knot": "34:12:computeStorylets"
+  },
+  {
+   "Knot": "34:12:computeStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "47:4:offerStorylets"
+  },
+  {
+   "Knot": "69:13:StoryletDatabase"
+  },
+  {
+   "Knot": "69:13:StoryletDatabase"
+  },
+  {
+   "Knot": "69:13:StoryletDatabase"
+  },
+  {
+   "Knot": "69:13:StoryletDatabase"
+  },
+  {
+   "Knot": "69:13:StoryletDatabase"
+  },
+  {
+   "Knot": "69:13:StoryletDatabase"
+  },
+  {
+   "Knot": "69:13:StoryletDatabase"
+  },
+  {
+   "Knot": "69:13:StoryletDatabase"
+  },
+  {
+   "Knot": "69:13:StoryletDatabase"
+  },
+  {
+   "Knot": "78:13:StoryletData_Avocado"
+  },
+  {
+   "Knot": "78:13:StoryletData_Avocado"
+  },
+  {
+   "Knot": "78:13:StoryletData_Avocado"
+  },
+  {
+   "Knot": "78:13:StoryletData_Avocado"
+  },
+  {
+   "Knot": "78:13:StoryletData_Avocado"
+  },
+  {
+   "Knot": "78:13:StoryletData_Avocado"
+  },
+  {
+   "Knot": "78:13:StoryletData_Avocado"
+  },
+  {
+   "Knot": "85:4:witch_content"
+  },
+  {
+   "Knot": "85:4:witch_content"
+  },
+  {
+   "Knot": "85:4:witch_content"
+  },
+  {
+   "Knot": "85:4:witch_content"
+  },
+  {
+   "Knot": "85:4:witch_content"
+  },
+  {
+   "Knot": "85:4:witch_content"
+  },
+  {
+   "Knot": "91:13:StoryletData_Bananas"
+  },
+  {
+   "Knot": "91:13:StoryletData_Bananas"
+  },
+  {
+   "Knot": "91:13:StoryletData_Bananas"
+  },
+  {
+   "Knot": "91:13:StoryletData_Bananas"
+  },
+  {
+   "Knot": "91:13:StoryletData_Bananas"
+  },
+  {
+   "Knot": "91:13:StoryletData_Bananas"
+  },
+  {
+   "Knot": "91:13:StoryletData_Bananas"
+  },
+  {
+   "Knot": "98:4:boy_content"
+  },
+  {
+   "Knot": "98:4:boy_content"
+  },
+  {
+   "Knot": "98:4:boy_content"
+  },
+  {
+   "Knot": "98:4:boy_content"
+  },
+  {
+   "Knot": "98:4:boy_content"
+  },
+  {
+   "Knot": "103:13:StoryletData_Crumpets"
+  },
+  {
+   "Knot": "103:13:StoryletData_Crumpets"
+  },
+  {
+   "Knot": "103:13:StoryletData_Crumpets"
+  },
+  {
+   "Knot": "103:13:StoryletData_Crumpets"
+  },
+  {
+   "Knot": "103:13:StoryletData_Crumpets"
+  },
+  {
+   "Knot": "103:13:StoryletData_Crumpets"
+  },
+  {
+   "Knot": "103:13:StoryletData_Crumpets"
+  },
+  {
+   "Knot": "110:4:king_content"
+  },
+  {
+   "Knot": "110:4:king_content"
+  },
+  {
+   "Knot": "110:4:king_content"
+  },
+  {
+   "Knot": "110:4:king_content"
+  }
+ ]
+}

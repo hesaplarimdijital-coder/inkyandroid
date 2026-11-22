@@ -1,0 +1,33 @@
+{
+ "stackNodes": [["logic",-1],["logic",0]],
+ "lines": [
+  ["punctuation.definition.comment.json0",["punctuation.definition.comment.json","/*"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tReturns a randomised subset of items from a list."]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tReturns the empty list () if the source list is empty. Might return () anyway!"]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tDependencies: "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\tRequires \"pop\"."]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tUsage: "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\tLIST fruitBowl = (apple), (banana), (melon)"]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\tI put into my bag: {list_random_subset(fruitBowl)}. "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0"],
+  ["start",["punctuation.definition.comment.json","*/"]],
+  ["start"],
+  ["start",["flow.knot.declaration.punctuation","==="],["flow.knot.declaration"," "],["flow.knot.declaration.function","function"],["flow.knot.declaration"," "],["flow.knot.declaration.name","list_random_subset"],["flow.knot.declaration.parameters","(sourceList)"],["flow.knot.declaration"," "]],
+  ["start",["logic.tilda","    ~ temp el = pop(sourceList) "]],
+  ["logic",["logic","    "],["logic.punctuation","{"],["logic.conditional.multiline.condition","el"],["logic.conditional.multiline.condition.punctuation",":"]],
+  [1,["logic","        "],["logic.punctuation","{"],["logic.conditional.multiline.condition"," RANDOM(0,1) == 0"],["logic.conditional.multiline.condition.punctuation",":"],["logic.multiline.innerContent"," "]],
+  [1,["logic.tilda","            ~ el = () "]],
+  ["logic",["logic.multiline.innerContent","        "],["logic.punctuation","}"]],
+  ["logic",["logic.tilda","        ~ return el + list_random_subset(sourceList) "]],
+  ["start",["logic.multiline.innerContent","    "],["logic.punctuation","}"]],
+  ["start",["logic.tilda","    ~ return () "]]
+ ]
+}

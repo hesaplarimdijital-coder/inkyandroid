@@ -1,0 +1,48 @@
+{
+ "root": [
+  {
+   "name": "maybe",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 12,
+   "column": 13
+  }
+ ],
+ "topLevelKeys": ["maybe"],
+ "topLevelValues": ["12:13:maybe"],
+ "includes": [],
+ "lastIncludeRow": -1,
+ "globalTags": [],
+ "dictionaryTags": [],
+ "divertTargets": ["maybe"],
+ "variables": [],
+ "externals": [],
+ "vocabWords": [],
+ "symbolAtRow": ["12:13:maybe","12:13:maybe","12:13:maybe","12:13:maybe","12:13:maybe","12:13:maybe","12:13:maybe","12:13:maybe","12:13:maybe","12:13:maybe","12:13:maybe","12:13:maybe","12:13:maybe","12:13:maybe","12:13:maybe","12:13:maybe"],
+ "flowAtRow": [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+   "Knot": "12:13:maybe"
+  },
+  {
+   "Knot": "12:13:maybe"
+  },
+  {
+   "Knot": "12:13:maybe"
+  },
+  {
+   "Knot": "12:13:maybe"
+  }
+ ]
+}
