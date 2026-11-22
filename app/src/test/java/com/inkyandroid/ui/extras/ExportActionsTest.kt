@@ -86,6 +86,8 @@ class ExportActionsTest {
 
     private fun run(action: ExportActions.() -> Unit) {
         compose.runOnUiThread { actions.action() }
+        // the story.js and web files are made off the main thread: wait for the export to end
+        compose.waitUntil(5_000) { !actions.busy }
         compose.waitForIdle()
     }
 

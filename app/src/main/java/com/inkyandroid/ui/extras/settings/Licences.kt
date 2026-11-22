@@ -32,11 +32,15 @@ import desktopkit.shell.NavKind
 import desktopkit.shell.rememberShellContentPadding
 import desktopkit.theme.DeskTheme
 
-/** A licence the app ships other people's work under: its name, and its text as a raw resource. */
-enum class Licence(val label: String, @RawRes val text: Int) {
+/**
+ * A licence the app ships other people's work under: its name, and its text as a raw resource
+ * ([text] null: the work's notice, which comes with the work, holds the licence's text).
+ */
+enum class Licence(val label: String, @RawRes val text: Int?) {
     MitInky("MIT", R.raw.licence_mit_inky),
     MitInk("MIT", R.raw.licence_mit_ink),
-    MitInkjs("MIT", R.raw.licence_mit_inkjs),
+    // the web export's own NOTICE (in :core, next to ink.js) carries the text
+    MitInkjs("MIT", null),
     // blade-ink's Maven artifacts declare Apache 2.0, its source repository's LICENSE is MIT: both are named
     MitBladeInk("MIT · Apache License 2.0", R.raw.licence_mit_blade_ink),
     Apache2("Apache License 2.0", R.raw.licence_apache2),
@@ -46,9 +50,19 @@ enum class Licence(val label: String, @RawRes val text: Int) {
 
 /**
  * Other people's work the app is made with and ships: [what], whose it is ([owner]), and under
- * which licence. [notice] is a NOTICE that is to be shown with it (the Apache licence asks for that).
+ * which licence. [notice] is a NOTICE that is to be shown with it (the Apache licence asks for that);
+ * [bundledNotice] one that comes with the work inside `:core`, read as a Java resource by that path.
  */
-data class ThirdParty(val what: String, val owner: String, val licence: Licence, @RawRes val notice: Int? = null)
+data class ThirdParty(
+    val what: String,
+    val owner: String,
+    val licence: Licence,
+    @RawRes val notice: Int? = null,
+    val bundledNotice: String? = null,
+)
+
+/** The NOTICE of the web export's files (the template, inkjs), next to them in `:core`. */
+const val WEB_EXPORT_NOTICE = "/com/inkyandroid/core/engine/web/NOTICE.txt"
 
 /** What the APK holds of other people's work. The test libraries are not in it, and are not listed. */
 val THIRD_PARTIES = listOf(
@@ -56,7 +70,8 @@ val THIRD_PARTIES = listOf(
     ThirdParty("Inky", "inkle Ltd.", Licence.MitInky),
     ThirdParty("ink", "inkle Ltd.", Licence.MitInk),
     ThirdParty("blade-ink, blade-ink-compiler", "Rafael Garcia", Licence.MitBladeInk),
-    ThirdParty("inkjs", "inkle Ltd., inkjs contributors", Licence.MitInkjs),
+    // the runtime "Export for web" writes next to the story
+    ThirdParty("inkjs 2.4.0", "inkle Ltd., inkjs contributors", Licence.MitInkjs, bundledNotice = WEB_EXPORT_NOTICE),
     ThirdParty("desktop-kit", "desktop-kit contributors", Licence.Apache2, notice = R.raw.notice_desktop_kit),
     ThirdParty("IBM Plex Sans, IBM Plex Mono", "IBM Corp.", Licence.Ofl),
     ThirdParty("Haze", "Christopher Banes", Licence.Apache2),
@@ -115,7 +130,7 @@ private fun LicenceText(party: ThirdParty, onBack: () -> Unit) {
     val context = LocalContext.current
     val text = remember(party) {
         val read = { id: Int -> context.resources.openRawResource(id).bufferedReader().use { it.readText() }.replace("\r\n", "\n").trim() }
-        listOfNotNull(party.notice?.let(read), read(party.licence.text)).joinToString("\n\n\n")
+        listOfNotNull(party.notice?.let(read), party.bundledNotice?.let(::readBundled), party.licence.text?.let(read)).joinToString("\n\n\n")
     }
     val sidebar = LocalNavKind.current == NavKind.Sidebar
     CompactTopBar(title = party.what, onBack = onBack, actions = emptyList(), showSearch = false, showOnRail = true)
@@ -143,3 +158,7 @@ private fun LicenceText(party: ThirdParty, onBack: () -> Unit) {
         }
     }
 }
+
+/** A text that comes inside `:core` (a Java resource at [path]), or an empty text if it is missing. */
+internal fun readBundled(path: String): String =
+    ThirdParty::class.java.getResourceAsStream(path)?.bufferedReader()?.use { it.readText() }?.replace("\r\n", "\n")?.trim().orEmpty()
