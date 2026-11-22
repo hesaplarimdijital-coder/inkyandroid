@@ -1,6 +1,7 @@
 package com.inkyandroid.storage
 
 import android.util.Log
+import com.inkyandroid.core.project.NewProject
 import com.inkyandroid.core.project.ProjectStore
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -34,7 +35,7 @@ class InternalProjects internal constructor(
      *
      * @throws IllegalArgumentException when nothing of [typedName] can be a folder name.
      */
-    suspend fun create(typedName: String, mainText: String): ProjectRef.Internal {
+    suspend fun create(typedName: String, mainText: String = NewProject.MAIN_TEXT): ProjectRef.Internal {
         val clean = requireNotNull(ProjectNames.sanitize(typedName)) { "\"$typedName\" cannot be a project name" }
         val name = newFolder(clean)
         val ref = ProjectRef.Internal(name, ProjectNames.mainFileOf(name))

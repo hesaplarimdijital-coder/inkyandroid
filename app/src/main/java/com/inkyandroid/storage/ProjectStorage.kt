@@ -9,6 +9,8 @@ import android.os.Process
 import android.provider.DocumentsContract
 import android.provider.DocumentsContract.Document
 import android.util.Log
+import com.inkyandroid.core.project.DirectoryProjectStore
+import com.inkyandroid.core.project.NewProject
 import com.inkyandroid.core.project.ProjectPaths
 import com.inkyandroid.core.project.ProjectStore
 import kotlinx.coroutines.CancellationException
@@ -219,13 +221,13 @@ class ProjectStorage internal constructor(
 
     /**
      * A new project named after [typedName] ([ProjectNames.sanitize]; a taken name gets a number):
-     * `<projects folder>/<name>/<name>.ink` holding [mainText] (upstream's starter story), or an
+     * `<projects folder>/<name>/<name>.ink` holding [mainText] (by default upstream's starter story), or an
      * internal project when no projects folder is set. The caller then [open]s the result.
      *
      * @throws IllegalArgumentException when nothing of [typedName] can be a folder name.
      * @throws IOException (typed as the stores' failures) when the folder cannot be written.
      */
-    suspend fun createProject(typedName: String, mainText: String): ProjectRef {
+    suspend fun createProject(typedName: String, mainText: String = NewProject.MAIN_TEXT): ProjectRef {
         val folder = folderState.value ?: return internalProjects.create(typedName, mainText)
         return createProjectIn(folder, typedName, mainText)
     }
@@ -234,7 +236,7 @@ class ProjectStorage internal constructor(
      * A new project in the sub-folder `<name>` of [parent] (the projects folder, or a folder the
      * user picked that has no ink files yet: [FolderOpening.NoInkFiles]).
      */
-    suspend fun createProjectIn(parent: PickedFolder, typedName: String, mainText: String): ProjectRef.Saf {
+    suspend fun createProjectIn(parent: PickedFolder, typedName: String, mainText: String = NewProject.MAIN_TEXT): ProjectRef.Saf {
         val clean = requireNotNull(ProjectNames.sanitize(typedName)) { "\"$typedName\" cannot be a project name" }
         val parentStore = folderStore(parent)
         val name = ProjectNames.unique(clean, parentStore.childNames())
@@ -456,7 +458,7 @@ class ProjectStorage internal constructor(
             prefs = app.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE),
             io = Dispatchers.IO,
             clock = System::currentTimeMillis,
-            directoryStoreFactory = { _, _ -> TODO("DirectoryProjectStore from :core") },
+            directoryStoreFactory = { dir, name -> DirectoryProjectStore(dir, name) },
             writeGranted = { uri ->
                 app.checkUriPermission(uri, Process.myPid(), Process.myUid(), android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION) ==
                     PackageManager.PERMISSION_GRANTED

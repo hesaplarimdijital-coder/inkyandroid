@@ -1,5 +1,7 @@
 package com.inkyandroid.storage
 
+import com.inkyandroid.core.project.ProjectPaths
+
 /**
  * Which ink files of a folder could be its project's main file: the `.ink` files directly in the
  * folder that no other `.ink` file of the folder includes. Includes are resolved against the
@@ -7,8 +9,8 @@ package com.inkyandroid.storage
  * sub-folder is never a candidate (it would make another folder the project's root).
  *
  * The `INCLUDE` lines are found with a cheap line scan, not the real parser (that lives in
- * `:core`): a line whose first word is `INCLUDE`, the path being the rest of the line with
- * trailing spaces and tabs removed, as inklecate reads it. Lines in block comments are not told
+ * `:core`): a line whose first word is `INCLUDE`, the path being the rest of the line as the
+ * compiler reads it ([ProjectPaths.normalizeInclude]). Lines in block comments are not told
  * apart; a commented-out include then only removes a candidate, and the user can still pick the
  * file when nothing else remains.
  */
@@ -37,14 +39,9 @@ internal object MainFileCandidates {
     /** The include paths named in [text], in order, normalised to root-relative form. */
     fun includesIn(text: String): List<String> = text.lineSequence()
         .mapNotNull { line -> INCLUDE.find(line.removeSuffix("\r"))?.groupValues?.get(1) }
-        .map { normalise(it.trimEnd(' ', '\t')) }
-        .filter { it.isNotEmpty() }
+        .mapNotNull(ProjectPaths::normalizeInclude)
         .toList()
 
-    /** `./a//b.ink` → `a/b.ink`; backslashes count as separators, as authors on Windows write them. */
-    private fun normalise(path: String): String =
-        path.replace('\\', '/').split('/').filter { it.isNotEmpty() && it != "." }.joinToString("/")
-
     /** Whether [path] names an ink file: the extension is exactly `ink`, as upstream's file watcher checks it. */
-    fun isInk(path: String): Boolean = path.endsWith(".ink") && path.length > 4
+    fun isInk(path: String): Boolean = ProjectPaths.isInkFile(path)
 }
