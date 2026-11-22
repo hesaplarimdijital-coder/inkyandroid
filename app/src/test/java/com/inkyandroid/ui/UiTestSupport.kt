@@ -99,12 +99,16 @@ fun ComposeTestRule.awaitStory(session: ProjectSession, status: CompileStatus = 
 }
 
 /**
- * Waits until [condition] holds, running the main looper's due messages on every look: what the app
- * posts to `Dispatchers.Main` (a session that finished opening, a compile's result) runs only when
- * someone runs the looper, and Compose's own waitUntil only advances its frame clock.
+ * Waits until [condition] holds, on every look sending the snapshot system's apply notifications and
+ * running the main looper's due messages: a change made outside a composition (an edit through the
+ * editor's state) reaches its watchers (`snapshotFlow`) only with the notifications, which Compose
+ * sends from a process-wide manager that earlier tests in the same JVM can leave behind; and what
+ * the app posts to `Dispatchers.Main` (a session that finished opening, a compile's result) runs only
+ * when someone runs the looper, while Compose's own waitUntil only advances its frame clock.
  */
 fun ComposeTestRule.waitFor(timeoutMillis: Long = TIMEOUT_MS, condition: () -> Boolean) {
     waitUntil(timeoutMillis) {
+        androidx.compose.runtime.snapshots.Snapshot.sendApplyNotifications()
         org.robolectric.shadows.ShadowLooper.shadowMainLooper().idle()
         condition()
     }
