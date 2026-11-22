@@ -58,12 +58,17 @@ object InkExport {
         )
     }
 
-    /** A file of the web template, bundled with this module (see `web/NOTICE.txt` next to them). */
+    /**
+     * A file of the web template, bundled with this module (see `web/NOTICE.txt` next to them). The
+     * path is absolute so that it does not depend on the package this class ends up in after shrinking.
+     */
     private fun template(name: String): String {
-        val stream = checkNotNull(InkExport::class.java.getResourceAsStream("web/$name")) { "Missing bundled file: web/$name" }
+        val path = "$TEMPLATE_FOLDER/$name"
+        val stream = checkNotNull(InkExport::class.java.getResourceAsStream(path)) { "Missing bundled file: $path" }
         return stream.use { it.readBytes().toString(Charsets.UTF_8) }
     }
 
+    private const val TEMPLATE_FOLDER = "/com/inkyandroid/core/engine/web"
     private const val INK_EXTENSION = ".ink"
     private const val TITLE_MARK = "##STORY TITLE##"
     private const val SCRIPT_MARK = "##JAVASCRIPT FILENAME##"
