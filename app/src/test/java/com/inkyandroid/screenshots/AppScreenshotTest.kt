@@ -8,6 +8,7 @@ import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isSelectable
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
@@ -182,6 +183,36 @@ class AppScreenshotTest {
         story(ThemeMode.Dark)
         tab("Dosyalar")
         capture("app-phone-files-dark")
+    }
+
+    /** A spare file that is not UTF-8 text: it is no project file, so the files view lists it apart, saying why. */
+    @Test @Config(qualifiers = PHONE)
+    fun phoneFilesUnreadableLight() {
+        val ref = UiWorld.project(NAME, MAIN, FILES)
+        val folder = UiWorld.app.storage.internalProjects.folderOf(ref)
+        File(folder, "eski.ink").writeBytes(byteArrayOf(0x45, 0x73, 0x6B, 0x69, 0xC3.toByte(), 0x28, 0x0A))
+        val holder = UiWorld.holder(ref)
+        launch(holder, ThemeMode.Light)
+        compose.awaitStory(compose.awaitSession(holder))
+        tab("Dosyalar")
+        compose.waitFor { compose.onAllNodesWithText("Okunamayan dosyalar").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithText("eski.ink").assertExists()
+        capture("app-phone-files-unreadable-light")
+    }
+
+    /** Each project is open in one window at a time: a second window that asks for it is told so, and offers the others. */
+    @Test @Config(qualifiers = PHONE)
+    fun phoneProjectOpenElsewhereDark() {
+        val ref = UiWorld.project(NAME, MAIN, FILES)
+        val other = UiWorld.holder(ref)
+        compose.waitFor { other.session != null }
+        val holder = UiWorld.holder(ref)
+        launch(holder, ThemeMode.Dark)
+        compose.waitFor { holder.project.value is com.inkyandroid.session.WindowProject.Failed }
+        compose.onNodeWithText("Bu proje başka bir pencerede açık").assertExists()
+        capture("app-phone-open-elsewhere-dark")
+        compose.clickText("Proje seç")
+        compose.waitFor { compose.onAllNodesWithText("Projeler").fetchSemanticsNodes().isNotEmpty() }
     }
 
     @Test @Config(qualifiers = PHONE)

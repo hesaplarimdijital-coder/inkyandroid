@@ -302,5 +302,12 @@
         <item quantity="one">%d file was brought up to date with storage</item>
         <item quantity="other">%d files were brought up to date with storage</item>
     </plurals>
+    <string name="project_open_elsewhere_title">This project is open in another window</string>
+    <string name="project_open_elsewhere_text">A project is open in one window at a time, so that its unsaved text stays in one place. Choose another project here, or go on in the other window.</string>
+    <plurals name="project_drafts_kept">
+        <item quantity="one">The unsaved text of %d file is kept and comes back when the project opens again.</item>
+        <item quantity="other">The unsaved text of %d files is kept and comes back when the project opens again.</item>
+    </plurals>
+    <string name="files_unreadable_title">Files that could not be read</string>
     <!-- ui: end -->
 </resources>

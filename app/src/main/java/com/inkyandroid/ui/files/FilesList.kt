@@ -30,6 +30,7 @@ import com.inkyandroid.core.engine.InkIssue
 import com.inkyandroid.core.engine.IssueKind
 import com.inkyandroid.core.project.ProjectFile
 import com.inkyandroid.core.project.ProjectSnapshot
+import com.inkyandroid.storage.StorageProblem
 import com.inkyandroid.ui.InkIcons
 import com.inkyandroid.ui.workspace.issueIcon
 import com.inkyandroid.ui.workspace.issueTone
@@ -52,6 +53,8 @@ class FileActions(
     val onDelete: (path: String) -> Unit,
     /** Create a file an `INCLUDE` line names and storage does not have. */
     val onCreateMissing: (path: String) -> Unit,
+    /** Read the project's folder again: a file that could not be read may have been mended meanwhile. */
+    val onRetryUnreadable: () -> Unit,
 )
 
 /** How many issues a file has, and the most serious kind among them: what its row shows. */
@@ -93,6 +96,12 @@ fun FilesList(
 ) {
     val colors = DeskTheme.colors
     val dimens = DeskTheme.dimens
+    val resources = appResources()
+    // why each unreadable file could not be read, in the user's language (storage tells a file that
+    // is not text from one the app may not read)
+    val unreadable = remember(project.loadFailures, resources) {
+        project.loadFailures.mapValues { (_, failed) -> StorageProblem.of(failed).message(resources) }
+    }
     val tree = project.tree
     val caption = Modifier.padding(start = dimens.pagePadding, end = dimens.pagePadding, top = dimens.gapL, bottom = dimens.gapXs)
     LazyColumn(
@@ -101,15 +110,15 @@ fun FilesList(
         contentPadding = contentPadding,
     ) {
         item(key = "main-title") { SectionCaption(stringResource(R.string.files_main), caption) }
-        item(key = "file:" + tree.main.path) { FileRow(tree.main, tree.main.name, activePath, issues, project.loadErrors, actions) }
+        item(key = "file:" + tree.main.path) { FileRow(tree.main, tree.main.name, activePath, issues, unreadable, actions) }
         tree.groups.forEach { group ->
             // desktop Inky leaves the group of the project's own folder untitled; a title keeps it apart from the main file
             item(key = "folder:" + group.folder) { SectionCaption(group.folder.ifEmpty { stringResource(R.string.files_root_folder) }, caption) }
-            items(group.files, key = { "file:" + it.path }) { file -> FileRow(file, file.name, activePath, issues, project.loadErrors, actions) }
+            items(group.files, key = { "file:" + it.path }) { file -> FileRow(file, file.name, activePath, issues, unreadable, actions) }
         }
         if (tree.spare.isNotEmpty()) {
             item(key = "spare-title") { SectionCaption(stringResource(R.string.nav_unused_files), caption) }
-            items(tree.spare, key = { "file:" + it.path }) { file -> FileRow(file, file.path, activePath, issues, project.loadErrors, actions) }
+            items(tree.spare, key = { "file:" + it.path }) { file -> FileRow(file, file.path, activePath, issues, unreadable, actions) }
         }
         if (project.missingIncludes.isNotEmpty()) {
             item(key = "missing-title") { SectionCaption(stringResource(R.string.files_missing_title), caption) }
@@ -120,6 +129,23 @@ fun FilesList(
                     leadingTint = colors.warning,
                     trailingContent = { DeskButton(stringResource(R.string.files_missing_create), { actions.onCreateMissing(path) }) },
                     onClick = { actions.onCreateMissing(path) },
+                )
+            }
+        }
+        // files that are in the project's folder but could not be read (not text, gone while listed): they
+        // are no project files, so they have no row above; what happened to each is said here
+        if (unreadable.isNotEmpty()) {
+            item(key = "unreadable-title") { SectionCaption(stringResource(R.string.files_unreadable_title), caption) }
+            items(unreadable.keys.sorted(), key = { "unreadable:$it" }) { path ->
+                DeskListRow(
+                    title = path,
+                    subtitle = unreadable.getValue(path),
+                    subtitleColor = colors.danger,
+                    subtitleMaxLines = 3,
+                    leading = DeskIcons.Error,
+                    leadingTint = colors.danger,
+                    trailingContent = { DeskButton(stringResource(R.string.action_retry), actions.onRetryUnreadable) },
+                    onClick = actions.onRetryUnreadable,
                 )
             }
         }

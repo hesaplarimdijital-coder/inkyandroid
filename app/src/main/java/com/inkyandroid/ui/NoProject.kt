@@ -15,11 +15,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.inkyandroid.R
+import com.inkyandroid.session.ProjectOpenElsewhereException
 import com.inkyandroid.session.WindowProject
+import com.inkyandroid.storage.StorageProblem
+import desktopkit.appResources
 import com.inkyandroid.storage.ProjectRef
 import com.inkyandroid.storage.ProjectStorage
 import com.inkyandroid.ui.projects.ProjectsScreen
@@ -41,14 +45,7 @@ import kotlinx.coroutines.delay
 internal fun NoProject(route: String, window: WindowProject, storage: ProjectStorage, ui: WindowUi, actions: WindowActions) {
     when (window) {
         is WindowProject.Opening -> OpeningProject(window.reference)
-        is WindowProject.Failed -> MessageScreen(
-            title = stringResource(R.string.projects_failed_title),
-            icon = DeskIcons.Error,
-            modifier = Modifier.shellContentPadding(),
-            description = window.message,
-            actionLabel = stringResource(R.string.action_retry),
-            onAction = { actions.holder.open(window.reference) },
-        )
+        is WindowProject.Failed -> FailedProject(window, actions)
         // the editor's place is where one starts: the ways to a project, right there
         else -> if (Routes.isWorkspace(route)) {
             CompactTopBar(title = stringResource(R.string.no_project_title), showOnRail = true)
@@ -65,6 +62,32 @@ internal fun NoProject(route: String, window: WindowProject, storage: ProjectSto
             )
         }
     }
+}
+
+/**
+ * A project that could not be opened: why, in the user's language, and that unsaved text of it is
+ * kept for when it opens again. A project open in another window is not a failure to retry: each
+ * project is open in one window at a time (its drafts must stay in one place), so another is chosen.
+ */
+@Composable
+private fun FailedProject(failed: WindowProject.Failed, actions: WindowActions) {
+    val resources = appResources()
+    val elsewhere = failed.cause is ProjectOpenElsewhereException
+    val reason = if (elsewhere) {
+        stringResource(R.string.project_open_elsewhere_text)
+    } else {
+        failed.cause?.let { StorageProblem.of(it).message(resources) } ?: failed.message
+    }
+    val kept = failed.keptDrafts.size
+    val description = if (kept == 0) reason else reason + "\n\n" + pluralStringResource(R.plurals.project_drafts_kept, kept, kept)
+    MessageScreen(
+        title = stringResource(if (elsewhere) R.string.project_open_elsewhere_title else R.string.projects_failed_title),
+        icon = if (elsewhere) DeskIcons.OpenWindow else DeskIcons.Error,
+        modifier = Modifier.shellContentPadding(),
+        description = description,
+        actionLabel = stringResource(if (elsewhere) R.string.projects_choose else R.string.action_retry),
+        onAction = { if (elsewhere) actions.navigate(Routes.PROJECTS) else actions.holder.open(failed.reference) },
+    )
 }
 
 /**

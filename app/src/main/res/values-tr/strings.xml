@@ -301,5 +301,12 @@
         <item quantity="one">%d dosya depolamayla eşitlendi</item>
         <item quantity="other">%d dosya depolamayla eşitlendi</item>
     </plurals>
+    <string name="project_open_elsewhere_title">Bu proje başka bir pencerede açık</string>
+    <string name="project_open_elsewhere_text">Kaydedilmemiş metni tek bir yerde kalsın diye bir proje aynı anda tek pencerede açılır. Burada başka bir proje seçin ya da öbür pencerede sürdürün.</string>
+    <plurals name="project_drafts_kept">
+        <item quantity="one">%d dosyanın kaydedilmemiş metni saklanıyor; proje yeniden açılabildiğinde geri gelecek.</item>
+        <item quantity="other">%d dosyanın kaydedilmemiş metni saklanıyor; proje yeniden açılabildiğinde geri gelecek.</item>
+    </plurals>
+    <string name="files_unreadable_title">Okunamayan dosyalar</string>
     <!-- ui: end -->
 </resources>

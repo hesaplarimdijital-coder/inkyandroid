@@ -92,6 +92,7 @@ fun rememberFileActions(actions: WindowActions, ui: WindowUi): FileActions = and
         onRename = { path -> ui.dialog = WindowDialog.Rename(path) },
         onDelete = { path -> ui.dialog = WindowDialog.Delete(path) },
         onCreateMissing = actions::createMissing,
+        onRetryUnreadable = { actions.reload() },
     )
 }
 

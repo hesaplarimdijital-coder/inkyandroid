@@ -10,7 +10,9 @@ import com.inkyandroid.core.project.ProjectPaths
 import com.inkyandroid.core.project.ProjectSnapshot
 import com.inkyandroid.core.settings.SettingsProblem
 import com.inkyandroid.session.SessionState
+import com.inkyandroid.storage.StorageProblem
 import com.inkyandroid.ui.SingleFileNotice
+import desktopkit.appResources
 import desktopkit.components.BannerTone
 import desktopkit.components.StatusBanner
 
@@ -51,15 +53,16 @@ fun ProjectBanners(
     actions: BannerActions,
     modifier: Modifier = Modifier,
 ) {
+    val resources = appResources()
     Column(modifier) {
         state.saveProblem?.let { problem ->
             val failed = problem.failed
-            val only = failed.entries.singleOrNull()
+            val only = failed.entries.singleOrNull()?.let { (path, reason) -> path to (problem.errors[path]?.let { StorageProblem.of(it).message(resources) } ?: reason) }
             StatusBanner(
                 tone = BannerTone.Error,
                 title = stringResource(R.string.save_failed_title),
                 text = if (only != null) {
-                    stringResource(R.string.save_failed_one, ProjectPaths.name(only.key), only.value)
+                    stringResource(R.string.save_failed_one, ProjectPaths.name(only.first), only.second)
                 } else {
                     pluralStringResource(R.plurals.save_failed_many, failed.size, failed.size)
                 },
@@ -78,17 +81,21 @@ fun ProjectBanners(
                 onSecondaryAction = { actions.onResolveConflict(file.path, false) },
             )
         }
-        state.storageProblem?.let { reason ->
+        state.storageProblem?.let { problem ->
             StatusBanner(
                 tone = BannerTone.Error,
                 title = stringResource(R.string.storage_problem_title),
-                text = reason,
+                text = state.storageError?.let { StorageProblem.of(it).message(resources) } ?: problem,
                 actionLabel = stringResource(R.string.action_retry),
                 onAction = actions.onRetryStorage,
             )
         }
-        state.draftProblem?.let { reason ->
-            StatusBanner(tone = BannerTone.Warning, title = stringResource(R.string.draft_problem_title), text = reason)
+        state.draftProblem?.let { problem ->
+            StatusBanner(
+                tone = BannerTone.Warning,
+                title = stringResource(R.string.draft_problem_title),
+                text = state.draftError?.let { StorageProblem.of(it).message(resources) } ?: problem,
+            )
         }
         state.restoredDrafts?.let { report ->
             val count = report.restored.size + report.conflicts.size
