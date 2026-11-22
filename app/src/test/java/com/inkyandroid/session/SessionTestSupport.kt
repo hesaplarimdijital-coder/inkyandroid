@@ -1,6 +1,8 @@
 package com.inkyandroid.session
 
 import android.content.Context
+import android.os.Looper
+import androidx.compose.runtime.snapshots.Snapshot
 import androidx.test.core.app.ApplicationProvider
 import com.inkyandroid.core.engine.InkIssue
 import com.inkyandroid.core.engine.InkSources
@@ -13,6 +15,7 @@ import com.inkyandroid.settings.AppSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -20,6 +23,7 @@ import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
+import org.robolectric.Shadows.shadowOf
 import java.io.File
 import java.io.IOException
 
@@ -84,11 +88,18 @@ class FakeLiveLink : LiveLink {
 }
 
 /** A real directory store whose writes and listings the test can make fail or take time. */
-class ScriptedStore(private val real: ProjectStore) : ProjectStore by real {
+class ScriptedStore(private val real: ProjectStore, private val root: File) : ProjectStore by real {
     var writeFailure: IOException? = null
     var listFailure: IOException? = null
     var writeDelayMillis = 0L
     val writes = ArrayList<String>()
+
+    /**
+     * Storage that writes in place, as the Storage Access Framework does: a write puts this many
+     * bytes of the new text into the file and then fails with [writeFailure], or, without one,
+     * never returns (the process dies while storage is being written). Null: writes are atomic.
+     */
+    var tornAfterBytes: Int? = null
 
     override suspend fun list(): List<StoredFile> {
         listFailure?.let { throw it }
@@ -96,6 +107,11 @@ class ScriptedStore(private val real: ProjectStore) : ProjectStore by real {
     }
 
     override suspend fun write(path: String, text: String): StoredFile {
+        tornAfterBytes?.let { bytes ->
+            File(root, path).writeBytes(text.toByteArray().copyOf(bytes))
+            writeFailure?.let { throw it }
+            awaitCancellation()
+        }
         writeFailure?.let { throw it }
         delay(writeDelayMillis)
         writes.add(path)
@@ -114,7 +130,7 @@ class SessionWorld(val scope: TestScope) {
     val root: File = File(context.cacheDir, "project").apply { deleteRecursively(); mkdirs() }
     val draftsDirectory: File = File(context.filesDir, "drafts/project").apply { deleteRecursively() }
     val settings = AppSettings(context.getSharedPreferences("session-test", Context.MODE_PRIVATE))
-    val store = ScriptedStore(DirectoryProjectStore(root, io = dispatcher))
+    val store = ScriptedStore(DirectoryProjectStore(root, io = dispatcher), root)
 
     /** The editors and live links of every session opened so far, newest last. */
     val editors = LinkedHashMap<String, FakeEditorBuffer>()
@@ -136,8 +152,21 @@ class SessionWorld(val scope: TestScope) {
     /** The app's settings as a process started later reads them. */
     fun settingsAfterRestart() = AppSettings(context.getSharedPreferences("session-test", Context.MODE_PRIVATE))
 
-    suspend fun open(reference: String = "the-project", mainPath: String = "main.ink", settings: AppSettings = this.settings): ProjectSession {
+    /** The kit's editors of the sessions opened with `kit = true`, by path. */
+    val kitEditors = LinkedHashMap<String, KitEditorBuffer>()
+
+    /**
+     * Opens a session as the app does. With [kit] the files get the kit's real editor
+     * ([KitEditorBuffer], in [kitEditors]) instead of the plain fakes in [editors].
+     */
+    suspend fun open(
+        reference: String = "the-project",
+        mainPath: String = "main.ink",
+        settings: AppSettings = this.settings,
+        kit: Boolean = false,
+    ): ProjectSession {
         editors.clear()
+        kitEditors.clear()
         val lifetime = Job()
         lifetimes.add(lifetime)
         return ProjectSession.open(
@@ -146,7 +175,11 @@ class SessionWorld(val scope: TestScope) {
             mainPath = mainPath,
             drafts = FileDraftStore(draftsDirectory, dispatcher),
             settings = settings,
-            editors = { path, text -> FakeEditorBuffer(text).also { editors[path] = it } },
+            editors = if (kit) {
+                EditorBufferFactory { path, text -> KitEditorBuffer(text).also { kitEditors[path] = it } }
+            } else {
+                EditorBufferFactory { path, text -> FakeEditorBuffer(text).also { editors[path] = it } }
+            },
             live = { _: CoroutineScope, sources: () -> InkSources -> FakeLiveLink().also { it.lastSources = sources; lives.add(it) } },
             context = dispatcher + lifetime,
             parseContext = dispatcher,
@@ -157,6 +190,20 @@ class SessionWorld(val scope: TestScope) {
     fun kill() {
         lifetimes.forEach(Job::cancel)
         lifetimes.clear()
+        // a dead process's editors report nothing any more
+        kitEditors.values.forEach(KitEditorBuffer::close)
+    }
+
+    /** The kit's editor of [path] in [session] (opened with `kit = true`), opened if it was not. */
+    fun kitEditor(session: ProjectSession, path: String): KitEditorBuffer {
+        checkNotNull(session.document(path)) { "$path is not in the project" }
+        return kitEditors.getValue(path)
+    }
+
+    /** What Compose does within the frame after state changed: the kit editor's change reaches the session. */
+    fun applied() {
+        Snapshot.sendApplyNotifications()
+        shadowOf(Looper.getMainLooper()).idle()
     }
 
     /** The editor of [path] in [session], opened if it was not. */
