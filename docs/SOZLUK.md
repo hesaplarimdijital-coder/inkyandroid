@@ -58,3 +58,8 @@ eklenir. ink'in kendi anahtar sözcükleri (`VAR`, `INCLUDE`, `END`, `TODO` …)
 | inspector | yan panel | düzenleyicinin yanındaki sekmeli panel |
 | compile | derlemek | |
 | export | dışa aktarmak | |
+| manual | kılavuz | Belgeler ekranındaki *Writing with ink* |
+| word count and more | proje istatistikleri | upstream'in Story › Word count and more penceresi |
+| storylet | hikâyecik | "Yararlı sistemler" parçacıklarından biri |
+| swing variable | salınım değişkeni | "Yararlı sistemler" parçacıklarından biri |
+| monospace, proportional | eş aralıklı, orantılı | düzenleyicinin yazı tipi |
