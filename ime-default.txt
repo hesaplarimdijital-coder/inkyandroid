@@ -1,0 +1,6 @@
+com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME
+com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME
+com.google.android.tts/com.google.android.apps.speech.tts.googletts.settings.asr.voiceime.VoiceInputMethodService
+      mCurImeId=com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME
+      mInputShown=false
+  mActive=true mRestartOnNextWindowFocus=false mBindSequence=5 mCurImeId=com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME

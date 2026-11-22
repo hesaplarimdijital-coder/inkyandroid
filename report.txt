@@ -1,0 +1,24 @@
+Inky device smoke: profile tablet, sdk_gphone64_x86_64, Android 17 (API 37), Physical size: 2560x1600, density 320
+installed app-release.apk
+
+== Scenario ime-probe: The on-screen keyboard of a system text field (driver self-check)
+[01] ime-probe-field: PASS   (01-ime-probe-field.png, 2560x1600 px, 1280 dp wide)
+     do: shell am start -W -a android.settings.DEVICE_INFO_SETTINGS; shell input tap 300 923; wait 3; save ime-dumpsys-ime.txt dumpsys input_method; save ime-default.txt settings get secure default_input_method; ime list -s; dumpsys input_method | grep -iE 'mInputShown|mCurImeId|inputShown'; save ime-window.txt dumpsys window windows | grep -iE -A40 'Window #[0-9]+ Window\{[0-9a-f]+ u0 InputMethod'; save ime-dump-windows.xml uiautomator dump --windows /sdcard/w.xml >/dev/null 2>&1; cat /sdcard/w.xml; save ime-dump-active.xml uiautomator dump /sdcard/a.xml >/dev/null 2>&1; cat /sdcard/a.xml
+     $ am start -W -a android.settings.DEVICE_INFO_SETTINGS
+       Starting: Intent { act=android.settings.DEVICE_INFO_SETTINGS }
+Status: ok
+LaunchState: WARM
+Activity: com.android.settings/.Settings$MyDeviceInfoActivity
+TotalTime: 3377
+WaitTime: 3384
+Complete
+     $ input tap 300 923
+     saved ime-dumpsys-ime.txt: $ dumpsys input_method
+     saved ime-default.txt: $ settings get secure default_input_method; ime list -s; dumpsys input_method | grep -iE 'mInputShown|mCurImeId|inputShown'
+     saved ime-window.txt: $ dumpsys window windows | grep -iE -A40 'Window #[0-9]+ Window\{[0-9a-f]+ u0 InputMethod'
+     saved ime-dump-windows.xml: $ uiautomator dump --windows /sdcard/w.xml >/dev/null 2>&1; cat /sdcard/w.xml
+     saved ime-dump-active.xml: $ uiautomator dump /sdcard/a.xml >/dev/null 2>&1; cat /sdcard/a.xml
+     uiautomator could not read the screen (it never went idle)
+     visible: 
+
+RESULT: PASS

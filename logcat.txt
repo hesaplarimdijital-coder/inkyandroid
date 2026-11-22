@@ -1,0 +1,26 @@
+11-22 21:55:14.512  1379  1410 D LauncherAppsCallbackImpl: onPackageAdded triggered for packageName=com.inkyandroid, user=UserHandle{0}
+11-22 21:55:14.541  1094  1094 I SafetyLabelChangedBroadcastReceiver: received broadcast packageName: com.inkyandroid, current user: UserHandle{0}, packageChangeEvent: NEW_INSTALL, intent user: UserHandle{0}
+11-22 21:55:14.657  1233  1512 D ImsResolver: maybeAddedImsService, packageName: com.inkyandroid
+11-22 21:55:14.657  1233  1512 V ImsResolver: searchForImsServices: package=com.inkyandroid, users=[UserHandle{0}]
+11-22 21:55:14.680  1233  1512 V ImsResolver: searchForImsServices: package=com.inkyandroid, users=[UserHandle{0}]
+11-22 21:55:14.771  1233  1233 W VvmPkgInstalledRcvr: carrierVvmPkgAdded: carrier vvm packages doesn't contain com.inkyandroid
+11-22 21:55:15.121   632   632 D AS.AudioService: received android.intent.action.PACKAGE_ADDED replacing: false archival: false for package com.inkyandroid with uid 10234
+11-22 21:55:15.121   632  1040 D ShortcutService: adding package: com.inkyandroid userId=0
+11-22 21:55:15.160   632  1049 I SdkSandboxManager: No SDKs used. Skipping SDK data reconcilation for CallingInfo{mUid=10234, mPackageName='com.inkyandroid, mAppProcessToken='null'}
+11-22 21:55:15.343   632   632 I BackupManagerService: No delayed restore requests for the given dependency: com.inkyandroid
+11-22 21:55:15.372   632   632 I AppsFilter: interaction: PackageSetting{a45cf50 com.android.microdroid.empty_payload/10213} -> PackageSetting{cc3d549 com.inkyandroid/10234} BLOCKED
+11-22 21:55:15.517   499   518 D NativePermissionController: updatePackagesForUid, UidPackageState{uid: 10234, packageStates: [PackageState{packageName: com.inkyandroid, targetSdk: 36, isPlaybackCaptureAllowed: true, pccId: -1}]}
+11-22 21:55:15.635  1233  1393 I SatelliteAppTracker: onPackageModified : com.inkyandroid
+11-22 21:55:15.677  1233  1233 D CarrierSvcBindHelper: onPackageModified: com.inkyandroid
+11-22 21:55:15.795  1233  1233 D SatelliteController: packageStateChanged: package:com.inkyandroid defaultSmsPackageName: com.google.android.apps.messaging satelliteGatewayServicePackageName: 
+11-22 21:55:15.815  1233  1512 D ImsResolver: maybeAddedImsService, packageName: com.inkyandroid
+11-22 21:55:15.815  1233  1512 V ImsResolver: searchForImsServices: package=com.inkyandroid, users=[UserHandle{0}]
+11-22 21:55:15.815  1233  1512 V ImsResolver: searchForImsServices: package=com.inkyandroid, users=[UserHandle{0}]
+11-22 21:55:15.881   632  1040 D ShortcutService: changing package: com.inkyandroid userId=0
+11-22 21:55:15.961  1233  1332 V MessagingReadRestrictionAllowlistMonitor: onBroadcastReceived: No AppOp changes for package: com.inkyandroid
+11-22 21:55:16.105  1785  2969 I AiAiEcho: AppIndexer Package:[com.inkyandroid] UserProfile:[0] Enabled:[true].
+11-22 21:55:16.105  1785  2969 I AiAiEcho: AppFetcherImplV2 updateApps package:[com.inkyandroid], userId:[0], reason:[package is updated.].
+11-22 21:55:24.532  1600  4648 I Blockstore: [DataStoreImpl] Clearing Blockstore Data for package com.inkyandroid [CONTEXT service_id=258 ]
+11-22 21:55:24.551  2830  3544 I FontLog : Package com.inkyandroid has no metadata [CONTEXT service_id=132 ]
+11-22 21:55:24.553  1600  4648 I NearbyDiscovery: processGrantSlicePermission: com.inkyandroid [CONTEXT service_id=265 ]
+11-22 21:56:58.170  2094  2094 I adbd    : adbd service requested 'shell,v2,raw:pidof com.inkyandroid'
