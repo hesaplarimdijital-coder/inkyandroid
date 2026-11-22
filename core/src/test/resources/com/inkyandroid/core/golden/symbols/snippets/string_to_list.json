@@ -1,0 +1,156 @@
+{
+ "root": [
+  {
+   "name": "string_to_list",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 33,
+   "column": 13
+  },
+  {
+   "name": "STRING_TO_LIST",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 42,
+   "column": 13
+  },
+  {
+   "name": "USED_STRING_TO_LIST_FALLBACK",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 45,
+   "column": 13
+  },
+  {
+   "name": "stringAsPickedFromList",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 50,
+   "column": 13
+  }
+ ],
+ "topLevelKeys": ["string_to_list","STRING_TO_LIST","USED_STRING_TO_LIST_FALLBACK","stringAsPickedFromList"],
+ "topLevelValues": ["33:13:string_to_list","42:13:STRING_TO_LIST","45:13:USED_STRING_TO_LIST_FALLBACK","50:13:stringAsPickedFromList"],
+ "includes": [],
+ "lastIncludeRow": -1,
+ "globalTags": [],
+ "dictionaryTags": [],
+ "divertTargets": ["string_to_list","STRING_TO_LIST","USED_STRING_TO_LIST_FALLBACK","stringAsPickedFromList"],
+ "variables": ["STRING_TO_LIST"],
+ "externals": ["STRING_TO_LIST"],
+ "vocabWords": [],
+ "symbolAtRow": ["33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","33:13:string_to_list","42:13:STRING_TO_LIST","42:13:STRING_TO_LIST","42:13:STRING_TO_LIST","45:13:USED_STRING_TO_LIST_FALLBACK","45:13:USED_STRING_TO_LIST_FALLBACK","45:13:USED_STRING_TO_LIST_FALLBACK","45:13:USED_STRING_TO_LIST_FALLBACK","45:13:USED_STRING_TO_LIST_FALLBACK","50:13:stringAsPickedFromList","50:13:stringAsPickedFromList","50:13:stringAsPickedFromList","50:13:stringAsPickedFromList","50:13:stringAsPickedFromList","50:13:stringAsPickedFromList","50:13:stringAsPickedFromList","50:13:stringAsPickedFromList","50:13:stringAsPickedFromList"],
+ "flowAtRow": [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+   "Knot": "33:13:string_to_list"
+  },
+  {
+   "Knot": "33:13:string_to_list"
+  },
+  {
+   "Knot": "33:13:string_to_list"
+  },
+  {
+   "Knot": "33:13:string_to_list"
+  },
+  {
+   "Knot": "33:13:string_to_list"
+  },
+  {
+   "Knot": "33:13:string_to_list"
+  },
+  {
+   "Knot": "33:13:string_to_list"
+  },
+  {
+   "Knot": "33:13:string_to_list"
+  },
+  {
+   "Knot": "33:13:string_to_list"
+  },
+  {
+   "Knot": "42:13:STRING_TO_LIST"
+  },
+  {
+   "Knot": "42:13:STRING_TO_LIST"
+  },
+  {
+   "Knot": "42:13:STRING_TO_LIST"
+  },
+  {
+   "Knot": "45:13:USED_STRING_TO_LIST_FALLBACK"
+  },
+  {
+   "Knot": "45:13:USED_STRING_TO_LIST_FALLBACK"
+  },
+  {
+   "Knot": "45:13:USED_STRING_TO_LIST_FALLBACK"
+  },
+  {
+   "Knot": "45:13:USED_STRING_TO_LIST_FALLBACK"
+  },
+  {
+   "Knot": "45:13:USED_STRING_TO_LIST_FALLBACK"
+  },
+  {
+   "Knot": "50:13:stringAsPickedFromList"
+  },
+  {
+   "Knot": "50:13:stringAsPickedFromList"
+  },
+  {
+   "Knot": "50:13:stringAsPickedFromList"
+  },
+  {
+   "Knot": "50:13:stringAsPickedFromList"
+  },
+  {
+   "Knot": "50:13:stringAsPickedFromList"
+  },
+  {
+   "Knot": "50:13:stringAsPickedFromList"
+  },
+  {
+   "Knot": "50:13:stringAsPickedFromList"
+  },
+  {
+   "Knot": "50:13:stringAsPickedFromList"
+  },
+  {
+   "Knot": "50:13:stringAsPickedFromList"
+  }
+ ]
+}

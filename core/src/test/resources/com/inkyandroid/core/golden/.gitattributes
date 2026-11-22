@@ -1,0 +1,2 @@
+# goldens and their inputs are compared byte for byte (torture.ink has CRLF and lone CR line ends)
+* -text

@@ -1,0 +1,23 @@
+{
+ "stackNodes": [],
+ "lines": [
+  ["punctuation.definition.comment.json0",["punctuation.definition.comment.json","/*"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tTests if the flow passes a particular gather \"very recently\" - that is, within the last 3 turns."]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tUsage: "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t- (welcome)"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t\"Welcome!\""]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t- (opts)"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t*\t{seen_very_recently(->welcome)}"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t\t\"Sorry, hello, yes.\""]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t+\t\"Er, what?\""]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t\t-> opts"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t*\t\"Can we get on with it?\""]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t"]],
+  ["start",["punctuation.definition.comment.json","*/"]],
+  ["start"],
+  ["start",["flow.knot.declaration.punctuation","==="],["flow.knot.declaration"," "],["flow.knot.declaration.function","function"],["flow.knot.declaration"," "],["flow.knot.declaration.name","seen_very_recently"],["flow.knot.declaration.parameters","(-> x)"]],
+  ["start",["logic.tilda","    ~ return TURNS_SINCE(x) >= 0 && TURNS_SINCE(x) <= 3"]]
+ ]
+}

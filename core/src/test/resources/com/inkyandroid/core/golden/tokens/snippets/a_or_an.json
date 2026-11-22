@@ -1,0 +1,29 @@
+{
+ "stackNodes": [],
+ "lines": [
+  ["punctuation.definition.comment.json0",["punctuation.definition.comment.json","/*"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","    Prints the correct form of the indefinite article before a noun."]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","    Usage: "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","    VAR firstAnimal = \"cat\""]],
+  ["punctuation.definition.comment.json0",["comment.block.json","    VAR secondAnimal = \"elephant\""]],
+  ["punctuation.definition.comment.json0",["comment.block.json","    VAR thirdAnimal = \"elongated badger\""]],
+  ["punctuation.definition.comment.json0",["comment.block.json","    I put {a(firstAnimal)} and {a(secondAnimal)} into {a(\"{~old|nice} box\")} with {a(thirdAnimal)}."]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0"],
+  ["start",["punctuation.definition.comment.json","*/"]],
+  ["start"],
+  ["start"],
+  ["start",["flow.knot.declaration.punctuation","==="],["flow.knot.declaration"," "],["flow.knot.declaration.function","function"],["flow.knot.declaration"," "],["flow.knot.declaration.name","a"],["flow.knot.declaration.parameters","(x)"]],
+  ["start",["logic.tilda","    ~ temp stringWithStartMarker = \"^\" + x"]],
+  ["logic",["logic","    "],["logic.punctuation","{"],["logic.conditional.multiline.condition"," stringWithStartMarker ? \"^a\" or stringWithStartMarker ? \"^A\" or stringWithStartMarker ? \"^e\" or  stringWithStartMarker ? \"^E\"  or stringWithStartMarker ? \"^i\" or stringWithStartMarker ? \"^I\"  or stringWithStartMarker ? \"^o\" or stringWithStartMarker ? \"^O\" or stringWithStartMarker ? \"^u\"  or stringWithStartMarker ? \"^U\"  "],["logic.conditional.multiline.condition.punctuation",":"]],
+  ["logic",["logic.multiline.innerContent","            an "],["logic.punctuation","{"],["logic.inline","x"],["logic.punctuation","}"]],
+  ["logic",["logic.multiline.innerContent","            "]],
+  ["logic",["logic.multiline.innerContent","    "],["punctuation.definition.comment.json","//"],["comment.line.double-slash.js"," this could be extended to check for \"^hi\" if you wanted \"an historic...\"            "]],
+  ["logic",["logic.multiline.branch","    "],["logic.multiline.branch.operator","-"],["logic.multiline.branch.condition"," else:"]],
+  ["logic",["logic.multiline.innerContent","        a "],["logic.punctuation","{"],["logic.inline","x"],["logic.punctuation","}"]],
+  ["start",["logic.multiline.innerContent","    "],["logic.punctuation","}"]]
+ ]
+}

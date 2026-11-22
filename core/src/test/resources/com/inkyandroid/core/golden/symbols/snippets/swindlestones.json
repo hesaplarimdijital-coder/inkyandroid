@@ -1,0 +1,2373 @@
+{
+ "root": [
+  {
+   "name": "pop",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 34,
+   "column": 13
+  },
+  {
+   "name": "came_from",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 41,
+   "column": 13
+  },
+  {
+   "name": "print_number",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 46,
+   "column": 13
+  },
+  {
+   "name": "faceValue",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 110,
+   "column": 13
+  },
+  {
+   "name": "stateDiceFor",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 118,
+   "column": 13
+  },
+  {
+   "name": "listDice",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 122,
+   "column": 13
+  },
+  {
+   "name": "_listDice",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 124,
+   "column": 13
+  },
+  {
+   "name": "countValuesFor",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 146,
+   "column": 13
+  },
+  {
+   "name": "countValuesIn",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 150,
+   "column": 13
+  },
+  {
+   "name": "valuesIn",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 153,
+   "column": 13
+  },
+  {
+   "name": "diceCountForPlayer",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 169,
+   "column": 13
+  },
+  {
+   "name": "diceForPlayer",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 175,
+   "column": 13
+  },
+  {
+   "name": "rollDice",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 182,
+   "column": 13
+  },
+  {
+   "name": "rollDiceFor",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 189,
+   "column": 13
+  },
+  {
+   "name": "stateBet",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 200,
+   "column": 13
+  },
+  {
+   "name": "betNumber",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 203,
+   "column": 13
+  },
+  {
+   "name": "betCount",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 206,
+   "column": 13
+  },
+  {
+   "name": "possibleBets",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 210,
+   "column": 13
+  },
+  {
+   "name": "possibleBetCounts",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 213,
+   "column": 13
+  },
+  {
+   "name": "getCountsFromBets",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 217,
+   "column": 13
+  },
+  {
+   "name": "possibleBetsForCount",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 225,
+   "column": 13
+  },
+  {
+   "name": "countDiceAtValue",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 230,
+   "column": 13
+  },
+  {
+   "name": "begin_game",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 247,
+   "column": 3,
+   "children": [
+    {
+     "name": "opts",
+     "flowType": "Gather",
+     "isfunc": false,
+     "row": 250,
+     "column": 3
+    },
+    {
+     "name": "whatis",
+     "flowType": "Choice",
+     "isfunc": false,
+     "row": 251,
+     "column": 7
+    }
+   ],
+   "innerKeys": ["opts","whatis"],
+   "innerValues": ["250:3:opts","251:7:whatis"]
+  },
+  {
+   "name": "main",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 265,
+   "column": 4,
+   "children": [
+    {
+     "name": "turnchange",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 280,
+     "column": 2
+    },
+    {
+     "name": "turnstart",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 284,
+     "column": 2
+    },
+    {
+     "name": "my_turn",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 292,
+     "column": 2,
+     "children": [
+      {
+       "name": "top",
+       "flowType": "Gather",
+       "isfunc": false,
+       "row": 301,
+       "column": 3
+      }
+     ],
+     "innerKeys": ["top"],
+     "innerValues": ["301:3:top"]
+    },
+    {
+     "name": "bet_opts",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 315,
+     "column": 2,
+     "children": [
+      {
+       "name": "opts",
+       "flowType": "Gather",
+       "isfunc": false,
+       "row": 316,
+       "column": 3
+      }
+     ],
+     "innerKeys": ["opts"],
+     "innerValues": ["316:3:opts"]
+    },
+    {
+     "name": "makeBet",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 339,
+     "column": 2
+    },
+    {
+     "name": "their_turn",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 344,
+     "column": 2
+    },
+    {
+     "name": "he_bets",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 361,
+     "column": 2
+    },
+    {
+     "name": "he_calls",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 388,
+     "column": 3
+    },
+    {
+     "name": "call_last_bet",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 395,
+     "column": 2
+    },
+    {
+     "name": "resolve_round",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 419,
+     "column": 3
+    }
+   ],
+   "innerKeys": ["turnchange","turnstart","my_turn","bet_opts","makeBet","their_turn","he_bets","he_calls","call_last_bet","resolve_round"],
+   "innerValues": ["280:2:turnchange","284:2:turnstart","292:2:my_turn","315:2:bet_opts","339:2:makeBet","344:2:their_turn","361:2:he_bets","388:3:he_calls","395:2:call_last_bet","419:3:resolve_round"]
+  },
+  {
+   "name": "end_game",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 452,
+   "column": 4,
+   "children": [
+    {
+     "name": "you_win",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 458,
+     "column": 2
+    },
+    {
+     "name": "he_wins",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 463,
+     "column": 2
+    }
+   ],
+   "innerKeys": ["you_win","he_wins"],
+   "innerValues": ["458:2:you_win","463:2:he_wins"]
+  },
+  {
+   "name": "findBetsUpTo",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 475,
+   "column": 13
+  },
+  {
+   "name": "resetAI",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 488,
+   "column": 13
+  },
+  {
+   "name": "filter_and_obtain_bet",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 491,
+   "column": 5,
+   "children": [
+    {
+     "name": "makebet",
+     "flowType": "Gather",
+     "isfunc": false,
+     "row": 576,
+     "column": 13
+    }
+   ],
+   "innerKeys": ["makebet"],
+   "innerValues": ["576:13:makebet"]
+  }
+ ],
+ "topLevelKeys": ["pop","came_from","print_number","faceValue","stateDiceFor","listDice","_listDice","countValuesFor","countValuesIn","valuesIn","diceCountForPlayer","diceForPlayer","rollDice","rollDiceFor","stateBet","betNumber","betCount","possibleBets","possibleBetCounts","getCountsFromBets","possibleBetsForCount","countDiceAtValue","begin_game","main","end_game","findBetsUpTo","resetAI","filter_and_obtain_bet"],
+ "topLevelValues": ["34:13:pop","41:13:came_from","46:13:print_number","110:13:faceValue","118:13:stateDiceFor","122:13:listDice","124:13:_listDice","146:13:countValuesFor","150:13:countValuesIn","153:13:valuesIn","169:13:diceCountForPlayer","175:13:diceForPlayer","182:13:rollDice","189:13:rollDiceFor","200:13:stateBet","203:13:betNumber","206:13:betCount","210:13:possibleBets","213:13:possibleBetCounts","217:13:getCountsFromBets","225:13:possibleBetsForCount","230:13:countDiceAtValue","247:3:begin_game","265:4:main","452:4:end_game","475:13:findBetsUpTo","488:13:resetAI","491:5:filter_and_obtain_bet"],
+ "includes": [],
+ "lastIncludeRow": -1,
+ "globalTags": [],
+ "dictionaryTags": [],
+ "divertTargets": ["begin_game","pop","came_from","print_number","faceValue","stateDiceFor","listDice","_listDice","countValuesFor","countValuesIn","valuesIn","diceCountForPlayer","diceForPlayer","rollDice","rollDiceFor","stateBet","betNumber","betCount","possibleBets","possibleBetCounts","getCountsFromBets","possibleBetsForCount","countDiceAtValue","opts","whatis","main","turnstart","turnchange","my_turn","their_turn","top","call_last_bet","bet_opts","makeBet","filter_and_obtain_bet","he_calls","he_bets","resolve_round","end_game","you_win","he_wins","findBetsUpTo","resetAI","makebet"],
+ "variables": ["Dice","Players","Me","10","Them","60","DiceCountMe","5","DiceCountThem","DEBUG_FIXED_RANDOM","false","DEBUG_AI_DECISIONS","firstTurn","lastBet","whatDiceDoWeThinkYouHave"],
+ "externals": [],
+ "vocabWords": ["MeA1","MeA2","MeA3","MeA4","MeB1","MeB2","MeB3","MeB4","MeC1","MeC2","MeC3","MeC4","MeD1","MeD2","MeD3","MeD4","MeE1","MeE2","MeE3","MeE4","ThemA1","ThemA2","ThemA3","ThemA4","ThemB1","ThemB2","ThemB3","ThemB4","ThemC1","ThemC2","ThemC3","ThemC4","ThemD1","ThemD2","ThemD3","ThemD4","ThemE1","101","ThemE2","ThemE3","ThemE4","You","pull","seat","the","table","The","Half","Orc","opposite","picks","his","teeth","with","dagger","Ready","grumbles","tosses","you","stack","dice","ask","Swindlestones","replies","game","luck","and","brains","chuckles","And","looks","roll","behind","your","hand","mine","say","There","are","ones","something","like","that","call","not","believe","higher","Higher","number","more","When","called","see","who","right","Loser","loses","loser","nods","palm","getting","rolls","declare","bet","Let","now","murmurs","scratching","chin","hooked","nail","revealed","Alongside","has","That","puts","beam","pleasure","relieve","gold","Naturally","reaches","for","sword","toss","last","creature","across","scoop","pile","into","lap","from","moment","sit","chair","delight","face"],
+ "symbolAtRow": ["34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","34:13:pop","41:13:came_from","41:13:came_from","41:13:came_from","41:13:came_from","41:13:came_from","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","46:13:print_number","110:13:faceValue","110:13:faceValue","110:13:faceValue","110:13:faceValue","110:13:faceValue","110:13:faceValue","110:13:faceValue","110:13:faceValue","118:13:stateDiceFor","118:13:stateDiceFor","118:13:stateDiceFor","118:13:stateDiceFor","122:13:listDice","122:13:listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","124:13:_listDice","146:13:countValuesFor","146:13:countValuesFor","146:13:countValuesFor","146:13:countValuesFor","150:13:countValuesIn","150:13:countValuesIn","150:13:countValuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","153:13:valuesIn","169:13:diceCountForPlayer","169:13:diceCountForPlayer","169:13:diceCountForPlayer","169:13:diceCountForPlayer","169:13:diceCountForPlayer","169:13:diceCountForPlayer","175:13:diceForPlayer","175:13:diceForPlayer","175:13:diceForPlayer","175:13:diceForPlayer","175:13:diceForPlayer","175:13:diceForPlayer","175:13:diceForPlayer","182:13:rollDice","182:13:rollDice","182:13:rollDice","182:13:rollDice","182:13:rollDice","182:13:rollDice","182:13:rollDice","189:13:rollDiceFor","189:13:rollDiceFor","189:13:rollDiceFor","189:13:rollDiceFor","189:13:rollDiceFor","189:13:rollDiceFor","189:13:rollDiceFor","189:13:rollDiceFor","189:13:rollDiceFor","189:13:rollDiceFor","189:13:rollDiceFor","200:13:stateBet","200:13:stateBet","200:13:stateBet","203:13:betNumber","203:13:betNumber","203:13:betNumber","206:13:betCount","206:13:betCount","206:13:betCount","206:13:betCount","210:13:possibleBets","210:13:possibleBets","210:13:possibleBets","213:13:possibleBetCounts","213:13:possibleBetCounts","213:13:possibleBetCounts","213:13:possibleBetCounts","217:13:getCountsFromBets","217:13:getCountsFromBets","217:13:getCountsFromBets","217:13:getCountsFromBets","217:13:getCountsFromBets","217:13:getCountsFromBets","217:13:getCountsFromBets","217:13:getCountsFromBets","225:13:possibleBetsForCount","225:13:possibleBetsForCount","225:13:possibleBetsForCount","225:13:possibleBetsForCount","225:13:possibleBetsForCount","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","230:13:countDiceAtValue","250:3:opts","250:3:opts","250:3:opts","250:3:opts","251:7:whatis","251:7:whatis","251:7:whatis","251:7:whatis","251:7:whatis","251:7:whatis","251:7:whatis","251:7:whatis","251:7:whatis","251:7:whatis","251:7:whatis","251:7:whatis","251:7:whatis","251:7:whatis","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","280:2:turnchange","284:2:turnstart","284:2:turnstart","284:2:turnstart","284:2:turnstart","284:2:turnstart","284:2:turnstart","284:2:turnstart","284:2:turnstart","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","301:3:top","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","316:3:opts","339:2:makeBet","339:2:makeBet","339:2:makeBet","339:2:makeBet","339:2:makeBet","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","344:2:their_turn","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","361:2:he_bets","388:3:he_calls","388:3:he_calls","388:3:he_calls","388:3:he_calls","388:3:he_calls","388:3:he_calls","388:3:he_calls","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","395:2:call_last_bet","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","419:3:resolve_round","458:2:you_win","458:2:you_win","458:2:you_win","458:2:you_win","458:2:you_win","458:2:you_win","458:2:you_win","458:2:you_win","458:2:you_win","458:2:you_win","458:2:you_win","463:2:he_wins","463:2:he_wins","463:2:he_wins","463:2:he_wins","463:2:he_wins","463:2:he_wins","463:2:he_wins","463:2:he_wins","463:2:he_wins","463:2:he_wins","463:2:he_wins","463:2:he_wins","475:13:findBetsUpTo","475:13:findBetsUpTo","475:13:findBetsUpTo","475:13:findBetsUpTo","475:13:findBetsUpTo","475:13:findBetsUpTo","475:13:findBetsUpTo","475:13:findBetsUpTo","475:13:findBetsUpTo","475:13:findBetsUpTo","475:13:findBetsUpTo","475:13:findBetsUpTo","475:13:findBetsUpTo","488:13:resetAI","488:13:resetAI","488:13:resetAI","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet","576:13:makebet"],
+ "flowAtRow": [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+   "Knot": "34:13:pop"
+  },
+  {
+   "Knot": "34:13:pop"
+  },
+  {
+   "Knot": "34:13:pop"
+  },
+  {
+   "Knot": "34:13:pop"
+  },
+  {
+   "Knot": "34:13:pop"
+  },
+  {
+   "Knot": "34:13:pop"
+  },
+  {
+   "Knot": "34:13:pop"
+  },
+  {
+   "Knot": "41:13:came_from"
+  },
+  {
+   "Knot": "41:13:came_from"
+  },
+  {
+   "Knot": "41:13:came_from"
+  },
+  {
+   "Knot": "41:13:came_from"
+  },
+  {
+   "Knot": "41:13:came_from"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "46:13:print_number"
+  },
+  {
+   "Knot": "110:13:faceValue"
+  },
+  {
+   "Knot": "110:13:faceValue"
+  },
+  {
+   "Knot": "110:13:faceValue"
+  },
+  {
+   "Knot": "110:13:faceValue"
+  },
+  {
+   "Knot": "110:13:faceValue"
+  },
+  {
+   "Knot": "110:13:faceValue"
+  },
+  {
+   "Knot": "110:13:faceValue"
+  },
+  {
+   "Knot": "110:13:faceValue"
+  },
+  {
+   "Knot": "118:13:stateDiceFor"
+  },
+  {
+   "Knot": "118:13:stateDiceFor"
+  },
+  {
+   "Knot": "118:13:stateDiceFor"
+  },
+  {
+   "Knot": "118:13:stateDiceFor"
+  },
+  {
+   "Knot": "122:13:listDice"
+  },
+  {
+   "Knot": "122:13:listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "124:13:_listDice"
+  },
+  {
+   "Knot": "146:13:countValuesFor"
+  },
+  {
+   "Knot": "146:13:countValuesFor"
+  },
+  {
+   "Knot": "146:13:countValuesFor"
+  },
+  {
+   "Knot": "146:13:countValuesFor"
+  },
+  {
+   "Knot": "150:13:countValuesIn"
+  },
+  {
+   "Knot": "150:13:countValuesIn"
+  },
+  {
+   "Knot": "150:13:countValuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "153:13:valuesIn"
+  },
+  {
+   "Knot": "169:13:diceCountForPlayer"
+  },
+  {
+   "Knot": "169:13:diceCountForPlayer"
+  },
+  {
+   "Knot": "169:13:diceCountForPlayer"
+  },
+  {
+   "Knot": "169:13:diceCountForPlayer"
+  },
+  {
+   "Knot": "169:13:diceCountForPlayer"
+  },
+  {
+   "Knot": "169:13:diceCountForPlayer"
+  },
+  {
+   "Knot": "175:13:diceForPlayer"
+  },
+  {
+   "Knot": "175:13:diceForPlayer"
+  },
+  {
+   "Knot": "175:13:diceForPlayer"
+  },
+  {
+   "Knot": "175:13:diceForPlayer"
+  },
+  {
+   "Knot": "175:13:diceForPlayer"
+  },
+  {
+   "Knot": "175:13:diceForPlayer"
+  },
+  {
+   "Knot": "175:13:diceForPlayer"
+  },
+  {
+   "Knot": "182:13:rollDice"
+  },
+  {
+   "Knot": "182:13:rollDice"
+  },
+  {
+   "Knot": "182:13:rollDice"
+  },
+  {
+   "Knot": "182:13:rollDice"
+  },
+  {
+   "Knot": "182:13:rollDice"
+  },
+  {
+   "Knot": "182:13:rollDice"
+  },
+  {
+   "Knot": "182:13:rollDice"
+  },
+  {
+   "Knot": "189:13:rollDiceFor"
+  },
+  {
+   "Knot": "189:13:rollDiceFor"
+  },
+  {
+   "Knot": "189:13:rollDiceFor"
+  },
+  {
+   "Knot": "189:13:rollDiceFor"
+  },
+  {
+   "Knot": "189:13:rollDiceFor"
+  },
+  {
+   "Knot": "189:13:rollDiceFor"
+  },
+  {
+   "Knot": "189:13:rollDiceFor"
+  },
+  {
+   "Knot": "189:13:rollDiceFor"
+  },
+  {
+   "Knot": "189:13:rollDiceFor"
+  },
+  {
+   "Knot": "189:13:rollDiceFor"
+  },
+  {
+   "Knot": "189:13:rollDiceFor"
+  },
+  {
+   "Knot": "200:13:stateBet"
+  },
+  {
+   "Knot": "200:13:stateBet"
+  },
+  {
+   "Knot": "200:13:stateBet"
+  },
+  {
+   "Knot": "203:13:betNumber"
+  },
+  {
+   "Knot": "203:13:betNumber"
+  },
+  {
+   "Knot": "203:13:betNumber"
+  },
+  {
+   "Knot": "206:13:betCount"
+  },
+  {
+   "Knot": "206:13:betCount"
+  },
+  {
+   "Knot": "206:13:betCount"
+  },
+  {
+   "Knot": "206:13:betCount"
+  },
+  {
+   "Knot": "210:13:possibleBets"
+  },
+  {
+   "Knot": "210:13:possibleBets"
+  },
+  {
+   "Knot": "210:13:possibleBets"
+  },
+  {
+   "Knot": "213:13:possibleBetCounts"
+  },
+  {
+   "Knot": "213:13:possibleBetCounts"
+  },
+  {
+   "Knot": "213:13:possibleBetCounts"
+  },
+  {
+   "Knot": "213:13:possibleBetCounts"
+  },
+  {
+   "Knot": "217:13:getCountsFromBets"
+  },
+  {
+   "Knot": "217:13:getCountsFromBets"
+  },
+  {
+   "Knot": "217:13:getCountsFromBets"
+  },
+  {
+   "Knot": "217:13:getCountsFromBets"
+  },
+  {
+   "Knot": "217:13:getCountsFromBets"
+  },
+  {
+   "Knot": "217:13:getCountsFromBets"
+  },
+  {
+   "Knot": "217:13:getCountsFromBets"
+  },
+  {
+   "Knot": "217:13:getCountsFromBets"
+  },
+  {
+   "Knot": "225:13:possibleBetsForCount"
+  },
+  {
+   "Knot": "225:13:possibleBetsForCount"
+  },
+  {
+   "Knot": "225:13:possibleBetsForCount"
+  },
+  {
+   "Knot": "225:13:possibleBetsForCount"
+  },
+  {
+   "Knot": "225:13:possibleBetsForCount"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "230:13:countDiceAtValue"
+  },
+  {
+   "Knot": "247:3:begin_game"
+  },
+  {
+   "Knot": "247:3:begin_game"
+  },
+  {
+   "Knot": "247:3:begin_game"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Gather": "250:3:opts"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "247:3:begin_game",
+   "Choice": "251:7:whatis"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "280:2:turnchange"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "280:2:turnchange"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "280:2:turnchange"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "280:2:turnchange"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "284:2:turnstart"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "284:2:turnstart"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "284:2:turnstart"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "284:2:turnstart"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "284:2:turnstart"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "284:2:turnstart"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "284:2:turnstart"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "284:2:turnstart"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "292:2:my_turn",
+   "Gather": "301:3:top"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "315:2:bet_opts",
+   "Gather": "316:3:opts"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "339:2:makeBet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "339:2:makeBet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "339:2:makeBet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "339:2:makeBet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "339:2:makeBet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "344:2:their_turn"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "361:2:he_bets"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "388:3:he_calls"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "388:3:he_calls"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "388:3:he_calls"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "388:3:he_calls"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "388:3:he_calls"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "388:3:he_calls"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "388:3:he_calls"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "395:2:call_last_bet"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "265:4:main",
+   "Stitch": "419:3:resolve_round"
+  },
+  {
+   "Knot": "452:4:end_game"
+  },
+  {
+   "Knot": "452:4:end_game"
+  },
+  {
+   "Knot": "452:4:end_game"
+  },
+  {
+   "Knot": "452:4:end_game"
+  },
+  {
+   "Knot": "452:4:end_game"
+  },
+  {
+   "Knot": "452:4:end_game"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "458:2:you_win"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "458:2:you_win"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "458:2:you_win"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "458:2:you_win"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "458:2:you_win"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "463:2:he_wins"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "463:2:he_wins"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "463:2:he_wins"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "463:2:he_wins"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "463:2:he_wins"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "463:2:he_wins"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "463:2:he_wins"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "463:2:he_wins"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "463:2:he_wins"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "463:2:he_wins"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "463:2:he_wins"
+  },
+  {
+   "Knot": "452:4:end_game",
+   "Stitch": "463:2:he_wins"
+  },
+  {
+   "Knot": "475:13:findBetsUpTo"
+  },
+  {
+   "Knot": "475:13:findBetsUpTo"
+  },
+  {
+   "Knot": "475:13:findBetsUpTo"
+  },
+  {
+   "Knot": "475:13:findBetsUpTo"
+  },
+  {
+   "Knot": "475:13:findBetsUpTo"
+  },
+  {
+   "Knot": "475:13:findBetsUpTo"
+  },
+  {
+   "Knot": "475:13:findBetsUpTo"
+  },
+  {
+   "Knot": "475:13:findBetsUpTo"
+  },
+  {
+   "Knot": "475:13:findBetsUpTo"
+  },
+  {
+   "Knot": "475:13:findBetsUpTo"
+  },
+  {
+   "Knot": "475:13:findBetsUpTo"
+  },
+  {
+   "Knot": "475:13:findBetsUpTo"
+  },
+  {
+   "Knot": "475:13:findBetsUpTo"
+  },
+  {
+   "Knot": "488:13:resetAI"
+  },
+  {
+   "Knot": "488:13:resetAI"
+  },
+  {
+   "Knot": "488:13:resetAI"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  },
+  {
+   "Knot": "491:5:filter_and_obtain_bet",
+   "Gather": "576:13:makebet"
+  }
+ ]
+}

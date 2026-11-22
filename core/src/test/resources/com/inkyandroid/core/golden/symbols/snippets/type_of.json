@@ -1,0 +1,110 @@
+{
+ "root": [
+  {
+   "name": "type_of",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 20,
+   "column": 13
+  }
+ ],
+ "topLevelKeys": ["type_of"],
+ "topLevelValues": ["20:13:type_of"],
+ "includes": [],
+ "lastIncludeRow": -1,
+ "globalTags": [],
+ "dictionaryTags": [],
+ "divertTargets": ["type_of"],
+ "variables": ["Type","List","String","Number","Bool"],
+ "externals": [],
+ "vocabWords": [],
+ "symbolAtRow": ["20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of","20:13:type_of"],
+ "flowAtRow": [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  },
+  {
+   "Knot": "20:13:type_of"
+  }
+ ]
+}

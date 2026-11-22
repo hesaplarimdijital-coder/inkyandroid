@@ -1,0 +1,111 @@
+{
+ "root": [
+  {
+   "name": "second_knot",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 0,
+   "column": 4,
+   "children": [
+    {
+     "name": "inner",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 1,
+     "column": 2,
+     "children": [
+      {
+       "name": "pick",
+       "flowType": "Choice",
+       "isfunc": false,
+       "row": 2,
+       "column": 3
+      },
+      {
+       "name": "after_label",
+       "flowType": "Gather",
+       "isfunc": false,
+       "row": 3,
+       "column": 3
+      }
+     ],
+     "innerKeys": ["pick","after_label"],
+     "innerValues": ["2:3:pick","3:3:after_label"]
+    }
+   ],
+   "innerKeys": ["inner"],
+   "innerValues": ["1:2:inner"]
+  },
+  {
+   "name": "shared",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 5,
+   "column": 4,
+   "children": [
+    {
+     "name": "undefined",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 7,
+     "column": 2
+    }
+   ],
+   "innerKeys": ["undefined"],
+   "innerValues": ["7:2:undefined"]
+  }
+ ],
+ "topLevelKeys": ["second_knot","shared"],
+ "topLevelValues": ["0:4:second_knot","5:4:shared"],
+ "includes": [],
+ "lastIncludeRow": -1,
+ "globalTags": [],
+ "dictionaryTags": [],
+ "divertTargets": ["second_knot","inner","pick","after_label","shared","undefined"],
+ "variables": [],
+ "externals": [],
+ "vocabWords": ["The","second","file","shared","knot","stitch","whose","name","the","word","undefined"],
+ "symbolAtRow": ["2:3:pick","2:3:pick","2:3:pick","3:3:after_label","3:3:after_label","7:2:undefined","7:2:undefined","7:2:undefined","7:2:undefined","7:2:undefined"],
+ "flowAtRow": [
+  {
+   "Knot": "0:4:second_knot"
+  },
+  {
+   "Knot": "0:4:second_knot",
+   "Stitch": "1:2:inner"
+  },
+  {
+   "Knot": "0:4:second_knot",
+   "Stitch": "1:2:inner",
+   "Choice": "2:3:pick"
+  },
+  {
+   "Knot": "0:4:second_knot",
+   "Stitch": "1:2:inner",
+   "Gather": "3:3:after_label"
+  },
+  {
+   "Knot": "0:4:second_knot",
+   "Stitch": "1:2:inner",
+   "Gather": "3:3:after_label"
+  },
+  {
+   "Knot": "5:4:shared"
+  },
+  {
+   "Knot": "5:4:shared"
+  },
+  {
+   "Knot": "5:4:shared",
+   "Stitch": "7:2:undefined"
+  },
+  {
+   "Knot": "5:4:shared",
+   "Stitch": "7:2:undefined"
+  },
+  {
+   "Knot": "5:4:shared",
+   "Stitch": "7:2:undefined"
+  }
+ ]
+}

@@ -1,0 +1,27 @@
+{
+ "stackNodes": [],
+ "lines": [
+  ["punctuation.definition.comment.json0",["punctuation.definition.comment.json","/*"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tConverts text to uppercase. Doesn't have an inky fallback."]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tUsage: "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\"Give me wine. {UPPERCASE(\"Give me wine!\")}"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tRequired C# code:"]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tThe external binding is as follows."]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\tstory.BindExternalFunction(\"UPPERCASE\", (string txt) =>"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t    {"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t        return txt.ToUpper();"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t    });"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t"]],
+  ["start",["punctuation.definition.comment.json","*/"]],
+  ["start"],
+  ["start",["external.keyword","EXTERNAL"],["external"," "],["external.declaration.name","UPPERCASE"],["external.declaration.parameters","(txt)"]],
+  ["start",["flow.knot.declaration.punctuation","==="],["flow.knot.declaration"," "],["flow.knot.declaration.function","function"],["flow.knot.declaration"," "],["flow.knot.declaration.name","UPPERCASE"],["flow.knot.declaration.parameters","(txt)"]],
+  ["start",["text","    "],["logic.punctuation","{"],["logic.inline","txt"],["logic.punctuation","}"]],
+  ["start",["text","\t"]]
+ ]
+}

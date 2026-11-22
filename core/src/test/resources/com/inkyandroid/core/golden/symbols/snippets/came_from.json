@@ -1,0 +1,46 @@
+{
+ "root": [
+  {
+   "name": "came_from",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 16,
+   "column": 13
+  }
+ ],
+ "topLevelKeys": ["came_from"],
+ "topLevelValues": ["16:13:came_from"],
+ "includes": [],
+ "lastIncludeRow": -1,
+ "globalTags": [],
+ "dictionaryTags": [],
+ "divertTargets": ["came_from"],
+ "variables": [],
+ "externals": [],
+ "vocabWords": [],
+ "symbolAtRow": ["16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from","16:13:came_from"],
+ "flowAtRow": [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+   "Knot": "16:13:came_from"
+  },
+  {
+   "Knot": "16:13:came_from"
+  }
+ ]
+}

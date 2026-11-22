@@ -1,0 +1,21 @@
+{
+ "stackNodes": [],
+ "lines": [
+  ["punctuation.definition.comment.json0",["punctuation.definition.comment.json","/*"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tQuick random function for varying choices"]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tUsage: "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t*\t{maybe()} [Ask about apples]"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t*\t{maybe()} [Ask about oranges]"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t*\t{maybe()} [Ask about bananas]"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t"]],
+  ["punctuation.definition.comment.json0"],
+  ["start",["punctuation.definition.comment.json","*/"]],
+  ["start"],
+  ["start",["flow.knot.declaration.punctuation","==="],["flow.knot.declaration"," "],["flow.knot.declaration.function","function"],["flow.knot.declaration"," "],["flow.knot.declaration.name","maybe"],["flow.knot.declaration.parameters","(list)"]],
+  ["start",["logic.tilda","\t~ return RANDOM(1, 3) == 1"]],
+  ["start"],
+  ["start"]
+ ]
+}
