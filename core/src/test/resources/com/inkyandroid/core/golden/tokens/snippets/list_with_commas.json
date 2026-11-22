@@ -1,0 +1,28 @@
+{
+ "stackNodes": [],
+ "lines": [
+  ["punctuation.definition.comment.json0",["punctuation.definition.comment.json","/*"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tTakes a list and prints it out, using commas. "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tDependenices: "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\tThis function relies on the \"pop\" function. "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tUsage: "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\tLIST fruitBowl = (apples), (bananas), (oranges)"]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\tThe fruit bowl contains {list_with_commas(fruitBowl)}."]],
+  ["start",["punctuation.definition.comment.json","*/"]],
+  ["start"],
+  ["start",["flow.knot.declaration.punctuation","==="],["flow.knot.declaration"," "],["flow.knot.declaration.function","function"],["flow.knot.declaration"," "],["flow.knot.declaration.name","list_with_commas"],["flow.knot.declaration.parameters","(list)"]],
+  ["logic",["logic","\t"],["logic.punctuation","{"],["logic.conditional.multiline.condition"," list"],["logic.conditional.multiline.condition.punctuation",":"]],
+  ["logic",["logic.multiline.innerContent","\t\t"],["logic.punctuation","{"],["logic.inline","_list_with_commas(list, LIST_COUNT(list))"],["logic.punctuation","}"]],
+  ["start",["logic.multiline.innerContent","\t"],["logic.punctuation","}"]],
+  ["start"],
+  ["start",["flow.knot.declaration.punctuation","==="],["flow.knot.declaration"," "],["flow.knot.declaration.function","function"],["flow.knot.declaration"," "],["flow.knot.declaration.name","_list_with_commas"],["flow.knot.declaration.parameters","(list, n)"]],
+  ["start",["text","\t"],["logic.punctuation","{"],["logic.inline","pop(list)"],["logic.punctuation","}"],["logic.punctuation","{"],["logic.inline.conditional.condition"," n > 1:"],["logic.punctuation","{"],["logic.inline.conditional.condition","n == 2:"],["logic.inline.innerContent"," and "],["logic.inline.conditional.punctuation","|"],["logic.inline.innerContent",", "],["logic.inline.conditional.punctuation","}"],["logic.punctuation","{"],["logic.inline","_list_with_commas(list, n-1)"],["logic.punctuation","}"],["logic.inline.conditional.punctuation","}"]],
+  ["start"],
+  ["start",["text","\t"]]
+ ]
+}

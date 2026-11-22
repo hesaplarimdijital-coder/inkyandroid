@@ -1,0 +1,197 @@
+{
+ "root": [
+  {
+   "name": "intro",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 4,
+   "column": 4,
+   "children": [
+    {
+     "name": "opening",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 5,
+     "column": 2,
+     "children": [
+      {
+       "name": "pick",
+       "flowType": "Choice",
+       "isfunc": false,
+       "row": 6,
+       "column": 3
+      },
+      {
+       "name": "leave",
+       "flowType": "Choice",
+       "isfunc": false,
+       "row": 7,
+       "column": 3
+      },
+      {
+       "name": "after",
+       "flowType": "Gather",
+       "isfunc": false,
+       "row": 8,
+       "column": 3
+      }
+     ],
+     "innerKeys": ["pick","leave","after"],
+     "innerValues": ["6:3:pick","7:3:leave","8:3:after"]
+    },
+    {
+     "name": "closing",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 11,
+     "column": 2,
+     "children": [
+      {
+       "name": "end_gather",
+       "flowType": "Gather",
+       "isfunc": false,
+       "row": 12,
+       "column": 3
+      }
+     ],
+     "innerKeys": ["end_gather"],
+     "innerValues": ["12:3:end_gather"]
+    }
+   ],
+   "innerKeys": ["opening","closing"],
+   "innerValues": ["5:2:opening","11:2:closing"]
+  },
+  {
+   "name": "shared",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 15,
+   "column": 4,
+   "children": [
+    {
+     "name": "shared_stitch",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 17,
+     "column": 2
+    }
+   ],
+   "innerKeys": ["shared_stitch"],
+   "innerValues": ["17:2:shared_stitch"]
+  },
+  {
+   "name": "helper",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 23,
+   "column": 13
+  }
+ ],
+ "topLevelKeys": ["intro","shared","helper"],
+ "topLevelValues": ["4:4:intro","15:4:shared","23:13:helper"],
+ "includes": ["second.ink"],
+ "lastIncludeRow": 0,
+ "globalTags": ["title: Project for findSymbol"],
+ "dictionaryTags": [["title","Project for findSymbol"]],
+ "divertTargets": ["intro","opening","pick","intro.closing","leave","after","after_label","second_knot","closing","end_gather","opening.pick","shared","shared_stitch","intro.opening.leave","intro.nonexistent.deeper","undefined","helper"],
+ "variables": [],
+ "externals": [],
+ "vocabWords": ["Start","the","story","main"],
+ "symbolAtRow": ["6:3:pick","6:3:pick","6:3:pick","6:3:pick","6:3:pick","6:3:pick","6:3:pick","7:3:leave","8:3:after","8:3:after","8:3:after","12:3:end_gather","12:3:end_gather","12:3:end_gather","12:3:end_gather","17:2:shared_stitch","17:2:shared_stitch","17:2:shared_stitch","17:2:shared_stitch","17:2:shared_stitch","17:2:shared_stitch","17:2:shared_stitch","17:2:shared_stitch","23:13:helper","23:13:helper","23:13:helper"],
+ "flowAtRow": [
+  {},
+  {},
+  {},
+  {},
+  {
+   "Knot": "4:4:intro"
+  },
+  {
+   "Knot": "4:4:intro",
+   "Stitch": "5:2:opening"
+  },
+  {
+   "Knot": "4:4:intro",
+   "Stitch": "5:2:opening",
+   "Choice": "6:3:pick"
+  },
+  {
+   "Knot": "4:4:intro",
+   "Stitch": "5:2:opening",
+   "Choice": "7:3:leave"
+  },
+  {
+   "Knot": "4:4:intro",
+   "Stitch": "5:2:opening",
+   "Gather": "8:3:after"
+  },
+  {
+   "Knot": "4:4:intro",
+   "Stitch": "5:2:opening",
+   "Gather": "8:3:after"
+  },
+  {
+   "Knot": "4:4:intro",
+   "Stitch": "5:2:opening",
+   "Gather": "8:3:after"
+  },
+  {
+   "Knot": "4:4:intro",
+   "Stitch": "11:2:closing"
+  },
+  {
+   "Knot": "4:4:intro",
+   "Stitch": "11:2:closing",
+   "Gather": "12:3:end_gather"
+  },
+  {
+   "Knot": "4:4:intro",
+   "Stitch": "11:2:closing",
+   "Gather": "12:3:end_gather"
+  },
+  {
+   "Knot": "4:4:intro",
+   "Stitch": "11:2:closing",
+   "Gather": "12:3:end_gather"
+  },
+  {
+   "Knot": "15:4:shared"
+  },
+  {
+   "Knot": "15:4:shared"
+  },
+  {
+   "Knot": "15:4:shared",
+   "Stitch": "17:2:shared_stitch"
+  },
+  {
+   "Knot": "15:4:shared",
+   "Stitch": "17:2:shared_stitch"
+  },
+  {
+   "Knot": "15:4:shared",
+   "Stitch": "17:2:shared_stitch"
+  },
+  {
+   "Knot": "15:4:shared",
+   "Stitch": "17:2:shared_stitch"
+  },
+  {
+   "Knot": "15:4:shared",
+   "Stitch": "17:2:shared_stitch"
+  },
+  {
+   "Knot": "15:4:shared",
+   "Stitch": "17:2:shared_stitch"
+  },
+  {
+   "Knot": "23:13:helper"
+  },
+  {
+   "Knot": "23:13:helper"
+  },
+  {
+   "Knot": "23:13:helper"
+  }
+ ]
+}
