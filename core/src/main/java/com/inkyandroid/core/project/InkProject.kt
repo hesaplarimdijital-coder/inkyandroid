@@ -81,6 +81,12 @@ interface LiveText {
      * replace the characters from [start] to [end] by [replacement], as an edit the user can undo.
      */
     fun edit(start: Int, end: Int, replacement: String)
+
+    /**
+     * The text has changed and the editor has not reported it through [InkProject.textChanged]
+     * yet (an editor that reports a moment later). The project never replaces such a text.
+     */
+    fun hasUnreportedChanges(): Boolean = false
 }
 
 /**
@@ -584,9 +590,9 @@ class InkProject private constructor(
                 record.stored = theirs
                 continue
             }
-            if (!record.unsaved && record.live != null && TextHash.of(record.text()) != record.storedHash) {
-                // the editor holds a change it has not reported yet (it reports within the frame):
-                // that text is unsaved, and a reload must never replace it
+            if (!record.unsaved && record.live?.hasUnreportedChanges() == true) {
+                // the editor holds a change it has not reported yet (the kit's reports within the
+                // frame): that text is unsaved, and a reload must never replace it
                 record.edited = true
             }
             if (!record.unsaved) {

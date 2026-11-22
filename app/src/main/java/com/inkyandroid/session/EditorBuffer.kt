@@ -47,6 +47,9 @@ interface EditorBuffer {
      */
     var onTextChanged: (() -> Unit)?
 
+    /** The text has changed and [onTextChanged] has not been called for it yet; a reload never replaces such a text. */
+    val hasUnreportedChanges: Boolean get() = false
+
     /** The session is over or the file left the project: the buffer stops reporting changes. */
     fun close() {}
 }

@@ -59,6 +59,21 @@ class KitEditorBufferTest {
     }
 
     @Test
+    fun `a change is unreported until Compose has applied it, and a load leaves nothing unreported`() {
+        val (buffer, _) = buffer("A")
+        assertFalse(buffer.hasUnreportedChanges)
+
+        buffer.state.replace(1, 1, "B")
+        assertTrue(buffer.hasUnreportedChanges)
+        applied()
+        assertFalse(buffer.hasUnreportedChanges)
+
+        buffer.state.replace(2, 2, "C")
+        buffer.load("storage's version")
+        assertFalse(buffer.hasUnreportedChanges)
+    }
+
+    @Test
     fun `the text is a value that does not change afterwards`() {
         val (buffer, _) = buffer("before")
         val taken = buffer.text

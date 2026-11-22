@@ -148,6 +148,7 @@ class ProjectSession private constructor(
                 override fun snapshot(): CharSequence = buffer.text
                 override fun load(text: String) = buffer.load(text)
                 override fun edit(start: Int, end: Int, replacement: String) = buffer.edit(start, end, replacement)
+                override fun hasUnreportedChanges(): Boolean = buffer.hasUnreportedChanges
             },
         )
         documents[path] = document

@@ -181,16 +181,22 @@ class FakeEditor(initial: String) : LiveText {
     /** A real editor may report a load like any other change; the project must not take that for typing. */
     var echoesLoads = false
 
+    private var unreported = false
+
     /** The user changes the text to [newText]. */
     fun type(newText: String) {
         text = newText
+        unreported = false
         onChange()
     }
 
     /** The user changes the text and the editor has not reported it yet (the kit's reports within the frame). */
     fun typeUnreported(newText: String) {
         text = newText
+        unreported = true
     }
+
+    override fun hasUnreportedChanges(): Boolean = unreported
 
     override fun snapshot(): CharSequence {
         snapshots++

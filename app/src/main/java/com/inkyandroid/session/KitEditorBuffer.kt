@@ -37,8 +37,8 @@ class KitEditorBuffer(
 
     private var lineBreak = LineBreak.of(text)
 
-    /** The version [load] left: the change watcher does not report it. */
-    private var loadedVersion = state.version
+    /** The version last reported through [onTextChanged], or left by [load] (which is never reported). */
+    private var reportedVersion = state.version
     private var cachedVersion = -1
     private var cached = ""
     private var viewRow = 0
@@ -46,9 +46,16 @@ class KitEditorBuffer(
 
     init {
         watcher.launch {
-            snapshotFlow { state.version }.collect { version -> if (version != loadedVersion) onTextChanged?.invoke() }
+            snapshotFlow { state.version }.collect { version ->
+                if (version != reportedVersion) {
+                    reportedVersion = version
+                    onTextChanged?.invoke()
+                }
+            }
         }
     }
+
+    override val hasUnreportedChanges: Boolean get() = state.version != reportedVersion
 
     override val text: CharSequence
         get() {
@@ -65,7 +72,7 @@ class KitEditorBuffer(
         val at = state.cursorPosition
         lineBreak = LineBreak.of(text)
         state.setText(text)
-        loadedVersion = state.version
+        reportedVersion = state.version
         // the kit puts the cursor at the start; the writer stays where they were as far as the new text allows
         state.select(state.offsetOf(at.line.coerceAtMost(state.lineCount - 1), at.column))
         state.reveal(state.cursor)

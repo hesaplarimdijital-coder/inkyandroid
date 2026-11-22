@@ -117,6 +117,21 @@ class KitEditorSessionTest {
     }
 
     @Test
+    fun `a file with mixed line breaks, open and untouched, is reloaded silently when it changes outside`() = sessionTest {
+        onStorage("main.ink", "one\r\ntwo\nthree\r\n")
+        val session = open(kit = true)
+        val editor = kitEditor(session, "main.ink")
+        applied()
+
+        onStorage("main.ink", "one\r\ntwo\r\nthree, changed on the computer\r\n")
+        val report = session.syncWithStorage()
+
+        assertEquals(listOf("main.ink"), report?.reloaded)
+        assertTrue(session.project.state.value.conflicts.isEmpty())
+        assertEquals("one\ntwo\nthree, changed on the computer\n", editor.state.text)
+    }
+
+    @Test
     fun `an editor asked for after the session ended is not watched`() = sessionTest {
         onStorage("main.ink", "INCLUDE a.ink\n")
         onStorage("a.ink", "A\n")
