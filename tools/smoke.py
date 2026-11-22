@@ -810,6 +810,10 @@ class Smoke:
                  f"{shell('wm size').strip().splitlines()[-1] if shell('wm size').strip() else '?'}, "
                  f"density {self.density()}")
         self.wake()
+        # The launcher of these images often stops responding for a while after boot; its ANR
+        # dialog would cover the app. Without error dialogs Android still logs every ANR and crash
+        # (what the driver looks for) and kills an app that does not respond instead of asking.
+        shell("settings put global hide_error_dialogs 1")
         if self.profile == "phone":
             # the owner's phone uses three-button navigation, not gestures
             shell("cmd overlay enable-exclusive --category com.android.internal.systemui.navbar.threebutton")
