@@ -93,6 +93,8 @@ dependencies {
     implementation(libs.activity.compose)
     // Coroutines with Android's main thread; the same version :core is built with
     implementation(libs.coroutines.android)
+    // The ink manual's Markdown, parsed into the blocks the documentation screen draws
+    implementation(libs.commonmark)
 
     testImplementation(libs.junit)
     testImplementation(libs.coroutines.test)

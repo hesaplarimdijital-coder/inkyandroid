@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- app-extras: the names of the built-in snippets of the Ink menu, by the ids of :core's InkSnippets. -->
+<!-- English as upstream Inky names them (inkSnippets.js) -->
+<resources>
+    <string name="snippets_group">Snippets</string>
+    <!-- between the categories of a snippet in the palette: "Useful functions › Flow" -->
+    <string name="snippets_path_separator" translatable="false">" › "</string>
+    <string name="snippet_category_basic_structure">Basic structure</string>
+    <string name="snippet_knot">Knot (main section)</string>
+    <string name="snippet_stitch">Stitch (sub-section)</string>
+    <string name="snippet_divert">Divert</string>
+    <string name="snippet_ending">Ending indicator</string>
+    <string name="snippet_category_choices">Choices</string>
+    <string name="snippet_choice_basic">Basic Choice</string>
+    <string name="snippet_choice_sticky">Sticky choice</string>
+    <string name="snippet_choice_suppressed">Choice without printing</string>
+    <string name="snippet_choice_mixed">Choice with mixed output</string>
+    <string name="snippet_category_variables">Variables</string>
+    <string name="snippet_variable_global">Global variable</string>
+    <string name="snippet_variable_temporary">Temporary variable</string>
+    <string name="snippet_variable_modify">Modify variable</string>
+    <string name="snippet_variable_type">Get variable type</string>
+    <string name="snippet_category_inline_logic">Inline logic</string>
+    <string name="snippet_inline_condition">Condition</string>
+    <string name="snippet_category_multiline_logic">Multi-line logic</string>
+    <string name="snippet_multiline_condition">Condition</string>
+    <string name="snippet_category_comments">Comments</string>
+    <string name="snippet_comment_line">Single-line comment</string>
+    <string name="snippet_comment_block">Block comment</string>
+    <string name="snippet_category_list_handling">List-handling</string>
+    <string name="snippet_list_pop">List: pop</string>
+    <string name="snippet_list_pop_random">List: pop_random</string>
+    <string name="snippet_list_next_prev">List: LIST_NEXT and LIST_PREV</string>
+    <string name="snippet_list_item_is_member_of">List: list_item_is_member_of</string>
+    <string name="snippet_list_random_subset">List: list_random_subset</string>
+    <string name="snippet_list_random_subset_of_size">List: list_random_subset_of_size</string>
+    <string name="snippet_list_string_to_list">List: string_to_list</string>
+    <string name="snippet_category_useful_functions">Useful functions</string>
+    <string name="snippet_logic_maybe">Logic: maybe</string>
+    <string name="snippet_math_divisor">Mathematics: divisor</string>
+    <string name="snippet_math_abs">Mathematics: abs</string>
+    <string name="snippet_flow_came_from">Flow: came_from</string>
+    <string name="snippet_flow_seen_very_recently">Flow: seen_very_recently</string>
+    <string name="snippet_flow_seen_more_recently_than">Flow: seen_more_recently_than</string>
+    <string name="snippet_flow_seen_this_scene">Flow: seen_this_scene</string>
+    <string name="snippet_flow_thread_in_tunnel">Flow: thread_in_tunnel</string>
+    <string name="snippet_print_a_or_an">Printing: a (or an)</string>
+    <string name="snippet_print_uppercase">Printing: UPPERCASE</string>
+    <string name="snippet_print_number">Printing: print_number</string>
+    <string name="snippet_print_list_with_commas">Printing: list_with_commas</string>
+    <string name="snippet_category_useful_systems">Useful systems</string>
+    <string name="snippet_system_list_items_as_integers">List Items as Integer Variables</string>
+    <string name="snippet_system_swing_variables">Swing Variables</string>
+    <string name="snippet_system_storylets">Storylets</string>
+    <string name="snippet_category_full_stories">Full stories</string>
+    <string name="snippet_story_crime_scene">Crime Scene (from Writing with Ink)</string>
+    <string name="snippet_story_swindlestones">Swindlestones (from Sorcery!)</string>
+    <string name="snippet_story_pontoon">Pontoon Game (from Overboard!)</string>
+    <string name="snippet_story_intercept">The Intercept</string>
+</resources>

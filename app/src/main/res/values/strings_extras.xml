@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- app-extras: the documentation, settings, about and licences, statistics and export (com.inkyandroid.ui.extras). -->
+<resources>
+    <!-- statistics: upstream's "Word count and more" -->
+    <string name="statistics_title">Project statistics</string>
+    <string name="statistics_words">Words</string>
+    <string name="statistics_knots">Knots</string>
+    <string name="statistics_stitches">Stitches</string>
+    <string name="statistics_functions">Functions</string>
+    <string name="statistics_choices">Choices</string>
+    <string name="statistics_gathers">Gathers</string>
+    <string name="statistics_diverts">Diverts</string>
+    <string name="statistics_note">Words should be accurate. Knots include functions. Gathers and diverts may include some implicitly added ones by the compiler, for example in weave. Diverts include END and DONE.</string>
+    <string name="statistics_counting">Counting…</string>
+    <string name="statistics_failed">The statistics could not be computed: %1$s</string>
+    <string name="statistics_close">Close</string>
+
+    <!-- licences -->
+    <string name="licences_title">Open-source licences</string>
+    <string name="licences_note">The work of others this app is made with, and the licences it is shared under.</string>
+    <!-- documentation: the ink manual -->
+    <string name="docs_title">Documentation</string>
+    <string name="docs_subtitle">Writing with ink: the manual of the ink language, by inkle</string>
+    <string name="docs_contents">Contents</string>
+    <string name="docs_find">Find in the manual</string>
+    <string name="docs_find_hint">Find in the manual</string>
+    <string name="docs_find_position">%1$d / %2$d</string>
+    <string name="docs_find_none">No matches</string>
+    <plurals name="docs_find_results">
+        <item quantity="one">%d match</item>
+        <item quantity="other">%d matches</item>
+    </plurals>
+    <string name="docs_find_next">Next match</string>
+    <string name="docs_find_previous">Previous match</string>
+    <string name="docs_find_close">Close find</string>
+    <string name="docs_zoom_in">Larger text</string>
+    <string name="docs_zoom_out">Smaller text</string>
+    <string name="docs_copy">Copy the example</string>
+    <string name="docs_insert">Insert into the editor</string>
+</resources>
