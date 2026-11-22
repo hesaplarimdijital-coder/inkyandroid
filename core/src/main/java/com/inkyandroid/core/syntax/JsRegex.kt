@@ -37,6 +37,22 @@ internal object JsRegex {
     private const val WORD_BOUNDARY = "(?:(?<=$WORD_CLASS)(?!$WORD_CLASS)|(?<!$WORD_CLASS)(?=$WORD_CLASS))"
     private const val NOT_WORD_BOUNDARY = "(?:(?<=$WORD_CLASS)(?=$WORD_CLASS)|(?<!$WORD_CLASS)(?!$WORD_CLASS))"
 
+    /** Whether [c] is JavaScript white space or a line terminator (`\s`, and what `String.trim` removes). */
+    fun isJsWhitespace(c: Char): Boolean {
+        val code = c.code
+        for (k in SPACE.indices step 2) if (code in SPACE[k]..SPACE[k + 1]) return true
+        return false
+    }
+
+    /** JavaScript's `String.prototype.trim`. */
+    fun jsTrim(text: String): String {
+        var start = 0
+        var end = text.length
+        while (start < end && isJsWhitespace(text[start])) start++
+        while (end > start && isJsWhitespace(text[end - 1])) end--
+        return text.substring(start, end)
+    }
+
     /** Thrown for a source JavaScript itself would reject, or that Java cannot express. */
     class SyntaxException(message: String) : IllegalArgumentException(message)
 
