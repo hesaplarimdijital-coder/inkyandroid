@@ -105,7 +105,8 @@ class ShellSpecTest {
 
     @Test
     fun theEditorsOwnKeysAreListedButNeverRoutedFromTheActivity() {
-        listOf(Commands.UNDO, Commands.REDO, Commands.CUT, Commands.COPY, Commands.PASTE, Commands.SELECT_ALL).forEach { id ->
+        // find and replace, and the suggestions: the find bar's own fields answer Ctrl+F and Ctrl+H too
+        listOf(Commands.UNDO, Commands.REDO, Commands.CUT, Commands.COPY, Commands.PASTE, Commands.SELECT_ALL, Commands.FIND, Commands.REPLACE, Commands.COMPLETE).forEach { id ->
             assertEquals(id, EditorScope, shortcuts[id].scope)
         }
     }
