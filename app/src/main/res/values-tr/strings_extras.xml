@@ -46,6 +46,10 @@
     <string name="export_done_web">Web sürümü %1$s klasöründe</string>
     <!-- ayarlar: uygulamanın kendi bölümleri -->
     <string name="settings_editor">Düzenleyici</string>
+    <string name="settings_editor_face">Yazı tipi</string>
+    <string name="settings_editor_face_note">Inky’deki gibi eş aralıklı ya da düzyazının dizildiği orantılı yazı.</string>
+    <string name="settings_editor_face_mono">Eş aralıklı</string>
+    <string name="settings_editor_face_proportional">Orantılı</string>
     <string name="settings_soft_wrap">Uzun satırları kaydır</string>
     <string name="settings_soft_wrap_note">Düzenleyiciden geniş satırlar bir alt satırda sürer.</string>
     <string name="settings_line_numbers">Satır numaraları</string>

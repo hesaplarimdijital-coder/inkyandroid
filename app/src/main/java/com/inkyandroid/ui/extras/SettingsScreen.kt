@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import com.inkyandroid.R
 import com.inkyandroid.settings.AppSettings
+import com.inkyandroid.settings.EditorFace
 import com.inkyandroid.storage.PickedFolder
 import com.inkyandroid.storage.ProjectStorage
 import com.inkyandroid.storage.StorageContracts
@@ -32,6 +33,7 @@ import com.inkyandroid.ui.extras.settings.LicencesScreen
 import desktopkit.components.DeskButton
 import desktopkit.components.DeskIcons
 import desktopkit.components.KeyValueRow
+import desktopkit.components.SegmentedChoice
 import desktopkit.components.SettingRow
 import desktopkit.components.SwitchRow
 import desktopkit.input.ShortcutRegistry
@@ -134,10 +136,20 @@ private fun SettingsList(
     }
 }
 
-/** How the editor writes: wrapping, line numbers, completion, the keyboard's suggestions. */
+/** How the editor writes: its typeface, wrapping, line numbers, completion, the keyboard's suggestions. */
 @Composable
 private fun EditorSection(settings: AppSettings) {
     SettingsSection(stringResource(R.string.settings_editor)) {
+        SettingRow(stringResource(R.string.settings_editor_face), subtitle = stringResource(R.string.settings_editor_face_note)) {
+            SegmentedChoice(
+                options = listOf(
+                    EditorFace.Mono to stringResource(R.string.settings_editor_face_mono),
+                    EditorFace.Proportional to stringResource(R.string.settings_editor_face_proportional),
+                ),
+                selected = settings.editorFace,
+                onSelect = settings::updateEditorFace,
+            )
+        }
         SwitchRow(stringResource(R.string.settings_soft_wrap), settings.softWrap, settings::updateSoftWrap,
             subtitle = stringResource(R.string.settings_soft_wrap_note))
         SwitchRow(stringResource(R.string.settings_line_numbers), settings.lineNumbers, settings::updateLineNumbers)
