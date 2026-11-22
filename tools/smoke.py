@@ -58,6 +58,8 @@ LARGE_WINDOW_DP = 1200
 #   ["ime_type", "some text"] type by tapping the on-screen keyboard's keys (the IME's own path)
 #   ["key", "ENTER"]          one key event (KEYCODE_ENTER); ["key", "CTRL+K"] a key combination
 #   ["hide_keyboard"], ["back"], ["wait", seconds], ["wait_text", "Text", seconds]
+#   ["shell", "command"]      a device shell command, its output in the report
+#   ["save", "file.txt", "command"]  a device shell command, its output saved next to the report
 #
 # Checks (keyword arguments of step()):
 #   expect=["…"]      each text is visible (substring of a node's text or content description)
@@ -120,9 +122,26 @@ SCENARIO_0 = (
     ]
 )
 
+# A look at the on-screen keyboard in a system text field (Settings > About > Device name), to
+# learn how its keys can be tapped. Not an app test; run it with --scenarios ime-probe.
+SCENARIO_IME_PROBE = [
+    step("ime-probe-field", foreground=False, soft=True, do=[
+        ["shell", "am start -W -a android.settings.DEVICE_INFO_SETTINGS"],
+        ["tap", "Device name"],
+        ["wait", 3],
+        ["save", "ime-default.txt", "settings get secure default_input_method; ime list -s; "
+                                    "dumpsys input_method | grep -iE 'mInputShown|mCurImeId|inputShown'"],
+        ["save", "ime-window.txt", "dumpsys window windows | grep -iE -A40 'Window #[0-9]+ Window\\{[0-9a-f]+ u0 InputMethod'"],
+        ["save", "ime-dump-windows.xml", "uiautomator dump --windows /sdcard/w.xml >/dev/null 2>&1; cat /sdcard/w.xml"],
+        ["save", "ime-dump-active.xml", "uiautomator dump /sdcard/a.xml >/dev/null 2>&1; cat /sdcard/a.xml"],
+    ]),
+]
+
 SCENARIOS = {
     "0": dict(title="Skeleton: the setup screen, in English and Turkish, through the lifecycle",
               steps=SCENARIO_0),
+    "ime-probe": dict(title="The on-screen keyboard of a system text field (driver self-check)",
+                      steps=SCENARIO_IME_PROBE),
 }
 DEFAULT_SCENARIOS = ["0"]
 
@@ -526,6 +545,15 @@ class Smoke:
     def do_wait(self, seconds):
         time.sleep(float(seconds))
 
+    def do_shell(self, command):
+        out = shell(command, timeout=120).strip()
+        self.note(f"$ {command}" + (f"\n       {out[:400]}" if out else ""))
+
+    def do_save(self, filename, command):
+        with open(os.path.join(self.out, filename), "w") as f:
+            f.write(shell(command, timeout=120))
+        self.note(f"saved {filename}: $ {command}")
+
     def do_wait_text(self, text, seconds=30):
         deadline = time.time() + float(seconds)
         while time.time() < deadline:
@@ -629,6 +657,11 @@ class Smoke:
                  f"{shell('wm size').strip().splitlines()[-1] if shell('wm size').strip() else '?'}, "
                  f"density {self.density()}")
         self.wake()
+        if self.profile == "phone":
+            # the owner's phone uses three-button navigation, not gestures
+            shell("cmd overlay enable-exclusive --category com.android.internal.systemui.navbar.threebutton")
+            nav = shell("cmd overlay list android | grep -i navbar").strip().replace("\n", "; ")
+            self.log("navigation bar overlays: " + nav)
         # the launcher and other system apps are slow right after boot: let them settle
         time.sleep(20)
         self.wait_idle()
