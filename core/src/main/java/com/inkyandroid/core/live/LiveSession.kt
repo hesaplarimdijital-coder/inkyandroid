@@ -270,15 +270,22 @@ class LiveSession(
         for (command in commands) {
             try {
                 handle(command)
-            } catch (e: CancellationException) {
-                throw e
             } catch (e: Throwable) {
+                if (endsSession(e)) throw e
                 // Every handler already turns what the engine may do into state; this is for what
                 // nobody foresaw. The session must outlive it.
                 failUnexpectedly(command, e)
             }
         }
     }
+
+    /**
+     * The session itself was cancelled (its scope ended, or [close]): the one failure that ends it.
+     * Any other cancellation that reaches it, such as a timeout inside [sources] or a scope of the
+     * caller's that ended there, is a failure like any other, or the session would stop compiling
+     * for good without a word.
+     */
+    private fun endsSession(failure: Throwable): Boolean = failure is CancellationException && !job.isActive
 
     private suspend fun handle(command: Command) {
         when (command) {
@@ -328,9 +335,8 @@ class LiveSession(
         publishBusy(true)
         val result = try {
             compile(sources())
-        } catch (e: CancellationException) {
-            throw e
         } catch (e: Throwable) {
+            if (endsSession(e)) throw e
             crashed(e)
         }
         // An edit arrived while this ran: its text is not what was compiled. Stay busy; the pause
@@ -540,17 +546,15 @@ class LiveSession(
             is CompileResult.Failed -> ExportResult.HasErrors(result.issues)
             is CompileResult.Crashed -> ExportResult.Crashed(result.message)
         }
-    } catch (e: CancellationException) {
-        throw e
     } catch (e: Throwable) {
+        if (endsSession(e)) throw e
         ExportResult.Crashed(e.message ?: e.javaClass.simpleName)
     }
 
     private suspend fun <T> guarded(fallback: T, block: suspend () -> T): T = try {
         block()
-    } catch (e: CancellationException) {
-        throw e
     } catch (e: Throwable) {
+        if (endsSession(e)) throw e
         fallback
     }
 

@@ -94,6 +94,30 @@ class LiveSessionFailureTest {
     }
 
     @Test
+    fun aCancellationThatIsNotTheSessionsOwnIsAFailureLikeAnyOther() = runTest {
+        // A timeout inside the sources provider, or a scope of the caller's that ended there: the
+        // session lives on, says what happened, and works again once the provider does.
+        val live = LiveHarness(this, LiveStories.forest)
+        live.sourcesFailure = CancellationException("the project's scope ended")
+        live.load()
+        assertEquals(CompileStatus.Crashed, live.state.compile)
+        assertEquals("CRASH the project's scope ended", live.shown().single())
+        assertFalse(live.state.busy)
+
+        val statistics = async { live.session.statistics() }
+        val export = async { live.session.exportJson() }
+        live.settle()
+        assertNull(statistics.await())
+        assertEquals(ExportResult.Crashed("the project's scope ended"), export.await())
+
+        live.sourcesFailure = null
+        live.session.reloadNow()
+        live.settle()
+        assertEquals(CompileStatus.Ok, live.state.compile)
+        assertEquals(4, live.shown().size)
+    }
+
+    @Test
     fun aPlaythroughThatCannotStartIsAStoppedStory() = runTest {
         val live = LiveHarness(this, LiveStories.forest)
         live.engine.playFailure = IllegalStateException("no playthrough")
