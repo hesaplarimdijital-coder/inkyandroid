@@ -1,0 +1,23 @@
+{
+ "stackNodes": [],
+ "lines": [
+  ["punctuation.definition.comment.json0",["punctuation.definition.comment.json","/*"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tTests if the flow passes a particular gather on this turn."]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tUsage: "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t- (welcome)"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t\"Welcome!\""]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t- (opts)"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t*\t{came_from(->welcome)}"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t\t\"Welcome to you!\""]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t*\t\"Er, what?\""]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t\t-> opts"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t*\t\"Can we get on with it?\""]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t\t"]],
+  ["start",["punctuation.definition.comment.json","*/"]],
+  ["start"],
+  ["start",["flow.knot.declaration.punctuation","==="],["flow.knot.declaration"," "],["flow.knot.declaration.function","function"],["flow.knot.declaration"," "],["flow.knot.declaration.name","came_from"],["flow.knot.declaration.parameters","(-> x)"],["flow.knot.declaration"," "]],
+  ["start",["logic.tilda","    ~ return TURNS_SINCE(x) == 0"]]
+ ]
+}

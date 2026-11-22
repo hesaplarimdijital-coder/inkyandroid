@@ -1,0 +1,870 @@
+{
+ "root": [
+  {
+   "name": "knot_one",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 40,
+   "column": 4
+  },
+  {
+   "name": "knot_two",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 41,
+   "column": 3
+  },
+  {
+   "name": "knot_three",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 42,
+   "column": 7
+  },
+  {
+   "name": "add",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 43,
+   "column": 13
+  },
+  {
+   "name": "noArgs",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 44,
+   "column": 13
+  },
+  {
+   "name": "knot_params",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 45,
+   "column": 5
+  },
+  {
+   "name": "function",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 46,
+   "column": 3
+  },
+  {
+   "name": "123",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 47,
+   "column": 4,
+   "children": [
+    {
+     "name": "stitch_one",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 48,
+     "column": 2
+    },
+    {
+     "name": "stitch_two",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 49,
+     "column": 1
+    },
+    {
+     "name": "stitch_three",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 50,
+     "column": 6
+    },
+    {
+     "name": "function",
+     "flowType": "Stitch",
+     "isfunc": false,
+     "row": 51,
+     "column": 2,
+     "children": [
+      {
+       "name": "label_one",
+       "flowType": "Choice",
+       "isfunc": false,
+       "row": 80,
+       "column": 3
+      },
+      {
+       "name": "spaced_label",
+       "flowType": "Choice",
+       "isfunc": false,
+       "row": 81,
+       "column": 4
+      },
+      {
+       "name": "nospace",
+       "flowType": "Choice",
+       "isfunc": false,
+       "row": 82,
+       "column": 2
+      },
+      {
+       "name": "gather_label",
+       "flowType": "Gather",
+       "isfunc": false,
+       "row": 103,
+       "column": 3
+      },
+      {
+       "name": "spaced",
+       "flowType": "Gather",
+       "isfunc": false,
+       "row": 104,
+       "column": 4
+      },
+      {
+       "name": "nospace",
+       "flowType": "Gather",
+       "isfunc": false,
+       "row": 105,
+       "column": 2
+      }
+     ],
+     "innerKeys": ["label_one","spaced_label","nospace","gather_label","spaced"],
+     "innerValues": ["80:3:label_one","81:4:spaced_label","105:2:nospace","103:3:gather_label","104:4:spaced"]
+    }
+   ],
+   "innerKeys": ["stitch_one","stitch_two","stitch_three","function"],
+   "innerValues": ["48:2:stitch_one","49:1:stitch_two","50:6:stitch_three","51:2:function"]
+  },
+  {
+   "name": "tab_knot",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 167,
+   "column": 5
+  },
+  {
+   "name": "knot_after_em_space",
+   "flowType": "Knot",
+   "isfunc": false,
+   "row": 171,
+   "column": 5
+  }
+ ],
+ "topLevelKeys": ["123","knot_one","knot_two","knot_three","add","noArgs","knot_params","function","tab_knot","knot_after_em_space"],
+ "topLevelValues": ["47:4:123","40:4:knot_one","41:3:knot_two","42:7:knot_three","43:13:add","44:13:noArgs","45:5:knot_params","46:3:function","167:5:tab_knot","171:5:knot_after_em_space"],
+ "includes": ["includes/first.ink","other.ink  // not a comment: an include path runs to the end of the line","indented.ink","INCLUDEX notakeyword"],
+ "lastIncludeRow": 10,
+ "globalTags": ["title: The Torture Test","author: Somebody","1: numbered key","notdict","some tag","one # two","three"],
+ "dictionaryTags": [["1","numbered key"],["title","The Torture Test"],["author","Somebody"]],
+ "divertTargets": ["knot_one","knot_two","knot_three","add","noArgs","knot_params","function","123","stitch_one","stitch_two","stitch_three","knot_one.stitch_one","knot","thread_knot","tunnel_knot","knot_after_tunnel","knot_with_args","other_knot","target.stitch","a","b.c","unclosed_args","divert_in_text","two","diverts","label_one","spaced_label","nospace","gather_label","spaced","with","not_a_gather","divert_in_sequence","not_a_branch","tab_knot","divert_after_em_space","knot_after_em_space"],
+ "variables": ["health","100","name","Bar","MAX_HEALTH","200","spaced","3","colours","red","green","blue","5","mood","happy","sad","playSound","multiply","noParams","inside","1"],
+ "externals": ["playSound","multiply","noParams"],
+ "vocabWords": ["VARIABLE","not_a_declaration","EXTERNALS","not_external","TODOS","are","not","todos","Plain","prose","with","words","numbers","123","and","kan","renci","imdi","Glue","the","end","glue","start","Escapes","escape","tag","Tags","text","after","two","closes","arguments","next","line","Some","more","out","bracket","opened","choices","have","rule","Text","sequence","shuffle","cycle","once","odd","spaced","double","pipe","whose","swallowed","closed","trailing","TURNS_SINCE","CHOICE_COUNT","LIST_COUNT","colours","Tabs","tabs","Unicode","spaces","nbsp","ideographic","bom","comment","separator","inside","paragraph","rds","zel","stanbul","Emoji","nicode_target","nicode_knot","CAMERA","Wide","shot","indented","instruction","before","dollar","Line","CRLF","ending","Another","lone","xxxxxxxxxx","The"],
+ "symbolAtRow": ["40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","40:4:knot_one","41:3:knot_two","42:7:knot_three","43:13:add","44:13:noArgs","45:5:knot_params","46:3:function","48:2:stitch_one","48:2:stitch_one","49:1:stitch_two","50:6:stitch_three","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","80:3:label_one","81:4:spaced_label","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","82:2:nospace","103:3:gather_label","104:4:spaced","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","105:2:nospace","167:5:tab_knot","167:5:tab_knot","167:5:tab_knot","167:5:tab_knot","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space","171:5:knot_after_em_space"],
+ "flowAtRow": [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+   "Knot": "40:4:knot_one"
+  },
+  {
+   "Knot": "41:3:knot_two"
+  },
+  {
+   "Knot": "42:7:knot_three"
+  },
+  {
+   "Knot": "43:13:add"
+  },
+  {
+   "Knot": "44:13:noArgs"
+  },
+  {
+   "Knot": "45:5:knot_params"
+  },
+  {
+   "Knot": "46:3:function"
+  },
+  {
+   "Knot": "47:4:123"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "48:2:stitch_one"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "49:1:stitch_two"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "50:6:stitch_three"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "80:3:label_one"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "81:4:spaced_label"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Choice": "82:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "103:3:gather_label"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "104:4:spaced"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "47:4:123",
+   "Stitch": "51:2:function",
+   "Gather": "105:2:nospace"
+  },
+  {
+   "Knot": "167:5:tab_knot"
+  },
+  {
+   "Knot": "167:5:tab_knot"
+  },
+  {
+   "Knot": "167:5:tab_knot"
+  },
+  {
+   "Knot": "167:5:tab_knot"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  },
+  {
+   "Knot": "171:5:knot_after_em_space"
+  }
+ ]
+}

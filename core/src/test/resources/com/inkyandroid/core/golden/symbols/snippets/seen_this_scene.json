@@ -1,0 +1,119 @@
+{
+ "root": [
+  {
+   "name": "seen_this_scene",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 34,
+   "column": 13
+  },
+  {
+   "name": "seen_more_recently_than",
+   "flowType": "Knot",
+   "isfunc": true,
+   "row": 42,
+   "column": 13
+  }
+ ],
+ "topLevelKeys": ["seen_this_scene","seen_more_recently_than"],
+ "topLevelValues": ["34:13:seen_this_scene","42:13:seen_more_recently_than"],
+ "includes": [],
+ "lastIncludeRow": -1,
+ "globalTags": [],
+ "dictionaryTags": [],
+ "divertTargets": ["seen_this_scene","seen_more_recently_than"],
+ "variables": ["sceneStart","seen_this_scene"],
+ "externals": [],
+ "vocabWords": [],
+ "symbolAtRow": ["34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","34:13:seen_this_scene","42:13:seen_more_recently_than","42:13:seen_more_recently_than","42:13:seen_more_recently_than","42:13:seen_more_recently_than","42:13:seen_more_recently_than","42:13:seen_more_recently_than","42:13:seen_more_recently_than","42:13:seen_more_recently_than","42:13:seen_more_recently_than","42:13:seen_more_recently_than"],
+ "flowAtRow": [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {},
+  {
+   "Knot": "34:13:seen_this_scene"
+  },
+  {
+   "Knot": "34:13:seen_this_scene"
+  },
+  {
+   "Knot": "34:13:seen_this_scene"
+  },
+  {
+   "Knot": "34:13:seen_this_scene"
+  },
+  {
+   "Knot": "34:13:seen_this_scene"
+  },
+  {
+   "Knot": "34:13:seen_this_scene"
+  },
+  {
+   "Knot": "34:13:seen_this_scene"
+  },
+  {
+   "Knot": "34:13:seen_this_scene"
+  },
+  {
+   "Knot": "42:13:seen_more_recently_than"
+  },
+  {
+   "Knot": "42:13:seen_more_recently_than"
+  },
+  {
+   "Knot": "42:13:seen_more_recently_than"
+  },
+  {
+   "Knot": "42:13:seen_more_recently_than"
+  },
+  {
+   "Knot": "42:13:seen_more_recently_than"
+  },
+  {
+   "Knot": "42:13:seen_more_recently_than"
+  },
+  {
+   "Knot": "42:13:seen_more_recently_than"
+  },
+  {
+   "Knot": "42:13:seen_more_recently_than"
+  },
+  {
+   "Knot": "42:13:seen_more_recently_than"
+  },
+  {
+   "Knot": "42:13:seen_more_recently_than"
+  }
+ ]
+}
