@@ -1,15 +1,12 @@
-node_modules
-*.sublime-workspace
-Inky-darwin-x64
-Inky-darwin-arm64
-Inky-darwin-universal
-Inky-win32-x64
-Inky-win32-ia32
-Inky-linux-x64
-Inky_windows.zip
-ReleaseUpload
-app/renderer/documentation/
+.gradle/
+build/
+local.properties
 .idea/
-*.AppImage
-AppImage
+*.iml
 .DS_Store
+captures/
+.kotlin/
+# signing keys never enter the repository
+*.p12
+*.jks
+*.keystore
