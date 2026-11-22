@@ -53,6 +53,7 @@ LARGE_WINDOW_DP = 1200
 #   ["rotate", "flip"|"natural"|"landscape"|"portrait"]
 #   ["tap", "Text"]           tap the node whose text or content description is exactly "Text"
 #   ["tap_contains", "Te"]    … that contains "Te"
+#   ["tap_field", 1]          tap the first text field (EditText, top to bottom), e.g. the editor
 #   ["long_press", "Text"]
 #   ["type", "some text"]     type with key events (`input text`), as a hardware keyboard does
 #   ["ime_type", "some text"] type by tapping the on-screen keyboard's keys (the IME's own path)
@@ -63,6 +64,7 @@ LARGE_WINDOW_DP = 1200
 #
 # Checks (keyword arguments of step()):
 #   expect=["…"]      each text is visible (substring of a node's text or content description)
+#   played=["…"]      … visible outside the text fields (the player shows it, not only the editor)
 #   absent=["…"]      none of these is visible
 #   foreground=True   the app's activity is the resumed one (default True; False after ["home"])
 #   same_process=True the app's process is the one of the previous step (it was not restarted)
@@ -74,9 +76,9 @@ LARGE_WINDOW_DP = 1200
 # ---------------------------------------------------------------------------------------------
 
 
-def step(name, do=(), expect=(), absent=(), foreground=True, same_process=False, new_process=False,
+def step(name, do=(), expect=(), played=(), absent=(), foreground=True, same_process=False, new_process=False,
          wide=None, only=None, soft=False):
-    return dict(name=name, do=[list(a) for a in do], expect=list(expect), absent=list(absent),
+    return dict(name=name, do=[list(a) for a in do], expect=list(expect), played=list(played), absent=list(absent),
                 foreground=foreground, same_process=same_process, new_process=new_process,
                 wide=wide, only=only, soft=soft)
 
@@ -127,8 +129,10 @@ SCENARIO_0 = (
 SCENARIO_IME_PROBE = [
     step("ime-probe-field", foreground=False, soft=True, do=[
         ["shell", "am start -W -a android.settings.DEVICE_INFO_SETTINGS"],
-        ["tap", "Device name"],
+        # Settings never goes idle for uiautomator here: the row is tapped where it is drawn
+        ["shell", "input tap 300 923"],
         ["wait", 3],
+        ["save", "ime-dumpsys-ime.txt", "dumpsys input_method"],
         ["save", "ime-default.txt", "settings get secure default_input_method; ime list -s; "
                                     "dumpsys input_method | grep -iE 'mInputShown|mCurImeId|inputShown'"],
         ["save", "ime-window.txt", "dumpsys window windows | grep -iE -A40 'Window #[0-9]+ Window\\{[0-9a-f]+ u0 InputMethod'"],
@@ -137,9 +141,84 @@ SCENARIO_IME_PROBE = [
     ]),
 ]
 
+# Scenario 1: the real app (architecture 4.3): write, play, issues, files, the manual, settings,
+# and the text surviving a force-stop; on the tablet the large window's menu bar, sidebar, side by
+# side workspace, the command palette and shortcuts. The app's texts it looks for are collected
+# here; they are checked against the app as its screens land on android-port.
+S1 = dict(
+    write="Write", play="Play", files="Files", more="More", issues="Issues", docs="Manual",
+    settings="Settings", step_back="Step back", restart="Restart",
+    menus=["File", "Edit", "View", "Story", "Ink", "Help"],
+    main_file="main.ink",
+    # a line of the sample project's ink, and what the player shows of it
+    sample_ink="Once upon a time",
+    sample_story="Once upon a time",
+    sample_choice="There were two choices.",
+    after_choice="They lived happily ever after.",
+    palette_hint="Go to anything",
+    find_hint="Find",
+    manual_text="Writing with ink",
+    settings_text="Autosave",
+)
+TYPED = "Smoke line from keys."
+IME_TYPED = "imeword"
+MISSING_KNOT = "smoke_missing_knot"
+
+_s1_type_first_line = [["tap_field", 1], ["key", "CTRL+MOVE_HOME"]]
+
+SCENARIO_1_PHONE = [
+    step("s1-cold-start", only="phone", do=[["locale", "en-US"], ["cold_start"]],
+         expect=[S1["write"], S1["play"], S1["files"], S1["sample_ink"]], new_process=True),
+    step("s1-play", only="phone", do=[["tap", S1["play"]]], played=[S1["sample_story"], S1["sample_choice"]]),
+    step("s1-type-line", only="phone",
+         do=[["tap", S1["write"]]] + _s1_type_first_line + [["type", TYPED], ["key", "ENTER"]], expect=[TYPED]),
+    step("s1-type-on-screen-keyboard", only="phone",
+         do=_s1_type_first_line + [["ime_type", IME_TYPED + " "]], expect=[IME_TYPED]),
+    step("s1-play-typed", only="phone", do=[["hide_keyboard"], ["tap", S1["play"]]], played=[TYPED, IME_TYPED]),
+    step("s1-choose", only="phone", do=[["tap", S1["sample_choice"]]], played=[S1["after_choice"]]),
+    step("s1-step-back", only="phone", do=[["tap", S1["step_back"]]], played=[S1["sample_choice"]]),
+    step("s1-restart", only="phone", do=[["tap", S1["restart"]]], played=[TYPED]),
+    step("s1-error", only="phone",
+         do=[["tap", S1["write"]]] + _s1_type_first_line +
+            [["type", "-> " + MISSING_KNOT], ["key", "ENTER"], ["hide_keyboard"], ["wait", 3],
+             ["tap", S1["more"]], ["tap", S1["issues"]]],
+         played=[MISSING_KNOT]),
+    step("s1-error-fixed", only="phone",
+         do=[["tap", S1["write"]]] + _s1_type_first_line +
+            [["key", "SHIFT+DPAD_DOWN"], ["key", "DEL"], ["hide_keyboard"], ["wait", 3],
+             ["tap", S1["more"]], ["tap", S1["issues"]]],
+         absent=[MISSING_KNOT]),
+    step("s1-files", only="phone", do=[["tap", S1["files"]]], expect=[S1["main_file"]]),
+    step("s1-manual", only="phone", do=[["tap", S1["more"]], ["tap", S1["docs"]]], expect=[S1["manual_text"]]),
+    step("s1-settings", only="phone", do=[["back"], ["tap", S1["more"]], ["tap", S1["settings"]]],
+         expect=[S1["settings_text"]]),
+    step("s1-text-survives-force-stop", only="phone",
+         do=[["home"], ["force_stop"], ["launch"], ["tap", S1["write"]]], expect=[TYPED], new_process=True),
+]
+
+SCENARIO_1_TABLET = [
+    step("s1-large-cold-start", only="tablet", do=[["locale", "en-US"], ["cold_start"]], wide=True,
+         expect=S1["menus"] + [S1["main_file"], S1["sample_ink"]], played=[S1["sample_story"]], new_process=True),
+    step("s1-large-type-line", only="tablet", do=_s1_type_first_line + [["type", TYPED], ["key", "ENTER"]],
+         expect=[TYPED], played=[TYPED]),
+    step("s1-large-choose", only="tablet", do=[["tap", S1["sample_choice"]]], played=[S1["after_choice"]]),
+    step("s1-large-palette", only="tablet", do=[["key", "CTRL+K"]], expect=[S1["palette_hint"]]),
+    step("s1-large-palette-closed", only="tablet", do=[["key", "ESCAPE"]], absent=[S1["palette_hint"]]),
+    step("s1-large-find", only="tablet", do=[["tap_field", 1], ["key", "CTRL+F"]], expect=[S1["find_hint"]]),
+    step("s1-large-file-menu", only="tablet", do=[["key", "ESCAPE"], ["tap", S1["menus"][0]]], soft=True),
+    step("s1-large-issues", only="tablet",
+         do=[["key", "ESCAPE"]] + _s1_type_first_line + [["type", "-> " + MISSING_KNOT], ["key", "ENTER"],
+                                                         ["wait", 3], ["tap", S1["issues"]]],
+         played=[MISSING_KNOT]),
+    step("s1-large-text-survives-force-stop", only="tablet", do=[["force_stop"], ["launch"]],
+         expect=[TYPED], new_process=True),
+]
+
 SCENARIOS = {
     "0": dict(title="Skeleton: the setup screen, in English and Turkish, through the lifecycle",
               steps=SCENARIO_0),
+    "1": dict(title="The app: write, play, issues, files, manual, settings; the large window's workspace",
+              steps=SCENARIO_1_PHONE + SCENARIO_1_TABLET),
     "ime-probe": dict(title="The on-screen keyboard of a system text field (driver self-check)",
                       steps=SCENARIO_IME_PROBE),
 }
@@ -386,7 +465,8 @@ class Smoke:
                 return nodes
             previous = sig
             time.sleep(0.8)
-        self.note(f"the UI did not settle within {timeout} s")
+        self.note(f"the UI did not settle within {timeout} s" if nodes else
+                  "uiautomator could not read the screen (it never went idle)")
         return nodes or []
 
     @staticmethod
@@ -518,6 +598,17 @@ class Smoke:
     def do_tap(self, label):
         self.tap_label(label)
 
+    def fields(self, nodes):
+        found = [n for n in nodes if n.cls == "android.widget.EditText" and n.visible()]
+        return sorted(found, key=lambda n: (n.bounds[1], n.bounds[0]))
+
+    def do_tap_field(self, index=1):
+        fields = self.fields(self.wait_idle(timeout=8))
+        if len(fields) < int(index):
+            raise StepFailure(f"there is no text field {index} on the screen ({len(fields)} found)")
+        self.tap_xy(*fields[int(index) - 1].center())
+        time.sleep(1)
+
     def do_tap_contains(self, label):
         self.tap_label(label, exact=False)
 
@@ -596,6 +687,12 @@ class Smoke:
             checks.append(("seen" if ok else "MISSING") + f" '{text}'")
             if not ok:
                 self.problem(f"'{text}' is not on the screen")
+        outside = self.visible_labels([n for n in nodes if n.cls != "android.widget.EditText"])
+        for text in st["played"]:
+            ok = any(text in t for t in outside)
+            checks.append(("played" if ok else "NOT PLAYED") + f" '{text}'")
+            if not ok:
+                self.problem(f"'{text}' is not on the screen outside the text fields")
         for text in st["absent"]:
             ok = not any(text in t for t in labels)
             checks.append(("absent" if ok else "PRESENT") + f" '{text}'")
