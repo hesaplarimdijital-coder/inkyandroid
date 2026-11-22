@@ -1,0 +1,171 @@
+++ ls apk/app-release.apk
+++ head -1
++ APK=apk/app-release.apk
++ adb devices
+List of devices attached
+emulator-5554	device
+
++ ls -l /dev/kvm
+crw-rw-rw- 1 root kvm 10, 232 Nov 22 21:22 /dev/kvm
++ nproc
+4
++ uptime
+ 21:22:44 up 1 min,  0 users,  load average: 2.24, 0.77, 0.28
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:           15983        4771        4538          46        7064       11211
+Swap:           3071           0        3071
++ adb shell getprop ro.build.version.release
+14
++ adb shell getprop ro.build.version.sdk
+34
++ adb shell getprop ro.product.model
+sdk_gphone64_x86_64
++ adb shell wm size
+Physical size: 1080x2400
++ adb shell wm density
+Physical density: 420
++ adb shell getprop persist.sys.locale
+
++ adb shell getprop sys.boot_completed
+1
++ adb shell top -b -n 1 -m 15
+Tasks: 296 total,   4 running, 292 sleeping,   0 stopped,   0 zombie
+  Mem:  3050432K total,  2947080K used,   103352K free,    21048K buffers
+ Swap:  2287820K total,        0K used,  2287820K free,  2132972K cached
+300%cpu  73%user  19%nice 112%sys   8%idle   4%iow   0%irq   4%sirq  96%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+  535 system       18  -2  15G 367M 267M S 46.1  12.3   0:17.54 system_server
+  871 u0_a168      20   0  14G 246M 138M S 26.9   8.2   0:02.64 com.android.systemui
+ 1604 u0_a143      10 -10  13G 171M 111M S 23.0   5.7   0:00.27 com.google.android.inputmethod.latin
+ 1635 u0_a119      20   0  13G 111M  60M S 15.3   3.7   0:00.10 com.google.android.apps.wellbeing
+ 1829 shell        20   0  10G 5.0M 4.2M R 11.5   0.1   0:00.01 top -b -n 1 -m 15
+  461 logd         30  10  10G 3.8M 3.0M S 11.5   0.1   0:01.53 logcat -f /dev/hvc1 *:V
+ 1732 u0_a173      20   0  13G  90M  42M R  7.6   3.0   0:00.01 com.google.android.providers.media.module
+  541 root          0 -20    0    0    0 I  7.6   0.0   0:00.76 [kworker/2:3H-kverityd]
+  413 system       -3  -8  10G  39M  25M S  7.6   1.3   0:13.01 surfaceflinger
+  395 system       -3  -8  11G  29M  15M S  7.6   0.9   0:00.72 android.hardware.graphics.composer3-service.ranchu
+ 1784 u0_a127      20   0  14G  72M  24M S  3.8   2.4   0:00.00 <pre-initialized>
+ 1736 u0_a128      20   0  13G  91M  43M S  3.8   3.0   0:00.02 com.google.process.gservices
+ 1541 u0_a85       20   0  13G  92M  44M S  3.8   3.1   0:00.02 android.process.acore
+ 1464 u0_a128      20   0  13G 163M 100M S  3.8   5.4   0:00.70 com.google.android.gms.persistent
+ 1145 u0_a169      20   0  13G 107M  58M S  3.8   3.5   0:00.05 com.google.android.apps.nexuslauncher
++ adb root
++ sleep 3
++ adb wait-for-device
++ adb shell id
+uid=0(root) gid=0(root) groups=0(root),1004(input),1007(log),1011(adb),1015(sdcard_rw),1028(sdcard_r),1078(ext_data_rw),1079(ext_obb_rw),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats),3009(readproc),3011(uhid),3012(readtracefs) context=u:r:su:s0
++ adb logcat -G 16M
++ python3 tools/smoke.py apk/app-release.apk smoke-out --profile phone --scenarios 0
+Inky device smoke: profile phone, sdk_gphone64_x86_64, Android 14 (API 34), Physical size: 1080x2400, density 420
+installed app-release.apk
+
+== Scenario 0: Skeleton: the setup screen, in English and Turkish, through the lifecycle
+[01] en-cold-start: PASS   (01-en-cold-start.png, 1080x2400 px, 411 dp wide)
+     do: locale en-US; cold_start
+     device language already en-US
+     launch: COLD 1786 ms
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; new process 4832
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[02] en-compact-window: PASS   (02-en-compact-window.png, 1080x2400 px, 411 dp wide)
+     checks: seen 'Story'
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[03] en-rotated: PASS   (03-en-rotated.png, 2400x1080 px, 914 dp wide)
+     do: rotate flip
+     rotated: 1080x2400 -> 2400x1080 px
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; same process 4832
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[04] en-rotated-back: PASS   (04-en-rotated-back.png, 1080x2400 px, 411 dp wide)
+     do: rotate natural
+     rotated: 2400x1080 -> 1080x2400 px
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; same process 4832
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[05] en-background: PASS   (05-en-background.png, 1080x2400 px, 411 dp wide)
+     do: home
+     checks: absent 'Inky is being set up'
+     visible: Sun, Nov 22 | Gmail | Photos | YouTube | Home | Phone | Messages | Chrome | Inky | Predicted app: Inky | Search | Google app | Voice search | Google Lens
+[06] en-foreground: PASS   (06-en-foreground.png, 1080x2400 px, 411 dp wide)
+     do: launch
+     launch: HOT 238 ms
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; same process 4832
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[07] en-process-death-restored: PASS   (07-en-process-death-restored.png, 1080x2400 px, 411 dp wide)
+     do: home; kill_background; launch
+     process 4832 killed in the background
+     launch: COLD 1231 ms
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; new process 6413
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[08] en-force-stop-relaunch: PASS   (08-en-force-stop-relaunch.png, 1080x2400 px, 411 dp wide)
+     do: force_stop; launch
+     launch: COLD 989 ms
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; new process 6522
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[09] tr-cold-start: PASS   (09-tr-cold-start.png, 1080x2400 px, 411 dp wide)
+     do: locale tr-TR; cold_start
+     device language switched to tr-TR (framework restarted)
+     launch: COLD 3760 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; absent 'Inky is being set up'; new process 9400
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Hikâye
+[10] tr-rotated: PASS   (10-tr-rotated.png, 2400x1080 px, 914 dp wide)
+     do: rotate flip
+     rotated: 1080x2400 -> 2400x1080 px
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; same process 9400
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Hikâye
+[11] tr-rotated-back: PASS   (11-tr-rotated-back.png, 1080x2400 px, 411 dp wide)
+     do: rotate natural
+     rotated: 2400x1080 -> 1080x2400 px
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; same process 9400
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Hikâye
+[12] tr-background: PASS   (12-tr-background.png, 1080x2400 px, 411 dp wide)
+     do: home
+     checks: absent 'Inky kuruluyor'
+     visible: 22 Kasım Paz | Gmail | Fotoğraflar | YouTube | Ana ekran | Telefon | Mesajlar | Chrome | Tahmin edilen uygulama: Gmail | Ara | Google uygulaması | Sesli arama | Google Lens
+[13] tr-foreground: PASS   (13-tr-foreground.png, 1080x2400 px, 411 dp wide)
+     do: launch
+     launch: HOT 247 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; same process 9400
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Hikâye
+[14] tr-process-death-restored: PASS   (14-tr-process-death-restored.png, 1080x2400 px, 411 dp wide)
+     do: home; kill_background; launch
+     process 9400 killed in the background
+     launch: COLD 918 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; new process 10935
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Hikâye
+[15] tr-force-stop-relaunch: PASS   (15-tr-force-stop-relaunch.png, 1080x2400 px, 411 dp wide)
+     do: force_stop; launch
+     launch: COLD 906 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; new process 11046
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Hikâye
+[16] en-again: PASS   (16-en-again.png, 1080x2400 px, 411 dp wide)
+     do: locale en-US; cold_start
+     device language switched to en-US (framework restarted)
+     launch: COLD 2250 ms
+     checks: seen 'Inky is being set up'; absent 'Inky kuruluyor'
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+
+language changes: the device language
+RESULT: PASS
++ uptime
+ 21:26:52 up 5 min,  0 users,  load average: 5.65, 3.49, 1.55
++ adb shell top -b -n 1 -m 15
+Tasks: 374 total,   1 running, 373 sleeping,   0 stopped,   0 zombie
+  Mem:  3050432K total,  2829984K used,   220448K free,     6788K buffers
+ Swap:  2287820K total,    98560K used,  2189260K free,  1311432K cached
+300%cpu   4%user   4%nice  12%sys 281%idle   0%iow   0%irq   0%sirq   0%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+11521 u0_a168      20   0  13G 249M 140M S 15.3   8.3   0:06.99 com.android.systemui
+14850 root         20   0  10G 5.1M 4.3M R  3.8   0.1   0:00.01 top -b -n 1 -m 15
+13035 system       20   0  13G  90M  42M S  3.8   3.0   0:00.01 com.android.localtransport
+11327 system       18  -2  15G 325M 214M S  3.8  10.9   0:11.24 system_server
+  368 system       20   0  10G 4.9M 4.5M S  3.8   0.1   0:02.34 android.hardware.sensors-service.multihal
+   14 root         -2   0    0    0    0 I  3.8   0.0   0:00.72 [rcu_preempt]
+14508 u0_a138      20   0  13G 103M  55M S  0.0   3.4   0:00.02 com.google.android.marvin.talkback
+14465 u0_a171      20   0  13G  91M  43M S  0.0   3.0   0:00.02 com.google.android.healthconnect.controller
+14447 u0_a128      20   0  13G 159M 102M S  0.0   5.3   0:00.28 com.google.android.gms.ui
+14411 u0_a166      20   0  13G  91M  43M S  0.0   3.0   0:00.02 com.android.emergency
+14330 u0_a192      10 -10  13G 154M  90M S  0.0   5.1   0:00.81 com.inkyandroid
+14228 u0_a118      20   0  13G 231M 140M S  0.0   7.7   0:01.31 com.google.android.settings.intelligence
+14158 u0_a191      20   0  13G 101M  52M S  0.0   3.3   0:00.06 com.google.android.rkpdapp
+14103 u0_a123      20   0  13G  91M  43M S  0.0   3.0   0:00.02 com.google.android.projection.gearhead:shared
+14053 u0_a124      20   0  13G  98M  50M S  0.0   3.2   0:00.06 com.google.android.partnersetup
++ exit 0
