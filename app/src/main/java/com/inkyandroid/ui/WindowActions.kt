@@ -537,6 +537,15 @@ class WindowActions(
         return true
     }
 
+    /** Inserts the custom snippet whose key [event] is (the project's settings give it one); false when none has it. */
+    fun performSnippetKey(event: android.view.KeyEvent): Boolean {
+        val custom = session?.state?.value?.projectSettings?.customInkSnippets ?: return false
+        val pressed = androidx.compose.ui.input.key.KeyEvent(event)
+        val snippet = snippetKeys(custom).firstOrNull { it.chord.matches(pressed) }?.snippet ?: return false
+        insertSnippet(snippet.ink)
+        return true
+    }
+
     /** Whether this build has the command [id] at all; a command it lacks is listed nowhere. */
     fun available(id: String): Boolean = when (id) {
         // the kit's editor brings its find bar and its line commands with its next build

@@ -42,7 +42,12 @@ class MainActivity : ComponentActivity() {
     /** The composition says what performs the window's commands. */
     private val commands = CommandHost()
 
-    private val keys = KeyRouter(registry = shortcuts, paletteOpen = { palette.isOpen }, perform = { id -> commands.perform(id) })
+    private val keys = KeyRouter(
+        registry = shortcuts,
+        paletteOpen = { palette.isOpen },
+        perform = { id -> commands.perform(id) },
+        otherKey = { event -> commands.otherKey(event) },
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

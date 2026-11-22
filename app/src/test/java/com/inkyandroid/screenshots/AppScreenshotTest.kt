@@ -3,6 +3,7 @@ package com.inkyandroid.screenshots
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isSelectable
@@ -216,6 +217,25 @@ class AppScreenshotTest {
     fun phoneWriteEnglishLight() {
         story(ThemeMode.Light)
         capture("app-phone-write-en-light")
+    }
+
+    /** The strip of ink's symbols as it sits right above the phone's keyboard (the test machine has no keyboard to open). */
+    @Test @Config(qualifiers = PHONE)
+    fun phoneInkKeysLight() {
+        val prefs = testPrefs(ThemeMode.Light, DensityPreference.Touch)
+        compose.runOnUiThread { compose.activity.actionBar?.hide() }
+        compose.setContent {
+            desktopkit.DesktopKitRoot(prefs) {
+                androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.fillMaxSize()) {
+                    com.inkyandroid.ui.workspace.InkKeysStrip(
+                        desktopkit.editor.CodeEditorState("== start =="),
+                        desktopkit.editor.CodeIndent.spaces(4),
+                        androidx.compose.ui.Modifier.align(androidx.compose.ui.Alignment.BottomCenter),
+                    )
+                }
+            }
+        }
+        capture("app-phone-ink-keys-light")
     }
 
     // ------------------------------------------------------------------ tablet

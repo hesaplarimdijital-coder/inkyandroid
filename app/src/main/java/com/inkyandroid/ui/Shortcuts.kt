@@ -140,6 +140,9 @@ val shortcuts = ShortcutRegistry(
 class CommandHost {
     /** Runs the command [id]; false when there is nothing for it to do right now. */
     var perform: (String) -> Boolean = { false }
+
+    /** A key that is none of the table's: the open project's own snippet keys; false when it is not one of them either. */
+    var otherKey: (KeyEvent) -> Boolean = { false }
 }
 
 /**
@@ -148,7 +151,8 @@ class CommandHost {
  *
  * - while the command palette is open, nothing: its field and its list take the keys;
  * - a chord of the table (Ctrl+S, Ctrl+P, Alt+←, F1, …) runs its command wherever the focus is;
- * - the editor's own keys ([EditorScope]: undo, the clipboard) are never taken here.
+ * - the editor's own keys ([EditorScope]: undo, the clipboard) are never taken here;
+ * - a key the table does not have may be one of the open project's custom snippets ([otherKey]).
  *
  * A command with nothing to do (Ctrl+S with no project open) leaves the key to the focused view.
  */
@@ -156,11 +160,12 @@ class KeyRouter(
     private val registry: ShortcutRegistry,
     private val paletteOpen: () -> Boolean,
     private val perform: (String) -> Boolean,
+    private val otherKey: (KeyEvent) -> Boolean = { false },
 ) {
     /** True when the key was taken. */
     fun route(event: KeyEvent): Boolean {
         if (event.action != KeyEvent.ACTION_DOWN || paletteOpen()) return false
-        val shortcut = registry.matchNative(event) ?: return false
+        val shortcut = registry.matchNative(event) ?: return event.repeatCount == 0 && otherKey(event)
         // a key held down saves once and steps once
         if (event.repeatCount > 0 && shortcut.id !in REPEATING) return true
         return perform(shortcut.id)

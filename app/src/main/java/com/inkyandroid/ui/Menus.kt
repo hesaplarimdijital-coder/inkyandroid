@@ -2,6 +2,7 @@ package com.inkyandroid.ui
 
 import android.content.res.Resources
 import com.inkyandroid.R
+import com.inkyandroid.core.snippets.Accelerator
 import com.inkyandroid.core.snippets.InkSnippets
 import com.inkyandroid.core.snippets.SnippetNode
 import com.inkyandroid.settings.AppSettings
@@ -123,6 +124,8 @@ class WindowMenus(
             resources.getString(R.string.menu_story),
             listOfNotNull(
                 item(Commands.GOTO_ANYTHING),
+                item(Commands.BACK),
+                item(Commands.FORWARD),
                 item(Commands.NEXT_ISSUE),
                 plain(Commands.ADD_WATCH, R.string.action_add_watch),
                 tagsVisible,
@@ -155,11 +158,15 @@ class WindowMenus(
  * opens the palette on its snippets (all of them, to choose by name or search); a custom snippet
  * outside any category is inserted at once.
  */
-fun inkMenu(custom: List<SnippetNode>, resources: Resources, actions: WindowActions): List<MenuEntry> =
+fun inkMenu(custom: List<SnippetNode>, resources: Resources, actions: WindowActions, showKeys: Boolean): List<MenuEntry> =
     SnippetLocaliser.of(resources).localise(InkSnippets.menu(custom)).map { entry ->
         when (entry) {
             SnippetEntry.Separator -> MenuEntry.Separator
             is SnippetEntry.Category -> MenuEntry.Item(resources.getString(R.string.menu_snippet_category, entry.label), { actions.openSnippets(entry.label) })
-            is SnippetEntry.Snippet -> MenuEntry.Item(entry.label, { actions.insertSnippet(entry.ink) })
+            is SnippetEntry.Snippet -> MenuEntry.Item(
+                entry.label,
+                { actions.insertSnippet(entry.ink) },
+                shortcut = if (showKeys) entry.accelerator?.let(Accelerator::parse)?.keyChord()?.label(resources) else null,
+            )
         }
     }

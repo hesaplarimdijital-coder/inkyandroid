@@ -141,6 +141,7 @@ fun InkyApp(
         }
         actions.newWindow = activity?.let { host -> { DeskWindows.openNewWindow(host) } }
         commands?.perform = actions::perform
+        commands?.otherKey = actions::performSnippetKey
     }
 
     // an .ink file another app handed over opens as a project; a first launch opens the sample
@@ -176,7 +177,7 @@ fun InkyApp(
     val fileActions = rememberFileActions(actions, ui)
     val showKeys = showShortcutHints()
     val customSnippets = state?.projectSettings?.customInkSnippets.orEmpty()
-    val ink = remember(customSnippets, resources, session) { if (session == null) emptyList() else inkMenu(customSnippets, resources, actions) }
+    val ink = remember(customSnippets, resources, session, showKeys) { if (session == null) emptyList() else inkMenu(customSnippets, resources, actions, showKeys) }
     val menus = WindowMenus(
         resources = resources,
         registry = shortcuts,
