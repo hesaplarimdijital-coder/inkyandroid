@@ -46,6 +46,10 @@
     <string name="export_done_web">The web version is in the folder %1$s</string>
     <!-- settings: the app's own sections -->
     <string name="settings_editor">Editor</string>
+    <string name="settings_editor_face">Typeface</string>
+    <string name="settings_editor_face_note">Monospace as in Inky, or the proportional face prose is set in.</string>
+    <string name="settings_editor_face_mono">Monospace</string>
+    <string name="settings_editor_face_proportional">Proportional</string>
     <string name="settings_soft_wrap">Wrap long lines</string>
     <string name="settings_soft_wrap_note">Lines longer than the editor is wide continue on the next row.</string>
     <string name="settings_line_numbers">Line numbers</string>

@@ -21,6 +21,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.inkyandroid.settings.AppSettings
+import com.inkyandroid.settings.EditorFace
 import com.inkyandroid.storage.PickedFolder
 import com.inkyandroid.storage.StorageProblem
 import com.inkyandroid.testPrefs
@@ -86,6 +87,8 @@ class SettingsScreenTest {
     @Test
     fun theSwitchesChangeTheAppsSettings() {
         launch()
+        tap("Orantılı")
+        assertEquals(EditorFace.Proportional, settings.editorFace)
         tap("Uzun satırları kaydır")
         assertFalse(settings.softWrap)
         tap("Etiketleri göster")
