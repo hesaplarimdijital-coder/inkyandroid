@@ -1,0 +1,106 @@
+Inky device smoke: profile phone, sdk_gphone64_x86_64, Android 14 (API 34), Physical size: 1080x2400, density 420
+navigation bar overlays: [ ] com.android.internal.systemui.navbar.gestural_wide_back; [x] com.android.internal.systemui.navbar.threebutton; [ ] com.android.internal.systemui.navbar.twobutton; [ ] com.android.internal.systemui.navbar.gestural_extra_wide_back; [ ] com.android.internal.systemui.navbar.transparent; [ ] com.android.internal.systemui.navbar.gestural; [ ] com.android.internal.systemui.navbar.gestural_narrow_back
+installed app-release.apk
+
+== Scenario ime-probe: The on-screen keyboard of a system text field (driver self-check)
+[01] ime-probe-field: PASS   (01-ime-probe-field.png, 1080x2400 px, 411 dp wide)
+     do: shell am start -W -a android.settings.DEVICE_INFO_SETTINGS; shell input tap 300 923; wait 3; ime_type smoke; save ime-window.txt settings get secure default_input_method; dumpsys window windows | grep -A40 ' u0 InputMethod}:'
+     $ am start -W -a android.settings.DEVICE_INFO_SETTINGS
+       Starting: Intent { act=android.settings.DEVICE_INFO_SETTINGS }
+Status: ok
+LaunchState: WARM
+Activity: com.android.settings/.Settings$MyDeviceInfoActivity
+TotalTime: 2101
+WaitTime: 2121
+Complete
+     $ input tap 300 923
+     typed on the on-screen keyboard; the field could not be read back
+     saved ime-window.txt: $ settings get secure default_input_method; dumpsys window windows | grep -A40 ' u0 InputMethod}:'
+     uiautomator could not read the screen (it never went idle)
+     visible: 
+
+== Scenario 0: Skeleton: the setup screen, in English and Turkish, through the lifecycle
+[02] en-cold-start: PASS   (02-en-cold-start.png, 1080x2400 px, 411 dp wide)
+     do: locale en-US; cold_start
+     device language already en-US
+     launch: COLD 1776 ms
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; new process 6675
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[03] en-compact-window: PASS   (03-en-compact-window.png, 1080x2400 px, 411 dp wide)
+     checks: seen 'Story'
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[04] en-rotated: PASS   (04-en-rotated.png, 2400x1080 px, 914 dp wide)
+     do: rotate flip
+     rotated: 1080x2400 -> 2400x1080 px
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; same process 6675
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[05] en-rotated-back: PASS   (05-en-rotated-back.png, 1080x2400 px, 411 dp wide)
+     do: rotate natural
+     rotated: 2400x1080 -> 1080x2400 px
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; same process 6675
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[06] en-background: PASS   (06-en-background.png, 1080x2400 px, 411 dp wide)
+     do: home
+     checks: absent 'Inky is being set up'
+     visible: Sun, Nov 22 | Gmail | Photos | YouTube | Home | Phone | Messages | Chrome | Inky | Predicted app: Inky | Search | Google app | Voice search | Google Lens
+[07] en-foreground: PASS   (07-en-foreground.png, 1080x2400 px, 411 dp wide)
+     do: launch
+     launch: HOT 202 ms
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; same process 6675
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[08] en-process-death-restored: PASS   (08-en-process-death-restored.png, 1080x2400 px, 411 dp wide)
+     do: home; kill_background; launch
+     process 6675 killed in the background
+     launch: COLD 956 ms
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; new process 7131
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[09] en-force-stop-relaunch: PASS   (09-en-force-stop-relaunch.png, 1080x2400 px, 411 dp wide)
+     do: force_stop; launch
+     launch: COLD 821 ms
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; new process 7226
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[10] tr-cold-start: PASS   (10-tr-cold-start.png, 1080x2400 px, 411 dp wide)
+     do: locale tr-TR; cold_start
+     device language switched to tr-TR (framework restarted)
+     launch: COLD 2825 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; absent 'Inky is being set up'; new process 10253
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Hikâye
+[11] tr-rotated: PASS   (11-tr-rotated.png, 2400x1080 px, 914 dp wide)
+     do: rotate flip
+     rotated: 1080x2400 -> 2400x1080 px
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; same process 10253
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Hikâye
+[12] tr-rotated-back: PASS   (12-tr-rotated-back.png, 1080x2400 px, 411 dp wide)
+     do: rotate natural
+     rotated: 2400x1080 -> 1080x2400 px
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; same process 10253
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Hikâye
+[13] tr-background: PASS   (13-tr-background.png, 1080x2400 px, 411 dp wide)
+     do: home
+     checks: absent 'Inky kuruluyor'
+     visible: 22 Kasım Paz | Gmail | Fotoğraflar | YouTube | Ana ekran | Telefon | Mesajlar | Chrome | Tahmin edilen uygulama: Gmail | Ara | Google uygulaması | Sesli arama | Google Lens
+[14] tr-foreground: PASS   (14-tr-foreground.png, 1080x2400 px, 411 dp wide)
+     do: launch
+     launch: HOT 242 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; same process 10253
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Hikâye
+[15] tr-process-death-restored: PASS   (15-tr-process-death-restored.png, 1080x2400 px, 411 dp wide)
+     do: home; kill_background; launch
+     process 10253 killed in the background
+     launch: COLD 1068 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; new process 11514
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Hikâye
+[16] tr-force-stop-relaunch: PASS   (16-tr-force-stop-relaunch.png, 1080x2400 px, 411 dp wide)
+     do: force_stop; launch
+     launch: COLD 969 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; new process 11612
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Hikâye
+[17] en-again: PASS   (17-en-again.png, 1080x2400 px, 411 dp wide)
+     do: locale en-US; cold_start
+     device language switched to en-US (framework restarted)
+     launch: COLD 2141 ms
+     checks: seen 'Inky is being set up'; absent 'Inky kuruluyor'
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+
+language changes: the device language
+RESULT: PASS
