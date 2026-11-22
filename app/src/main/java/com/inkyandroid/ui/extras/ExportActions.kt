@@ -1,5 +1,7 @@
 package com.inkyandroid.ui.extras
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -55,7 +57,27 @@ fun rememberExportActions(session: ProjectSession, toasts: ToastState): ExportAc
     val context = LocalContext.current
     val source = remember(session) { SessionExportSource(session) }
     val writer = remember(context) { StorageExportWriting(ProjectStorage.from(context)) }
-    return rememberExportActions(source, toasts, writer)
+    val places = remember(context) { ExportPlaces.of(context) }
+    return rememberExportActions(source, toasts, writer, places)
+}
+
+/**
+ * Where the last export went: the next one's picker starts there, whichever kind it is (upstream
+ * remembers one export path for all three). Kept across restarts.
+ */
+internal class ExportPlaces(private val prefs: SharedPreferences) {
+    var last: Uri?
+        get() = prefs.getString(KEY_LAST, null)?.let(Uri::parse)
+        set(value) {
+            prefs.edit().putString(KEY_LAST, value?.toString()).apply()
+        }
+
+    companion object {
+        const val FILE = "inky-exports"
+        private const val KEY_LAST = "last"
+
+        fun of(context: Context) = ExportPlaces(context.applicationContext.getSharedPreferences(FILE, Context.MODE_PRIVATE))
+    }
 }
 
 /** What an export needs from the open project. */
@@ -94,17 +116,17 @@ private class StorageExportWriting(private val storage: ProjectStorage) : Export
 
 /** The three exports over a [source] and a [writer]; the pickers are the storage's contracts. */
 @Composable
-internal fun rememberExportActions(source: ExportSource, toasts: ToastState, writer: ExportWriting): ExportActions {
+internal fun rememberExportActions(source: ExportSource, toasts: ToastState, writer: ExportWriting, places: ExportPlaces): ExportActions {
     val scope = rememberCoroutineScope()
     val resources = LocalContext.current.resources
-    val flow = remember(source, toasts, writer) { ExportFlow(source, toasts, writer, scope) }
+    val flow = remember(source, toasts, writer, places) { ExportFlow(source, toasts, writer, places, scope) }
     flow.resources = resources
     val fileTarget = rememberLauncherForActivityResult(StorageContracts.CreateExportFile()) { uri -> flow.fileChosen(uri) }
     val folderTarget = rememberLauncherForActivityResult(StorageContracts.PickFolder()) { tree -> flow.folderChosen(tree) }
     val latestFile by rememberUpdatedState(fileTarget)
     val latestFolder by rememberUpdatedState(folderTarget)
     flow.chooseFile = { request -> latestFile.launch(request) }
-    flow.chooseFolder = { latestFolder.launch(StorageContracts.DOCUMENTS_HINT) }
+    flow.chooseFolder = { latestFolder.launch(places.last ?: StorageContracts.DOCUMENTS_HINT) }
     return flow
 }
 
@@ -118,6 +140,7 @@ private class ExportFlow(
     private val source: ExportSource,
     private val toasts: ToastState,
     private val writer: ExportWriting,
+    private val places: ExportPlaces,
     private val scope: CoroutineScope,
 ) : ExportActions {
     lateinit var resources: Resources
@@ -131,13 +154,13 @@ private class ExportFlow(
 
     override fun exportJson() = start { json ->
         pending = PendingExport.File(json)
-        chooseFile(ExportFileRequest.json(ExportNames.json(source.mainPath)))
+        chooseFile(ExportFileRequest.json(ExportNames.json(source.mainPath), places.last))
     }
 
     override fun exportStoryJs() = start { json ->
         val script = withContext(Dispatchers.Default) { InkExport.storyJs(json) }
         pending = PendingExport.File(script)
-        chooseFile(ExportFileRequest.javascript(InkExport.jsFileName(source.mainPath)))
+        chooseFile(ExportFileRequest.javascript(InkExport.jsFileName(source.mainPath), places.last))
     }
 
     override fun exportForWeb() = start { json ->
@@ -180,6 +203,7 @@ private class ExportFlow(
             busy = false
             return
         }
+        places.last = uri
         write { resources.getString(R.string.export_done_file, writer.writeFile(uri, export.text)) }
     }
 
@@ -190,6 +214,7 @@ private class ExportFlow(
             busy = false
             return
         }
+        places.last = tree
         write { resources.getString(R.string.export_done_web, writer.writeFolder(tree, export.folderName, export.files)) }
     }
 

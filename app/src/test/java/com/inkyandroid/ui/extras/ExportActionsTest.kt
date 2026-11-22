@@ -70,6 +70,7 @@ class ExportActionsTest {
     private val writer = FakeWriter()
     private val pickers = Pickers()
     private val toasts = ToastState()
+    private val places = ExportPlaces(androidx.test.core.app.ApplicationProvider.getApplicationContext<android.content.Context>().getSharedPreferences("test-exports", android.content.Context.MODE_PRIVATE))
     private lateinit var actions: ExportActions
 
     private fun launch() {
@@ -78,7 +79,7 @@ class ExportActionsTest {
         }
         compose.setContent {
             CompositionLocalProvider(LocalActivityResultRegistryOwner provides owner) {
-                actions = rememberExportActions(source, toasts, writer)
+                actions = rememberExportActions(source, toasts, writer, places)
             }
         }
         compose.waitForIdle()
@@ -103,6 +104,11 @@ class ExportActionsTest {
         assertEquals(json, writer.files[pickers.answer])
         assertEquals("night.json olarak dışa aktarıldı", toast())
         assertFalse(actions.busy)
+        // the next export, of any kind, starts where this one went (upstream's remembered export path)
+        run { exportStoryJs() }
+        assertEquals(pickers.answer, (pickers.asked.last() as ExportFileRequest).initialLocation)
+        run { exportForWeb() }
+        assertEquals(pickers.answer, pickers.asked.last())
     }
 
     @Test
