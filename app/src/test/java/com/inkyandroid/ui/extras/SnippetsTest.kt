@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.inkyandroid.R
+import com.inkyandroid.core.snippets.InkSnippets
 import com.inkyandroid.core.snippets.SnippetNode
 import com.inkyandroid.ui.extras.snippets.SnippetEntry
 import com.inkyandroid.ui.extras.snippets.SnippetLocaliser
@@ -43,6 +44,31 @@ class SnippetsTest {
         assertNotEquals(english.getString(R.string.snippet_category_useful_functions), turkish.getString(R.string.snippet_category_useful_functions))
         // ink's own names are kept
         assertTrue(turkish.getString(R.string.snippet_flow_came_from).endsWith("came_from"))
+    }
+
+    @Test
+    fun everyNodeOfCoresTreeHasItsNames() {
+        val categories = HashSet<String>()
+        val snippets = HashSet<String>()
+        fun visit(node: SnippetNode) {
+            when (node) {
+                is SnippetNode.Category -> {
+                    categories += node.id!!
+                    node.children.forEach(::visit)
+                }
+                is SnippetNode.Snippet -> snippets += node.id!!
+                SnippetNode.Separator -> Unit
+            }
+        }
+        InkSnippets.builtIn.forEach(::visit)
+        assertEquals(SnippetNames.categories.keys, categories)
+        assertEquals(SnippetNames.snippets.keys, snippets)
+        // and so the palette, in upstream's order, has every snippet with a translated name
+        val items = snippetPaletteItems(emptyList(), localised("tr").resources) {}
+        assertEquals(42, items.size)
+        assertEquals("Düğüm (ana bölüm)", items.first().title)
+        assertEquals("Temel yapı", items.first().subtitle)
+        assertEquals("The Intercept", items.last().title)
     }
 
     @Test
