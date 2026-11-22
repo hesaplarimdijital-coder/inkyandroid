@@ -80,13 +80,14 @@ internal object BladeInkEngine : InkEngine {
     private fun crashed(failure: Throwable, issues: List<InkIssue>): CompileResult.Crashed =
         CompileResult.Crashed(failure.message ?: failure.javaClass.simpleName, diagnosticOf(failure), issues.toList())
 
-    /** The exception and the top of its stack: enough to report the problem, short enough to show. */
-    internal fun diagnosticOf(failure: Throwable): String =
-        (listOf(failure.toString()) + failure.stackTrace.take(DIAGNOSTIC_FRAMES).map { "    at $it" }).joinToString("\n")
-
     private const val PARSER_STACK_OVERFLOW = "Stack overflow in parser state"
-    private const val DIAGNOSTIC_FRAMES = 12
 }
+
+/** The exception and the top of its stack: enough to report a failure of the engine, short enough to show. */
+internal fun diagnosticOf(failure: Throwable): String =
+    (listOf(failure.toString()) + failure.stackTrace.take(DIAGNOSTIC_FRAMES).map { "    at $it" }).joinToString("\n")
+
+private const val DIAGNOSTIC_FRAMES = 12
 
 /**
  * The compiler reports through one handler fixed when it is created; the same handler later

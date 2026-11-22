@@ -66,9 +66,11 @@ enum class CompileStatus {
  * @property generation counts the playthroughs built from the start (every compile, step back and
  *   rewind builds one and publishes it whole). It does not change when a choice appends a turn.
  * @property appendedFrom when this transcript came from taking a choice: the index in [items] of
- *   the first new item (the divider), so that the player can fade in and scroll to what is new.
- *   Null when the whole transcript was replaced (a recompile, step back, rewind), which the player
- *   shows without animation and without moving the scroll position.
+ *   the first new item (the divider that closes the turn before), so that the player can fade in
+ *   and scroll to what is new. Null when the whole transcript was replaced (a recompile, step back,
+ *   rewind), which the player shows without animation and without moving the scroll position.
+ *   The value stays until the transcript changes again, so act on it once per [generation] and
+ *   [liveTurn].
  */
 data class PlayerTranscript(
     val items: List<TranscriptItem>,
@@ -77,9 +79,12 @@ data class PlayerTranscript(
     val generation: Long,
     val appendedFrom: Int? = null,
 ) {
-    /** The story is over: it ended, or it was stopped. */
-    val isOver: Boolean get() = items.lastOrNull().let { it is TranscriptItem.End || it is TranscriptItem.Stopped || it is TranscriptItem.CompilerCrash } ||
-        items.any { it is TranscriptItem.End || it is TranscriptItem.Stopped }
+    /** The story is over: it ended, it was stopped, or the compiler crashed. Nothing more can be chosen. */
+    val isOver: Boolean
+        get() = when (items.lastOrNull()) {
+            is TranscriptItem.End, is TranscriptItem.Stopped, is TranscriptItem.CompilerCrash -> true
+            else -> false
+        }
 
     companion object {
         /** Before the first compilation: nothing to show. */
