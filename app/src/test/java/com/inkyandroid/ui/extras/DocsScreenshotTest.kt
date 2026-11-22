@@ -3,7 +3,9 @@ package com.inkyandroid.ui.extras
 import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -79,5 +81,20 @@ class DocsScreenshotTest {
     fun dexListsDark() {
         launch(ThemeMode.Dark, DensityPreference.Pointer, anchor = "5-functions", insert = true)
         compose.capture("docs-dex-lists-dark")
+    }
+
+    /** At twice the font size the manual still reads: examples wrap, the bars keep their place. */
+    @Test @Config(qualifiers = Devices.PHONE, fontScale = 2.0f)
+    fun phoneLargeFontDark() {
+        launch(ThemeMode.Dark, anchor = "comments")
+        compose.capture("docs-phone-font200-dark")
+    }
+
+    @Test @Config(qualifiers = Devices.PHONE_EN)
+    fun phoneContentsSheetEnglishLight() {
+        launch(ThemeMode.Light, anchor = "tunnels-run-sub-stories")
+        compose.onNodeWithContentDescription("Contents").performClick()
+        compose.waitForIdle()
+        compose.capture("docs-phone-contents-en-light")
     }
 }

@@ -24,6 +24,7 @@ import desktopkit.components.DeskDialog
 import desktopkit.components.DeskProgressBar
 import desktopkit.components.KeyValueRow
 import desktopkit.theme.DeskTheme
+import androidx.compose.ui.unit.dp
 import java.text.NumberFormat
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -92,21 +93,26 @@ fun StatisticsDialog(statistics: suspend () -> StoryStatistics, onDismiss: () ->
     DeskDialog(
         onDismiss = onDismiss,
         title = stringResource(R.string.statistics_title),
+        maxWidth = DIALOG_WIDTH,
         actions = { DeskButton(stringResource(R.string.statistics_close), onDismiss, primary = true) },
-    ) {
-        when (val shown = state) {
-            StatisticsState.Counting -> Column(Modifier.fillMaxWidth().testTag(StatisticsTags.BUSY)) {
-                Text(stringResource(R.string.statistics_counting), style = DeskTheme.type.body, color = DeskTheme.colors.textSecondary)
-                DeskProgressBar(null, Modifier.fillMaxWidth().padding(top = DeskTheme.dimens.gapM))
-            }
-            is StatisticsState.Failed -> Text(
-                stringResource(R.string.statistics_failed, shown.reason),
-                style = DeskTheme.type.body,
-                color = DeskTheme.colors.danger,
-                modifier = Modifier.testTag(StatisticsTags.FAILED),
-            )
-            is StatisticsState.Counted -> Numbers(shown.numbers)
+    ) { StatisticsBody(state) }
+}
+
+/** What the dialog shows for [state]: counting, the numbers, or why there are none. */
+@Composable
+internal fun StatisticsBody(state: StatisticsState) {
+    when (state) {
+        StatisticsState.Counting -> Column(Modifier.fillMaxWidth().testTag(StatisticsTags.BUSY)) {
+            Text(stringResource(R.string.statistics_counting), style = DeskTheme.type.body, color = DeskTheme.colors.textSecondary)
+            DeskProgressBar(null, Modifier.fillMaxWidth().padding(top = DeskTheme.dimens.gapM))
         }
+        is StatisticsState.Failed -> Text(
+            stringResource(R.string.statistics_failed, state.reason),
+            style = DeskTheme.type.body,
+            color = DeskTheme.colors.danger,
+            modifier = Modifier.testTag(StatisticsTags.FAILED),
+        )
+        is StatisticsState.Counted -> Numbers(state.numbers)
     }
 }
 
@@ -119,7 +125,7 @@ private fun Numbers(numbers: StoryStatistics) {
         for (group in statisticsGroups(numbers)) {
             Column {
                 for ((label, value) in group) {
-                    KeyValueRow(stringResource(label), format.format(value), mono = true)
+                    KeyValueRow(stringResource(label), format.format(value), mono = true, labelWidth = LABEL_WIDTH)
                 }
             }
         }
@@ -142,8 +148,14 @@ internal fun statisticsGroups(numbers: StoryStatistics): List<List<Pair<Int, Int
     ),
 )
 
-private sealed interface StatisticsState {
+internal sealed interface StatisticsState {
     data object Counting : StatisticsState
     data class Counted(val numbers: StoryStatistics) : StatisticsState
     data class Failed(val reason: String) : StatisticsState
 }
+
+/** Seven numbers and a note: narrower than a form's dialog. */
+internal val DIALOG_WIDTH = 440.dp
+
+/** Room for the longest label ("Yönlendirmeler") at the touch size. */
+private val LABEL_WIDTH = 144.dp
