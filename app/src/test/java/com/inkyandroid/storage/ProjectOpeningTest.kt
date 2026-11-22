@@ -79,6 +79,20 @@ class ProjectOpeningTest {
     }
 
     @Test
+    fun aPickedFolderCanTakeANewProjectWithoutBeingScanned() {
+        world.put("Yazılar/notes.ink", "")
+        val tree = TestDocumentsProvider.treeUri("Yazılar")
+
+        val folder = blocking { storage.folderFor(tree) }
+        val created = blocking { storage.createProjectIn(folder, "Roman") }
+
+        assertEquals(PickedFolder(tree.toString(), "root:Yazılar", "Yazılar"), folder)
+        assertEquals("root:Yazılar/Roman", created.rootDocumentId)
+        assertTrue(world.exists("Yazılar/Roman/Roman.ink"))
+        assertTrue(tree.toString() in world.grants())
+    }
+
+    @Test
     fun aFolderThatCannotBeReadFails() {
         world.put("Story/main.ink", "")
         world.behaviour.crash = true

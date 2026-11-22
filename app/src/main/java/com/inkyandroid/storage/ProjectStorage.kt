@@ -155,6 +155,21 @@ class ProjectStorage internal constructor(
         return openPickedFolder(folder)
     }
 
+    /**
+     * The folder the tree picker returned, without looking at its files: for flows that only need
+     * a place (a new project in "another folder…"). Its permission is taken and kept while the
+     * project made there is opened.
+     *
+     * @throws IOException typed as the stores' failures ([StorageProblem.of]).
+     */
+    suspend fun folderFor(treeUri: Uri): PickedFolder = withContext(io) {
+        try {
+            pickedFolder(treeUri)
+        } catch (e: SecurityException) {
+            throw PermissionLostException("no permission for $treeUri", e)
+        }
+    }
+
     /** The user's answer to [FolderOpening.ChooseMain]; remembered for the folder. */
     fun chooseMain(folder: PickedFolder, mainPath: String): ProjectRef.Saf {
         prefs.edit().putString(mainChoiceKey(folder), mainPath).apply()
