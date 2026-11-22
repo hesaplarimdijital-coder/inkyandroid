@@ -22,7 +22,8 @@ import java.io.IOException
  *
  * **Text** is UTF-8. [read] removes a leading byte order mark and changes nothing else: line
  * endings come back as stored (`\r\n` stays `\r\n`). [write] writes exactly the given text, without
- * a byte order mark.
+ * a byte order mark. Use [ProjectText.decode] and [ProjectText.encode]: a file that is not valid
+ * UTF-8 fails to read (an `IOException`) instead of being opened damaged.
  */
 interface ProjectStore {
 
@@ -85,20 +86,3 @@ data class StoredFile(
     val size: Long,
     val modified: Long,
 )
-
-/** The rules for the root-relative paths of a [ProjectStore]. */
-object ProjectPaths {
-
-    /** Whether [path] is a well-formed root-relative path: segments separated by single `/`, none of them empty, `.` or `..`. */
-    fun isValid(path: String): Boolean =
-        path.isNotEmpty() &&
-            !path.contains('\\') &&
-            !path.contains('\u0000') &&
-            path.split('/').none { it.isEmpty() || it == "." || it == ".." }
-
-    /** Returns [path] when it [isValid]; otherwise throws the [IllegalArgumentException] a store answers a bad path with. */
-    fun requireValid(path: String): String {
-        require(isValid(path)) { "Not a root-relative project path: \"$path\"" }
-        return path
-    }
-}
