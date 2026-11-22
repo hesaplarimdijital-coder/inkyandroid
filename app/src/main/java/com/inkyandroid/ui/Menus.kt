@@ -78,7 +78,7 @@ class WindowMenus(
     private fun edit(): List<MenuEntry> = menu(
         listOf(item(Commands.UNDO), item(Commands.REDO)),
         listOf(item(Commands.CUT), item(Commands.COPY), item(Commands.PASTE), item(Commands.SELECT_ALL)),
-        listOf(item(Commands.FIND), item(Commands.REPLACE), item(Commands.TOGGLE_COMMENT)),
+        listOf(item(Commands.FIND), item(Commands.REPLACE), item(Commands.COMPLETE), item(Commands.TOGGLE_COMMENT)),
     )
 
     private fun view(): List<MenuEntry> = menu(

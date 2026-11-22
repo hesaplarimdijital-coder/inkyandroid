@@ -19,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameNanos
@@ -35,6 +36,7 @@ import com.inkyandroid.R
 import com.inkyandroid.core.engine.InkIssue
 import com.inkyandroid.core.engine.IssueKind
 import com.inkyandroid.core.project.ProjectSnapshot
+import com.inkyandroid.core.syntax.InkLineTokens
 import com.inkyandroid.ink.InkEditorTokenizer
 import com.inkyandroid.ink.InkLineCache
 import com.inkyandroid.ink.InkLink
@@ -52,9 +54,13 @@ import desktopkit.editor.CodeEditorState
 import desktopkit.editor.CodeEditorZoom
 import desktopkit.editor.CodeIndent
 import desktopkit.editor.CodeLinks
+import desktopkit.editor.CodeSearchBar
+import desktopkit.editor.CodeSearchState
+import desktopkit.editor.rememberCodeSearchState
 import desktopkit.editor.LineMarker
 import desktopkit.editor.MarkerSeverity
 import desktopkit.input.hasHardwareKeyboard
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -100,6 +106,14 @@ fun EditorPane(
     val links = remember(lines) {
         CodeLinks { doc, offset -> lines.linkAt(doc, offset)?.let { link -> lines.rangeOf(doc, link, offset) } }
     }
+    // one find bar for the pane: it follows the editor from file to file and keeps what was looked for
+    val search = rememberCodeSearchState()
+    val scope = rememberCoroutineScope()
+    val currentProject by rememberUpdatedState(project)
+    val completionLabels = remember(context) { CompletionLabels.of(context.resources) }
+    val completer = remember(lines, completionLabels) {
+        InkCodeCompleter(lines, { currentProject.files.mapNotNull { it.symbols } }, completionLabels)
+    }
 
     // "show this file at this place": the session asks, the editor that shows the file does it
     val request = state.showRequest
@@ -111,7 +125,7 @@ fun EditorPane(
     }
 
     // the menus, the palette and the keys act on this editor while it is on screen
-    val active = remember(editor, document) { KitActiveEditor(editor, { document.path }, lines, context) }
+    val active = remember(editor, document, search, scope) { KitActiveEditor(editor, { document.path }, lines, context, search, scope) }
     DisposableEffect(active) {
         ui.editor = active
         onDispose { if (ui.editor === active) ui.editor = null }
@@ -138,7 +152,9 @@ fun EditorPane(
                 modifier = Modifier.padding(top = contentPadding.calculateTopPadding()),
             )
         }
-        val padding = if (banners) PaddingValues(bottom = contentPadding.calculateBottomPadding()) else contentPadding
+        // the find bar stands under the banners, or under the phone's top bar; the bar composes nothing while closed
+        CodeSearchBar(search, Modifier.padding(top = if (banners) 0.dp else contentPadding.calculateTopPadding()))
+        val padding = if (banners || search.isOpen) PaddingValues(bottom = contentPadding.calculateBottomPadding()) else contentPadding
         Box(
             Modifier
                 .weight(1f)
@@ -167,6 +183,9 @@ fun EditorPane(
                 placeholder = placeholder,
                 contentPadding = if (strip) PaddingValues(top = padding.calculateTopPadding()) else padding,
                 label = label,
+                search = search,
+                completer = completer,
+                liveCompletion = settings.autoComplete,
             )
         }
         if (strip) InkKeysStrip(editor, INK_INDENT)
@@ -251,6 +270,18 @@ internal class EditorLines(private val cache: InkLineCache) {
     /** The link under the cursor of [doc]. */
     fun linkAtCursor(doc: CodeEditorState): InkLink? = linkAt(doc, doc.cursor)
 
+    /** The tokens of line [row] of [doc]. */
+    fun tokensOf(doc: CodeEditorState, row: Int): InkLineTokens? {
+        sync(doc)
+        return cache.tokens(row)
+    }
+
+    /** The text of line [row] of [doc], as its tokens were made from it. */
+    fun textOf(doc: CodeEditorState, row: Int): String {
+        sync(doc)
+        return cache.line(row)
+    }
+
     /** The document range of [link], found on the line of [offset]. */
     fun rangeOf(doc: CodeEditorState, link: InkLink, offset: Int): TextRange {
         val start = doc.lineStart(doc.lineOf(offset))
@@ -264,6 +295,8 @@ private class KitActiveEditor(
     private val currentPath: () -> String,
     private val lines: EditorLines,
     private val context: Context,
+    private val search: CodeSearchState,
+    private val scope: CoroutineScope,
 ) : ActiveEditor {
     override val path: String get() = currentPath()
     override val canUndo: Boolean get() = editor.canUndo
@@ -305,6 +338,19 @@ private class KitActiveEditor(
     }
 
     override fun focus() = editor.requestFocus()
+
+    override fun find(replace: Boolean) = search.open(replace)
+
+    override fun showCompletion() {
+        editor.requestFocus()
+        // a menu or the palette holds the focus until it has closed, and the list closes when the
+        // editor loses the focus: it opens once the editor has it back
+        scope.launch {
+            withFrameNanos { }
+            withFrameNanos { }
+            editor.showCompletion()
+        }
+    }
 
     override val cursor: TextPosition get() = editor.cursorPosition.let { TextPosition(it.line, it.column) }
 

@@ -548,8 +548,8 @@ class WindowActions(
 
     /** Whether this build has the command [id] at all; a command it lacks is listed nowhere. */
     fun available(id: String): Boolean = when (id) {
-        // the kit's editor brings its find bar and its line commands with its next build
-        Commands.FIND, Commands.REPLACE, Commands.TOGGLE_COMMENT -> false
+        // the kit's editor brings its line commands with its next build
+        Commands.TOGGLE_COMMENT -> false
         Commands.EXPORT_JSON, Commands.EXPORT_WEB, Commands.EXPORT_JS, Commands.STATISTICS -> extras != null || session == null
         CommonShortcuts.NEW_WINDOW -> newWindow != null
         else -> true
@@ -594,6 +594,9 @@ class WindowActions(
             Commands.COPY -> editor?.copy() != null
             Commands.PASTE -> editor?.paste() != null
             Commands.SELECT_ALL -> editor?.selectAll() != null
+            Commands.FIND -> editor?.find(replace = false) != null
+            Commands.REPLACE -> editor?.find(replace = true) != null
+            Commands.COMPLETE -> editor?.showCompletion() != null
 
             Commands.ZOOM_IN -> zoom(1)
             Commands.ZOOM_OUT -> zoom(-1)
@@ -669,7 +672,7 @@ class WindowActions(
             Commands.UNDO -> editor?.canUndo == true
             Commands.REDO -> editor?.canRedo == true
             Commands.CUT, Commands.COPY, Commands.PASTE, Commands.SELECT_ALL, Commands.FIND, Commands.REPLACE, Commands.TOGGLE_COMMENT,
-            Commands.GOTO_DEFINITION,
+            Commands.COMPLETE, Commands.GOTO_DEFINITION,
             -> editor != null
             Commands.BACK -> session?.state?.value?.canGoBack == true
             Commands.FORWARD -> session?.state?.value?.canGoForward == true

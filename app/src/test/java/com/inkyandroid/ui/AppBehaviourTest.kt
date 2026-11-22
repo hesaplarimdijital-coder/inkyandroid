@@ -9,6 +9,7 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.inkyandroid.core.live.CompileStatus
 import com.inkyandroid.core.live.TranscriptItem
@@ -138,6 +139,58 @@ class AppBehaviourTest {
         val stored = runBlocking { UiWorld.app.storage.internalProjects.store(ref).read(ref.mainPath) }
         assertEquals("First line.\nSecond line.\n", stored)
         compose.onNodeWithContentDescription("Saved.ink, unsaved changes", substring = true).assertDoesNotExist()
+    }
+
+    @Test
+    @Config(qualifiers = DEX)
+    fun findTakesTheSelectionAndCountsItsMatches() {
+        val holder = UiWorld.holder(UiWorld.project("Trains", "The train was late.\nAnother train came.\nNo train after that.\n"))
+        launch(holder, DensityPreference.Pointer)
+        val session = compose.awaitSession(holder)
+        compose.awaitStory(session)
+        val editor = session.activeDocument.editorState!!
+        val first = editor.text.indexOf("train")
+        compose.runOnUiThread { editor.select(first, first + "train".length) }
+        compose.waitForIdle()
+        compose.runOnUiThread { assertTrue(commands.perform(Commands.FIND)) }
+        // the selection is what is looked for, and it is the first of three matches
+        compose.waitFor(10_000) { compose.onAllNodesWithText("1 / 3").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNode(hasText("train") and androidx.compose.ui.test.hasSetTextAction()).assertExists()
+    }
+
+    @Test
+    fun replaceAllChangesEveryMatchInOneStep() {
+        val holder = UiWorld.holder(UiWorld.project("Rename", "VAR hour = 1\n~ hour = hour + 1\n{hour}\n"))
+        launch(holder)
+        val session = compose.awaitSession(holder)
+        compose.awaitStory(session)
+        val editor = session.activeDocument.editorState!!
+        compose.runOnUiThread { assertTrue(commands.perform(Commands.REPLACE)) }
+        compose.waitForIdle()
+        compose.onAllNodes(androidx.compose.ui.test.hasSetTextAction())[0].performTextInput("hour")
+        compose.onAllNodes(androidx.compose.ui.test.hasSetTextAction())[1].performTextInput("saat")
+        compose.waitFor(10_000) { compose.onAllNodesWithText(" / 4", substring = true).fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithText("Replace all").performClick()
+        compose.waitFor(10_000) { editor.text.toString() == "VAR saat = 1\n~ saat = saat + 1\n{saat}\n" }
+        compose.runOnUiThread { editor.undo() }
+        assertEquals("VAR hour = 1\n~ hour = hour + 1\n{hour}\n", editor.text.toString())
+    }
+
+    @Test
+    fun suggestionsOfferTheProjectsKnotsInADivert() {
+        val holder = UiWorld.holder(UiWorld.project("Knots", "-> station\n== station ==\nHere.\n-> END\n"))
+        launch(holder)
+        val session = compose.awaitSession(holder)
+        compose.awaitStory(session)
+        val editor = session.activeDocument.editorState!!
+        compose.waitFor(10_000) { session.project.state.value.main.symbols != null }
+        compose.runOnUiThread {
+            editor.replace(editor.length, editor.length, "-> sta")
+            editor.select(editor.length)
+            assertTrue(commands.perform(Commands.COMPLETE))
+        }
+        compose.waitFor(10_000) { compose.onAllNodesWithText("Divert target").fetchSemanticsNodes().isNotEmpty() }
+        compose.onNodeWithText("Divert target").assertExists()
     }
 
     companion object {

@@ -51,6 +51,7 @@
     <string name="action_find">Bul…</string>
     <string name="action_replace">Bul ve değiştir…</string>
     <string name="action_toggle_comment">Yorum satırı yap / kaldır</string>
+    <string name="action_complete">Önerileri göster</string>
     <string name="action_zoom_in">Yakınlaştır</string>
     <string name="action_zoom_out">Uzaklaştır</string>
     <string name="action_zoom_reset">Gerçek boyut</string>

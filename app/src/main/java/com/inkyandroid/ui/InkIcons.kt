@@ -159,4 +159,18 @@ object InkIcons {
     val TextLine: ImageVector by lazy {
         DeskIcons.build("TextLine", DeskIcons.stroke("M2.5 5h11M2.5 8h11M2.5 11h7"))
     }
+
+    /** Square brackets: a word of the language itself, a keyword. */
+    val Keyword: ImageVector by lazy {
+        DeskIcons.build("Keyword", DeskIcons.stroke("M6 2.5H3.5v11H6M10 2.5h2.5v11H10"))
+    }
+
+    /** A box with a cross: a variable, a value that has a name. */
+    val Variable: ImageVector by lazy {
+        DeskIcons.build(
+            "Variable",
+            DeskIcons.stroke("M3.5 2.5h9a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1z"),
+            DeskIcons.stroke("m6 6 4 4m0-4-4 4"),
+        )
+    }
 }

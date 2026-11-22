@@ -52,6 +52,7 @@
     <string name="action_find">Find…</string>
     <string name="action_replace">Find and replace…</string>
     <string name="action_toggle_comment">Toggle comment</string>
+    <string name="action_complete">Show suggestions</string>
     <string name="action_zoom_in">Zoom in</string>
     <string name="action_zoom_out">Zoom out</string>
     <string name="action_zoom_reset">Actual size</string>

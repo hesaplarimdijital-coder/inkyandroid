@@ -269,6 +269,35 @@ class AppScreenshotTest {
         capture("app-phone-ink-keys-light")
     }
 
+    /** The find bar under the phone's top bar, with what was found counted. */
+    @Test @Config(qualifiers = PHONE)
+    fun phoneFindLight() {
+        story(ThemeMode.Light)
+        compose.runOnUiThread { commands.perform(Commands.FIND) }
+        compose.waitForIdle()
+        compose.onAllNodes(hasSetTextAction())[0].performTextInput("tren")
+        compose.waitFor { compose.onAllNodesWithText(" / ", substring = true).fetchSemanticsNodes().isNotEmpty() }
+        capture("app-phone-find-light")
+    }
+
+    /** Suggestions in a divert: the project's knots and stitches, each with what it is. */
+    @Test @Config(qualifiers = PHONE)
+    fun phoneSuggestionsDark() {
+        val holder = story(ThemeMode.Dark)
+        val session = holder.session!!
+        val editor = session.activeDocument.editorState!!
+        compose.waitFor { session.project.state.value.files.all { it.symbols != null } }
+        compose.runOnUiThread {
+            val at = editor.text.indexOf("* [Bekleme salonuna gir]")
+            editor.select(at)
+            editor.insert("-> s\n")
+            editor.select(at + "-> s".length)
+            commands.perform(Commands.COMPLETE)
+        }
+        compose.waitFor { compose.onAllNodesWithText("Yönlendirme hedefi").fetchSemanticsNodes().isNotEmpty() }
+        capture("app-phone-suggestions-dark")
+    }
+
     // ------------------------------------------------------------------ tablet
 
     @Test @Config(qualifiers = TABLET)
@@ -333,6 +362,17 @@ class AppScreenshotTest {
         compose.waitForIdle()
         compose.onNode(hasSetTextAction()).performTextInput("salon")
         capture("app-dex-goto-light")
+    }
+
+    @Test @Config(qualifiers = DEX)
+    fun dexFindReplaceDark() {
+        intercept(ThemeMode.Dark, DensityPreference.Pointer)
+        compose.runOnUiThread { commands.perform(Commands.REPLACE) }
+        compose.waitForIdle()
+        compose.onAllNodes(hasSetTextAction())[0].performTextInput("Harris")
+        compose.onAllNodes(hasSetTextAction())[1].performTextInput("Hooper")
+        compose.waitFor { compose.onAllNodesWithText(" / ", substring = true).fetchSemanticsNodes().isNotEmpty() }
+        capture("app-dex-find-replace-dark")
     }
 
     private companion object {

@@ -36,6 +36,12 @@ interface ActiveEditor {
     /** Gives the editor the keyboard focus. */
     fun focus()
 
+    /** Opens the find bar over the editor, with the replace row when [replace]; a selection on one line is what is looked for. */
+    fun find(replace: Boolean)
+
+    /** Opens the list of suggestions at the cursor, as Ctrl+Space does in the editor. */
+    fun showCompletion()
+
     /** Where the cursor is. */
     val cursor: TextPosition
 

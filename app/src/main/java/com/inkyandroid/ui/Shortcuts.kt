@@ -33,6 +33,7 @@ object Commands {
     const val FIND = "edit.find"
     const val REPLACE = "edit.replace"
     const val TOGGLE_COMMENT = "edit.toggle_comment"
+    const val COMPLETE = "edit.complete"
 
     const val ZOOM_IN = "view.zoom_in"
     const val ZOOM_OUT = "view.zoom_out"
@@ -66,9 +67,10 @@ val StoryGroup = ShortcutGroup("story", R.string.menu_story)
 val InkGroup = ShortcutGroup("ink", R.string.menu_ink)
 
 /**
- * The keys the code editor answers itself while it has the focus (undo, the clipboard, find): they
- * are in the table so that the menus and the lists of shortcuts show them, and never routed from
- * the activity, where they would be taken from every other text field of the app.
+ * The keys the code editor answers itself while it has the focus (undo, the clipboard, find and
+ * replace, suggestions): they are in the table so that the menus and the lists of shortcuts show
+ * them, and never routed from the activity, where they would be taken from every other text field
+ * of the app (the find bar's own fields answer Ctrl+F and Ctrl+H too).
  */
 val EditorScope = ShortcutScope("editor")
 
@@ -109,8 +111,9 @@ val shortcuts = ShortcutRegistry(
         Shortcut(Commands.COPY, EditGroup, R.string.action_copy, KeyChord(Key.C, ctrl = true), EditorScope),
         Shortcut(Commands.PASTE, EditGroup, R.string.action_paste, KeyChord(Key.V, ctrl = true), EditorScope),
         Shortcut(Commands.SELECT_ALL, EditGroup, R.string.action_select_all, KeyChord(Key.A, ctrl = true), EditorScope),
-        Shortcut(Commands.FIND, EditGroup, R.string.action_find, KeyChord(Key.F, ctrl = true)),
-        Shortcut(Commands.REPLACE, EditGroup, R.string.action_replace, KeyChord(Key.H, ctrl = true)),
+        Shortcut(Commands.FIND, EditGroup, R.string.action_find, KeyChord(Key.F, ctrl = true), EditorScope),
+        Shortcut(Commands.REPLACE, EditGroup, R.string.action_replace, KeyChord(Key.H, ctrl = true), EditorScope),
+        Shortcut(Commands.COMPLETE, EditGroup, R.string.action_complete, KeyChord(Key.Spacebar, ctrl = true), EditorScope),
         Shortcut(Commands.TOGGLE_COMMENT, EditGroup, R.string.action_toggle_comment, KeyChord(Key.Slash, alt = true)),
 
         Shortcut(Commands.ZOOM_IN, CommonShortcuts.ViewGroup, R.string.action_zoom_in, KeyChord(Key.Equals, ctrl = true)),

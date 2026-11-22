@@ -28,6 +28,10 @@ korunmuştur; çakışanlar ve yeni eklenenler aşağıda işaretli.
 | Geri al, yinele | Ctrl+Z, Ctrl+Shift+Z | aynı | Ctrl+Y de yineler. Düzenleyicinin kendi tuşları. |
 | Kes, kopyala, yapıştır, tümünü seç | Ctrl+X, Ctrl+C, Ctrl+V, Ctrl+A | aynı | düzenleyicinin kendi tuşları |
 | Girintile, girintiyi azalt | Tab, Shift+Tab | aynı | Upstream gibi dört boşluk. |
+| Bul | Ctrl+F | Ctrl+F | Düzenleyicinin arama çubuğu; tek satırlık bir seçim aranan olur. Büyük/küçük harf (Alt+C), tam sözcük (Alt+W), düzenli ifade (Alt+R). |
+| Bul ve değiştir | Ctrl+H | Ctrl+H | Değiştir alanında Enter birini, Ctrl+Alt+Enter hepsini değiştirir; tümünü değiştirmek tek adımda geri alınır. |
+| Sonraki, önceki eşleşme | F3, Shift+F3; çubukta Enter, Shift+Enter | aynı | Esc çubuğu kapatır. |
+| Önerileri göster | Ctrl+Space | Ctrl+Space | Yazarken öneriler kendiliğinden de açılır (Görünüm › Otomatik tamamlama); Düzen menüsünde de var, çünkü bazı cihazlar Ctrl+Space'i klavye dili değiştirmeye ayırır. |
 
 ## Görünüm
 
@@ -69,3 +73,5 @@ korunmuştur; çakışanlar ve yeni eklenenler aşağıda işaretli.
   Ctrl+Shift+I): Android'de pencereleri sistem yönetir, geliştirici araçlarının karşılığı yoktur.
 - Ace'in çoklu imleç, katlama, makro ve satır taşıma tuşları: düzenleyici kitin kendi düzenleyicisidir
   (architecture.md 4.4).
+- Yorum satırı yap / kaldır (masaüstünde Ctrl+/; burada Alt+/ olacak): kitin düzenleyicisinin satır komutları
+  yayımlandığında eklenecek; o zamana kadar menülerde görünmez.
