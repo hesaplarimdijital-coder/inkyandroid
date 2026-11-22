@@ -28,6 +28,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.inkyandroid.testPrefs
+import com.inkyandroid.ui.extras.docs.DOCS_ZOOM_KEY
 import com.inkyandroid.ui.extras.docs.DocsMemory
 import com.inkyandroid.ui.extras.docs.DocsTags
 import com.inkyandroid.ui.extras.docs.Manual
@@ -55,8 +56,9 @@ class DocsScreenTest {
     private val memory = DocsMemory.of(context)
     private val inserted = ArrayList<String>()
 
+    private val prefs = testPrefs(ThemeMode.Light, DensityPreference.Pointer)
+
     private fun launch() {
-        val prefs = testPrefs(ThemeMode.Light, DensityPreference.Pointer)
         compose.setContent { ExtrasHost(prefs, TestRoutes.DOCS) { DocsScreen(prefs, insertIntoEditor = { inserted += it }) } }
         compose.waitUntil(10_000) { compose.onAllNodes(hasTestTag(DocsTags.TEXT)).fetchSemanticsNodes().isNotEmpty() }
     }
@@ -136,10 +138,10 @@ class DocsScreenTest {
             withKeyDown(Key.CtrlLeft) { pressKey(Key.Equals); pressKey(Key.Equals) }
         }
         compose.waitForIdle()
-        assertEquals(1.2f, memory.scale, 0.001f)
+        assertEquals(1.2f, prefs.editorTextScale(DOCS_ZOOM_KEY), 0.001f)
         compose.onNodeWithTag(DocsTags.FIND).performKeyInput { withKeyDown(Key.CtrlLeft) { pressKey(Key.Zero) } }
         compose.waitForIdle()
-        assertEquals(1f, memory.scale, 0.001f)
+        assertEquals(1f, prefs.editorTextScale(DOCS_ZOOM_KEY), 0.001f)
     }
 
     @Test
