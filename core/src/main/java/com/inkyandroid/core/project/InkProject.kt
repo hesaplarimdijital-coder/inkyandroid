@@ -6,6 +6,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -423,15 +424,20 @@ class InkProject private constructor(
                     return SaveResult.NothingToSave
                 }
             }
-            val written = store.write(path, text)
-            if (files[path] !== record) return SaveResult.Saved
-            record.stored = written
-            record.storedHash = hash
-            record.conflict = false
-            // typing during the write: what is on storage is no longer what is here
-            record.edited = record.revision != revision
-            publish()
-            return SaveResult.Saved
+            // Not cancellable: a write that reaches storage must be recorded, or the next save would
+            // find a version it does not know and call its own work an outside change.
+            return withContext(NonCancellable) {
+                val written = store.write(path, text)
+                if (files[path] === record) {
+                    record.stored = written
+                    record.storedHash = hash
+                    record.conflict = false
+                    // typing during the write: what is on storage is no longer what is here
+                    record.edited = record.revision != revision
+                    publish()
+                }
+                SaveResult.Saved
+            }
         } catch (failed: IOException) {
             return SaveResult.Failed(failed)
         }
