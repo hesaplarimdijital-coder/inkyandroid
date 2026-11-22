@@ -32,6 +32,7 @@ import com.inkyandroid.storage.ProjectRef
 import com.inkyandroid.storage.ProjectStorage
 import com.inkyandroid.storage.StorageContracts
 import com.inkyandroid.ui.extras.DocsScreen
+import com.inkyandroid.ui.extras.SettingsScreen
 import com.inkyandroid.ui.extras.rememberExportActions
 import com.inkyandroid.ui.files.fileMenu
 import com.inkyandroid.ui.files.issuesByFile
@@ -159,7 +160,7 @@ fun InkyApp(
     val projectName = session?.let { open -> ProjectRef.decode(open.reference)?.displayName ?: open.project.store.displayName }
     val navFiles = if (project != null && projectName != null) NavFiles.of(projectName, project.tree) else null
     val spec = remember(locales, navFiles, ui.twoPanes, startRoute) {
-        buildShellSpec(resources, navFiles, playOnRail = !ui.twoPanes, docs = true, settings = false, startRoute = startRoute)
+        buildShellSpec(resources, navFiles, playOnRail = !ui.twoPanes, docs = true, settings = true, startRoute = startRoute)
     }
     val entry by navController.currentBackStackEntryAsState()
     val currentRoute = entry?.destination?.route ?: spec.startRoute
@@ -201,6 +202,12 @@ fun InkyApp(
 
     DesktopKitRoot(prefs, syntax = { base -> inkSyntax(base, settings.tagsVisible) }) { widthClass ->
         val sidebar = NavKind.forWidth(widthClass) == NavKind.Sidebar
+        SideEffect {
+            actions.toggleSidebar = {
+                if (sidebar) prefs.updateSidebarCollapsed(!prefs.sidebarCollapsed)
+                sidebar
+            }
+        }
         // The sidebar lists the project's files as entries of their own: the one in the editor is
         // marked. A file chosen there becomes the editor's (a history step, as upstream's files
         // view adds one); a jump that changes the editor's file moves the mark along.
@@ -294,6 +301,10 @@ private fun RouteContent(
         }
         Routes.DOCS -> {
             DocsScreen(prefs, insertIntoEditor = if (session == null) null else actions::insertSnippet)
+            return
+        }
+        Routes.SETTINGS -> {
+            SettingsScreen(prefs, settings, shortcuts)
             return
         }
     }

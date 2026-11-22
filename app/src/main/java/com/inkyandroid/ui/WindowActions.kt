@@ -597,6 +597,10 @@ class WindowActions(
                 openPalette("")
                 true
             }
+            CommonShortcuts.SETTINGS -> {
+                navigate(Routes.SETTINGS)
+                true
+            }
             CommonShortcuts.SHORTCUT_LIST -> {
                 ui.dialog = WindowDialog.Shortcuts
                 true

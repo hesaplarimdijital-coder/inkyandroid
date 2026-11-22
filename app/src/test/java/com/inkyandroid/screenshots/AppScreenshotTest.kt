@@ -3,11 +3,30 @@ package com.inkyandroid.screenshots
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.isSelectable
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.inkyandroid.core.live.CompileStatus
+import com.inkyandroid.core.snippets.InkSnippets
+import com.inkyandroid.core.snippets.SnippetNode
+import com.inkyandroid.session.ProjectSessionHolder
+import com.inkyandroid.settings.InspectorTab
 import com.inkyandroid.testPrefs
+import com.inkyandroid.ui.CommandHost
+import com.inkyandroid.ui.Commands
 import com.inkyandroid.ui.InkyApp
+import com.inkyandroid.ui.UiWorld
+import com.inkyandroid.ui.WindowDialog
+import com.inkyandroid.ui.WindowUi
+import com.inkyandroid.ui.awaitSession
+import com.inkyandroid.ui.awaitStory
+import com.inkyandroid.ui.workspace.editorStateOf
 import desktopkit.shell.ShellTransitions
 import desktopkit.theme.DensityPreference
 import desktopkit.theme.ThemeMode
@@ -21,16 +40,13 @@ import java.io.File
 import java.io.FileOutputStream
 
 /**
- * The app's screens as pictures, in Turkish, at the sizes of the devices it is made for: the phone
- * (Galaxy S24, 411 x 891 dp) and a DeX window on a monitor (1920 x 1080 dp, mouse and keyboard).
- * The tablet (Galaxy Tab S11 Ultra, 924 x 1480 and 1480 x 924 dp) joins them with the first real
- * screens.
+ * The app's screens as pictures, with real content: a small story in three files (one of them
+ * spare) for the everyday screens, the same with errors, warnings and notes for the issues, and
+ * upstream's *The Intercept* for a long project. At the sizes of the owner's devices: the phone
+ * (Galaxy S24), the tablet (Galaxy Tab S11 Ultra) upright and on its side, and a DeX window on a
+ * monitor with mouse and keyboard. Turkish, as he uses it; one English and one 200 % font pass.
  *
- * The PNGs land in build/outputs/screenshots. CI compares them with src/test/screenshots, reports
- * what changed (tools/screenshot_report.py) and pushes them to ci/screenshots-pr-<number>.
- * Glass is drawn in its translucent form: the test renderer cannot blur.
- *
- * The window is drawn into a bitmap directly, as in the kit's screenshot tests.
+ * The PNGs land in build/outputs/screenshots; CI compares them with src/test/screenshots.
  */
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
@@ -45,13 +61,39 @@ class AppScreenshotTest {
     @get:Rule(order = 1)
     val compose = createAndroidComposeRule<ComponentActivity>()
 
-    private fun launch(theme: ThemeMode, density: DensityPreference = DensityPreference.Touch) {
+    private val ui = WindowUi()
+    private val commands = CommandHost()
+
+    private fun launch(holder: ProjectSessionHolder, theme: ThemeMode, density: DensityPreference = DensityPreference.Touch) {
         val prefs = testPrefs(theme, density)
         // the test activity's theme has an action bar; the app's has none
         compose.runOnUiThread { compose.activity.actionBar?.hide() }
-        compose.setContent { InkyApp(prefs = prefs, transitions = ShellTransitions.None) }
-        compose.waitForIdle()
+        compose.setContent {
+            InkyApp(holder, UiWorld.app.settings, UiWorld.app.storage, ui, prefs = prefs, transitions = ShellTransitions.None, commands = commands)
+        }
     }
+
+    /** The small story, opened and played as far as it goes; what it compiled to. */
+    private fun story(theme: ThemeMode, density: DensityPreference = DensityPreference.Touch, broken: Boolean = false): ProjectSessionHolder {
+        val holder = UiWorld.holder(UiWorld.project(NAME, MAIN, if (broken) BROKEN_FILES else FILES))
+        launch(holder, theme, density)
+        compose.awaitStory(compose.awaitSession(holder), if (broken) CompileStatus.Errors else CompileStatus.Ok)
+        return holder
+    }
+
+    private fun intercept(theme: ThemeMode, density: DensityPreference): ProjectSessionHolder {
+        val holder = UiWorld.holder(UiWorld.project("The Intercept", interceptText()))
+        launch(holder, theme, density)
+        compose.awaitStory(compose.awaitSession(holder))
+        return holder
+    }
+
+    private fun interceptText(): String {
+        val full = InkSnippets.builtIn.filterIsInstance<SnippetNode.Category>().first { it.id == "full_stories" }
+        return full.children.filterIsInstance<SnippetNode.Snippet>().first { it.id == "story_intercept" }.ink
+    }
+
+    private fun tab(name: String) = compose.onNode(hasText(name) and isSelectable()).performClick()
 
     private fun capture(name: String) {
         compose.waitForIdle()
@@ -62,22 +104,233 @@ class AppScreenshotTest {
         FileOutputStream(File(directory, "$name.png")).use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
     }
 
+    // ------------------------------------------------------------------ phone
+
     @Test @Config(qualifiers = PHONE)
-    fun phoneSetupDark() {
-        launch(ThemeMode.Dark)
-        capture("phone-setup-dark")
+    fun phoneWriteDark() {
+        story(ThemeMode.Dark)
+        capture("app-phone-write-dark")
+    }
+
+    @Test @Config(qualifiers = PHONE)
+    fun phoneWriteLight() {
+        story(ThemeMode.Light)
+        capture("app-phone-write-light")
+    }
+
+    @Test @Config(qualifiers = PHONE)
+    fun phonePlayLight() {
+        story(ThemeMode.Light)
+        tab("Oyna")
+        capture("app-phone-play-light")
+    }
+
+    @Test @Config(qualifiers = PHONE)
+    fun phonePlayEndedDark() {
+        val holder = story(ThemeMode.Dark)
+        tab("Oyna")
+        compose.onNodeWithText("Bekleme salonuna gir").performClick()
+        compose.waitUntil(10_000) { holder.session!!.live.session!!.state.value.transcript.choices.isNotEmpty() }
+        compose.onNodeWithText("Sessizce otur").performClick()
+        compose.waitUntil(10_000) { holder.session!!.live.session!!.state.value.transcript.choices.size == 2 }
+        compose.onNodeWithText("Bekle").performClick()
+        compose.waitUntil(10_000) { holder.session!!.live.session!!.state.value.transcript.isOver }
+        capture("app-phone-play-ended-dark")
+    }
+
+    @Test @Config(qualifiers = PHONE)
+    fun phonePlayStaleWhileTheInkHasErrorsDark() {
+        val holder = story(ThemeMode.Dark)
+        val session = holder.session!!
+        val editor = editorStateOf(session.activeDocument.buffer)
+        compose.runOnUiThread { editor.replace(editor.length, editor.length, "{ unclosed\n") }
+        compose.awaitStory(session, CompileStatus.Errors)
+        tab("Oyna")
+        capture("app-phone-play-errors-dark")
+    }
+
+    @Test @Config(qualifiers = PHONE)
+    fun phoneFilesDark() {
+        story(ThemeMode.Dark)
+        tab("Dosyalar")
+        capture("app-phone-files-dark")
+    }
+
+    @Test @Config(qualifiers = PHONE)
+    fun phoneOutlineLight() {
+        val holder = story(ThemeMode.Light)
+        compose.runOnUiThread { holder.session!!.show("istasyon.ink") }
+        tab("Dosyalar")
+        compose.onNode(hasText("Anahat") and isSelectable()).performClick()
+        capture("app-phone-outline-light")
+    }
+
+    @Test @Config(qualifiers = PHONE)
+    fun phoneIssuesLight() {
+        story(ThemeMode.Light, broken = true)
+        compose.runOnUiThread { commands.perform(Commands.SHOW_ISSUES) }
+        capture("app-phone-issues-light")
+    }
+
+    @Test @Config(qualifiers = PHONE)
+    fun phoneNoProjectDark() {
+        launch(UiWorld.holder(), ThemeMode.Dark)
+        capture("app-phone-no-project-dark")
+    }
+
+    @Test @Config(qualifiers = PHONE, fontScale = 2.0f)
+    fun phonePlayFont200Light() {
+        story(ThemeMode.Light)
+        tab("Oyna")
+        capture("app-phone-play-font200-light")
+    }
+
+    @Test @Config(qualifiers = PHONE_EN)
+    fun phoneWriteEnglishLight() {
+        story(ThemeMode.Light)
+        capture("app-phone-write-en-light")
+    }
+
+    // ------------------------------------------------------------------ tablet
+
+    @Test @Config(qualifiers = TABLET)
+    fun tabletWorkspaceLight() {
+        intercept(ThemeMode.Light, DensityPreference.Touch)
+        capture("app-tablet-workspace-light")
+    }
+
+    @Test @Config(qualifiers = TABLET)
+    fun tabletIssuesDark() {
+        story(ThemeMode.Dark, broken = true)
+        compose.runOnUiThread { UiWorld.app.settings.updateInspectorTab(InspectorTab.Issues) }
+        capture("app-tablet-issues-dark")
+    }
+
+    @Test @Config(qualifiers = TABLET_LANDSCAPE)
+    fun tabletLandscapeDark() {
+        story(ThemeMode.Dark)
+        capture("app-tablet-landscape-dark")
+    }
+
+    // ------------------------------------------------------------------ DeX
+
+    @Test @Config(qualifiers = DEX)
+    fun dexWorkspaceDark() {
+        intercept(ThemeMode.Dark, DensityPreference.Pointer)
+        capture("app-dex-workspace-dark")
     }
 
     @Test @Config(qualifiers = DEX)
-    fun dexSetupLight() {
-        launch(ThemeMode.Light, DensityPreference.Pointer)
-        capture("dex-setup-light")
+    fun dexOutlineLight() {
+        val holder = story(ThemeMode.Light, DensityPreference.Pointer)
+        compose.runOnUiThread {
+            holder.session!!.show("istasyon.ink")
+            UiWorld.app.settings.updateInspectorTab(InspectorTab.Outline)
+        }
+        capture("app-dex-outline-light")
+    }
+
+    @Test @Config(qualifiers = DEX)
+    fun dexWatchesLight() {
+        val holder = story(ThemeMode.Light, DensityPreference.Pointer)
+        compose.runOnUiThread {
+            holder.session!!.setWatches(listOf("Saat {saat}", "bilet {bilet: var|yok}"))
+            UiWorld.app.settings.updateInspectorTab(InspectorTab.Watches)
+        }
+        compose.awaitStory(holder.session!!)
+        capture("app-dex-watches-light")
+    }
+
+    @Test @Config(qualifiers = DEX)
+    fun dexNewIncludeDark() {
+        story(ThemeMode.Dark, DensityPreference.Pointer)
+        compose.runOnUiThread { ui.dialog = WindowDialog.NewInclude() }
+        capture("app-dex-new-include-dark")
+    }
+
+    @Test @Config(qualifiers = DEX)
+    fun dexGotoAnythingLight() {
+        story(ThemeMode.Light, DensityPreference.Pointer)
+        compose.runOnUiThread { commands.perform(Commands.GOTO_ANYTHING) }
+        compose.waitForIdle()
+        compose.onNode(hasSetTextAction()).performTextInput("salon")
+        capture("app-dex-goto-light")
     }
 
     private companion object {
         private const val PHONE = "tr-w411dp-h891dp-xhdpi"
+        private const val PHONE_EN = "en-w411dp-h891dp-xhdpi"
+        private const val TABLET = "tr-w924dp-h1480dp-mdpi"
+        private const val TABLET_LANDSCAPE = "tr-w1480dp-h924dp-mdpi"
         private const val DEX = "tr-w1920dp-h1080dp-mdpi"
 
-        private val directory = File(System.getProperty("inky.screenshotDir") ?: "build/outputs/screenshots")
+        val directory = File(System.getProperty("inky.screenshotDir") ?: "build/outputs/screenshots")
+
+        const val NAME = "Gece treni"
+
+        val MAIN = """
+            INCLUDE istasyon.ink
+            INCLUDE bolumler/vagon.ink
+            # title: Gece treni
+            // Kısa bir deneme: son tren gecikmiş.
+            VAR bilet = false
+            VAR saat = 23
+
+            Peron boştu. Saat {saat}'ü geçiyordu ve son tren gecikmişti. # yer: peron
+
+            * [Bekleme salonuna gir] -> salon
+            * [Raylara doğru yürü] -> raylar
+            * [Cebindeki bileti yokla]
+                Cebini yokladın. {bilet: Bilet oradaydı.|Bilet yoktu.}
+                -> salon
+
+        """.trimIndent()
+
+        private val STATION = """
+            == salon ==
+            Salonda yaşlı bir adam gazete okuyordu. # kişi: adam
+            * "Tren ne zaman gelir?"
+                Adam başını kaldırmadan omuz silkti.
+                -> vagon.ilk
+            * [Sessizce otur]
+                -> bekle
+            = bekle
+            Saatler geçti.
+            ~ saat = saat + 1
+            -> vagon.ilk
+
+            == raylar ==
+            Raylar soğuktu ve uzakta bir ışık yaklaşıyordu.
+            -> vagon.ilk
+
+        """.trimIndent()
+
+        private val CARRIAGE = """
+            == vagon ==
+            = ilk
+            Tren sonunda geldi. Kapılar tısladı.
+            * [Bin] Vagona bindin.
+                -> son
+            * [Bekle] Kapılar kapandı ve tren gitti.
+                -> END
+
+            == son ==
+            Pencereden kasabanın ışıkları kayıp gitti.
+            -> END
+
+        """.trimIndent()
+
+        val FILES = mapOf(
+            "istasyon.ink" to STATION,
+            "bolumler/vagon.ink" to CARRIAGE,
+            // nothing includes it: a spare file
+            "notlar.ink" to "TODO: Adamın kim olduğunu bul.\n",
+        )
+
+        /** The same story with an error of meaning, a loose end and notes, so the compiler reports all three kinds. */
+        val BROKEN_FILES = FILES + mapOf(
+            "istasyon.ink" to STATION.replace("-> vagon.ilk\n\n== raylar", "-> vagon.kayip\n\n== raylar").replace("Salonda yaşlı", "TODO: Adamın adını sonra yaz.\nSalonda yaşlı"),
+            "bolumler/vagon.ink" to CARRIAGE + "== yan_yol ==\nBu yol bir yere çıkmıyor.\n",
+        )
     }
 }

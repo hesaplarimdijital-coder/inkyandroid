@@ -113,6 +113,7 @@
     <string name="player_stopped_lines">Hikâye bir seçime varmadan metin üretmeyi sürdürdü ve durduruldu.</string>
     <string name="player_stopped_time">Bu tur çok uzun sürdü ve durduruldu. Genellikle sonu olmayan bir döngüden kaynaklanır.</string>
     <string name="player_stopped_failure">Hikâye buradan öteye gidemedi.</string>
+    <string name="player_stopped_depth">Hikâye işlevleri ya da tünelleri sonu gelmeden birbirinin içinde çağırdı ve durduruldu.</string>
     <string name="player_compiling">Hikâye derleniyor</string>
     <string name="player_open_source">Bu satırın ink metnine git</string>
     <string name="player_status_turn">%1$d. tur</string>

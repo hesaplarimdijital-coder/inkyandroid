@@ -114,6 +114,7 @@
     <string name="player_stopped_lines">The story kept producing text without reaching a choice, and was stopped.</string>
     <string name="player_stopped_time">This turn took too long and was stopped. A loop without an end is the usual cause.</string>
     <string name="player_stopped_failure">The story could not go on from here.</string>
+    <string name="player_stopped_depth">The story called functions or tunnels inside one another without end, and was stopped.</string>
     <string name="player_compiling">Compiling the story</string>
     <string name="player_open_source">Go to the ink of this line</string>
     <string name="player_status_turn">Turn %1$d</string>

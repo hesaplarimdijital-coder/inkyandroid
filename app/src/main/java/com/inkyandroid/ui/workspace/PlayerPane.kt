@@ -406,6 +406,7 @@ private fun StoppedNote(item: TranscriptItem.Stopped, styles: PlayerStyles) {
         StopReason.LineLimit -> stringResource(R.string.player_stopped_lines)
         StopReason.TimeLimit -> stringResource(R.string.player_stopped_time)
         StopReason.EngineFailure -> stringResource(R.string.player_stopped_failure)
+        StopReason.DepthLimit -> stringResource(R.string.player_stopped_depth)
     }
     StatusBanner(
         tone = BannerTone.Error,

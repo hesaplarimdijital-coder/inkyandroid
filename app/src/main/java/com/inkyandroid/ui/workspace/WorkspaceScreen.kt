@@ -17,7 +17,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
@@ -63,8 +63,6 @@ import desktopkit.shell.TopBarAction
 import desktopkit.shell.WidthClass
 import desktopkit.shell.rememberShellContentPadding
 import desktopkit.theme.DeskTheme
-import kotlinx.coroutines.flow.drop
-import kotlinx.coroutines.launch
 
 /** The narrowest the editor and the inspector may be beside each other; below their sum the window shows one of them. */
 val MIN_EDITOR_WIDTH = 360.dp
@@ -101,26 +99,31 @@ fun WorkspaceScreen(
         EditorPane(session, state, project, settings, ui, actions, editorZoom, contentPadding = rememberShellContentPadding())
         return
     }
-    // The divider's place is a share of the workspace, as desktop Inky's is: a window that grows keeps the proportion.
+    // The divider's place is a share of the workspace, as desktop Inky's is: a window that grows
+    // keeps the proportion. What the divider is dragged to, and whether the pane is shut, outlive
+    // the window; they are stored when a drag ends, not on every frame of it.
+    val width by rememberUpdatedState(availableWidth)
     val inspector = remember(session) {
         InspectorState(
             initialWidthDp = (availableWidth.value * settings.inspectorShare).coerceAtLeast(MIN_INSPECTOR_WIDTH.value),
             initialCollapsed = settings.inspectorCollapsed,
-        )
+        ) { widthDp, collapsed ->
+            settings.updateInspectorShare(widthDp / width.value)
+            settings.updateInspectorCollapsed(collapsed)
+        }
     }
     val maxInspector = (availableWidth - MIN_EDITOR_WIDTH).coerceAtLeast(MIN_INSPECTOR_WIDTH)
     LaunchedEffect(inspector, availableWidth) {
         inspector.resizeBy(availableWidth.value * settings.inspectorShare - inspector.widthDp, MIN_INSPECTOR_WIDTH, maxInspector)
-        // what the divider is dragged to, and whether the pane is shut, outlive the window
-        launch { snapshotFlow { inspector.widthDp }.drop(1).collect { settings.updateInspectorShare(it / availableWidth.value) } }
-        launch { snapshotFlow { inspector.collapsed }.drop(1).collect(settings::updateInspectorCollapsed) }
     }
     DisposableEffect(inspector) {
-        actions.toggleInspector = {
+        val toggle = {
             inspector.toggle()
             true
         }
-        onDispose { actions.toggleInspector = { false } }
+        actions.toggleInspector = toggle
+        // a workspace that leaves after the next one came (a cross-fade) leaves that one's switch alone
+        onDispose { if (actions.toggleInspector === toggle) actions.toggleInspector = { false } }
     }
     val hints = showShortcutHints()
     val resources = appResources()
