@@ -223,6 +223,40 @@ class ProjectOpeningTest {
     }
 
     @Test
+    fun thePickerContractsAskForPersistableAccessAndStartWhereTold() {
+        val folder = StorageContracts.PickFolder().createIntent(world.context, StorageContracts.DOCUMENTS_HINT)
+        assertEquals(Intent.ACTION_OPEN_DOCUMENT_TREE, folder.action)
+        assertEquals(StorageContracts.DOCUMENTS_HINT, folder.getParcelableExtra(android.provider.DocumentsContract.EXTRA_INITIAL_URI, Uri::class.java))
+        assertTrue(folder.flags and Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION != 0)
+
+        val file = StorageContracts.OpenInkFile().createIntent(world.context, null)
+        assertEquals(Intent.ACTION_OPEN_DOCUMENT, file.action)
+        assertEquals("*/*", file.type)
+
+        val export = StorageContracts.CreateExportFile().createIntent(world.context, ExportFileRequest.javascript("story.js"))
+        assertEquals(Intent.ACTION_CREATE_DOCUMENT, export.action)
+        assertEquals("story.js", export.getStringExtra(Intent.EXTRA_TITLE))
+        assertEquals("application/octet-stream", export.type)
+        assertEquals("application/json", ExportFileRequest.json("story.json").mimeType)
+
+        val picked = Uri.parse("content://x/tree/y")
+        assertEquals(picked, StorageContracts.PickFolder().parseResult(android.app.Activity.RESULT_OK, Intent().setData(picked)))
+        assertNull(StorageContracts.PickFolder().parseResult(android.app.Activity.RESULT_CANCELED, Intent().setData(picked)))
+        assertNull(StorageContracts.OpenInkFile().parseResult(android.app.Activity.RESULT_OK, null))
+    }
+
+    @Test
+    fun theProcessInstanceKeepsInternalProjectsInTheAppsFiles() {
+        val shared = ProjectStorage.from(world.context)
+        assertTrue(shared === ProjectStorage.from(world.context))
+
+        val ref = blocking { shared.internalProjects.create("Örnek") }
+        assertEquals("Örnek.ink", ref.mainPath)
+        assertTrue(java.io.File(world.context.filesDir, "projects/Örnek/Örnek.ink").isFile)
+        blocking { shared.internalProjects.delete(ref) }
+    }
+
+    @Test
     fun theManifestOffersInkyForInkFilesFromOtherApps() {
         val context = world.context
         val packageManager = context.packageManager
