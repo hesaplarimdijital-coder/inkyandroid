@@ -49,8 +49,8 @@
     <string name="snippet_category_useful_systems">Yararlı sistemler</string>
     <string name="snippet_system_list_items_as_integers">Tamsayı değişkeni olarak liste öğeleri</string>
     <string name="snippet_system_swing_variables">Salınım değişkenleri</string>
-    <string name="snippet_system_storylets">Öykücükler</string>
-    <string name="snippet_category_full_stories">Tam öyküler</string>
+    <string name="snippet_system_storylets">Hikâyecikler</string>
+    <string name="snippet_category_full_stories">Tam hikâyeler</string>
     <string name="snippet_story_crime_scene">Olay yeri (Writing with Ink’ten)</string>
     <string name="snippet_story_swindlestones">Swindlestones (Sorcery!’den)</string>
     <string name="snippet_story_pontoon">Pontoon oyunu (Overboard!’dan)</string>
