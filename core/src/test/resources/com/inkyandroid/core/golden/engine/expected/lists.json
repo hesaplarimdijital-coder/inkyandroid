@@ -1,0 +1,92 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 89,
+  "knots": 0,
+  "stitches": 0,
+  "functions": 0,
+  "choices": 2,
+  "gathers": 1,
+  "diverts": 13
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "Colours: green. Sizes: small. Bag: sword, rope. Empty: \"\".\n"
+   },
+   {
+    "text": "Now colours: blue.\n"
+   },
+   {
+    "text": "Count 1, min blue, max blue.\n"
+   },
+   {
+    "text": "All colours: red, green, blue.\n"
+   },
+   {
+    "text": "Inverted: red, green.\n"
+   },
+   {
+    "text": "Value of large: 10. Value of small: 1.\n"
+   },
+   {
+    "text": "From number: medium.\n"
+   },
+   {
+    "text": "Range: medium, large.\n"
+   },
+   {
+    "text": "no red and hasnt green .\n"
+   },
+   {
+    "text": "not both and no green .\n"
+   },
+   {
+    "text": "bag equal .\n"
+   },
+   {
+    "text": "large is bigger .\n"
+   },
+   {
+    "text": "Inventory: shield.\n"
+   },
+   {
+    "text": "Next after small: . Mixed: sword, lamp, rope.\n"
+   },
+   {
+    "text": "Intersection: sword, rope.\n"
+   },
+   {
+    "text": "is empty\n"
+   },
+   {
+    "choices": [
+     [
+      "Raise the shield",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Shield gone: .\n"
+   },
+   {
+    "text": "0 left.\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

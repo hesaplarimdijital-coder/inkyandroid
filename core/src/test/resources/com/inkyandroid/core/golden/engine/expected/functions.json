@@ -1,0 +1,71 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 53,
+  "knots": 9,
+  "stitches": 0,
+  "functions": 9,
+  "choices": 1,
+  "gathers": 1,
+  "diverts": 17
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "Hello, world!\n"
+   },
+   {
+    "text": "Two times four is 8.\n"
+   },
+   {
+    "text": "Factorial of 5 is 120.\n"
+   },
+   {
+    "text": "Total is 7.\n"
+   },
+   {
+    "text": "The ink version shouts: fallback\n"
+   },
+   {
+    "text": "One and two make 3.\n"
+   },
+   {
+    "text": "none one many\n"
+   },
+   {
+    "text": "printed by the function\n"
+   },
+   {
+    "text": "Both gave returned.\n"
+   },
+   {
+    "text": "four is even and three is not.\n"
+   },
+   {
+    "choices": [
+     [
+      "Call a function from a choice 9",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Chosen: Hello, chooser!\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

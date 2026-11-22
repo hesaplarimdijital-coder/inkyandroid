@@ -1,0 +1,1 @@
+{"inkVersion":21,"root":[["^Before.","\n","ev","str","^Divide","/str","/ev",{"*":"0.c-0","flg":20},{"c-0":["\n",{"->":"0.g-0"},{"#f":5}],"g-0":["ev",10,{"VAR?":"zero"},"/","out","/ev","\n","^After.","\n",["done",{"#f":5,"#n":"g-1"}],{"#f":5}]}],"done",{"global decl":["ev",0,{"VAR=":"zero"},"/ev","end",null],"#f":1}],"listDefs":{}}

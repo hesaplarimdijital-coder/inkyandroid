@@ -1,0 +1,41 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 6,
+  "knots": 0,
+  "stitches": 0,
+  "functions": 0,
+  "choices": 1,
+  "gathers": 1,
+  "diverts": 1
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "Before the loop.\n"
+   },
+   {
+    "choices": [
+     [
+      "Enter the loop",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "timeout": true
+   }
+  ]
+ }
+}

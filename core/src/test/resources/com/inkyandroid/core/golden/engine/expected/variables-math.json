@@ -1,0 +1,69 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 81,
+  "knots": 1,
+  "stitches": 0,
+  "functions": 0,
+  "choices": 0,
+  "gathers": 0,
+  "diverts": 6
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "Sum 9, difference 5, product 14, quotient 3, remainder 1, mod word 1.\n"
+   },
+   {
+    "text": "Negation -7, grouping 18, precedence 11.\n"
+   },
+   {
+    "text": "Compare true false true false true false.\n"
+   },
+   {
+    "text": "Logic true false true false flag.\n"
+   },
+   {
+    "text": "Strings inky true true false true true.\n"
+   },
+   {
+    "text": "Constant 10, true.\n"
+   },
+   {
+    "text": "After changes 18 and 0.\n"
+   },
+   {
+    "text": "Temp 180.\n"
+   },
+   {
+    "text": "Both hold.\n"
+   },
+   {
+    "text": "eighteen\n"
+   },
+   {
+    "text": "Int from float 7, min 0, max 18.\n"
+   },
+   {
+    "text": "Booleans print as true and false; numbers as true and false.\n"
+   },
+   {
+    "text": "Built string: ink and 18.\n"
+   },
+   {
+    "text": "Reached through a variable divert target. Visits: 1.\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

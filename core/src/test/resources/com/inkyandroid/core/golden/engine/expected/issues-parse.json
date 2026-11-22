@@ -1,0 +1,30 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink",
+  "sub/nested.ink",
+  "sub/part.ink"
+ ],
+ "compile": {
+  "success": false,
+  "issues": [
+   "ERROR: 'sub/nested.ink' line 1: Recursive INCLUDE detected: 'sub/part.ink' is already open.",
+   "ERROR: 'sub/nested.ink' line 3: Expected some kind of logic, conditional or sequence within braces: { ... } but saw end of line",
+   "ERROR: 'sub/nested.ink' line 3: Expected end of line but saw '{'",
+   "ERROR: 'sub/part.ink' line 3: Expected value expression to be assigned but saw ' '",
+   "ERROR: 'main.ink' line 2: Failed to load: 'missing.ink'",
+   "ERROR: 'main.ink' line 6: Expected closing brace '}' for inline logic but saw end of line"
+  ]
+ },
+ "statistics": {
+  "words": 3,
+  "knots": 2,
+  "stitches": 0,
+  "functions": 0,
+  "choices": 0,
+  "gathers": 0,
+  "diverts": 2
+ },
+ "transcripts": {}
+}

@@ -1,0 +1,675 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 83,
+  "knots": 1,
+  "stitches": 2,
+  "functions": 0,
+  "choices": 5,
+  "gathers": 0,
+  "diverts": 11
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "Turn 1.\n"
+   },
+   {
+    "text": "Stopping: one.\n"
+   },
+   {
+    "text": "Cycle: red.\n"
+   },
+   {
+    "text": "Once: first.\n"
+   },
+   {
+    "text": "Count of this knot: 1.\n"
+   },
+   {
+    "text": "A long first visit.\n"
+   },
+   {
+    "text": "Tick.\n"
+   },
+   {
+    "text": "Only this once.\n"
+   },
+   {
+    "text": "the first turn\n"
+   },
+   {
+    "text": "Choices so far: 0.\n"
+   },
+   {
+    "choices": [
+     [
+      "A once-only choice",
+      []
+     ],
+     [
+      "A sticky choice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Taken once.\n"
+   },
+   {
+    "text": "Turn 2.\n"
+   },
+   {
+    "text": "Stopping: two.\n"
+   },
+   {
+    "text": "Cycle: green.\n"
+   },
+   {
+    "text": "Once: second.\n"
+   },
+   {
+    "text": "Count of this knot: 1.\n"
+   },
+   {
+    "text": "Turns since middle: 1.\n"
+   },
+   {
+    "text": "A shorter second visit.\n"
+   },
+   {
+    "text": "Tock.\n"
+   },
+   {
+    "text": "the second turn\n"
+   },
+   {
+    "text": "Choices so far: 0.\n"
+   },
+   {
+    "choices": [
+     [
+      "A sticky choice",
+      []
+     ],
+     [
+      "A choice for later turns",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Sticky taken, 2 visits.\n"
+   },
+   {
+    "text": "Turn 3.\n"
+   },
+   {
+    "text": "Stopping: three.\n"
+   },
+   {
+    "text": "Cycle: blue.\n"
+   },
+   {
+    "text": "Once: .\n"
+   },
+   {
+    "text": "Count of this knot: 1.\n"
+   },
+   {
+    "text": "Turns since middle: 1.\n"
+   },
+   {
+    "text": "The same from now on.\n"
+   },
+   {
+    "text": "Tick.\n"
+   },
+   {
+    "text": "Seen the middle 3 times.\n"
+   },
+   {
+    "text": "a later turn\n"
+   },
+   {
+    "text": "Choices so far: 0.\n"
+   },
+   {
+    "choices": [
+     [
+      "A sticky choice",
+      []
+     ],
+     [
+      "A choice for later turns",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Sticky taken, 3 visits.\n"
+   },
+   {
+    "text": "Turn 4.\n"
+   },
+   {
+    "text": "Stopping: three.\n"
+   },
+   {
+    "text": "Cycle: red.\n"
+   },
+   {
+    "text": "Once: .\n"
+   },
+   {
+    "text": "Count of this knot: 1.\n"
+   },
+   {
+    "text": "Turns since middle: 1.\n"
+   },
+   {
+    "text": "The same from now on.\n"
+   },
+   {
+    "text": "Tock.\n"
+   },
+   {
+    "text": "Seen the middle 4 times.\n"
+   },
+   {
+    "text": "a later turn\n"
+   },
+   {
+    "text": "Choices so far: 0.\n"
+   },
+   {
+    "choices": [
+     [
+      "A sticky choice",
+      []
+     ],
+     [
+      "A choice for later turns",
+      []
+     ]
+    ]
+   }
+  ],
+  "sticky": [
+   {
+    "text": "Turn 1.\n"
+   },
+   {
+    "text": "Stopping: one.\n"
+   },
+   {
+    "text": "Cycle: red.\n"
+   },
+   {
+    "text": "Once: first.\n"
+   },
+   {
+    "text": "Count of this knot: 1.\n"
+   },
+   {
+    "text": "A long first visit.\n"
+   },
+   {
+    "text": "Tick.\n"
+   },
+   {
+    "text": "Only this once.\n"
+   },
+   {
+    "text": "the first turn\n"
+   },
+   {
+    "text": "Choices so far: 0.\n"
+   },
+   {
+    "choices": [
+     [
+      "A once-only choice",
+      []
+     ],
+     [
+      "A sticky choice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "Sticky taken, 1 visits.\n"
+   },
+   {
+    "text": "Turn 2.\n"
+   },
+   {
+    "text": "Stopping: two.\n"
+   },
+   {
+    "text": "Cycle: green.\n"
+   },
+   {
+    "text": "Once: second.\n"
+   },
+   {
+    "text": "Count of this knot: 1.\n"
+   },
+   {
+    "text": "Turns since middle: 1.\n"
+   },
+   {
+    "text": "A shorter second visit.\n"
+   },
+   {
+    "text": "Tock.\n"
+   },
+   {
+    "text": "the second turn\n"
+   },
+   {
+    "text": "Choices so far: 0.\n"
+   },
+   {
+    "choices": [
+     [
+      "A once-only choice",
+      []
+     ],
+     [
+      "A sticky choice",
+      []
+     ],
+     [
+      "A choice for later turns",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "Sticky taken, 2 visits.\n"
+   },
+   {
+    "text": "Turn 3.\n"
+   },
+   {
+    "text": "Stopping: three.\n"
+   },
+   {
+    "text": "Cycle: blue.\n"
+   },
+   {
+    "text": "Once: .\n"
+   },
+   {
+    "text": "Count of this knot: 1.\n"
+   },
+   {
+    "text": "Turns since middle: 1.\n"
+   },
+   {
+    "text": "The same from now on.\n"
+   },
+   {
+    "text": "Tick.\n"
+   },
+   {
+    "text": "Seen the middle 3 times.\n"
+   },
+   {
+    "text": "a later turn\n"
+   },
+   {
+    "text": "Choices so far: 0.\n"
+   },
+   {
+    "choices": [
+     [
+      "A once-only choice",
+      []
+     ],
+     [
+      "A sticky choice",
+      []
+     ],
+     [
+      "A choice for later turns",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "Sticky taken, 3 visits.\n"
+   },
+   {
+    "text": "Turn 4.\n"
+   },
+   {
+    "text": "Stopping: three.\n"
+   },
+   {
+    "text": "Cycle: red.\n"
+   },
+   {
+    "text": "Once: .\n"
+   },
+   {
+    "text": "Count of this knot: 1.\n"
+   },
+   {
+    "text": "Turns since middle: 1.\n"
+   },
+   {
+    "text": "The same from now on.\n"
+   },
+   {
+    "text": "Tock.\n"
+   },
+   {
+    "text": "Seen the middle 4 times.\n"
+   },
+   {
+    "text": "a later turn\n"
+   },
+   {
+    "text": "Choices so far: 0.\n"
+   },
+   {
+    "choices": [
+     [
+      "A once-only choice",
+      []
+     ],
+     [
+      "A sticky choice",
+      []
+     ],
+     [
+      "A choice for later turns",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "Sticky taken, 4 visits.\n"
+   },
+   {
+    "text": "Turn 5.\n"
+   },
+   {
+    "text": "Stopping: three.\n"
+   },
+   {
+    "text": "Cycle: green.\n"
+   },
+   {
+    "text": "Once: .\n"
+   },
+   {
+    "text": "Count of this knot: 1.\n"
+   },
+   {
+    "text": "Turns since middle: 1.\n"
+   },
+   {
+    "text": "The same from now on.\n"
+   },
+   {
+    "text": "Tick.\n"
+   },
+   {
+    "text": "Seen the middle 5 times.\n"
+   },
+   {
+    "text": "a later turn\n"
+   },
+   {
+    "text": "Choices so far: 0.\n"
+   },
+   {
+    "choices": [
+     [
+      "A once-only choice",
+      []
+     ],
+     [
+      "A sticky choice",
+      []
+     ],
+     [
+      "A choice for later turns",
+      []
+     ],
+     [
+      "Finish",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "Later choice taken.\n"
+   },
+   {
+    "text": "Turn 6.\n"
+   },
+   {
+    "text": "Stopping: three.\n"
+   },
+   {
+    "text": "Cycle: blue.\n"
+   },
+   {
+    "text": "Once: .\n"
+   },
+   {
+    "text": "Count of this knot: 1.\n"
+   },
+   {
+    "text": "Turns since middle: 1.\n"
+   },
+   {
+    "text": "The same from now on.\n"
+   },
+   {
+    "text": "Tock.\n"
+   },
+   {
+    "text": "Seen the middle 6 times.\n"
+   },
+   {
+    "text": "a later turn\n"
+   },
+   {
+    "text": "Choices so far: 0.\n"
+   },
+   {
+    "choices": [
+     [
+      "A once-only choice",
+      []
+     ],
+     [
+      "A sticky choice",
+      []
+     ],
+     [
+      "Finish",
+      []
+     ]
+    ]
+   }
+  ],
+  "all-once": [
+   {
+    "text": "Turn 1.\n"
+   },
+   {
+    "text": "Stopping: one.\n"
+   },
+   {
+    "text": "Cycle: red.\n"
+   },
+   {
+    "text": "Once: first.\n"
+   },
+   {
+    "text": "Count of this knot: 1.\n"
+   },
+   {
+    "text": "A long first visit.\n"
+   },
+   {
+    "text": "Tick.\n"
+   },
+   {
+    "text": "Only this once.\n"
+   },
+   {
+    "text": "the first turn\n"
+   },
+   {
+    "text": "Choices so far: 0.\n"
+   },
+   {
+    "choices": [
+     [
+      "A once-only choice",
+      []
+     ],
+     [
+      "A sticky choice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Taken once.\n"
+   },
+   {
+    "text": "Turn 2.\n"
+   },
+   {
+    "text": "Stopping: two.\n"
+   },
+   {
+    "text": "Cycle: green.\n"
+   },
+   {
+    "text": "Once: second.\n"
+   },
+   {
+    "text": "Count of this knot: 1.\n"
+   },
+   {
+    "text": "Turns since middle: 1.\n"
+   },
+   {
+    "text": "A shorter second visit.\n"
+   },
+   {
+    "text": "Tock.\n"
+   },
+   {
+    "text": "the second turn\n"
+   },
+   {
+    "text": "Choices so far: 0.\n"
+   },
+   {
+    "choices": [
+     [
+      "A sticky choice",
+      []
+     ],
+     [
+      "A choice for later turns",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "Later choice taken.\n"
+   },
+   {
+    "text": "Turn 3.\n"
+   },
+   {
+    "text": "Stopping: three.\n"
+   },
+   {
+    "text": "Cycle: blue.\n"
+   },
+   {
+    "text": "Once: .\n"
+   },
+   {
+    "text": "Count of this knot: 1.\n"
+   },
+   {
+    "text": "Turns since middle: 1.\n"
+   },
+   {
+    "text": "The same from now on.\n"
+   },
+   {
+    "text": "Tick.\n"
+   },
+   {
+    "text": "Seen the middle 3 times.\n"
+   },
+   {
+    "text": "a later turn\n"
+   },
+   {
+    "text": "Choices so far: 0.\n"
+   },
+   {
+    "choices": [
+     [
+      "A sticky choice",
+      []
+     ]
+    ]
+   }
+  ]
+ }
+}
