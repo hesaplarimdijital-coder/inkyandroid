@@ -2,7 +2,8 @@
 
 Inky 0.15.2'nin özellik listesindeki (`inky-spec.md`, F-001 … F-188) her madde ya uygulamada vardır ya da
 burada nedeniyle birlikte yazılıdır. "Taşınmadı" bölümündekiler bu sürümde yoktur; "Farklı" bölümündekiler
-aynı işi Android'in ya da kitin yoluyla yapar. Tuşların farkları `KISAYOLLAR.md`'de.
+aynı işi Android'in ya da kitin yoluyla yapar. Tuşların farkları `KISAYOLLAR.md`'de; sondaki bölüm,
+ink'in kendisinin burada nasıl çalıştığını (hikâyenin oynatılışındaki farkları) anlatır.
 
 ## Taşınmadı
 
@@ -45,8 +46,38 @@ aynı işi Android'in ya da kitin yoluyla yapar. Tuşların farkları `KISAYOLLA
 | F-140 | Araç çubuğunda sorunların açılır listesi | Sorunlar sekmesi (DeX, tablet) ya da ekranı (telefon) ve sayı rozeti; tıklanan sorun satırını açar. |
 | F-152 | fuzzaldrin-plus puanlaması (eşik 6000) | Kitin komut paletinin eşleştirmesi. |
 | F-154 | Çalışma yolu sorgusu (`knot.0.c-1`) yazarken çözülür | Seçilince çözülür (kitin paleti sonuçları sorgu başına bir kez hesaplar). |
-| F-167 | Son dışa aktarma yolu bir sonrakinin varsayılanı | Sistemin dosya seçicisi kendi son klasörünü hatırlar. |
 | F-171 | Açık, Koyu, Kontrast, Odak temaları | Kitin açık, koyu, OLED temaları ve vurgu rengi; "odak" yan paneli kapatmaktır (mimari 4.4). |
 | F-172 | %50–%300 yakınlaştırma ön ayarları | Kitin yakınlaştırması, kalıcı. |
 | F-175 | "Etiketler görünsün" pencere başına, kaydedilmez | Uygulamanın ayarı: kaydedilir, bütün pencerelere uygulanır. |
 | F-177 | Görünüm ayarları bir JSON dosyasında | Android'in ayar deposunda. |
+| F-183, F-184 | Belgeler ayrı bir pencerede, başlık listesi yanında, yalnızca koyu temada koyu | Belgeler bir ekrandır (F1): kılavuz uygulamanın kendi yazısıyla çizilir, temanın bütün renklerine uyar; içindekiler (genişte yanda, telefonda alttan açılan sayfa), kılavuzda arama, örneklerin ink renkleri, kopyalama ve düzenleyiciye ekleme, yazı boyu ve kalınan yer eklendi. |
+
+## Hikâyenin oynatılışı
+
+Uygulama ink'i telefonun içinde, ink'in Java'ya aktarılmış derleyicisiyle (blade-ink) derleyip oynatır;
+masaüstü Inky ise inkle'ın kendi derleyicisini (inklecate) çalıştırır. İkisi aynı hikâyeden aynı metni ve
+aynı seçenekleri üretir; bunu uygulamayla birlikte gelen 25 örnek hikâye ve 22 sınama hikâyesi üzerinde,
+inklecate'in çıktısıyla satır satır karşılaştıran testler denetler. Bir yazarın fark edebileceği iki
+ayrım var:
+
+- **Ondalık sayılar biraz farklı yazılır.** Bir değişkenin değeri tam sayıya denk gelen bir ondalık
+  sayıysa uygulama `3.0` yazar, masaüstü Inky `3`; çok büyük sayılar `1.0E8` gibi görünür. Kesirli
+  sayılar (`0.5`) iki yerde de aynıdır. Hikâyenin oyuncuya göstereceği bir sayıyı tam sayı olarak
+  tutmak (ya da `INT()` ile yazdırmak) bu farkı ortadan kaldırır.
+- **Rastgelelik başka sayılar üretir.** `RANDOM`, karışık sıralar (`{~a|b|c}`) ve `LIST_RANDOM` aynı
+  tohumla bile masaüstündekinden başka sonuçlar verir; web'e aktarılan sürüm (inkjs) de üçüncü bir
+  sıra üretir. Bir oynayış kendi içinde tutarlıdır: metin değişip hikâye yeniden derlenince yapılmış
+  seçimler aynı sonuçları verir; hikâyeyi baştan başlatmak zarı yeniden atar.
+
+İşine yarayacak farklar ise şunlar:
+
+- **Sonsuz döngü uygulamayı kilitlemez.** Hiç bitmeyen bir hikâye (hep metin basan ya da hiçbir şey
+  basmadan dönen bir döngü, kendini durmadan çağıran bir işlev, kendine dönen bir tünel) belli bir satır,
+  süre ya da derinlikten sonra durdurulur ve oynatıcı nedenini söyler. Masaüstü Inky'de metin basmayan
+  bir döngü sessizce takılır, kendini çağıran bir işlev belleği doldurur.
+- **Derleyicinin çöktüğü yerde bir ileti.** Tam sayının sıfıra bölünmesi ya da derleyicinin
+  taşıyamayacağı kadar iç içe süslü ayraçlar masaüstünde derleyiciyi çökertir ("the ink compiler
+  crashed"). Burada ilkinde hikâye o noktada durur ve oynatıcı bunu söyler, ikincisi Sorunlar'da bir hata
+  olarak görünür; metin her durumda güvendedir.
+- **İzleme ifadelerinde işlev çağrısı çalışır.** `double(x)` gibi bir ifade masaüstü Inky'de hiç
+  yanıt vermez; burada değeri gösterilir.
