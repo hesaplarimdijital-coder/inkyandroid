@@ -1,0 +1,108 @@
+++ head -1
+++ ls apk/app-release.apk
++ APK=apk/app-release.apk
++ adb devices
+List of devices attached
+emulator-5554	device
+
++ ls -l /dev/kvm
+crw-rw-rw- 1 root kvm 10, 232 Nov 22 21:53 /dev/kvm
++ nproc
+4
++ uptime
+ 21:54:04 up 3 min,  0 users,  load average: 1.98, 0.82, 0.32
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:           15983        4772        4554          46        7047       11210
+Swap:           3071           0        3071
++ adb shell getprop ro.build.version.release
+14
++ adb shell getprop ro.build.version.sdk
+34
++ adb shell getprop ro.product.model
+sdk_gphone64_x86_64
++ adb shell wm size
+Physical size: 1080x2400
++ adb shell wm density
+Physical density: 420
++ adb shell getprop persist.sys.locale
+
++ adb shell getprop sys.boot_completed
+1
++ adb shell top -b -n 1 -m 15
+Tasks: 302 total,   6 running, 296 sleeping,   0 stopped,   0 zombie
+  Mem:  3050428K total,  2869600K used,   180828K free,    23048K buffers
+ Swap:  2287816K total,        0K used,  2287816K free,  1935500K cached
+300%cpu  96%user  19%nice 141%sys  15%idle   0%iow   0%irq   7%sirq  22%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+ 1763 u0_a132      20   0  14G 161M 111M R 37.0   5.4   0:00.12 com.google.android.googlequicksearchbox:interactor
+ 1721 u0_a126      20   0  13G 121M  68M S 37.0   4.0   0:00.17 com.google.android.as
+  534 system       18  -2  15G 420M 315M S 37.0  14.1   0:19.47 system_server
+   79 root          0 -20    0    0    0 I 25.9   0.0   0:04.82 [kworker/2:2H-kverityd]
+ 1957 u0_a139      20   0  14G  84M  37M R 11.1   2.8   0:00.01 com.google.android.youtube
+ 1127 u0_a169      20   0  13G 131M  73M S 11.1   4.4   0:00.30 com.google.android.apps.nexuslauncher
+ 1921 u0_a131      20   0  14G  72M  24M S  7.4   2.4   0:00.00 <pre-initialized>
+ 1579 u0_a84       20   0  13G 105M  54M S  7.4   3.5   0:00.10 android.process.acore
+  461 logd         30  10  10G 4.0M 3.2M S  7.4   0.1   0:01.55 logcat -f /dev/hvc1 *:V
+  141 logd         30  10  10G 7.1M 4.5M S  7.4   0.2   0:00.70 logd
+ 2054 shell        20   0  10G 4.9M 4.0M R  3.7   0.1   0:00.02 top -b -n 1 -m 15
+ 2004 u0_a124      20   0  14G  72M  24M R  3.7   2.4   0:00.00 <pre-initialized>
+ 1968 system        0 -20  14G  62M  15M R  3.7   2.0   0:00.00 zygote64
+ 1937 u0_a132       0 -20  14G  58M  11M S  3.7   1.9   0:00.00 zygote64
+ 1715 u0_a170      20   0  13G 102M  53M S  3.7   3.4   0:00.04 com.google.android.providers.media.module
++ adb root
++ sleep 3
++ adb wait-for-device
++ adb shell id
+uid=0(root) gid=0(root) groups=0(root),1004(input),1007(log),1011(adb),1015(sdcard_rw),1028(sdcard_r),1078(ext_data_rw),1079(ext_obb_rw),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats),3009(readproc),3011(uhid),3012(readtracefs) context=u:r:su:s0
++ adb logcat -G 16M
++ python3 tools/smoke.py apk/app-release.apk smoke-out --profile phone --scenarios ime-probe
+Inky device smoke: profile phone, sdk_gphone64_x86_64, Android 14 (API 34), Physical size: 1080x2400, density 420
+navigation bar overlays: [ ] com.android.internal.systemui.navbar.gestural_wide_back; [x] com.android.internal.systemui.navbar.threebutton; [ ] com.android.internal.systemui.navbar.twobutton; [ ] com.android.internal.systemui.navbar.gestural_extra_wide_back; [ ] com.android.internal.systemui.navbar.transparent; [ ] com.android.internal.systemui.navbar.gestural; [ ] com.android.internal.systemui.navbar.gestural_narrow_back
+installed app-release.apk
+
+== Scenario ime-probe: The on-screen keyboard of a system text field (driver self-check)
+[01] ime-probe-field: PASS   (01-ime-probe-field.png, 1080x2400 px, 411 dp wide)
+     do: shell am start -W -a android.settings.DEVICE_INFO_SETTINGS; shell input tap 300 923; wait 3; save ime-dumpsys-ime.txt dumpsys input_method; save ime-default.txt settings get secure default_input_method; ime list -s; dumpsys input_method | grep -iE 'mInputShown|mCurImeId|inputShown'; save ime-window.txt dumpsys window windows | grep -iE -A40 'Window #[0-9]+ Window\{[0-9a-f]+ u0 InputMethod'; save ime-dump-windows.xml uiautomator dump --windows /sdcard/w.xml >/dev/null 2>&1; cat /sdcard/w.xml; save ime-dump-active.xml uiautomator dump /sdcard/a.xml >/dev/null 2>&1; cat /sdcard/a.xml
+     $ am start -W -a android.settings.DEVICE_INFO_SETTINGS
+       Starting: Intent { act=android.settings.DEVICE_INFO_SETTINGS }
+Status: ok
+LaunchState: WARM
+Activity: com.android.settings/.Settings$MyDeviceInfoActivity
+TotalTime: 2428
+WaitTime: 2438
+Complete
+     $ input tap 300 923
+     saved ime-dumpsys-ime.txt: $ dumpsys input_method
+     saved ime-default.txt: $ settings get secure default_input_method; ime list -s; dumpsys input_method | grep -iE 'mInputShown|mCurImeId|inputShown'
+     saved ime-window.txt: $ dumpsys window windows | grep -iE -A40 'Window #[0-9]+ Window\{[0-9a-f]+ u0 InputMethod'
+     saved ime-dump-windows.xml: $ uiautomator dump --windows /sdcard/w.xml >/dev/null 2>&1; cat /sdcard/w.xml
+     saved ime-dump-active.xml: $ uiautomator dump /sdcard/a.xml >/dev/null 2>&1; cat /sdcard/a.xml
+     uiautomator could not read the screen (it never went idle)
+     visible: 
+
+RESULT: PASS
++ uptime
+ 21:56:29 up 5 min,  0 users,  load average: 3.82, 2.25, 0.95
++ adb shell top -b -n 1 -m 15
+Tasks: 335 total,   1 running, 334 sleeping,   0 stopped,   0 zombie
+  Mem:  3050428K total,  2804360K used,   246068K free,    58900K buffers
+ Swap:  2287816K total,   473344K used,  1814472K free,  1412108K cached
+300%cpu   4%user   4%nice  12%sys 273%idle   0%iow   0%irq   0%sirq   8%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+ 6391 root         20   0  10G 5.1M 4.2M R  3.8   0.1   0:00.01 top -b -n 1 -m 15
+ 1618 u0_a143      10 -10  13G 198M 129M S  3.8   6.6   0:10.35 com.google.android.inputmethod.latin
+ 1088 system       10 -10  13G 198M 144M S  3.8   6.6   0:07.06 com.android.settings
+  399 system       -3  -8  11G 9.2M 8.3M S  3.8   0.3   0:09.62 android.hardware.graphics.composer3-service.ranchu
+ 6378 root          0 -20    0    0    0 I  0.0   0.0   0:00.00 [kworker/2:8H]
+ 6377 root          0 -20    0    0    0 I  0.0   0.0   0:00.00 [kworker/2:7H-kblockd]
+ 6376 root          0 -20    0    0    0 I  0.0   0.0   0:00.00 [kworker/2:6H-kverityd]
+ 5816 u0_a131      20   0  13G 113M  88M S  0.0   3.8   0:00.11 com.google.android.gms.ui
+ 5605 u0_a131      20   0  14G 221M 160M S  0.0   7.4   0:04.98 com.google.android.gms
+ 5594 u0_a131      20   0  13G 220M 155M S  0.0   7.3   0:25.06 com.google.android.gms.persistent
+ 5299 u0_a132      20   0  14G 149M 125M S  0.0   5.0   0:00.36 com.google.android.googlequicksearchbox
+ 5254 u0_a118      20   0  13G  90M  60M S  0.0   3.0   0:00.17 com.google.android.settings.intelligence
+ 5124 u0_a133      20   0  13G  70M  45M S  0.0   2.3   0:00.02 com.google.android.webview
+ 4922 u0_a128      20   0  13G 129M  96M S  0.0   4.3   0:00.42 com.google.android.apps.messaging:rcs
+ 4831 root          0 -20    0    0    0 I  0.0   0.0   0:00.45 [kworker/2:5H-kverityd]
++ exit 0
