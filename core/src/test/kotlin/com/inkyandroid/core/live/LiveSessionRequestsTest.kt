@@ -16,11 +16,14 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.withTimeoutOrNull
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.util.concurrent.CyclicBarrier
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.concurrent.thread
@@ -148,6 +151,41 @@ class LiveSessionRequestsTest {
             assertEquals("You went left.", (settled.transcript.items[3] as TranscriptItem.Text).text)
             assertEquals(1, settled.transcript.choices.size)
             assertFalse(settled.busy)
+        } finally {
+            scope.cancel()
+            executor.shutdown()
+        }
+    }
+
+    /**
+     * Edits that arrive at the same moment from several threads: whichever of them is counted
+     * last, the pause after it must end in a compile. (The pause timer that survives must be the
+     * latest edit's, or the session would stay busy until somebody typed again.)
+     */
+    @Test
+    fun simultaneousEditsFromSeveralThreadsAlwaysEndInACompile() {
+        val executor = Executors.newSingleThreadExecutor { Thread(it, "ink-test") }
+        val scope = CoroutineScope(Job())
+        val typists = 4
+        try {
+            val text = AtomicReference("Round 0.\n")
+            val session = LiveSession(
+                scope = scope,
+                engineDispatcher = executor.asCoroutineDispatcher(),
+                sources = { InkSources("main.ink", mapOf("main.ink" to text.get())) },
+                config = LiveConfig(debounceMillis = 2),
+            )
+            val start = CyclicBarrier(typists)
+            for (round in 1..150) {
+                text.set("Round $round.\n")
+                (1..typists).map { thread { start.await(); session.edited() } }.forEach { it.join() }
+                val settled = runBlocking {
+                    withTimeoutOrNull(5_000) {
+                        session.state.first { !it.busy && (it.transcript.items.firstOrNull() as? TranscriptItem.Text)?.text == "Round $round." }
+                    }
+                }
+                assertNotNull("round $round never compiled: ${session.state.value}", settled)
+            }
         } finally {
             scope.cancel()
             executor.shutdown()
