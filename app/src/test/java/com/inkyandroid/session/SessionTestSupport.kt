@@ -164,6 +164,7 @@ class SessionWorld(val scope: TestScope) {
         mainPath: String = "main.ink",
         settings: AppSettings = this.settings,
         kit: Boolean = false,
+        live: LiveLinkFactory? = null,
     ): ProjectSession {
         editors.clear()
         kitEditors.clear()
@@ -180,7 +181,7 @@ class SessionWorld(val scope: TestScope) {
             } else {
                 EditorBufferFactory { path, text -> FakeEditorBuffer(text).also { editors[path] = it } }
             },
-            live = { _: CoroutineScope, sources: () -> InkSources -> FakeLiveLink().also { it.lastSources = sources; lives.add(it) } },
+            live = live ?: LiveLinkFactory { _: CoroutineScope, sources: () -> InkSources -> FakeLiveLink().also { it.lastSources = sources; lives.add(it) } },
             context = dispatcher + lifetime,
             parseContext = dispatcher,
         )

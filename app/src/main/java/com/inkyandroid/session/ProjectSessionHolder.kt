@@ -71,6 +71,8 @@ class StorageProjectOpener(private val storage: ProjectStorage) : ProjectOpener 
  *   folder (`filesDir/drafts`).
  * @property io where the drafts are read and written.
  * @property parseContext where the files' symbols are parsed.
+ * @property sessionContext the sessions' thread (the main thread); a `Job` in it is the parent of every
+ *   session (a test ends it to play the death of the process).
  */
 class SessionEnvironment(
     val settings: AppSettings,
@@ -80,6 +82,7 @@ class SessionEnvironment(
     val draftsDirectory: File,
     val io: CoroutineDispatcher = Dispatchers.IO,
     val parseContext: CoroutineContext = Dispatchers.Default,
+    val sessionContext: CoroutineContext = Dispatchers.Main.immediate,
 ) {
     /** The drafts store of the project with [reference]: a folder named after the hash of the project's identity. */
     fun draftsFor(reference: String): DraftStore = FileDraftStore(draftsFolder(reference), io)
@@ -170,8 +173,8 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
 
     /**
      * Reopens what the window had open: [savedReference] (from the activity's saved instance state)
-     * or else the project of the last session. Does nothing after the first call, so it is safe in
-     * every `onCreate`.
+     * or else the project of the last session. Does nothing after the first call, or once a project
+     * was opened explicitly, so it is safe in every `onCreate`.
      */
     fun restore(savedReference: String?) {
         if (restored) return
@@ -201,6 +204,8 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
     }
 
     private fun start(reference: String, carried: ProjectSession?) {
+        // what the window shows now was chosen: there is nothing left to restore
+        restored = true
         opening?.cancel()
         val previous = session
         if (carried == null) previous?.let(::end)
@@ -231,6 +236,7 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
                         settings = environment.settings,
                         editors = environment.editors,
                         live = environment.live,
+                        context = environment.sessionContext,
                         parseContext = environment.parseContext,
                     )
                 } catch (failed: Throwable) {
