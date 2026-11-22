@@ -1,0 +1,115 @@
+Inky device smoke: profile tablet, sdk_gphone64_x86_64, Android 17 (API 37), Physical size: 2560x1600, density 320
+installed app-release.apk
+
+== Scenario 0: Skeleton: the setup screen, in English and Turkish, through the lifecycle
+[01] en-cold-start: PASS   (01-en-cold-start.png, 2560x1600 px, 1280 dp wide)
+     do: locale en-US; cold_start
+     device language already en-US
+     launch: COLD 1895 ms
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; new process 4897
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+[02] en-large-window: PASS   (02-en-large-window.png, 2560x1600 px, 1280 dp wide)
+     checks: seen 'Inky'; seen 'Story'
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+[03] en-rotated: PASS   (03-en-rotated.png, 1600x2560 px, 800 dp wide)
+     do: rotate flip
+     rotated: 2560x1600 -> 1600x2560 px
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; same process 4897
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Story
+[04] en-rotated-back: PASS   (04-en-rotated-back.png, 2560x1600 px, 1280 dp wide)
+     do: rotate natural
+     rotated: 1600x2560 -> 2560x1600 px
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; same process 4897
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+[05] en-background: PASS   (05-en-background.png, 2560x1600 px, 1280 dp wide)
+     do: home
+     checks: absent 'Inky is being set up'
+     visible: At a glance | Sun, Nov 22 | Analog | 21:33 | Sunday, Nov 22, 9:33 PM | Folder: Google, 4 or more items | Google | Calendar schedule | Calendar | Sign in to view your schedule | Sign in | Home | Search | Google search | Google app | Voice search | Camera search | Gmail | Chrome | YouTube | Photos | Messages | Predicted app: Messages | Inky | Predicted app: Inky
+[06] en-foreground: PASS   (06-en-foreground.png, 2560x1600 px, 1280 dp wide)
+     do: launch
+     launch: HOT 71 ms
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; same process 4897
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+[07] en-process-death-restored: PASS   (07-en-process-death-restored.png, 2560x1600 px, 1280 dp wide)
+     do: home; kill_background; launch
+     process 4897 killed in the background
+     launch: COLD 880 ms
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; new process 5495
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+[08] en-force-stop-relaunch: PASS   (08-en-force-stop-relaunch.png, 2560x1600 px, 1280 dp wide)
+     do: force_stop; launch
+     launch: COLD 1344 ms
+     checks: seen 'Inky is being set up'; seen 'skeleton of the Android port'; seen 'Story'; new process 5594
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+[09] tr-cold-start: FAIL   (09-tr-cold-start.png, 2560x1600 px, 1280 dp wide)
+     do: locale tr-TR; cold_start
+     device language switched to tr-TR (framework restarted)
+     launch: COLD 3188 ms
+     checks: MISSING 'Inky kuruluyor'; MISSING 'Android portunun iskeleti'; MISSING 'Hikâye'; absent 'Inky is being set up'; new process 7540
+     ! 'Inky kuruluyor' is not on the screen
+     ! 'Android portunun iskeleti' is not on the screen
+     ! 'Hikâye' is not on the screen
+     visible: Pixel Launcher yanıt vermiyor | Uygulamayı kapat | Bekle
+[10] tr-rotated: FAIL   (10-tr-rotated.png, 1600x2560 px, 800 dp wide)
+     do: rotate flip
+     rotated: 2560x1600 -> 1600x2560 px
+     checks: MISSING 'Inky kuruluyor'; MISSING 'Android portunun iskeleti'; MISSING 'Hikâye'; same process 7540
+     ! 'Inky kuruluyor' is not on the screen
+     ! 'Android portunun iskeleti' is not on the screen
+     ! 'Hikâye' is not on the screen
+     visible: Pixel Launcher yanıt vermiyor | Uygulamayı kapat | Bekle
+[11] tr-rotated-back: FAIL   (11-tr-rotated-back.png, 2560x1600 px, 1280 dp wide)
+     do: rotate natural
+     rotated: 1600x2560 -> 2560x1600 px
+     checks: MISSING 'Inky kuruluyor'; MISSING 'Android portunun iskeleti'; MISSING 'Hikâye'; same process 7540
+     ! 'Inky kuruluyor' is not on the screen
+     ! 'Android portunun iskeleti' is not on the screen
+     ! 'Hikâye' is not on the screen
+     visible: Pixel Launcher yanıt vermiyor | Uygulamayı kapat | Bekle
+[12] tr-background: PASS   (12-tr-background.png, 2560x1600 px, 1280 dp wide)
+     do: home
+     checks: absent 'Inky kuruluyor'
+     visible: Bir bakışta | 22 Kas Paz | Analog | 21:35 | 22 Kas Pazar ÖS 9:35 | Klasör Google, 4 veya daha fazla öğe | Google | Takvim progamı | Takvim | Programınızı görüntülemek için oturum açın | Oturum aç | Ana ekran
+[13] tr-foreground: PASS   (13-tr-foreground.png, 2560x1600 px, 1280 dp wide)
+     do: launch
+     launch: HOT 199 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; same process 7540
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Inky | Hikâye | Kenar çubuğunu daralt
+[14] tr-process-death-restored: PASS   (14-tr-process-death-restored.png, 2560x1600 px, 1280 dp wide)
+     do: home; kill_background; launch
+     process 7540 killed in the background
+     launch: COLD 1265 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; new process 9096
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Inky | Hikâye | Kenar çubuğunu daralt
+[15] tr-force-stop-relaunch: PASS   (15-tr-force-stop-relaunch.png, 2560x1600 px, 1280 dp wide)
+     do: force_stop; launch
+     launch: COLD 1025 ms
+     checks: seen 'Inky kuruluyor'; seen 'Android portunun iskeleti'; seen 'Hikâye'; new process 9189
+     visible: Inky kuruluyor | Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek. | Inky | Hikâye | Kenar çubuğunu daralt
+[16] en-again: PASS   (16-en-again.png, 2560x1600 px, 1280 dp wide)
+     do: locale en-US; cold_start
+     device language switched to en-US (framework restarted)
+     launch: COLD 2834 ms
+     checks: seen 'Inky is being set up'; absent 'Inky kuruluyor'
+     visible: Inky is being set up | This build is the skeleton of the Android port; writing and playing ink stories come with the next builds. | Inky | Story | Collapse sidebar
+
+== Scenario ime-probe: The on-screen keyboard of a system text field (driver self-check)
+[17] ime-probe-field: WARN   (17-ime-probe-field.png, 2560x1600 px, 1280 dp wide)
+     do: shell am start -W -a android.settings.DEVICE_INFO_SETTINGS; tap Device name; wait 3; save ime-default.txt settings get secure default_input_method; ime list -s; dumpsys input_method | grep -iE 'mInputShown|mCurImeId|inputShown'; save ime-window.txt dumpsys window windows | grep -iE -A40 'Window #[0-9]+ Window\{[0-9a-f]+ u0 InputMethod'; save ime-dump-windows.xml uiautomator dump --windows /sdcard/w.xml >/dev/null 2>&1; cat /sdcard/w.xml; save ime-dump-active.xml uiautomator dump /sdcard/a.xml >/dev/null 2>&1; cat /sdcard/a.xml
+     $ am start -W -a android.settings.DEVICE_INFO_SETTINGS
+       Starting: Intent { act=android.settings.DEVICE_INFO_SETTINGS }
+Status: ok
+LaunchState: WARM
+Activity: com.android.settings/.Settings$MyDeviceInfoActivity
+TotalTime: 1467
+WaitTime: 1469
+Complete
+     the UI did not settle within 8 s
+     the UI did not settle within 20 s
+     ! 'Device name' is not on the screen
+     visible: At a glance | Sun, Nov 22 | Analog | 21:32 | Sunday, Nov 22, 9:32 PM | Folder: Google, 4 or more items | Google | Calendar schedule | Calendar | Sign in to view your schedule | Sign in | Home | Search | Google search | Google app | Voice search | Camera search | Gmail | Chrome | YouTube | Photos | Phone | Messages
+
+language changes: the device language
+warning: ime-probe-field: 'Device name' is not on the screen
+failed steps: tr-cold-start, tr-rotated, tr-rotated-back
+RESULT: FAIL
