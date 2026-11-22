@@ -1,0 +1,104 @@
+++ ls apk/app-release.apk
+++ head -1
++ APK=apk/app-release.apk
++ adb devices
+List of devices attached
+emulator-5554	device
+
++ ls -l /dev/kvm
+crw-rw-rw- 1 root kvm 10, 232 Nov 22 22:00 /dev/kvm
++ nproc
+4
++ uptime
+ 22:01:20 up 2 min,  0 users,  load average: 4.14, 1.25, 0.44
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:           15983        5899        2004          46        8470       10083
+Swap:           3071           0        3071
++ adb shell getprop ro.build.version.release
+17
++ adb shell getprop ro.build.version.sdk
+37
++ adb shell getprop ro.product.model
+sdk_gphone64_x86_64
++ adb shell wm size
+Physical size: 2560x1600
++ adb shell wm density
+Physical density: 320
++ adb shell getprop persist.sys.locale
+
++ adb shell getprop sys.boot_completed
+1
++ adb shell top -b -n 1 -m 15
+Tasks: 272 total,  12 running, 260 sleeping,   0 stopped,   0 zombie
+  Mem:  4006612K total,  3896364K used,   110248K free,   129180K buffers
+ Swap:  3004952K total,     3840K used,  3001112K free,  2776112K cached
+300%cpu  37%user  37%nice 110%sys  43%idle   0%iow   3%irq   3%sirq  67%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+  504 system       -3  -8  11G  39M  24M S 40.0   1.0   0:22.64 surfaceflinger
+ 1801 u0_a179      10 -10  16G 234M 155M S 26.6   5.9   0:00.80 com.google.android.inputmethod.latin
+  513 system       -3   0  10G  13M 7.9M S 26.6   0.3   0:00.88 android.hardware.graphics.allocator-service.ranchu
+  635 system       18  -2  18G 416M 292M S 16.6  10.6   0:25.14 system_server
+ 1918 u0_a162      20   0  17G 162M 109M R 10.0   4.1   0:00.12 com.google.android.googlequicksearchbox:interactor
+ 1377 u0_a198      10 -10  16G 173M 107M S 10.0   4.4   0:06.43 com.google.android.apps.nexuslauncher
+   57 root          0 -20    0    0    0 I 10.0   0.0   0:03.42 [kworker/2:1H-kverityd]
+ 2244 shell        20   0  10G 5.0M 4.3M R  6.6   0.1   0:00.01 top -b -n 1 -m 15
+ 1393 u0_a208      20   0  16G 214M 154M R  6.6   5.4   0:01.47 com.google.android.gms.persistent
+   13 root         20   0    0    0    0 I  6.6   0.0   0:00.15 [kworker/u12:1-writeback]
+ 2094 media        20   0  11G  29M  25M R  3.3   0.7   0:00.07 mediacodeclist_generator
+ 2024 u0_a162      20   0  17G 157M 105M S  3.3   4.0   0:00.10 com.google.android.googlequicksearchbox:search
+ 1990 system       20   0  16G 100M  54M S  3.3   2.5   0:00.01 com.android.emulator.multidisplay
+ 1862 u0_a160      20   0  16G 148M  91M S  3.3   3.7   0:00.31 com.google.android.apps.wellbeing
+ 1833 u0_a205      20   0  16G 105M  59M S  3.3   2.6   0:00.01 com.google.android.ext.services
++ adb root
+restarting adbd as root
++ sleep 3
++ adb wait-for-device
++ adb shell id
+uid=0(root) gid=0(root) groups=0(root),1004(input),1007(log),1011(adb),1015(sdcard_rw),1028(sdcard_r),1078(ext_data_rw),1079(ext_obb_rw),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats),3009(readproc),3011(uhid),3012(readtracefs) context=u:r:su:s0
++ adb logcat -G 16M
++ python3 tools/smoke.py apk/app-release.apk smoke-out --profile tablet --scenarios ime-probe
+Inky device smoke: profile tablet, sdk_gphone64_x86_64, Android 17 (API 37), Physical size: 2560x1600, density 320
+installed app-release.apk
+
+== Scenario ime-probe: The on-screen keyboard of a system text field (driver self-check)
+[01] ime-probe-field: WARN   (01-ime-probe-field.png, 2560x1600 px, 1280 dp wide)
+     do: shell am start -W -a android.settings.DEVICE_INFO_SETTINGS; shell input tap 300 923; wait 3; ime_type smoke; save ime-window.txt settings get secure default_input_method; dumpsys window windows | grep -A40 ' u0 InputMethod}:'
+     $ am start -W -a android.settings.DEVICE_INFO_SETTINGS
+       Starting: Intent { act=android.settings.DEVICE_INFO_SETTINGS }
+Status: ok
+LaunchState: WARM
+Activity: com.android.settings/.Settings$MyDeviceInfoActivity
+TotalTime: 4985
+WaitTime: 5053
+Complete
+     $ input tap 300 923
+     ! the on-screen keyboard is not shown
+     visible: About emulated device | Navigate up | Basic info | Device name | sdk_gphone64_x86_64 | Phone number | +1 555-123-4567 | Legal & regulatory | Legal information | Device details | SIM status | T-Mobile | Model | IMEI | 867400022047199 | Android version | 17
+
+warning: ime-probe-field: the on-screen keyboard is not shown
+RESULT: PASS
++ uptime
+ 22:02:37 up 3 min,  0 users,  load average: 7.46, 2.98, 1.11
++ adb shell top -b -n 1 -m 15
+Tasks: 304 total,   2 running, 302 sleeping,   0 stopped,   0 zombie
+  Mem:  4006612K total,  3885320K used,   121292K free,    38868K buffers
+ Swap:  3004952K total,   153908K used,  2851044K free,  2177808K cached
+300%cpu 130%user  37%nice  74%sys   0%idle   7%iow   4%irq   7%sirq  41%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+ 1801 u0_a179      10 -10  16G 272M 164M S 85.1   6.9   0:05.65 com.google.android.inputmethod.latin
+ 1393 u0_a208      20   0  16G 290M 203M S 51.8   7.4   0:16.11 com.google.android.gms.persistent
+ 1924 u0_a161      20   0  16G 213M 140M S 44.4   5.4   0:03.79 com.google.android.as
+ 2543 u0_a163      20   0  15G 161M  91M S 14.8   4.1   0:02.37 com.google.android.as.oss
+ 1586 u0_a208      20   0  16G 304M 215M S 11.1   7.7   0:10.04 com.google.android.gms
+  635 system       18  -2  18G 499M 335M S 11.1  12.7   0:53.66 system_server
+   37 root         20   0    0    0    0 S 11.1   0.0   0:01.66 [ksoftirqd/2]
+ 4996 root         20   0  10G 5.2M 4.4M R  3.7   0.1   0:00.02 top -b -n 1 -m 15
+  550 logd         30  10  10G 4.6M 3.9M S  3.7   0.1   0:07.46 logcat -f /dev/hvc1 *:V
+  480 root         20   0    0    0    0 R  3.7   0.0   0:00.98 [kworker/2:3-virtio_vsock]
+   51 root         20   0    0    0    0 I  3.7   0.0   0:00.43 [kworker/2:1-virtio_vsock]
+ 4688 u0_a217      20   0  16G 118M  69M S  0.0   3.0   0:00.05 com.google.android.adservices.api
+ 4609 root         20   0    0    0    0 I  0.0   0.0   0:00.87 [kworker/2:4-events]
+ 4480 artd         20   0  11G  19M  17M S  0.0   0.4   0:00.02 artd
+ 4409 u0_a157      20   0  16G 119M  66M S  0.0   3.0   0:00.10 com.google.android.verifier
++ exit 0
