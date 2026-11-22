@@ -2,6 +2,8 @@ package com.inkyandroid.core.project
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
@@ -20,12 +22,15 @@ import java.nio.file.StandardCopyOption
  *   file was not on storage (a new file that was never saved).
  * @property writtenAt when the draft was written, in milliseconds since the epoch (for a person
  *   reading a bug report; no rule depends on clocks).
+ * @property saving a save of the file had begun and was not seen to succeed when the draft was
+ *   written: storage may hold part of that save instead of [baseHash]'s version (see [WriteAhead]).
  */
 data class Draft(
     val path: String,
     val text: String,
     val baseHash: String?,
     val writtenAt: Long,
+    val saving: Boolean = false,
 )
 
 /**
@@ -59,28 +64,60 @@ data class DraftRestoreReport(
 }
 
 /**
+ * The drafts journal as a project sees it while saving; [DraftJournal] is the implementation.
+ *
+ * Storage may write a file in place (the Storage Access Framework has no atomic replace), so a write
+ * that is cut short, by a failure or by the death of the process, can leave part of the new text
+ * over the old one. Therefore, right before the project writes a file, the text it is about to
+ * write goes into the file's draft, marked as a save that has begun ([Draft.saving]); and that
+ * draft stays until a write of the file has returned successfully.
+ */
+interface WriteAhead {
+    /**
+     * [text], the file's [revision], is about to be written to [path] over the stored version whose
+     * hash is [baseHash] (null: none known). Called right before the write. The write goes ahead
+     * whatever happens here: a draft that cannot be written is the journal's to report.
+     */
+    suspend fun beforeWrite(path: String, text: String, baseHash: String?, revision: Long)
+
+    /**
+     * The text a save of [path] was writing when it was cut short, if a draft holds it: what takes
+     * the place of a stored file that cannot be read any more (a character cut in half).
+     */
+    suspend fun unfinishedSave(path: String): String?
+}
+
+/**
  * The drafts journal: the rule that unsaved text is never only in memory for long.
  *
  * - **Written**: [flush] stores a draft for every file with unsaved changes whose text has changed
  *   since its last draft. The session calls it a second after the last keystroke and when the app
- *   goes to the background.
+ *   goes to the background. And before every write of a file, the text being written goes into its
+ *   draft first ([beforeWrite], the project calls it).
  * - **Discarded**: the same [flush] removes the draft of every file that no longer has unsaved
- *   changes (it was saved, reverted, reloaded or deleted). A failed save leaves the file unsaved,
- *   so its draft stays.
+ *   changes (it was saved, reverted, reloaded or deleted). A file is saved only once a write has
+ *   returned successfully, so a failed or interrupted write never takes the draft with it.
  * - **Restored**: [restore], called once after a project is opened, brings each draft back as
  *   unsaved changes. A draft remembers the hash of the stored version it was written over: if
  *   storage still holds that version the draft is simply the newer text; if storage holds another
- *   version the draft is restored *and* the file is marked as a conflict, so the user chooses and
- *   neither text is lost; if storage holds exactly the draft's text the draft is obsolete.
+ *   version (or one that cannot be read) the draft is restored *and* the file is marked as a
+ *   conflict, so the user chooses and neither text is lost; if storage holds exactly the draft's
+ *   text the draft is obsolete. A draft of a save that never finished ([Draft.saving]) wins over
+ *   whatever storage holds: that is the remains of the save, and the next save writes over it.
  *
- * Used from the project's thread.
+ * Used from the project's thread; its operations run one at a time.
  */
 class DraftJournal(
     private val store: DraftStore,
     private val clock: () -> Long = System::currentTimeMillis,
-) {
-    /** Path → the file's revision when its draft was last written. */
-    private val journaled = HashMap<String, Long>()
+) : WriteAhead {
+    /** What the draft on disk holds of a file: its revision then, and whether it was marked [Draft.saving]. */
+    private data class Journaled(val revision: Long, val saving: Boolean)
+
+    private val journaled = HashMap<String, Journaled>()
+
+    /** A put for a path while another is under way would mix two drafts in one temporary file. */
+    private val lock = Mutex()
 
     /**
      * Applies the stored drafts to the freshly opened [project]. Throws only when the drafts cannot
@@ -91,29 +128,29 @@ class DraftJournal(
         val restored = ArrayList<String>()
         val conflicts = ArrayList<String>()
         val obsolete = ArrayList<String>()
-        for (draft in store.load()) {
+        // the journal's lock is never held while the project asks storage: a save holds the
+        // project's storage lock when it calls beforeWrite, which takes the journal's
+        for (draft in lock.withLock { store.load() }) {
             val path = draft.path
             if (!ProjectPaths.isValid(path)) {
-                removeQuietly(path)
+                lock.withLock { removeQuietly(path) }
                 continue
             }
-            val storedHash = project.storedHash(path)
-            when {
-                storedHash != null && storedHash == TextHash.of(draft.text) -> {
-                    removeQuietly(path)
+            val version = project.storedVersion(path)
+            val conflict = when {
+                version is StoredVersion.Text && version.hash == TextHash.of(draft.text) -> {
+                    lock.withLock { removeQuietly(path) }
                     obsolete.add(path)
+                    continue
                 }
-                storedHash == null || storedHash == draft.baseHash -> {
-                    project.restoreUnsaved(path, draft.text, conflict = false)
-                    journaled[path] = project.revision(path)
-                    restored.add(path)
-                }
-                else -> {
-                    project.restoreUnsaved(path, draft.text, conflict = true)
-                    journaled[path] = project.revision(path)
-                    conflicts.add(path)
-                }
+                draft.saving -> false
+                version is StoredVersion.Absent -> false
+                version is StoredVersion.Text && version.hash == draft.baseHash -> false
+                else -> true
             }
+            project.restoreUnsaved(path, draft.text, version, conflict, saveUnfinished = draft.saving)
+            journaled[path] = Journaled(project.revision(path), draft.saving)
+            (if (conflict) conflicts else restored).add(path)
         }
         return DraftRestoreReport(restored, conflicts, obsolete)
     }
@@ -123,16 +160,18 @@ class DraftJournal(
      * the ones no longer needed. Returns the files whose draft could not be written (a full disk),
      * with the reason; their drafts are tried again by the next call.
      */
-    suspend fun flush(project: InkProject): Map<String, IOException> {
+    suspend fun flush(project: InkProject): Map<String, IOException> = lock.withLock { flushLocked(project) }
+
+    private suspend fun flushLocked(project: InkProject): Map<String, IOException> {
         val failures = LinkedHashMap<String, IOException>()
         val unsaved = project.state.value.unsavedFiles.map { it.path }
         for (path in unsaved) {
-            val revision = project.revision(path)
-            if (journaled[path] == revision) continue
+            val now = Journaled(project.revision(path), project.isSaveUnfinished(path))
+            if (journaled[path] == now) continue
             val text = project.text(path) ?: continue
             try {
-                store.put(Draft(path, text.toString(), project.storedHash(path), clock()))
-                journaled[path] = revision
+                store.put(Draft(path, text.toString(), project.storedHash(path), clock(), now.saving))
+                journaled[path] = now
             } catch (failed: IOException) {
                 failures[path] = failed
             }
@@ -149,11 +188,49 @@ class DraftJournal(
         return failures
     }
 
+    override suspend fun beforeWrite(path: String, text: String, baseHash: String?, revision: Long) {
+        lock.withLock {
+            try {
+                store.put(Draft(path, text, baseHash, clock(), saving = true))
+                journaled[path] = Journaled(revision, saving = true)
+            } catch (failed: IOException) {
+                // the write goes ahead (storage is the better place for the text); the next flush
+                // writes the draft again and reports it if it fails once more
+                journaled.remove(path)
+            }
+        }
+    }
+
+    override suspend fun unfinishedSave(path: String): String? = lock.withLock {
+        try {
+            store.load().firstOrNull { it.path == path && it.saving }?.text
+        } catch (unreadable: IOException) {
+            null
+        }
+    }
+
+    /**
+     * Gives the unsaved text of [project] to [target], the drafts of the same project opened from
+     * another place, and forgets this journal's own drafts once every one of them is there. When a
+     * draft cannot be put, nothing is forgotten and the failure is thrown.
+     */
+    @Throws(IOException::class)
+    suspend fun moveTo(project: InkProject, target: DraftStore) = lock.withLock {
+        for (file in project.state.value.unsavedFiles) {
+            val text = project.text(file.path) ?: continue
+            target.put(Draft(file.path, text.toString(), project.storedHash(file.path), clock(), project.isSaveUnfinished(file.path)))
+        }
+        discardAllLocked()
+        Unit
+    }
+
     /**
      * Forgets every draft: the user chose "don't save" when closing. Drafts that cannot be removed
      * now are named in the result.
      */
-    suspend fun discardAll(): List<String> {
+    suspend fun discardAll(): List<String> = lock.withLock { discardAllLocked() }
+
+    private suspend fun discardAllLocked(): List<String> {
         val kept = ArrayList<String>()
         val paths = try {
             (store.load().map { it.path } + journaled.keys).distinct()
@@ -190,6 +267,7 @@ class DraftJournal(
  * path: chapters/one.ink
  * base: <hash of the stored version, or "-">
  * written: <milliseconds>
+ * saving: 1                     (only in the draft of a save that has begun, Draft.saving)
  * sha256: <hash of the text>
  * <empty line>
  * <the text>
@@ -224,6 +302,7 @@ class FileDraftStore(
             append(KEY_PATH).append(escape(draft.path)).append('\n')
             append(KEY_BASE).append(draft.baseHash ?: NO_BASE).append('\n')
             append(KEY_WRITTEN).append(draft.writtenAt).append('\n')
+            if (draft.saving) append(KEY_SAVING).append(SAVING).append('\n')
             append(KEY_HASH).append(TextHash.of(draft.text)).append('\n')
             append('\n')
         }
@@ -269,7 +348,7 @@ class FileDraftStore(
         val hash = value(KEY_HASH) ?: return null
         val text = content.substring(headerEnd + 2)
         if (TextHash.of(text) != hash) return null
-        return Draft(path, text, base.takeIf { it != NO_BASE }, written)
+        return Draft(path, text, base.takeIf { it != NO_BASE }, written, saving = value(KEY_SAVING) == SAVING)
     }
 
     /** A path on one header line: a file name may hold a line break. */
@@ -302,6 +381,8 @@ class FileDraftStore(
         const val KEY_PATH = "path: "
         const val KEY_BASE = "base: "
         const val KEY_WRITTEN = "written: "
+        const val KEY_SAVING = "saving: "
+        const val SAVING = "1"
         const val KEY_HASH = "sha256: "
         const val NO_BASE = "-"
         const val EXTENSION = ".draft"
