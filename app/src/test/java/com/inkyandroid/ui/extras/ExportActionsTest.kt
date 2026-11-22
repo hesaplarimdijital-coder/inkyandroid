@@ -104,6 +104,28 @@ class ExportActionsTest {
     }
 
     @Test
+    fun storyJsIsTheJsonAsAScript() {
+        pickers.answer = Uri.parse("content://docs/document/night.js")
+        launch()
+        run { exportStoryJs() }
+        assertEquals("night.js", (pickers.asked.single() as ExportFileRequest).suggestedName)
+        assertEquals("var storyContent = $json;", writer.files[pickers.answer])
+    }
+
+    @Test
+    fun theWebVersionIsAFolderOfThePlayer() {
+        pickers.answer = Uri.parse("content://docs/tree/primary%3ADocuments")
+        launch()
+        run { exportForWeb() }
+        val files = writer.folders.getValue("night").toMap()
+        assertEquals(setOf("night.js", "index.html", "ink.js", "style.css", "main.js"), files.keys)
+        // no title tag: the folder's name is the page's title
+        assertTrue(files.getValue("index.html").contains("<title>night</title>"))
+        assertTrue(files.getValue("index.html").contains("night.js"))
+        assertEquals("Web sürümü night klasöründe", toast())
+    }
+
+    @Test
     fun inkWithErrorsIsNotExported() {
         source.result = ExportResult.HasErrors(emptyList<InkIssue>())
         launch()
