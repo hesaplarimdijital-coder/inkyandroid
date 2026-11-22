@@ -248,6 +248,22 @@ class DraftJournalTest {
     }
 
     @Test
+    fun `a main file deleted outside while the app was dead opens with the text of its draft, as a file to create again`() = projectTest {
+        store.put("chapter.ink", "Chapter one\n")
+        drafts.drafts["main.ink"] = Draft("main.ink", "INCLUDE chapter.ink\nMy unsaved story\n", TextHash.of("Hello\n"), 1L)
+
+        val project = open(writeAhead = journal)
+
+        assertEquals("INCLUDE chapter.ink\nMy unsaved story\n", project.text("main.ink").toString())
+        assertFalse(project.file("main.ink").isOnStorage)
+        assertTrue(project.file("main.ink").hasUnsavedChanges)
+        assertFalse(project.file("chapter.ink").isSpare)
+        assertEquals(listOf("main.ink"), journal.restore(project).restored)
+        assertTrue(project.saveAll().isComplete)
+        assertEquals("INCLUDE chapter.ink\nMy unsaved story\n", store.textOf("main.ink"))
+    }
+
+    @Test
     fun `a restored draft is not written again until the text changes, and is removed once saved`() = projectTest {
         store.put("main.ink", "Hello\n")
         drafts.drafts["main.ink"] = Draft("main.ink", "Unsaved\n", TextHash.of("Hello\n"), 1L)

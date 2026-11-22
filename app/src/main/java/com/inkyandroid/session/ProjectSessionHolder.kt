@@ -168,8 +168,16 @@ sealed interface WindowProject {
      * The project with [reference] could not be opened; [message] is storage's reason, [cause] the
      * failure itself for a sentence in the user's language (`StorageProblem.of(cause)`): the main
      * file is gone, is not text, the permission was withdrawn….
+     *
+     * @property keptDrafts the files of the project whose unsaved text is kept in the drafts: it is
+     *   not lost, and comes back when the project can be opened again (tell the user so).
      */
-    data class Failed(val reference: String, val message: String, val cause: IOException? = null) : WindowProject
+    data class Failed(
+        val reference: String,
+        val message: String,
+        val cause: IOException? = null,
+        val keptDrafts: List<String> = emptyList(),
+    ) : WindowProject
 }
 
 /**
@@ -278,7 +286,12 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
                 mutableProject.value = try {
                     WindowProject.Open(openSession(reference, drafts)).also { opened = true }
                 } catch (failed: IOException) {
-                    WindowProject.Failed(reference, failed.message?.takeIf { it.isNotBlank() } ?: failed.javaClass.simpleName, failed)
+                    val kept = try {
+                        drafts.load().map { it.path }
+                    } catch (unreadable: IOException) {
+                        emptyList()
+                    }
+                    WindowProject.Failed(reference, failed.message?.takeIf { it.isNotBlank() } ?: failed.javaClass.simpleName, failed, kept)
                 }
             } finally {
                 if (!opened) environment.release(reference, this@ProjectSessionHolder)

@@ -257,6 +257,49 @@ class ProjectSessionHolderTest {
     }
 
     @Test
+    fun `a project that cannot be reached says which unsaved texts are kept for when it can`() = test {
+        val root = folder("story").apply { File(this, "main.ink").writeText("INCLUDE a.ink\n$story"); File(this, "a.ink").writeText("A\n") }
+        val first = ProjectSessionHolder(environment(mapOf("ref" to root)).also { it.settings.updateAutosave(false) })
+        first.open("ref")
+        pass()
+        first.editor("a.ink").type("A, never saved\n")
+        pass(ProjectSession.DRAFT_DELAY_MILLIS)
+        kill(first)
+
+        // the next start: the folder is not there any more (the permission was withdrawn)
+        val unreachable = environment(places = emptyMap(), settings = settings())
+        val second = ProjectSessionHolder(unreachable)
+        second.restore(savedReference = null)
+        pass()
+
+        val failed = second.project.value as WindowProject.Failed
+        assertEquals(listOf("a.ink"), failed.keptDrafts)
+        assertEquals("the text waits in the drafts", "A, never saved\n", FileDraftStore(unreachable.draftsFolder("ref"), main).load().single().text)
+    }
+
+    @Test
+    fun `a main file deleted while the app was dead opens with its unsaved text`() = test {
+        val root = folder("story").apply { File(this, "main.ink").writeText(story) }
+        val first = ProjectSessionHolder(environment(mapOf("ref" to root)).also { it.settings.updateAutosave(false) })
+        first.open("ref")
+        pass()
+        first.editor("main.ink").type(written)
+        pass(ProjectSession.DRAFT_DELAY_MILLIS)
+        kill(first)
+        File(root, "main.ink").delete()
+
+        val second = ProjectSessionHolder(environment(mapOf("ref" to root), settings()))
+        second.restore(savedReference = null)
+        pass()
+
+        val session = second.open()
+        assertEquals(written, session.project.text("main.ink").toString())
+        assertTrue(!session.project.state.value.main.isOnStorage)
+        assertTrue(session.saveAll().isComplete)
+        assertEquals(written, File(root, "main.ink").readText())
+    }
+
+    @Test
     fun `a main file that is not text fails to open with the failure itself, and nothing crashes`() = test {
         val root = folder("story").apply { File(this, "main.ink").writeBytes(byteArrayOf(0x4F, 0xC5.toByte())) }
         val holder = ProjectSessionHolder(environment(mapOf("ref" to root)))
