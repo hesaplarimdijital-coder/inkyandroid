@@ -1,0 +1,46 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "type_of.ink",
+ "files": [
+  "type_of.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 1,
+  "knots": 1,
+  "stitches": 0,
+  "functions": 1,
+  "choices": 0,
+  "gathers": 0,
+  "diverts": 0
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": ""
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-1": [
+   {
+    "text": ""
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-2": [
+   {
+    "text": ""
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

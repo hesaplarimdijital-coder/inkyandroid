@@ -1,0 +1,31 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink",
+  "sub/part.ink"
+ ],
+ "compile": {
+  "success": false,
+  "issues": [
+   "TODO: 'main.ink' line 3: write the intro",
+   "TODO: 'sub/part.ink' line 2: part todo",
+   "WARNING: 'main.ink' line 12: Apparent loose end exists where the flow runs out. Do you need a '-> DONE' statement, choice or divert?",
+   "ERROR: 'main.ink' line 18: Function call to 'twice' requires 1 arguments, but got 2",
+   "ERROR: 'main.ink' line 7: Unresolved variable: unknown_var",
+   "ERROR: 'main.ink' line 8: Divert target not found: '-> nowhere'",
+   "ERROR: 'sub/part.ink' line 3: Divert target not found: '-> bad_target'",
+   "ERROR: 'sub/part.ink' line 4: Function call target not found: '-> undefined_function'"
+  ]
+ },
+ "statistics": {
+  "words": 5,
+  "knots": 5,
+  "stitches": 0,
+  "functions": 1,
+  "choices": 2,
+  "gathers": 0,
+  "diverts": 8
+ },
+ "transcripts": {}
+}

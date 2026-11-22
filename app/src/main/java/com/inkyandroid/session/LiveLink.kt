@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.coroutines.ContinuationInterceptor
+import kotlin.coroutines.CoroutineContext
 
 /**
  * What the project session needs of the live compile session ([LiveSession]): it tells it about
@@ -44,8 +46,8 @@ interface LiveLink {
 }
 
 /**
- * Creates the live link of a project. [sources] gives the project's texts at the moment it is
- * called and must be called on the main thread.
+ * Creates the live link of a project in the session's [scope]. [sources] gives the project's texts
+ * at the moment it is called and must be called on the session's thread (the scope's dispatcher).
  */
 fun interface LiveLinkFactory {
     fun create(scope: CoroutineScope, sources: () -> InkSources): LiveLink
@@ -63,8 +65,10 @@ class LiveSessionLink(
     sources: () -> InkSources,
 ) : LiveLink {
 
-    // the live session asks for the sources on the ink thread; the project lives on the main thread
-    override val session = LiveSession(scope, engineDispatcher, sources = { withContext(Dispatchers.Main.immediate) { sources() } })
+    // the live session asks for the sources on the ink thread; the project lives on the session's thread
+    private val owner: CoroutineContext = scope.coroutineContext[ContinuationInterceptor] ?: Dispatchers.Main.immediate
+
+    override val session = LiveSession(scope, engineDispatcher, sources = { withContext(owner) { sources() } })
 
     private val mutableIssues = MutableStateFlow<List<InkIssue>>(emptyList())
     override val issues: StateFlow<List<InkIssue>> = mutableIssues.asStateFlow()

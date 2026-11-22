@@ -95,7 +95,7 @@ class EvaluationTest {
             "-> nowhere" to "Divert target not found: '-> nowhere'",
             "double(\"a\")" to "Cannot perform operation '*' on String",
             "1 / 0" to "/ by zero",
-            "forever()" to "The evaluation took too long",
+            "forever()" to "The evaluation called functions inside one another more than 50000 deep: does one call itself without end?",
             "x = 3" to "Unexpected text after the expression: '= 3'",
             "" to "Not an ink expression",
             "~ x = 3" to "Not an ink expression",
@@ -113,6 +113,20 @@ class EvaluationTest {
         }
         play.choose(0)
         assertEquals(listOf("In some knot 5.\n"), play.continueToChoice().lines.map { it.text })
+    }
+
+    @Test
+    fun anExpressionThatCallsItselfWithoutEndIsStoppedBeforeItFillsTheMemory() {
+        // ink's call stack grows by up to a million calls a second: a time budget alone would let
+        // it take hundreds of megabytes first. With a minute's budget only the depth can stop it.
+        val play = Stories.play(sources, PlayLimits(evaluationBudgetMillis = 60_000))
+        play.continueToChoice()
+        val started = System.nanoTime()
+        val result = play.evaluate("forever()")
+        assertTrue((System.nanoTime() - started) / 1_000_000 < 5_000)
+        assertTrue(result.toString(), result is Evaluation.Failed)
+        assertEquals(2, play.choices.size)
+        assertEquals("5", value(play, "x"))
     }
 
     @Test

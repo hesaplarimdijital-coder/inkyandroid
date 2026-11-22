@@ -177,8 +177,10 @@ sealed interface TranscriptItem {
 
     /**
      * The story was cut off: it produced lines without end or took too long ([StopReason.LineLimit],
-     * [StopReason.TimeLimit]; `- (top) again -> top`), or the runtime failed
+     * [StopReason.TimeLimit]; `- (top) again -> top`), it called itself without end
+     * ([StopReason.DepthLimit]; a function that returns a call of itself), or the runtime failed
      * ([StopReason.EngineFailure], with the failure's text in [detail] and as a [RuntimeIssue] above).
+     * Localise by [reason]; [detail] is null except for [StopReason.EngineFailure].
      */
     data class Stopped(
         override val key: Long,

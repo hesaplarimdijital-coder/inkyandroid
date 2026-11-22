@@ -6,6 +6,7 @@ import com.bladecoder.ink.compiler.Stats
 import com.bladecoder.ink.runtime.Error.ErrorHandler
 import com.bladecoder.ink.runtime.Error.ErrorType
 import com.bladecoder.ink.runtime.Story
+import com.bladecoder.ink.runtime.inkyPrepareNativeFunctions
 import java.io.IOException
 
 /**
@@ -14,6 +15,11 @@ import java.io.IOException
  * of the app that touches the library.
  */
 internal object BladeInkEngine : InkEngine {
+
+    init {
+        // Once, before anything is compiled or played: the library's native function table, with its defects repaired.
+        inkyPrepareNativeFunctions()
+    }
 
     override fun compile(sources: InkSources): CompileResult {
         val paths = IncludePaths(sources.mainPath)

@@ -84,17 +84,23 @@ interface CompiledStory {
 }
 
 /**
- * The bounds that keep a runaway story from hanging the player. The reference player has none: it
- * only slows down after 1,000 lines.
+ * The bounds that keep a runaway story from hanging the player or filling the memory. The reference
+ * player has none: it only slows down after 1,000 lines.
  *
  * @property maxLinesPerTurn lines one turn may produce before it is stopped with [StopReason.LineLimit].
- * @property turnBudgetMillis real time one line may take before the turn is stopped with [StopReason.TimeLimit].
+ * @property turnBudgetMillis real time one turn may take before it is stopped with [StopReason.TimeLimit].
  * @property evaluationBudgetMillis real time one evaluated expression may take.
+ * @property maxCallDepth how deep functions and tunnels may be called inside one another, and how
+ *   many threads one turn (or one evaluation) may start, before it is stopped with
+ *   [StopReason.DepthLimit]. Far above what a story needs (a function that recurses over a list
+ *   goes as deep as the list is long), far below what fills a phone's memory (50,000 calls take
+ *   about 15 MB; ink's call stack grows by up to a million calls a second).
  */
 data class PlayLimits(
     val maxLinesPerTurn: Int = 5_000,
     val turnBudgetMillis: Long = 5_000,
     val evaluationBudgetMillis: Long = 500,
+    val maxCallDepth: Int = 50_000,
 )
 
 /**

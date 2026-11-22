@@ -1,0 +1,386 @@
+[
+ {
+  "name": "a_or_an",
+  "kind": "snippet",
+  "main": "a_or_an.ink",
+  "files": [
+   "a_or_an.ink"
+  ]
+ },
+ {
+  "name": "came_from",
+  "kind": "snippet",
+  "main": "came_from.ink",
+  "files": [
+   "came_from.ink"
+  ]
+ },
+ {
+  "name": "listToNumber",
+  "kind": "snippet",
+  "main": "listToNumber.ink",
+  "files": [
+   "listToNumber.ink"
+  ]
+ },
+ {
+  "name": "list_item_is_member_of",
+  "kind": "snippet",
+  "main": "list_item_is_member_of.ink",
+  "files": [
+   "list_item_is_member_of.ink"
+  ]
+ },
+ {
+  "name": "list_pop",
+  "kind": "snippet",
+  "main": "list_pop.ink",
+  "files": [
+   "list_pop.ink"
+  ]
+ },
+ {
+  "name": "list_pop_random",
+  "kind": "snippet",
+  "main": "list_pop_random.ink",
+  "files": [
+   "list_pop_random.ink"
+  ]
+ },
+ {
+  "name": "list_prev_next",
+  "kind": "snippet",
+  "main": "list_prev_next.ink",
+  "files": [
+   "list_prev_next.ink"
+  ]
+ },
+ {
+  "name": "list_random_subset",
+  "kind": "snippet",
+  "main": "list_random_subset.ink",
+  "files": [
+   "list_random_subset.ink"
+  ]
+ },
+ {
+  "name": "list_random_subset_of_size",
+  "kind": "snippet",
+  "main": "list_random_subset_of_size.ink",
+  "files": [
+   "list_random_subset_of_size.ink"
+  ]
+ },
+ {
+  "name": "list_with_commas",
+  "kind": "snippet",
+  "main": "list_with_commas.ink",
+  "files": [
+   "list_with_commas.ink"
+  ]
+ },
+ {
+  "name": "maybe",
+  "kind": "snippet",
+  "main": "maybe.ink",
+  "files": [
+   "maybe.ink"
+  ]
+ },
+ {
+  "name": "murder_scene",
+  "kind": "snippet",
+  "main": "murder_scene.ink",
+  "files": [
+   "murder_scene.ink"
+  ]
+ },
+ {
+  "name": "pontoon_example",
+  "kind": "snippet",
+  "main": "pontoon_example.ink",
+  "files": [
+   "pontoon_example.ink"
+  ]
+ },
+ {
+  "name": "print_number",
+  "kind": "snippet",
+  "main": "print_number.ink",
+  "files": [
+   "print_number.ink"
+  ]
+ },
+ {
+  "name": "seen_more_recently_than",
+  "kind": "snippet",
+  "main": "seen_more_recently_than.ink",
+  "files": [
+   "seen_more_recently_than.ink"
+  ]
+ },
+ {
+  "name": "seen_this_scene",
+  "kind": "snippet",
+  "main": "seen_this_scene.ink",
+  "files": [
+   "seen_this_scene.ink"
+  ]
+ },
+ {
+  "name": "seen_very_recently",
+  "kind": "snippet",
+  "main": "seen_very_recently.ink",
+  "files": [
+   "seen_very_recently.ink"
+  ]
+ },
+ {
+  "name": "storylets",
+  "kind": "snippet",
+  "main": "storylets.ink",
+  "files": [
+   "storylets.ink"
+  ]
+ },
+ {
+  "name": "string_to_list",
+  "kind": "snippet",
+  "main": "string_to_list.ink",
+  "files": [
+   "string_to_list.ink"
+  ]
+ },
+ {
+  "name": "swindlestones",
+  "kind": "snippet",
+  "main": "swindlestones.ink",
+  "files": [
+   "swindlestones.ink"
+  ]
+ },
+ {
+  "name": "swing_variables",
+  "kind": "snippet",
+  "main": "swing_variables.ink",
+  "files": [
+   "swing_variables.ink"
+  ]
+ },
+ {
+  "name": "theintercept",
+  "kind": "snippet",
+  "main": "theintercept.ink",
+  "files": [
+   "theintercept.ink"
+  ]
+ },
+ {
+  "name": "thread_in_tunnel",
+  "kind": "snippet",
+  "main": "thread_in_tunnel.ink",
+  "files": [
+   "thread_in_tunnel.ink"
+  ]
+ },
+ {
+  "name": "type_of",
+  "kind": "snippet",
+  "main": "type_of.ink",
+  "files": [
+   "type_of.ink"
+  ]
+ },
+ {
+  "name": "uppercase",
+  "kind": "snippet",
+  "main": "uppercase.ink",
+  "files": [
+   "uppercase.ink"
+  ]
+ },
+ {
+  "name": "deep-nesting",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "divide-by-zero",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "external-missing",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "floats",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "functions",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "glue",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "issues-meaning",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink",
+   "sub/part.ink"
+  ]
+ },
+ {
+  "name": "issues-parse",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink",
+   "sub/nested.ink",
+   "sub/part.ink"
+  ]
+ },
+ {
+  "name": "issues-warnings",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink",
+   "parts/loose.ink"
+  ]
+ },
+ {
+  "name": "lists",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "loop-output",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "loop-silent",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "nested-includes",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "chapters/deep/inner.ink",
+   "chapters/one.ink",
+   "chapters/two.ink",
+   "main.ink",
+   "shared.ink"
+  ]
+ },
+ {
+  "name": "runtime-errors",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "sequences",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "shuffle",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "tags",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "tunnels-threads",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "unicode",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "variables-math",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "watch",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ },
+ {
+  "name": "weave",
+  "kind": "case",
+  "main": "main.ink",
+  "files": [
+   "main.ink"
+  ]
+ }
+]

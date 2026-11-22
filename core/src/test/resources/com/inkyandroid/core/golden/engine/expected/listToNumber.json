@@ -1,0 +1,64 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "listToNumber.ink",
+ "files": [
+  "listToNumber.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 43,
+  "knots": 5,
+  "stitches": 0,
+  "functions": 5,
+  "choices": 0,
+  "gathers": 0,
+  "diverts": 16
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "I have 3 coins and 2 cards right now.\n"
+   },
+   {
+    "text": "Now I have 13.\n"
+   },
+   {
+    "text": "Now I have -28. Yikes!\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-1": [
+   {
+    "text": "I have 3 coins and 2 cards right now.\n"
+   },
+   {
+    "text": "Now I have 13.\n"
+   },
+   {
+    "text": "Now I have -28. Yikes!\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-2": [
+   {
+    "text": "I have 3 coins and 2 cards right now.\n"
+   },
+   {
+    "text": "Now I have 13.\n"
+   },
+   {
+    "text": "Now I have -28. Yikes!\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

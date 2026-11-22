@@ -10,6 +10,8 @@ import com.inkyandroid.core.project.TextHash
 import com.inkyandroid.settings.AppSettings
 import com.inkyandroid.storage.ProjectRef
 import com.inkyandroid.storage.ProjectStorage
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,6 +19,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
+import kotlin.coroutines.CoroutineContext
 
 /** A project reference resolved to its storage. */
 class OpenedProject(val store: ProjectStore, val mainPath: String)
@@ -32,6 +35,13 @@ interface ProjectOpener {
 
     /** The window that opened [reference] shows it no longer. */
     fun close(reference: String) {}
+
+    /**
+     * What identifies the project behind [reference] for as long as it is the same project: its
+     * drafts are filed under it. The reference itself unless the opener knows better (a reference
+     * may carry a display name that changes).
+     */
+    fun identity(reference: String): String = reference
 }
 
 /** Opens projects through the app's [ProjectStorage]: a reference is `ProjectRef.encode()`. */
@@ -45,6 +55,8 @@ class StorageProjectOpener(private val storage: ProjectStorage) : ProjectOpener 
     override fun close(reference: String) {
         ProjectRef.decode(reference)?.let(storage::close)
     }
+
+    override fun identity(reference: String): String = ProjectRef.decode(reference)?.key ?: reference
 }
 
 /**
@@ -54,6 +66,8 @@ class StorageProjectOpener(private val storage: ProjectStorage) : ProjectOpener 
  *   with the app's one ink thread.
  * @property draftsDirectory the app-private directory under which each project gets its own drafts
  *   folder (`filesDir/drafts`).
+ * @property io where the drafts are read and written.
+ * @property parseContext where the files' symbols are parsed.
  */
 class SessionEnvironment(
     val settings: AppSettings,
@@ -61,9 +75,12 @@ class SessionEnvironment(
     val editors: EditorBufferFactory,
     val live: LiveLinkFactory,
     val draftsDirectory: File,
+    val io: CoroutineDispatcher = Dispatchers.IO,
+    val parseContext: CoroutineContext = Dispatchers.Default,
 ) {
-    /** The drafts store of the project with [reference]: a folder named after the reference's hash. */
-    fun draftsFor(reference: String): DraftStore = FileDraftStore(File(draftsDirectory, TextHash.of(reference).take(DRAFT_FOLDER_LENGTH)))
+    /** The drafts store of the project with [reference]: a folder named after the hash of the project's identity. */
+    fun draftsFor(reference: String): DraftStore =
+        FileDraftStore(File(draftsDirectory, TextHash.of(opener.identity(reference)).take(DRAFT_FOLDER_LENGTH)), io)
 
     private companion object {
         const val DRAFT_FOLDER_LENGTH = 32
@@ -171,6 +188,7 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
                         settings = environment.settings,
                         editors = environment.editors,
                         live = environment.live,
+                        parseContext = environment.parseContext,
                     ),
                 )
             } catch (failed: IOException) {

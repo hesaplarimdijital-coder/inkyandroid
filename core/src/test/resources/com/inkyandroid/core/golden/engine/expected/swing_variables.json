@@ -1,0 +1,46 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "swing_variables.ink",
+ "files": [
+  "swing_variables.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 0,
+  "knots": 15,
+  "stitches": 0,
+  "functions": 15,
+  "choices": 0,
+  "gathers": 0,
+  "diverts": 22
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": ""
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-1": [
+   {
+    "text": ""
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-2": [
+   {
+    "text": ""
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

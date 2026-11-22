@@ -1,0 +1,281 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 60,
+  "knots": 0,
+  "stitches": 0,
+  "functions": 0,
+  "choices": 3,
+  "gathers": 1,
+  "diverts": 1
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "First line.\n"
+   },
+   {
+    "tags": [
+     "title: The Tagged Story",
+     "author: Someone",
+     "one"
+    ]
+   },
+   {
+    "text": "Second line.\n"
+   },
+   {
+    "tags": [
+     "two",
+     "three: with value"
+    ]
+   },
+   {
+    "text": "Third line.\n"
+   },
+   {
+    "tags": [
+     "above the line"
+    ]
+   },
+   {
+    "text": "A line with a tag that prints glad.\n"
+   },
+   {
+    "tags": [
+     "mood glad"
+    ]
+   },
+   {
+    "text": ""
+   },
+   {
+    "tags": [
+     "only a tag on its own line"
+    ]
+   },
+   {
+    "choices": [
+     [
+      "Choice with tags",
+      [
+       "c1",
+       "c2"
+      ]
+     ],
+     [
+      "Choice whose text prints",
+      [
+       "shared"
+      ]
+     ],
+     [
+      "Plain choice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You chose the first.\n"
+   },
+   {
+    "tags": [
+     "after choice"
+    ]
+   },
+   {
+    "text": "The end.\n"
+   },
+   {
+    "tags": [
+     "last"
+    ]
+   },
+   {
+    "end": true
+   }
+  ],
+  "second": [
+   {
+    "text": "First line.\n"
+   },
+   {
+    "tags": [
+     "title: The Tagged Story",
+     "author: Someone",
+     "one"
+    ]
+   },
+   {
+    "text": "Second line.\n"
+   },
+   {
+    "tags": [
+     "two",
+     "three: with value"
+    ]
+   },
+   {
+    "text": "Third line.\n"
+   },
+   {
+    "tags": [
+     "above the line"
+    ]
+   },
+   {
+    "text": "A line with a tag that prints glad.\n"
+   },
+   {
+    "tags": [
+     "mood glad"
+    ]
+   },
+   {
+    "text": ""
+   },
+   {
+    "tags": [
+     "only a tag on its own line"
+    ]
+   },
+   {
+    "choices": [
+     [
+      "Choice with tags",
+      [
+       "c1",
+       "c2"
+      ]
+     ],
+     [
+      "Choice whose text prints",
+      [
+       "shared"
+      ]
+     ],
+     [
+      "Plain choice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "Choice whose text prints\n"
+   },
+   {
+    "tags": [
+     "shared"
+    ]
+   },
+   {
+    "text": "After it.\n"
+   },
+   {
+    "text": "The end.\n"
+   },
+   {
+    "tags": [
+     "last"
+    ]
+   },
+   {
+    "end": true
+   }
+  ],
+  "third": [
+   {
+    "text": "First line.\n"
+   },
+   {
+    "tags": [
+     "title: The Tagged Story",
+     "author: Someone",
+     "one"
+    ]
+   },
+   {
+    "text": "Second line.\n"
+   },
+   {
+    "tags": [
+     "two",
+     "three: with value"
+    ]
+   },
+   {
+    "text": "Third line.\n"
+   },
+   {
+    "tags": [
+     "above the line"
+    ]
+   },
+   {
+    "text": "A line with a tag that prints glad.\n"
+   },
+   {
+    "tags": [
+     "mood glad"
+    ]
+   },
+   {
+    "text": ""
+   },
+   {
+    "tags": [
+     "only a tag on its own line"
+    ]
+   },
+   {
+    "choices": [
+     [
+      "Choice with tags",
+      [
+       "c1",
+       "c2"
+      ]
+     ],
+     [
+      "Choice whose text prints",
+      [
+       "shared"
+      ]
+     ],
+     [
+      "Plain choice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "The end.\n"
+   },
+   {
+    "tags": [
+     "last"
+    ]
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

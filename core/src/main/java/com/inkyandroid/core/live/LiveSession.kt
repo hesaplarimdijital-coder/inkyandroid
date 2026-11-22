@@ -28,7 +28,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicLong
-import java.util.concurrent.atomic.AtomicReference
 
 /**
  * @property debounceMillis the pause after the last edit before the ink is compiled again.
@@ -101,8 +100,16 @@ class LiveSession(
     /** Counts the changes that call for a compile or replay after a pause. Written from any thread. */
     private val changes = AtomicLong(0)
 
-    /** The running pause timer, if any. */
-    private val pause = AtomicReference<Job?>(null)
+    /**
+     * Held while an edit is counted and its pause timer replaces the previous one, so that the
+     * timer left running always belongs to the latest change. (Without it, two threads editing at
+     * the same moment could leave the older change's timer, whose pause then answers nothing, and
+     * the session would stay busy until the next edit.)
+     */
+    private val pauseLock = Any()
+
+    /** The running pause timer, if any. Guarded by [pauseLock]. */
+    private var pause: Job? = null
 
     // Everything below is touched by the session's coroutine alone.
 
@@ -144,15 +151,18 @@ class LiveSession(
      * pause never compiles. A compilation that an edit overtakes is thrown away when it returns.
      */
     fun edited() {
-        val change = changes.incrementAndGet()
-        commands.trySend(Command.Changed)
-        // Started on the caller's thread, so the pause counts from the edit even while the engine
-        // thread is busy compiling.
-        val timer = scope.launch(start = CoroutineStart.UNDISPATCHED) {
-            delay(config.debounceMillis)
-            commands.send(Command.PauseElapsed(change))
+        synchronized(pauseLock) {
+            val change = changes.incrementAndGet()
+            commands.trySend(Command.Changed)
+            // Started on the caller's thread, so the pause counts from the edit even while the engine
+            // thread is busy compiling. (It runs here only until `delay` suspends.)
+            val timer = scope.launch(start = CoroutineStart.UNDISPATCHED) {
+                delay(config.debounceMillis)
+                commands.send(Command.PauseElapsed(change))
+            }
+            pause?.cancel()
+            pause = timer
         }
-        pause.getAndSet(timer)?.cancel()
     }
 
     /**
@@ -260,15 +270,22 @@ class LiveSession(
         for (command in commands) {
             try {
                 handle(command)
-            } catch (e: CancellationException) {
-                throw e
             } catch (e: Throwable) {
+                if (endsSession(e)) throw e
                 // Every handler already turns what the engine may do into state; this is for what
                 // nobody foresaw. The session must outlive it.
                 failUnexpectedly(command, e)
             }
         }
     }
+
+    /**
+     * The session itself was cancelled (its scope ended, or [close]): the one failure that ends it.
+     * Any other cancellation that reaches it, such as a timeout inside [sources] or a scope of the
+     * caller's that ended there, is a failure like any other, or the session would stop compiling
+     * for good without a word.
+     */
+    private fun endsSession(failure: Throwable): Boolean = failure is CancellationException && !job.isActive
 
     private suspend fun handle(command: Command) {
         when (command) {
@@ -318,9 +335,8 @@ class LiveSession(
         publishBusy(true)
         val result = try {
             compile(sources())
-        } catch (e: CancellationException) {
-            throw e
         } catch (e: Throwable) {
+            if (endsSession(e)) throw e
             crashed(e)
         }
         // An edit arrived while this ran: its text is not what was compiled. Stay busy; the pause
@@ -530,17 +546,15 @@ class LiveSession(
             is CompileResult.Failed -> ExportResult.HasErrors(result.issues)
             is CompileResult.Crashed -> ExportResult.Crashed(result.message)
         }
-    } catch (e: CancellationException) {
-        throw e
     } catch (e: Throwable) {
+        if (endsSession(e)) throw e
         ExportResult.Crashed(e.message ?: e.javaClass.simpleName)
     }
 
     private suspend fun <T> guarded(fallback: T, block: suspend () -> T): T = try {
         block()
-    } catch (e: CancellationException) {
-        throw e
     } catch (e: Throwable) {
+        if (endsSession(e)) throw e
         fallback
     }
 

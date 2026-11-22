@@ -1,0 +1,307 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 65,
+  "knots": 9,
+  "stitches": 0,
+  "functions": 0,
+  "choices": 5,
+  "gathers": 1,
+  "diverts": 15
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "Start.\n"
+   },
+   {
+    "text": "In tunnel one.\n"
+   },
+   {
+    "text": "Back from the first tunnel.\n"
+   },
+   {
+    "text": "In tunnel one.\n"
+   },
+   {
+    "text": "In tunnel two.\n"
+   },
+   {
+    "choices": [
+     [
+      "Stay a while",
+      []
+     ],
+     [
+      "Leave",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Stayed.\n"
+   },
+   {
+    "text": "Back from both.\n"
+   },
+   {
+    "text": "Going down, 1.\n"
+   },
+   {
+    "text": "Going down, 2.\n"
+   },
+   {
+    "text": "Going down, 3.\n"
+   },
+   {
+    "text": "Coming up.\n"
+   },
+   {
+    "text": "Coming up.\n"
+   },
+   {
+    "text": "Coming up.\n"
+   },
+   {
+    "text": "Back from nested (3).\n"
+   },
+   {
+    "text": "At the hub.\n"
+   },
+   {
+    "text": "Thread A speaks.\n"
+   },
+   {
+    "text": "Thread B speaks of 7.\n"
+   },
+   {
+    "choices": [
+     [
+      "From thread A",
+      []
+     ],
+     [
+      "From thread B",
+      []
+     ],
+     [
+      "Hub's own choice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "A was chosen. Leaving through a tunnel elsewhere.\n"
+   },
+   {
+    "text": "The finale.\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "leave-a": [
+   {
+    "text": "Start.\n"
+   },
+   {
+    "text": "In tunnel one.\n"
+   },
+   {
+    "text": "Back from the first tunnel.\n"
+   },
+   {
+    "text": "In tunnel one.\n"
+   },
+   {
+    "text": "In tunnel two.\n"
+   },
+   {
+    "choices": [
+     [
+      "Stay a while",
+      []
+     ],
+     [
+      "Leave",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "Back from both.\n"
+   },
+   {
+    "text": "Going down, 1.\n"
+   },
+   {
+    "text": "Going down, 2.\n"
+   },
+   {
+    "text": "Going down, 3.\n"
+   },
+   {
+    "text": "Coming up.\n"
+   },
+   {
+    "text": "Coming up.\n"
+   },
+   {
+    "text": "Coming up.\n"
+   },
+   {
+    "text": "Back from nested (3).\n"
+   },
+   {
+    "text": "At the hub.\n"
+   },
+   {
+    "text": "Thread A speaks.\n"
+   },
+   {
+    "text": "Thread B speaks of 7.\n"
+   },
+   {
+    "choices": [
+     [
+      "From thread A",
+      []
+     ],
+     [
+      "From thread B",
+      []
+     ],
+     [
+      "Hub's own choice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "B was chosen with 7. Leaving through a tunnel elsewhere.\n"
+   },
+   {
+    "text": "The finale.\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "stay-b": [
+   {
+    "text": "Start.\n"
+   },
+   {
+    "text": "In tunnel one.\n"
+   },
+   {
+    "text": "Back from the first tunnel.\n"
+   },
+   {
+    "text": "In tunnel one.\n"
+   },
+   {
+    "text": "In tunnel two.\n"
+   },
+   {
+    "choices": [
+     [
+      "Stay a while",
+      []
+     ],
+     [
+      "Leave",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Stayed.\n"
+   },
+   {
+    "text": "Back from both.\n"
+   },
+   {
+    "text": "Going down, 1.\n"
+   },
+   {
+    "text": "Going down, 2.\n"
+   },
+   {
+    "text": "Going down, 3.\n"
+   },
+   {
+    "text": "Coming up.\n"
+   },
+   {
+    "text": "Coming up.\n"
+   },
+   {
+    "text": "Coming up.\n"
+   },
+   {
+    "text": "Back from nested (3).\n"
+   },
+   {
+    "text": "At the hub.\n"
+   },
+   {
+    "text": "Thread A speaks.\n"
+   },
+   {
+    "text": "Thread B speaks of 7.\n"
+   },
+   {
+    "choices": [
+     [
+      "From thread A",
+      []
+     ],
+     [
+      "From thread B",
+      []
+     ],
+     [
+      "Hub's own choice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "Leaving through a tunnel elsewhere.\n"
+   },
+   {
+    "text": "The finale.\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

@@ -1,0 +1,143 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 18,
+  "knots": 2,
+  "stitches": 0,
+  "functions": 1,
+  "choices": 3,
+  "gathers": 1,
+  "diverts": 2
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "Start.\n"
+   },
+   {
+    "choices": [
+     [
+      "Add ten",
+      []
+     ],
+     [
+      "Leave it",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Added.\n"
+   },
+   {
+    "text": "At the end, x is 15.\n"
+   },
+   {
+    "choices": [
+     [
+      "Finish",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "In some knot.\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ },
+ "evaluate": {
+  "after": [
+   0
+  ],
+  "results": [
+   {
+    "input": "x",
+    "output": "15"
+   },
+   {
+    "input": "x + 1",
+    "output": "16"
+   },
+   {
+    "input": "x == 15",
+    "crash": "Unhandled exception. System.Exception: ERROR: line 1: Expected value expression to be assigned but saw '= 15' (Internal story path: <END>)"
+   },
+   {
+    "input": "x > 3 and x < 100",
+    "output": "true"
+   },
+   {
+    "input": "name",
+    "output": "Ada"
+   },
+   {
+    "input": "colours",
+    "output": "green"
+   },
+   {
+    "input": "LIST_COUNT(colours)",
+    "output": "1"
+   },
+   {
+    "input": "some_knot"
+   },
+   {
+    "input": "\"x is {x}\"",
+    "output": "x is 15"
+   },
+   {
+    "input": "\"{name} has {x} and {colours}\"",
+    "output": "Ada has 15 and green"
+   },
+   {
+    "input": "\"plain words\"",
+    "output": "plain words"
+   },
+   {
+    "input": "\"{x + 1} then {x * 2}\"",
+    "output": "16 then 30"
+   },
+   {
+    "input": "nope",
+    "issues": [
+     "ERROR: line 1: Unresolved variable: nope"
+    ]
+   },
+   {
+    "input": "\"{nope}\"",
+    "issues": [
+     "ERROR: line 1: Unresolved variable: nope"
+    ]
+   },
+   {
+    "input": "x +",
+    "crash": "Unhandled exception. System.Exception: ERROR: line 1: Expected right side of '+' expression but saw end of line (Internal story path: <END>)"
+   },
+   {
+    "input": "\"{double(x)}\"",
+    "hang": true
+   },
+   {
+    "input": "double(x)",
+    "hang": true
+   }
+  ]
+ }
+}
