@@ -1,6 +1,7 @@
 package com.inkyandroid.ui.workspace
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -35,7 +36,6 @@ import desktopkit.shell.TopBarAction
 import desktopkit.shell.WidthClass
 import desktopkit.shell.currentWidthClass
 import desktopkit.shell.rememberShellContentPadding
-import desktopkit.shell.shellContentPadding
 import desktopkit.theme.DeskTheme
 
 /**
@@ -140,17 +140,26 @@ fun FilesScreen(session: ProjectSession, state: SessionState, project: ProjectSn
             }
         }
     } else {
-        // the tabs stand under the top bar; each list scrolls on its own
-        Column(Modifier.fillMaxSize().shellContentPadding()) {
-            TabStrip {
+        // the tabs stand under the top bar; each list scrolls on its own and runs under the bottom bar
+        val padding = rememberShellContentPadding()
+        val listPadding = PaddingValues(bottom = padding.calculateBottomPadding())
+        Column(Modifier.fillMaxSize()) {
+            TabStrip(Modifier.padding(top = padding.calculateTopPadding())) {
                 DeskTab(stringResource(R.string.nav_files), selected = ui.filesTab == 0, onClick = { ui.filesTab = 0 })
                 DeskTab(stringResource(R.string.outline_title), selected = ui.filesTab == 1, onClick = { ui.filesTab = 1 })
             }
             HorizontalRule()
             if (ui.filesTab == 0) {
-                FilesList(project, state.activePath, issues, fileActions, listState = ui.filesList, showAddButton = false)
+                FilesList(project, state.activePath, issues, fileActions, listState = ui.filesList, contentPadding = listPadding, showAddButton = false)
             } else {
-                OutlinePane(active.symbols, cursorRow(session, state), { symbol -> actions.openSymbol(active.path, symbol) }, listState = ui.outlineList, fileName = active.name)
+                OutlinePane(
+                    active.symbols,
+                    cursorRow(session, state),
+                    { symbol -> actions.openSymbol(active.path, symbol) },
+                    listState = ui.outlineList,
+                    contentPadding = listPadding,
+                    fileName = active.name,
+                )
             }
         }
     }
