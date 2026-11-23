@@ -50,7 +50,7 @@ class ShellSpecTest {
         // what nothing includes is listed by its path, under upstream's "Unused files"
         assertEquals("Unused files" to listOf("notes/old.ink"), sidebar[3])
         // the screens of the sidebar: Write and Files are the phone's and the rail's
-        assertEquals(listOf("Issues", "Projects", "Documentation"), sidebar[0].second)
+        assertEquals(listOf("Issues", "Projects", "Docs"), sidebar[0].second)
         // a file's entry is a page of Write: where files are not listed, Write stays marked
         assertTrue(spec.sections.drop(1).flatMap { it.items }.all { it.parent == Routes.WRITE })
         assertEquals(Routes.SETTINGS, spec.footer?.route)

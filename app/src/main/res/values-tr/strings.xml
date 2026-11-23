@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="nav_story">Hikâye</string>
-    <string name="setup_title">Inky kuruluyor</string>
-    <string name="setup_description">Bu sürüm Android portunun iskeleti; ink hikâyelerini yazmak ve oynatmak sonraki sürümlerle gelecek.</string>
     <!-- storage (com.inkyandroid.storage): begin -->
     <string name="storage_error_permission_lost">Inky bu klasörü artık kullanamıyor. Erişim vermek için klasörü yeniden açın.</string>
     <string name="storage_error_not_found">Dosya ya da klasör artık yerinde değil.</string>
@@ -26,7 +23,6 @@
     <string name="menu_edit">Düzen</string>
     <string name="menu_story">Hikâye</string>
     <string name="menu_ink">Ink</string>
-    <string name="menu_go">Git</string>
     <!-- commands -->
     <string name="action_new_project">Yeni proje…</string>
     <string name="action_new_include">Yeni ink dosyası ekle…</string>
@@ -75,7 +71,6 @@
     <string name="action_restart">Hikâyeyi baştan başlat</string>
     <string name="action_documentation">Belgeleri göster</string>
     <string name="action_play">Oyna</string>
-    <string name="action_more">Daha fazla</string>
     <string name="action_rename">Yeniden adlandır…</string>
     <string name="action_delete">Sil…</string>
     <string name="action_rename_confirm">Yeniden adlandır</string>
@@ -83,11 +78,9 @@
     <string name="action_cancel">Vazgeç</string>
     <string name="action_add">Ekle</string>
     <string name="action_create">Oluştur</string>
-    <string name="action_open">Aç</string>
     <string name="action_close">Kapat</string>
-    <string name="action_remove">Kaldır</string>
     <!-- the command palette ("Go to anything") -->
-    <string name="palette_hint">Dosya adı, dikiş, düğüm, satır numarası ya da metin</string>
+    <string name="palette_hint">Dosya, düğüm, satır ya da metin</string>
     <string name="palette_group_goto">Git</string>
     <string name="palette_group_files">Dosyalar</string>
     <string name="palette_group_symbols">Düğümler ve dikişler</string>
@@ -129,7 +122,6 @@
     <!-- issues -->
     <string name="issues_none_title">Sorun yok</string>
     <string name="issues_none_description">Projenin hataları, uyarıları ve TODO notları siz yazdıkça burada listelenir.</string>
-    <string name="issues_no_project">Sorunlarını görmek için bir proje açın.</string>
     <string name="issues_project_wide">Projenin tamamı</string>
     <string name="issue_kind_error">Hata</string>
     <string name="issue_kind_runtime_error">Çalışma hatası</string>
@@ -143,9 +135,6 @@
     <string name="outline_functions">İşlevler</string>
     <string name="outline_externals">Dış işlevler</string>
     <string name="outline_empty">Düğümler, dikişler ve işlevler burada dizinlenir</string>
-    <string name="outline_knot">Düğüm %1$s</string>
-    <string name="outline_stitch">Dikiş %1$s</string>
-    <string name="outline_function">İşlev %1$s</string>
     <string name="outline_current">imleç burada</string>
     <!-- watches -->
     <string name="watches_title">İzleme</string>
@@ -163,8 +152,6 @@
     <string name="files_missing_title">Var olmayan INCLUDE dosyaları</string>
     <string name="files_missing_create">Oluştur</string>
     <string name="files_add_include">Yeni ink dosyası</string>
-    <string name="files_no_project_title">Açık proje yok</string>
-    <string name="files_no_project_description">Bir klasör ya da tek bir ink dosyası açın, veya yeni bir proje başlatın.</string>
     <string name="files_root_folder">Ana klasör</string>
     <string name="include_title">Yeni ink dosyası</string>
     <string name="include_name">Yeni ink dosyasının adı:</string>
@@ -210,7 +197,6 @@
     <!-- the editor -->
     <string name="editor_label">Ink düzenleyici, %1$s</string>
     <string name="editor_placeholder">Hikâyenizi buraya yazın</string>
-    <string name="editor_issue_count_label">Sorunlar</string>
     <string name="editor_unsaved_mark">%1$s •</string>
     <string name="editor_no_definition">“%1$s” için tanım bulunamadı</string>
     <string name="editor_no_include">Projede “%1$s” adında bir dosya yok</string>
@@ -237,7 +223,6 @@
     <string name="projects_kind_internal">Inky içinde</string>
     <string name="projects_kind_single">Tek dosya</string>
     <string name="projects_row_subtitle">%1$s · %2$s</string>
-    <string name="projects_unavailable">artık ulaşılamıyor</string>
     <string name="projects_opening">%1$s açılıyor</string>
     <string name="projects_failed_title">Proje açılamadı</string>
     <string name="projects_choose">Proje seç</string>
@@ -258,11 +243,9 @@
     <string name="single_file_read_only">Bu dosya salt okunur paylaşıldı. Değişiklikleri kaydetmek için klasörüne erişim verin.</string>
     <string name="single_file_grant">Erişim ver</string>
     <string name="single_file_wrong_folder">%1$s dosyasının bulunduğu klasörü seçin.</string>
-    <string name="internal_banner">Bu proje Inky içinde tutuluyor.</string>
     <string name="copy_done">%1$s konumuna kopyalandı</string>
     <string name="copy_skipped">%1$s konumuna kopyalandı; metin olmayan %2$d dosya atlandı</string>
     <string name="not_text">%1$s UTF-8 metin değil; Inky onu açmıyor.</string>
-    <string name="restored_notice">Kaydedilmemiş değişiklikler geri getirildi</string>
     <string name="sample_project_name">İlk hikâye</string>
     <string name="no_project_title">Açık proje yok</string>
     <string name="no_project_description">Bir klasör ya da tek bir ink dosyası açın veya yeni bir proje başlatın.</string>

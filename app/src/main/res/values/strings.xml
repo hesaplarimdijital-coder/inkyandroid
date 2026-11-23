@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Inky</string>
-    <string name="nav_story">Story</string>
-    <string name="setup_title">Inky is being set up</string>
-    <string name="setup_description">This build is the skeleton of the Android port; writing and playing ink stories come with the next builds.</string>
     <!-- storage (com.inkyandroid.storage): begin -->
     <string name="storage_error_permission_lost">Inky may no longer use this folder. Open it again to grant access.</string>
     <string name="storage_error_not_found">The file or folder is no longer there.</string>
@@ -20,14 +17,13 @@
     <string name="nav_files">Files</string>
     <string name="nav_issues">Issues</string>
     <string name="nav_projects">Projects</string>
-    <string name="nav_docs">Documentation</string>
+    <string name="nav_docs">Docs</string>
     <string name="nav_unused_files">Unused files</string>
     <!-- menus (the menu bar, the "⋯" sheet, the palette) -->
     <string name="menu_file">File</string>
     <string name="menu_edit">Edit</string>
     <string name="menu_story">Story</string>
     <string name="menu_ink">Ink</string>
-    <string name="menu_go">Go</string>
     <!-- commands -->
     <string name="action_new_project">New project…</string>
     <string name="action_new_include">New included ink file…</string>
@@ -76,7 +72,6 @@
     <string name="action_restart">Restart story</string>
     <string name="action_documentation">Show documentation</string>
     <string name="action_play">Play</string>
-    <string name="action_more">More</string>
     <string name="action_rename">Rename…</string>
     <string name="action_delete">Delete…</string>
     <string name="action_rename_confirm">Rename</string>
@@ -84,11 +79,9 @@
     <string name="action_cancel">Cancel</string>
     <string name="action_add">Add</string>
     <string name="action_create">Create</string>
-    <string name="action_open">Open</string>
     <string name="action_close">Close</string>
-    <string name="action_remove">Remove</string>
     <!-- the command palette ("Go to anything") -->
-    <string name="palette_hint">File name, stitch, knot, line number, or text</string>
+    <string name="palette_hint">File, knot, line or text</string>
     <string name="palette_group_goto">Go to</string>
     <string name="palette_group_files">Files</string>
     <string name="palette_group_symbols">Knots and stitches</string>
@@ -130,7 +123,6 @@
     <!-- issues -->
     <string name="issues_none_title">No issues</string>
     <string name="issues_none_description">Errors, warnings and TODO notes of the project are listed here as you type.</string>
-    <string name="issues_no_project">Open a project to see its issues.</string>
     <string name="issues_project_wide">Whole project</string>
     <string name="issue_kind_error">Error</string>
     <string name="issue_kind_runtime_error">Runtime error</string>
@@ -144,9 +136,6 @@
     <string name="outline_functions">Functions</string>
     <string name="outline_externals">Externals</string>
     <string name="outline_empty">Knots, stitches and functions are indexed here</string>
-    <string name="outline_knot">Knot %1$s</string>
-    <string name="outline_stitch">Stitch %1$s</string>
-    <string name="outline_function">Function %1$s</string>
     <string name="outline_current">cursor is here</string>
     <!-- watches -->
     <string name="watches_title">Watches</string>
@@ -164,8 +153,6 @@
     <string name="files_missing_title">Included files that do not exist</string>
     <string name="files_missing_create">Create</string>
     <string name="files_add_include">Add new include</string>
-    <string name="files_no_project_title">No project is open</string>
-    <string name="files_no_project_description">Open a folder or a single ink file, or start a new project.</string>
     <string name="files_root_folder">Main folder</string>
     <string name="include_title">New included ink file</string>
     <string name="include_name">Enter new ink filename:</string>
@@ -211,7 +198,6 @@
     <!-- the editor -->
     <string name="editor_label">Ink editor, %1$s</string>
     <string name="editor_placeholder">Write your story here</string>
-    <string name="editor_issue_count_label">Issues</string>
     <string name="editor_unsaved_mark">%1$s •</string>
     <string name="editor_no_definition">No definition found for “%1$s”</string>
     <string name="editor_no_include">There is no file named “%1$s” in the project</string>
@@ -238,7 +224,6 @@
     <string name="projects_kind_internal">Inside Inky</string>
     <string name="projects_kind_single">Single file</string>
     <string name="projects_row_subtitle">%1$s · %2$s</string>
-    <string name="projects_unavailable">no longer reachable</string>
     <string name="projects_opening">Opening %1$s</string>
     <string name="projects_failed_title">The project could not be opened</string>
     <string name="projects_choose">Choose a project</string>
@@ -259,11 +244,9 @@
     <string name="single_file_read_only">This file was shared read-only. Grant access to its folder to save changes.</string>
     <string name="single_file_grant">Grant access</string>
     <string name="single_file_wrong_folder">Pick the folder that holds %1$s.</string>
-    <string name="internal_banner">This project is kept inside Inky.</string>
     <string name="copy_done">Copied to %1$s</string>
     <string name="copy_skipped">Copied to %1$s; %2$d files that are not text were left out</string>
     <string name="not_text">%1$s is not UTF-8 text, so Inky does not open it.</string>
-    <string name="restored_notice">Unsaved changes were restored</string>
     <string name="sample_project_name">First story</string>
     <string name="no_project_title">No project is open</string>
     <string name="no_project_description">Open a folder or an ink file, or start a new project.</string>
