@@ -23,6 +23,7 @@ object Commands {
     const val EXPORT_WEB = "export.web"
     const val EXPORT_JS = "export.js"
     const val OPEN_RECENT = "project.open_recent"
+    const val KEPT_VERSIONS = "project.kept_versions"
 
     const val UNDO = "edit.undo"
     const val REDO = "edit.redo"

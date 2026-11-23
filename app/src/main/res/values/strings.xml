@@ -293,5 +293,17 @@
         <item quantity="other">The unsaved text of %d files is kept and comes back when the project opens again.</item>
     </plurals>
     <string name="files_unreadable_title">Files that could not be read</string>
+    <string name="include_needs_folder">A project of a single file has no folder for another file: grant its folder first (the banner above the text offers it).</string>
+    <string name="conflict_kept_note">Whichever you choose, the text it replaces is kept: under File › Kept versions (loading from storage can also be undone).</string>
+    <string name="action_kept_versions">Kept versions…</string>
+    <string name="kept_title">Kept versions</string>
+    <string name="kept_text">Before a conflict\'s answer replaced a text, the app kept it here. Bring one back into its file (Undo takes it out again), or forget it.</string>
+    <string name="kept_empty">No text was kept: a conflict\'s answer keeps the text it replaces here.</string>
+    <string name="kept_mine">Your text</string>
+    <string name="kept_theirs">From storage</string>
+    <string name="kept_restore">Bring back</string>
+    <string name="kept_forget">Forget</string>
+    <string name="kept_restored">%1$s has the kept text again; Undo takes it out</string>
+    <string name="kept_copied">%1$s is no longer in the project: its kept text is on the clipboard</string>
     <!-- ui: end -->
 </resources>

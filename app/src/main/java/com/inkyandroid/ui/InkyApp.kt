@@ -20,6 +20,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -29,6 +30,8 @@ import com.inkyandroid.R
 import com.inkyandroid.core.live.LiveState
 import com.inkyandroid.ink.inkSyntax
 import com.inkyandroid.session.ProjectSession
+import com.inkyandroid.session.SessionEnvironment
+import com.inkyandroid.session.ProjectOpenElsewhereException
 import com.inkyandroid.session.ProjectSessionHolder
 import com.inkyandroid.session.SessionState
 import com.inkyandroid.session.WindowProject
@@ -36,6 +39,7 @@ import com.inkyandroid.settings.AppSettings
 import com.inkyandroid.settings.InspectorTab
 import com.inkyandroid.storage.ProjectRef
 import com.inkyandroid.storage.ProjectStorage
+import com.inkyandroid.storage.StorageProblem
 import com.inkyandroid.storage.StorageContracts
 import com.inkyandroid.ui.extras.DocsScreen
 import com.inkyandroid.ui.extras.SettingsScreen
@@ -98,6 +102,7 @@ fun InkyApp(
     val navController = rememberWindowNavController()
     val navigator = remember(navController) { ShellNavigator(navController) }
     val activity = LocalActivity.current
+    val context = LocalContext.current
     val resources = appResources()
     val currentResources by rememberUpdatedState(resources)
     val locales = LocalConfiguration.current.locales
@@ -146,8 +151,24 @@ fun InkyApp(
             palette.filter = group
         }
         actions.newWindow = activity?.let { host -> { DeskWindows.openNewWindow(host) } }
+        actions.forgetDrafts = { reference -> SessionEnvironment.of(context).forgetDrafts(reference) }
+        actions.copyText = { text ->
+            context.getSystemService(android.content.ClipboardManager::class.java)?.setPrimaryClip(android.content.ClipData.newPlainText(text.take(CLIP_LABEL_LENGTH), text))
+        }
         commands?.perform = actions::perform
         commands?.otherKey = actions::performSnippetKey
+    }
+
+    // a project or a place the window was asked to switch to is open in another window: the window keeps
+    // what it has and says so, once
+    val declined by holder.declined.collectAsState()
+    LaunchedEffect(declined) {
+        val refused = declined ?: return@LaunchedEffect
+        actions.notify(
+            if (refused is ProjectOpenElsewhereException) currentResources.getString(R.string.project_open_elsewhere_title) else StorageProblem.of(refused).message(currentResources),
+            BannerTone.Warning,
+        )
+        holder.dismissDeclined()
     }
 
     // an .ink file another app handed over opens as a project; a first launch opens the sample
@@ -423,3 +444,6 @@ internal class RouteMemory(restored: String? = null) {
 
 /** A window lower than this (a phone on its side) has its workspace's bars folded into one. */
 private val COMPACT_HEIGHT = 480.dp
+
+/** How much of a copied text names it on the clipboard. */
+private const val CLIP_LABEL_LENGTH = 40

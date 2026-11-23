@@ -55,6 +55,10 @@ class FileActions(
     val onCreateMissing: (path: String) -> Unit,
     /** Read the project's folder again: a file that could not be read may have been mended meanwhile. */
     val onRetryUnreadable: () -> Unit,
+    /** Whether texts of the file at a path were kept before a conflict's answer replaced them. */
+    val hasKept: (path: String) -> Boolean = { false },
+    /** Shows those kept texts. */
+    val onKeptVersions: (path: String) -> Unit = {},
 )
 
 /** How many issues a file has, and the most serious kind among them: what its row shows. */
@@ -66,13 +70,16 @@ fun issuesByFile(issues: List<InkIssue>): Map<String, FileIssues> =
 
 /**
  * The menu of a project file: in the files view, and on its entry in the sidebar. The main file
- * can be neither renamed nor deleted (the project is named after it), so it has no menu.
+ * can be neither renamed nor deleted (the project is named after it); any file whose texts were kept
+ * before a conflict's answer replaced them offers those.
  */
-fun fileMenu(file: ProjectFile, resources: Resources, actions: FileActions): List<MenuEntry> =
-    if (file.isMain) emptyList() else listOf(
-        MenuEntry.Item(resources.getString(R.string.action_rename), { actions.onRename(file.path) }),
-        MenuEntry.Item(resources.getString(R.string.action_delete), { actions.onDelete(file.path) }, icon = DeskIcons.Delete, destructive = true),
-    )
+fun fileMenu(file: ProjectFile, resources: Resources, actions: FileActions): List<MenuEntry> = buildList {
+    if (actions.hasKept(file.path)) add(MenuEntry.Item(resources.getString(R.string.action_kept_versions), { actions.onKeptVersions(file.path) }))
+    if (!file.isMain) {
+        add(MenuEntry.Item(resources.getString(R.string.action_rename), { actions.onRename(file.path) }))
+        add(MenuEntry.Item(resources.getString(R.string.action_delete), { actions.onDelete(file.path) }, icon = DeskIcons.Delete, destructive = true))
+    }
+}
 
 /**
  * The files of the project as desktop Inky's files view groups them: the main ink file, then the

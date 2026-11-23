@@ -18,6 +18,7 @@ import com.inkyandroid.session.ProjectSession
 import com.inkyandroid.session.SessionState
 import com.inkyandroid.storage.ProjectStorage
 import com.inkyandroid.ui.extras.StatisticsDialog
+import com.inkyandroid.ui.files.KeptVersionsDialog
 import com.inkyandroid.ui.files.DeleteFileDialog
 import com.inkyandroid.ui.files.NewIncludeDialog
 import com.inkyandroid.ui.files.RenameDialog
@@ -76,6 +77,11 @@ internal fun WindowDialogs(session: ProjectSession?, state: SessionState?, stora
             LaunchedEffect(Unit) { ui.dialog = null }
         }
         WindowDialog.Shortcuts -> ShortcutsDialog(onDismiss = dismiss)
+        is WindowDialog.KeptVersions -> if (session != null) {
+            KeptVersionsDialog(session, dialog.path, onRestore = actions::restoreKept, onForget = actions::forgetKept, onDismiss = dismiss)
+        } else {
+            LaunchedEffect(Unit) { ui.dialog = null }
+        }
         // a sheet of the shell's, drawn by WindowSheets
         WindowDialog.Watches, null -> Unit
     }

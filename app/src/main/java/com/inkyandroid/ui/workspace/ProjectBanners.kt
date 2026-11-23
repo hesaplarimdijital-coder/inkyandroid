@@ -74,7 +74,7 @@ fun ProjectBanners(
             StatusBanner(
                 tone = BannerTone.Warning,
                 title = stringResource(R.string.conflict_title, file.name),
-                text = stringResource(R.string.conflict_text),
+                text = stringResource(R.string.conflict_text) + "\n" + stringResource(R.string.conflict_kept_note),
                 actionLabel = stringResource(R.string.conflict_keep_mine),
                 onAction = { actions.onResolveConflict(file.path, true) },
                 secondaryActionLabel = stringResource(R.string.conflict_load_theirs),

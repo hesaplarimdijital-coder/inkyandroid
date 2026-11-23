@@ -387,6 +387,28 @@ class AppScreenshotTest {
         capture("app-dex-find-replace-dark")
     }
 
+    /** A conflict answered with "Load from storage", then File › Kept versions: the writer's text is there to bring back. */
+    @Test @Config(qualifiers = DEX)
+    fun dexKeptVersionsLight() {
+        val ref = UiWorld.project(NAME, MAIN, FILES)
+        val holder = UiWorld.holder(ref)
+        launch(holder, ThemeMode.Light, DensityPreference.Pointer)
+        compose.runOnUiThread { UiWorld.app.settings.updateAutosave(false) }
+        val session = compose.awaitSession(holder)
+        compose.awaitStory(session)
+        val editor = session.activeDocument.editorState!!
+        compose.runOnUiThread { editor.replace(editor.length, editor.length, "Peronda kimse yoktu.\n") }
+        compose.waitFor { session.project.state.value.hasUnsavedChanges }
+        kotlinx.coroutines.runBlocking { UiWorld.app.storage.internalProjects.store(ref).write(ref.mainPath, MAIN.replace("son tren gecikmişti", "son tren hiç gelmedi")) }
+        compose.runOnUiThread { commands.perform(Commands.RELOAD) }
+        compose.waitFor { session.project.state.value.conflicts.isNotEmpty() }
+        compose.clickText("Depolamadakini yükle")
+        compose.waitFor { session.kept.value.isNotEmpty() }
+        compose.runOnUiThread { commands.perform(Commands.KEPT_VERSIONS) }
+        compose.waitForIdle()
+        capture("app-dex-kept-versions-light")
+    }
+
     private companion object {
         private const val PHONE = "tr-w411dp-h891dp-xhdpi"
         private const val PHONE_EN = "en-w411dp-h891dp-xhdpi"

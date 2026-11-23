@@ -242,6 +242,11 @@ private fun extraCommandItems(resources: Resources, actions: WindowActions): Lis
     return listOfNotNull(
         PaletteItem("cmd:" + Commands.ADD_WATCH, resources.getString(R.string.action_add_watch), group, { actions.perform(Commands.ADD_WATCH) }, icon = desktopkit.components.DeskIcons.Command),
         PaletteItem("cmd:" + Commands.OPEN_RECENT, resources.getString(R.string.action_open_recent), file, { actions.perform(Commands.OPEN_RECENT) }, icon = desktopkit.components.DeskIcons.Command),
+        if (actions.enabled(Commands.KEPT_VERSIONS)) {
+            PaletteItem("cmd:" + Commands.KEPT_VERSIONS, resources.getString(R.string.action_kept_versions), file, { actions.perform(Commands.KEPT_VERSIONS) }, icon = desktopkit.components.DeskIcons.Command)
+        } else {
+            null
+        },
         if (actions.available(Commands.EXPORT_WEB)) {
             PaletteItem("cmd:" + Commands.EXPORT_WEB, resources.getString(R.string.action_export_web), file, { actions.perform(Commands.EXPORT_WEB) }, icon = desktopkit.components.DeskIcons.Command)
         } else {

@@ -70,7 +70,7 @@ class WindowMenus(
     private fun file(): List<MenuEntry> = menu(
         listOf(item(Commands.NEW_PROJECT), item(Commands.NEW_INCLUDE)),
         listOf(item(Commands.OPEN_FOLDER), item(Commands.OPEN_FILE), plain(Commands.OPEN_RECENT, R.string.action_open_recent)),
-        listOf(item(Commands.SAVE), item(Commands.RELOAD)),
+        listOf(item(Commands.SAVE), item(Commands.RELOAD), plain(Commands.KEPT_VERSIONS, R.string.action_kept_versions)),
         listOf(item(Commands.EXPORT_JSON), plain(Commands.EXPORT_WEB, R.string.action_export_web), item(Commands.EXPORT_JS)),
         listOf(item(CommonShortcuts.NEW_WINDOW), item(Commands.CLOSE_PROJECT)),
     )
@@ -141,6 +141,7 @@ class WindowMenus(
                 item(Commands.OPEN_FILE),
                 item(Commands.SAVE),
                 item(Commands.RELOAD),
+                plain(Commands.KEPT_VERSIONS, R.string.action_kept_versions),
                 item(Commands.EXPORT_JSON),
                 plain(Commands.EXPORT_WEB, R.string.action_export_web),
                 item(Commands.EXPORT_JS),

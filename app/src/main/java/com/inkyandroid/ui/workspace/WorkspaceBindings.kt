@@ -10,6 +10,7 @@ import com.inkyandroid.ui.Commands
 import com.inkyandroid.ui.FolderPurpose
 import com.inkyandroid.ui.WindowActions
 import com.inkyandroid.ui.WindowUi
+import com.inkyandroid.ui.singleFileNotice
 import kotlinx.coroutines.launch
 
 /** The player's requests, answered by the live session and the window's commands. */
@@ -34,8 +35,8 @@ fun rememberBannerActions(session: ProjectSession, ui: WindowUi, actions: Window
             onRetryStorage = { actions.reload() },
             onResolveConflict = { path, keepMine -> scope.launch { session.resolveConflict(path, keepMine) } },
             onDismissRestored = session::dismissRestoredNotice,
-            onGrantFolder = { ui.singleFile?.let { actions.pickFolder(FolderPurpose.Grant(it.ref)) } },
-            onDismissSingleFile = { ui.singleFile = ui.singleFile?.copy(dismissed = true) },
+            onGrantFolder = { singleFileNotice(session, ui)?.let { actions.pickFolder(FolderPurpose.Grant(it.ref)) } },
+            onDismissSingleFile = { ui.singleFile = singleFileNotice(session, ui)?.copy(dismissed = true) },
         )
     }
 }

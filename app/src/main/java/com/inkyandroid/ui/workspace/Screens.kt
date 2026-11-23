@@ -93,6 +93,8 @@ fun rememberFileActions(actions: WindowActions, ui: WindowUi): FileActions = and
         onDelete = { path -> ui.dialog = WindowDialog.Delete(path) },
         onCreateMissing = actions::createMissing,
         onRetryUnreadable = { actions.reload() },
+        hasKept = { path -> actions.session?.kept?.value?.any { it.path == path } == true },
+        onKeptVersions = { path -> ui.dialog = WindowDialog.KeptVersions(path) },
     )
 }
 
@@ -106,7 +108,8 @@ fun FilesScreen(session: ProjectSession, state: SessionState, project: ProjectSn
     val fileActions = rememberFileActions(actions, ui)
     val issues = issuesByFile(state.issues)
     val active = project.file(state.activePath) ?: project.main
-    ShellPrimaryAction(stringResource(R.string.files_add_include), DeskIcons.Plus) { ui.dialog = WindowDialog.NewInclude() }
+    // a project of a single file has no folder for another file (its banner offers to grant one)
+    if (!session.isSingleFile) ShellPrimaryAction(stringResource(R.string.files_add_include), DeskIcons.Plus) { ui.dialog = WindowDialog.NewInclude() }
     val outline: @Composable (Modifier) -> Unit = { modifier ->
         OutlinePane(
             symbols = active.symbols,

@@ -292,5 +292,17 @@
         <item quantity="other">%d dosyanın kaydedilmemiş metni saklanıyor; proje yeniden açılabildiğinde geri gelecek.</item>
     </plurals>
     <string name="files_unreadable_title">Okunamayan dosyalar</string>
+    <string name="include_needs_folder">Tek dosyalık bir projenin başka bir dosya için klasörü yok: önce klasörüne izin verin (metnin üstündeki şerit bunu önerir).</string>
+    <string name="conflict_kept_note">Hangisini seçerseniz seçin, yerine geçen metin saklanır: Dosya › Saklanan sürümler\'de (depolamadakini yüklemek Geri al ile de geri alınır).</string>
+    <string name="action_kept_versions">Saklanan sürümler…</string>
+    <string name="kept_title">Saklanan sürümler</string>
+    <string name="kept_text">Bir çakışmanın yanıtı bir metnin yerine geçmeden önce uygulama onu burada sakladı. Birini dosyasına geri getirin (Geri al onu yeniden çıkarır) ya da unutun.</string>
+    <string name="kept_empty">Saklanan metin yok: bir çakışmanın yanıtı, yerine geçtiği metni burada saklar.</string>
+    <string name="kept_mine">Sizin metniniz</string>
+    <string name="kept_theirs">Depolamadaki</string>
+    <string name="kept_restore">Geri getir</string>
+    <string name="kept_forget">Unut</string>
+    <string name="kept_restored">%1$s saklanan metne döndü; Geri al onu çıkarır</string>
+    <string name="kept_copied">%1$s artık projede değil: saklanan metni panoya kopyalandı</string>
     <!-- ui: end -->
 </resources>

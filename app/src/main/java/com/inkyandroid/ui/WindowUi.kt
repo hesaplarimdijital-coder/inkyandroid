@@ -31,6 +31,9 @@ sealed interface WindowDialog {
     /** "Word count and more". */
     data object Statistics : WindowDialog
 
+    /** The texts kept before a conflict's answer replaced them: [path]'s, or all of the project's. */
+    data class KeptVersions(val path: String? = null) : WindowDialog
+
     /** The watch expressions as a sheet, where the window has no inspector to show them in. */
     data object Watches : WindowDialog
 

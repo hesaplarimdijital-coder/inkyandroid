@@ -8,6 +8,7 @@ import com.inkyandroid.core.engine.SourceLocation
 import com.inkyandroid.core.project.AddIncludeResult
 import com.inkyandroid.core.project.DeleteResult
 import com.inkyandroid.core.project.NewProject
+import com.inkyandroid.core.project.KeptVersion
 import com.inkyandroid.core.project.ProjectPaths
 import com.inkyandroid.core.project.RenameResult
 import com.inkyandroid.core.symbols.FileSymbols
@@ -79,6 +80,9 @@ class WindowActions(
 
     /** Opens the system's picker for an ink file; its answer comes back through [filePicked]. */
     var launchFilePicker: (Uri?) -> Unit = {}
+
+    /** Removes the drafts and kept versions of a deleted project (the session environment's). */
+    var forgetDrafts: suspend (reference: String) -> Unit = {}
 
     /** Steps the zoom of the text in front: +1 larger, -1 smaller, 0 back to the theme's size. False when no text is in front. */
     var zoom: (Int) -> Boolean = { false }
@@ -180,7 +184,7 @@ class WindowActions(
                     showEditor()
                 }
                 is AddIncludeResult.AlreadyExists -> ui.dialog = WindowDialog.NewInclude(strings.getString(R.string.include_exists, result.path))
-                is AddIncludeResult.InvalidName -> ui.dialog = WindowDialog.NewInclude(strings.getString(R.string.include_invalid))
+                is AddIncludeResult.InvalidName -> ui.dialog = WindowDialog.NewInclude(strings.getString(if (result.needsFolder) R.string.include_needs_folder else R.string.include_invalid))
             }
         }
     }
@@ -195,7 +199,7 @@ class WindowActions(
                     showEditor()
                 }
                 is AddIncludeResult.AlreadyExists -> notify(strings.getString(R.string.include_exists, result.path))
-                is AddIncludeResult.InvalidName -> notify(strings.getString(R.string.include_invalid))
+                is AddIncludeResult.InvalidName -> notify(strings.getString(if (result.needsFolder) R.string.include_needs_folder else R.string.include_invalid))
             }
         }
     }
@@ -261,6 +265,33 @@ class WindowActions(
         }
     }
 
+    /**
+     * Brings a kept text back into its file, as an edit Undo takes out again. A file that is no longer
+     * in the project cannot take it: the text goes to the clipboard instead, and the notice says so.
+     */
+    fun restoreKept(version: KeptVersion) {
+        val session = session ?: return
+        scope.launch {
+            val name = ProjectPaths.name(version.path)
+            if (session.restoreKept(version)) {
+                ui.dialog = null
+                showEditor()
+                notify(strings.getString(R.string.kept_restored, name))
+            } else {
+                copyText(version.text)
+                notify(strings.getString(R.string.kept_copied, name))
+            }
+        }
+    }
+
+    fun forgetKept(version: KeptVersion) {
+        val session = session ?: return
+        scope.launch { session.forgetKept(version) }
+    }
+
+    /** Puts [text] on the system's clipboard. */
+    var copyText: (String) -> Unit = {}
+
     // ------------------------------------------------------------------ saving
 
     /** "Save project": every file that differs from storage, the main file first. Says what came of it. */
@@ -284,7 +315,12 @@ class WindowActions(
         scope.launch {
             val report = session.syncWithStorage() ?: return@launch
             val changed = report.reloaded.size + report.added.size + report.removed.size
-            notify(if (changed == 0) strings.getString(R.string.reload_done) else strings.getQuantityString(R.plurals.reload_report, changed, changed))
+            when {
+                // a conflict or a file that could not be read has its own banner, which says more
+                report.conflicts.isNotEmpty() || report.errors.isNotEmpty() -> Unit
+                changed == 0 -> notify(strings.getString(R.string.reload_done))
+                else -> notify(strings.getQuantityString(R.plurals.reload_report, changed, changed))
+            }
         }
         return true
     }
@@ -474,7 +510,10 @@ class WindowActions(
         ui.dialog = null
         scope.launch {
             try {
-                if (holder.reference == ref.encode()) holder.closed()
+                // the open project's last flush ends before its drafts go and its folder is removed: else the
+                // save races the delete, and a later project of the same name inherits the dead one's drafts
+                if (holder.reference == ref.encode()) holder.closed()?.join()
+                forgetDrafts(ref.encode())
                 storage.recents.remove(ref)
                 storage.internalProjects.delete(ref)
             } catch (failed: IOException) {
@@ -578,7 +617,7 @@ class WindowActions(
                 ui.dialog = WindowDialog.NewProject()
                 true
             }
-            Commands.NEW_INCLUDE -> session != null && run {
+            Commands.NEW_INCLUDE -> session != null && !session.isSingleFile && run {
                 ui.dialog = WindowDialog.NewInclude()
                 true
             }
@@ -596,6 +635,10 @@ class WindowActions(
             Commands.EXPORT_JSON -> extras?.exportJson?.let { it(); true } ?: false
             Commands.EXPORT_WEB -> extras?.exportWeb?.let { it(); true } ?: false
             Commands.EXPORT_JS -> extras?.exportJs?.let { it(); true } ?: false
+            Commands.KEPT_VERSIONS -> session != null && run {
+                ui.dialog = WindowDialog.KeptVersions()
+                true
+            }
             Commands.STATISTICS -> session != null && extras?.statistics == true && run {
                 ui.dialog = WindowDialog.Statistics
                 true
@@ -679,7 +722,9 @@ class WindowActions(
         val session = session
         val editor = ui.editor?.takeIf { Routes.isWorkspace(currentRoute()) }
         return when (id) {
-            Commands.NEW_INCLUDE, Commands.SAVE, Commands.RELOAD, Commands.CLOSE_PROJECT, Commands.NEXT_ISSUE, Commands.ADD_WATCH,
+            // a project of a single file has no folder for another file: its banner offers to grant one
+            Commands.NEW_INCLUDE -> session != null && !session.isSingleFile
+            Commands.SAVE, Commands.RELOAD, Commands.CLOSE_PROJECT, Commands.NEXT_ISSUE, Commands.ADD_WATCH,
             Commands.RESTART, Commands.SHOW_PLAYER, Commands.SHOW_ISSUES, Commands.SHOW_OUTLINE, Commands.SHOW_WATCHES, Commands.GOTO_LINE,
             Commands.INSERT_SNIPPET,
             -> session != null
@@ -689,6 +734,7 @@ class WindowActions(
             Commands.CUT, Commands.COPY, Commands.PASTE, Commands.SELECT_ALL, Commands.FIND, Commands.REPLACE, Commands.TOGGLE_COMMENT,
             Commands.COMPLETE, Commands.GOTO_DEFINITION,
             -> editor != null
+            Commands.KEPT_VERSIONS -> session?.kept?.value?.isNotEmpty() == true
             Commands.BACK -> session?.state?.value?.canGoBack == true
             Commands.FORWARD -> session?.state?.value?.canGoForward == true
             Commands.STEP_BACK -> session?.live?.session?.state?.value?.canStepBack == true
@@ -725,3 +771,14 @@ class WindowExtras(
     val exportJs: (() -> Unit)? = null,
     val statistics: Boolean = false,
 )
+
+/**
+ * The banner of a project of a single file: the details of the opening when this window opened it,
+ * else what the session's reference says (after process death, from Recent projects); null when the
+ * project has its folder.
+ */
+fun singleFileNotice(session: ProjectSession, ui: WindowUi): SingleFileNotice? {
+    if (!session.isSingleFile) return null
+    val ref = ProjectRef.decode(session.reference) as? ProjectRef.SingleDocument ?: return null
+    return ui.singleFile?.takeIf { it.ref == ref } ?: SingleFileNotice(ref, readOnly = false, grantHint = null)
+}

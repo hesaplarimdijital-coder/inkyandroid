@@ -48,6 +48,7 @@ import com.inkyandroid.settings.AppSettings
 import com.inkyandroid.settings.EditorFace
 import com.inkyandroid.ui.WindowActions
 import com.inkyandroid.ui.WindowUi
+import com.inkyandroid.ui.singleFileNotice
 import desktopkit.components.MenuEntry
 import desktopkit.editor.CodeEditor
 import desktopkit.editor.CodeEditorState
@@ -142,12 +143,13 @@ fun EditorPane(
 
     Column(modifier.fillMaxSize()) {
         // the banners stand under the phone's top bar; without them the text runs under it
-        val banners = hasBanners(state, project, ui.singleFile)
+        val singleFile = singleFileNotice(session, ui)
+        val banners = hasBanners(state, project, singleFile)
         if (banners) {
             ProjectBanners(
                 state = state,
                 project = project,
-                singleFile = ui.singleFile,
+                singleFile = singleFile,
                 actions = rememberBannerActions(session, ui, actions),
                 modifier = Modifier.padding(top = contentPadding.calculateTopPadding()),
             )
