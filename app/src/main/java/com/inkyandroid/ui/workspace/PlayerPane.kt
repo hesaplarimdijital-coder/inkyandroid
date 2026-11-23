@@ -31,7 +31,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -142,19 +141,24 @@ fun PlayerPane(
     val moving = animate && tier != MotionTier.Reduced
     val styles = rememberPlayerStyles(zoom?.scale ?: 1f)
 
-    // Only what a choice just appended fades in, and only once: when its turn has settled the items
-    // are as solid as the rest, also for a row that scrolls out of the list and back in.
-    var settled by remember { mutableLongStateOf(transcript.generation) }
-    val appendedFrom = transcript.appendedFrom?.takeIf { moving && transcript.generation > settled }
-    LaunchedEffect(transcript.generation) {
+    // A choice appends a turn and keeps the playthrough's generation; a recompile, a step back or a
+    // rewind builds a new generation. So what a choice appended is new while the pair (generation,
+    // live turn) differs from the one already shown: it fades in and is scrolled to, once; when it
+    // has settled its rows are as solid as the rest, also a row that scrolls out of the list and back.
+    val turn = transcript.generation to transcript.liveTurn
+    var settled by remember { mutableStateOf(turn) }
+    val appendedFrom = transcript.appendedFrom?.takeIf { moving && turn != settled }
+    // the rows the list has before the transcript's items: the note that the ink has errors, the top space
+    val leadingRows = if (state.compile == CompileStatus.Errors) 2 else 1
+    LaunchedEffect(turn) {
         val first = transcript.appendedFrom
-        if (first != null) {
+        if (first != null && turn != settled) {
             // the rule that closed the last turn is the first thing appended: the new turn begins under it
-            val target = first.coerceIn(0, (transcript.items.size - 1).coerceAtLeast(0))
+            val target = leadingRows + first.coerceIn(0, (transcript.items.size - 1).coerceAtLeast(0))
             if (moving) listState.animateScrollToItem(target) else listState.scrollToItem(target)
             if (moving) delay(FADE_MS + STAGGER_MS * MAX_STAGGERED)
         }
-        settled = transcript.generation
+        settled = turn
     }
 
     // the editor's gestures for the player's text: Ctrl with the wheel, two fingers, the zoom keys while it has the focus
