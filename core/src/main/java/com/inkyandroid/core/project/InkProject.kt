@@ -38,6 +38,12 @@ class ParsedInk(
     constructor(symbols: InkFileSymbols) : this(symbols.includes, symbols.lastIncludeRow, symbols)
 }
 
+/**
+ * The answer to a conflict was not carried out because a copy of the text it would replace could
+ * not be kept ([WriteAhead.setAside]): the app's own storage is full, say. Nothing was replaced.
+ */
+class CopyNotKeptException(cause: IOException) : IOException("A copy of the text could not be kept, so nothing was replaced", cause)
+
 /** What storage holds of one path, as a restore of drafts needs to know it ([InkProject.storedVersion]). */
 internal sealed interface StoredVersion {
     /** Text with this [hash]; [text] itself for a file the project does not have (it has its own copy of the others). */
@@ -156,6 +162,12 @@ class InkProject private constructor(
         /** True while a load is being pushed into the editor, so its echo is not taken for typing. */
         var loading = false
 
+        /**
+         * The project replaced the editor's text with storage's version, and the editor has not
+         * reported that edit yet: its report is no change of the writer's unless the text moved on.
+         */
+        var ownEditToReport = false
+
         val unsaved: Boolean get() = edited || stored == null
 
         fun text(): CharSequence = live?.snapshot() ?: ownText
@@ -236,6 +248,11 @@ class InkProject private constructor(
         if (record.loading) return
         touched(record)
         scheduleParse(record)
+        if (record.ownEditToReport) {
+            // the report of storage's version put in by the project: unsaved only if the writer typed since
+            record.ownEditToReport = false
+            if (TextHash.of(record.text()) == record.storedHash) return
+        }
         if (!record.edited) {
             record.edited = true
             publish()
@@ -424,27 +441,76 @@ class InkProject private constructor(
 
     /**
      * Settles a conflict ([ProjectFile.hasConflict]). With [keepMine] the file's text here is
-     * written over storage's version; otherwise storage's version replaces the text here and the
-     * unsaved changes are gone.
+     * written over storage's version; otherwise storage's version replaces the text here, as one
+     * edit the writer can undo in the editor (which makes the text theirs again, unsaved).
+     *
+     * Before either answer replaces a text, a copy of it is kept ([WriteAhead.setAside]): "keep
+     * mine" keeps storage's version, "load theirs" keeps both (an undo may replace theirs in turn).
+     * When the copies cannot be kept nothing is replaced and the failure is thrown; it is thrown too
+     * when storage's version cannot be read for "load theirs".
      */
     @Throws(IOException::class)
     suspend fun resolveConflict(path: String, keepMine: Boolean): SaveResult = storage.withLock {
         val record = files[path] ?: return SaveResult.NothingToSave
-        if (keepMine) {
-            saveLocked(path, overwrite = true)
-        } else {
-            if (store.stat(path) == null) {
-                // their version is "no file": ours stays, as a file that is not on storage
-                record.stored = null
-                record.storedHash = null
-                record.conflict = false
-            } else {
-                reloadLocked(record)
+        val theirStat = store.stat(path)
+        val theirs = when {
+            theirStat == null -> null
+            keepMine -> try {
+                store.read(path)
+            } catch (unreadable: IOException) {
+                // not text (or not now): there is no text of theirs to keep; mine is what was chosen
+                null
             }
-            refreshIncludes()
-            publish()
-            SaveResult.NothingToSave
+            else -> store.read(path)
         }
+        try {
+            if (keepMine) {
+                if (theirs != null) writeAhead?.setAside(path, mine = null, theirs = theirs)
+            } else {
+                writeAhead?.setAside(path, mine = record.text().toString(), theirs = theirs)
+            }
+        } catch (failed: IOException) {
+            throw CopyNotKeptException(failed)
+        }
+        if (keepMine) return saveLocked(path, overwrite = true)
+        if (theirStat == null || theirs == null) {
+            // their version is "no file": ours stays, as a file that is not on storage
+            record.stored = null
+            record.storedHash = null
+            record.conflict = false
+        } else {
+            takeTheirs(record, theirs, theirStat)
+            parseNow(record, refresh = false)
+        }
+        refreshIncludes()
+        publish()
+        SaveResult.NothingToSave
+    }
+
+    /**
+     * Storage's [text] replaces the file's text as an edit the writer can undo (a load would forget
+     * the undo history); afterwards the file is saved: storage holds exactly it.
+     */
+    private fun takeTheirs(record: FileRecord, text: String, stored: StoredFile) {
+        record.stored = stored
+        record.storedHash = TextHash.of(text)
+        record.edited = false
+        record.conflict = false
+        record.saveUnfinished = false
+        val live = record.live
+        if (live != null) {
+            record.loading = true
+            try {
+                live.edit(0, live.snapshot().length, text)
+            } finally {
+                record.loading = false
+            }
+            // an editor that reports a moment later will report this edit: it is no change of the writer's
+            record.ownEditToReport = live.hasUnreportedChanges()
+        } else {
+            record.ownText = text
+        }
+        touched(record)
     }
 
     private suspend fun saveLocked(path: String, overwrite: Boolean): SaveResult {
@@ -571,7 +637,7 @@ class InkProject private constructor(
             if (theirs == null) {
                 if (seen == null) continue
                 // a change the editor has not reported yet makes the file unsaved: it stays (see below)
-                if (record.live?.hasUnreportedChanges() == true) record.edited = true
+                if (record.hasUnreportedTyping()) record.edited = true
                 if (record.unsaved || path == mainPath) {
                     record.stored = null
                     record.storedHash = null
@@ -598,7 +664,7 @@ class InkProject private constructor(
                 record.stored = theirs
                 continue
             }
-            if (!record.unsaved && record.live?.hasUnreportedChanges() == true) {
+            if (!record.unsaved && record.hasUnreportedTyping()) {
                 // the editor holds a change it has not reported yet (the kit's reports within the
                 // frame): that text is unsaved, and a reload must never replace it
                 record.edited = true
@@ -648,6 +714,16 @@ class InkProject private constructor(
         loadMentionedLocked()
         publish()
         SyncReport(reloaded, added, removed, conflicts, keptMissing, settingsChanged, errors)
+    }
+
+    /**
+     * The editor of this file holds a change of the writer's that it has not reported yet (not
+     * merely the project's own edit of storage's version, see [FileRecord.ownEditToReport]).
+     */
+    private fun FileRecord.hasUnreportedTyping(): Boolean {
+        val editor = live ?: return false
+        if (!editor.hasUnreportedChanges()) return false
+        return !ownEditToReport || TextHash.of(text()) != storedHash
     }
 
     private suspend fun statOrNull(path: String): StoredFile? = try {

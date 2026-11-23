@@ -127,8 +127,24 @@ class MemoryStore(override val displayName: String = "memory") : ProjectStore {
 /** Drafts in memory, with scripted failures. */
 class MemoryDraftStore : DraftStore {
     val drafts = LinkedHashMap<String, Draft>()
+    val keptVersions = LinkedHashMap<String, KeptVersion>()
     var puts = 0
     var failure: (operation: String) -> IOException? = { null }
+
+    override suspend fun kept(): List<KeptVersion> {
+        failure("kept")?.let { throw it }
+        return keptVersions.values.toList()
+    }
+
+    override suspend fun keep(version: KeptVersion) {
+        failure("keep")?.let { throw it }
+        keptVersions[version.id] = version
+    }
+
+    override suspend fun forgetKept(id: String) {
+        failure("forgetKept")?.let { throw it }
+        keptVersions.remove(id)
+    }
 
     override suspend fun load(): List<Draft> {
         failure("load")?.let { throw it }
@@ -209,10 +225,19 @@ class FakeEditor(initial: String) : LiveText {
         if (echoesLoads) onChange()
     }
 
+    /** An editor that reports changes a moment later, as the kit's does (within the frame): [report] delivers them. */
+    var reportsLater = false
+
+    /** The editor reports the changes it has not reported yet. */
+    fun report() {
+        unreported = false
+        onChange()
+    }
+
     override fun edit(start: Int, end: Int, replacement: String) {
         text = text.replaceRange(start, end, replacement)
         edits.add(replacement)
-        onChange()
+        if (reportsLater) unreported = true else onChange()
     }
 }
 

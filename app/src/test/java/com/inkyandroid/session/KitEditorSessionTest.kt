@@ -153,6 +153,33 @@ class KitEditorSessionTest {
     }
 
     @Test
+    fun `load theirs is an edit the writer can undo, and Undo brings their own text back as unsaved changes`() = sessionTest {
+        onStorage("main.ink", story)
+        val session = open(kit = true)
+        val editor = kitEditor(session, "main.ink")
+        editor.state.select(editor.state.length)
+        editor.state.insert("An evening of writing.\n")
+        applied()
+        onStorage("main.ink", "Three pages written on the tablet.\n")
+        session.syncWithStorage()
+        assertTrue(session.project.state.value.file("main.ink")!!.hasConflict)
+
+        session.resolveConflict("main.ink", keepMine = false)
+        applied()
+
+        assertEquals("Three pages written on the tablet.\n", editor.state.text)
+        assertFalse("the loaded version is what storage holds", session.project.state.value.hasUnsavedChanges)
+        assertTrue(editor.state.canUndo)
+
+        editor.state.undo()
+        applied()
+
+        assertEquals(story + "An evening of writing.\n", editor.state.text)
+        assertTrue(session.project.state.value.file("main.ink")!!.hasUnsavedChanges)
+        assertFalse(session.project.state.value.file("main.ink")!!.hasConflict)
+    }
+
+    @Test
     fun `an editor asked for after the session ended is not watched`() = sessionTest {
         onStorage("main.ink", "INCLUDE a.ink\n")
         onStorage("a.ink", "A\n")

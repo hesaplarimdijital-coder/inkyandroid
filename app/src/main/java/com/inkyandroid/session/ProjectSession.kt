@@ -3,12 +3,14 @@ package com.inkyandroid.session
 import com.inkyandroid.core.engine.InkIssue
 import com.inkyandroid.core.engine.InkIssues
 import com.inkyandroid.core.project.AddIncludeResult
+import com.inkyandroid.core.project.CopyNotKeptException
 import com.inkyandroid.core.project.DeleteResult
 import com.inkyandroid.core.project.DraftJournal
 import com.inkyandroid.core.project.DraftRestoreReport
 import com.inkyandroid.core.project.DraftStore
 import com.inkyandroid.core.project.InkFileParser
 import com.inkyandroid.core.project.InkProject
+import com.inkyandroid.core.project.KeptVersion
 import com.inkyandroid.core.project.LiveText
 import com.inkyandroid.core.project.NavStep
 import com.inkyandroid.core.project.NavigationHistory
@@ -91,6 +93,14 @@ class ProjectSession private constructor(
     /** What the window shows of the session; see [SessionState]. */
     val state: StateFlow<SessionState>
 
+    private val mutableKept = MutableStateFlow<List<KeptVersion>>(emptyList())
+
+    /**
+     * The texts the writer's answers to conflicts replaced, kept so that an answer can be taken
+     * back ([restoreKept], [forgetKept]), oldest first; at most [DraftJournal.MAX_KEPT_VERSIONS].
+     */
+    val kept: StateFlow<List<KeptVersion>> = mutableKept.asStateFlow()
+
     /** The live compile session's link: the session feeds it; the screens read the player from the live session itself. */
     val live: LiveLink = liveFactory.create(scope) { project.sources() }
 
@@ -118,6 +128,7 @@ class ProjectSession private constructor(
         rememberSession()
         live.setInstructionPrefix(projectSettings.instructionPrefix)
         live.reloadNow()
+        scope.launch { refreshKept() }
     }
 
     // ------------------------------------------------------------------ documents
@@ -325,8 +336,10 @@ class ProjectSession private constructor(
 
     /**
      * Answers the banner of a file that changed outside while it has unsaved changes: [keepMine]
-     * writes this window's text over storage's, otherwise storage's version is loaded and the
-     * unsaved changes are dropped.
+     * writes this window's text over storage's; otherwise storage's version replaces the text as an
+     * edit the writer can undo (Undo brings their text back, unsaved). Either way the text that is
+     * replaced is kept first ([kept]: "keep mine" keeps the other version, "load theirs" both); when
+     * it cannot be kept nothing is replaced and [SessionState.draftProblem] says why.
      */
     suspend fun resolveConflict(path: String, keepMine: Boolean) {
         try {
@@ -334,11 +347,44 @@ class ProjectSession private constructor(
             if (result is SaveResult.Failed) {
                 mutableState.update { it.copy(saveProblem = SaveProblem(mapOf(path to describe(result.error)), mapOf(path to result.error))) }
             }
+        } catch (notKept: CopyNotKeptException) {
+            draftsFailed(notKept)
         } catch (failed: IOException) {
             // storage's version cannot be read ("load theirs"): this text stays, unsaved
             storageFailed(failed)
         }
+        refreshKept()
         writeDrafts()
+    }
+
+    /**
+     * Brings a [kept] version back into its file as an edit the writer can undo: the file shows it
+     * and has unsaved changes. False when the file is no longer in the project (its text is still
+     * in [version] for the screens to offer otherwise, e.g. to copy).
+     */
+    suspend fun restoreKept(version: KeptVersion): Boolean {
+        val document = document(version.path) ?: return false
+        document.buffer.edit(0, document.buffer.text.length, version.text)
+        show(version.path)
+        return true
+    }
+
+    /** Forgets a [kept] version: the writer has no more use for it. */
+    suspend fun forgetKept(version: KeptVersion) {
+        try {
+            journal.forgetKept(version.id)
+        } catch (failed: IOException) {
+            draftsFailed(failed)
+        }
+        refreshKept()
+    }
+
+    private suspend fun refreshKept() {
+        mutableKept.value = try {
+            journal.kept()
+        } catch (unreadable: IOException) {
+            mutableKept.value
+        }
     }
 
     // ------------------------------------------------------------------ the window's life

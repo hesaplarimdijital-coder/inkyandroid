@@ -1,6 +1,7 @@
 package com.inkyandroid.session
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.inkyandroid.core.project.KeptVersion
 import com.inkyandroid.core.project.ProjectText
 import com.inkyandroid.core.project.SaveResult
 import kotlinx.coroutines.CoroutineScope
@@ -350,7 +351,7 @@ class NoTextLostTest {
     }
 
     @Test
-    fun `keep mine writes my text over the outside version`() = sessionTest {
+    fun `keep mine writes my text over the outside version, and keeps the outside version`() = sessionTest {
         onStorage("main.ink", story)
         val session = open()
         editor(session, "main.ink").type(written)
@@ -363,10 +364,11 @@ class NoTextLostTest {
         assertEquals(emptyList<String>(), session.project.state.value.conflicts.map { it.path })
         assertFalse(session.project.state.value.hasUnsavedChanges)
         assertEquals(emptyMap<String, String>(), drafts())
+        assertEquals(listOf(KeptVersion.Origin.Theirs to "Rewritten on the computer\n"), session.kept.value.map { it.origin to it.text })
     }
 
     @Test
-    fun `load theirs shows the outside version and drops my changes and their draft`() = sessionTest {
+    fun `load theirs shows the outside version, and my text stays among the kept versions, also after the process died`() = sessionTest {
         onStorage("main.ink", story)
         val session = open()
         val editor = editor(session, "main.ink")
@@ -380,7 +382,16 @@ class NoTextLostTest {
         assertEquals("Rewritten on the computer\n", editor.text.toString())
         assertEquals("Rewritten on the computer\n", file("main.ink").readText())
         assertFalse(session.project.state.value.hasUnsavedChanges)
-        assertEquals(emptyMap<String, String>(), drafts())
+        assertEquals("the draft has gone: the text is kept as a version", emptyMap<String, String>(), drafts())
+        assertEquals(written, session.kept.value.single { it.origin == KeptVersion.Origin.Mine }.text)
+
+        kill()
+        val next = open(settings = settingsAfterRestart())
+        pass(0)
+        val mine = next.kept.value.single { it.origin == KeptVersion.Origin.Mine }
+        assertTrue(next.restoreKept(mine))
+        assertEquals(written, next.project.text("main.ink").toString())
+        assertTrue(next.project.state.value.file("main.ink")!!.hasUnsavedChanges)
     }
 
     @Test

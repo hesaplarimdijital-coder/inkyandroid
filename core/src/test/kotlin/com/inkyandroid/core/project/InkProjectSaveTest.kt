@@ -158,11 +158,10 @@ class InkProjectSaveTest {
     }
 
     @Test
-    fun `load theirs replaces this text by storage's version, as a load and not as an edit`() = projectTest {
+    fun `load theirs replaces this text by storage's version as one edit the writer can undo`() = projectTest {
         store.put("main.ink", "Hello\n")
         val project = open()
         val editor = project.edit("main.ink")
-        editor.echoesLoads = true
         editor.type("Mine\n")
         store.put("main.ink", "INCLUDE a.ink\nTheirs\n")
         store.put("a.ink", "")
@@ -171,7 +170,8 @@ class InkProjectSaveTest {
         project.resolveConflict("main.ink", keepMine = false)
 
         assertEquals("INCLUDE a.ink\nTheirs\n", editor.text)
-        assertEquals(listOf("INCLUDE a.ink\nTheirs\n"), editor.loads)
+        assertEquals("an edit (undo brings the writer's text back), not a load", listOf("INCLUDE a.ink\nTheirs\n"), editor.edits)
+        assertEquals(emptyList<String>(), editor.loads)
         assertEquals("INCLUDE a.ink\nTheirs\n", store.textOf("main.ink"))
         assertFalse(project.file("main.ink").hasConflict)
         assertFalse(project.file("main.ink").hasUnsavedChanges)

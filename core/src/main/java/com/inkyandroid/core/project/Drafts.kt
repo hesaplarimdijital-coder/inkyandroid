@@ -34,8 +34,34 @@ data class Draft(
 )
 
 /**
- * Where the drafts of one project are kept. The app gives each project its own store in
- * app-private storage; [FileDraftStore] is the implementation.
+ * A text of a file that the writer's answer to a conflict replaced, or may replace with an undo,
+ * kept beside the drafts so that the answer can be taken back: "load theirs" keeps both sides,
+ * "keep mine" keeps the version it writes over.
+ *
+ * @property id unique within the project's store.
+ * @property path the file's root-relative path in its project.
+ * @property origin whose text it was.
+ * @property keptAt when it was kept, in milliseconds since the epoch.
+ */
+data class KeptVersion(
+    val id: String,
+    val path: String,
+    val text: String,
+    val origin: Origin,
+    val keptAt: Long,
+) {
+    enum class Origin {
+        /** The text in the app: the writer's own, with its unsaved changes. */
+        Mine,
+
+        /** The version storage held: written outside the app (another device, another app). */
+        Theirs,
+    }
+}
+
+/**
+ * Where the drafts of one project are kept, and its [KeptVersion]s. The app gives each project its
+ * own store in app-private storage; [FileDraftStore] is the implementation.
  */
 interface DraftStore {
     /** Every draft that can be read. A damaged entry is left out, never an error. */
@@ -49,6 +75,18 @@ interface DraftStore {
     /** Forgets the draft of [path], if there is one. */
     @Throws(IOException::class)
     suspend fun remove(path: String)
+
+    /** Every kept version that can be read. */
+    @Throws(IOException::class)
+    suspend fun kept(): List<KeptVersion> = emptyList()
+
+    /** Stores [version], all or nothing. A store that cannot keep versions refuses, so nothing it should keep is replaced. */
+    @Throws(IOException::class)
+    suspend fun keep(version: KeptVersion): Unit = throw IOException("This store keeps no versions")
+
+    /** Forgets the kept version [id], if there is one. */
+    @Throws(IOException::class)
+    suspend fun forgetKept(id: String) {}
 }
 
 /** What [DraftJournal.restore] did with the drafts it found. Each list holds paths. */
@@ -88,6 +126,14 @@ interface WriteAhead {
 
     /** The unsaved text of [path], if a draft holds it: what a file that is gone from storage opens with. */
     suspend fun draftText(path: String): String? = null
+
+    /**
+     * The writer answers a conflict of [path]: [mine] (the text in the app) or [theirs] (storage's
+     * version) is about to be replaced; a null one is not. Keep a copy of each given text first.
+     * Throws when they cannot be kept: then nothing is replaced.
+     */
+    @Throws(IOException::class)
+    suspend fun setAside(path: String, mine: String?, theirs: String?) {}
 }
 
 /**
@@ -232,10 +278,38 @@ class DraftJournal(
         }
     }
 
+    override suspend fun setAside(path: String, mine: String?, theirs: String?) {
+        lock.withLock {
+            val keptAt = clock()
+            for ((text, origin) in listOf(mine to KeptVersion.Origin.Mine, theirs to KeptVersion.Origin.Theirs)) {
+                if (text == null) continue
+                val id = TextHash.of("$path\u0000$origin\u0000$keptAt\u0000${TextHash.of(text)}").take(KEPT_ID_LENGTH)
+                store.keep(KeptVersion(id, path, text, origin, keptAt))
+            }
+            // a safety net, not an archive: the oldest go once the project has many
+            val all = store.kept().sortedBy { it.keptAt }
+            for (old in all.take((all.size - MAX_KEPT_VERSIONS).coerceAtLeast(0))) {
+                try {
+                    store.forgetKept(old.id)
+                } catch (failed: IOException) {
+                    // tried again with the next one kept
+                }
+            }
+        }
+    }
+
+    /** The kept versions of the project ([KeptVersion]), oldest first. */
+    @Throws(IOException::class)
+    suspend fun kept(): List<KeptVersion> = lock.withLock { store.kept().sortedBy { it.keptAt } }
+
+    /** Forgets the kept version [id]: the writer has looked at it, or brought it back. */
+    @Throws(IOException::class)
+    suspend fun forgetKept(id: String) = lock.withLock { store.forgetKept(id) }
+
     /**
      * Gives the unsaved text of [project] to [target], the drafts of the same project opened from
-     * another place, and forgets this journal's own drafts once every one of them is there. When a
-     * draft cannot be put, nothing is forgotten and the failure is thrown.
+     * another place, with the kept versions, and forgets this journal's own once every one of them
+     * is there. When one cannot be put, nothing is forgotten and the failure is thrown.
      */
     @Throws(IOException::class)
     suspend fun moveTo(project: InkProject, target: DraftStore) = lock.withLock {
@@ -243,8 +317,16 @@ class DraftJournal(
             val text = project.text(file.path) ?: continue
             target.put(Draft(file.path, text.toString(), project.storedHash(file.path), clock(), project.isSaveUnfinished(file.path)))
         }
+        val kept = store.kept()
+        for (version in kept) target.keep(version)
         discardAllLocked()
-        Unit
+        for (version in kept) {
+            try {
+                store.forgetKept(version.id)
+            } catch (failed: IOException) {
+                // a copy left behind in the old place is harmless
+            }
+        }
     }
 
     /**
@@ -278,6 +360,13 @@ class DraftJournal(
             // see flush: a draft that stays is looked at again on the next open
         }
     }
+
+    companion object {
+        /** How many [KeptVersion]s a project holds at most; the oldest go first. */
+        const val MAX_KEPT_VERSIONS = 20
+
+        private const val KEPT_ID_LENGTH = 32
+    }
 }
 
 /**
@@ -296,8 +385,11 @@ class DraftJournal(
  * <the text>
  * ```
  *
+ * A [KeptVersion] is a file of its own beside them (`<id>.kept`), with the header `inky-kept 1`,
+ * `path:`, `origin:` (`mine` or `theirs`), `kept:` and `sha256:`.
+ *
  * The text's own hash makes a truncated or damaged file recognisable: it is skipped. Writes go
- * through a temporary file that is forced to the disk and moved into place, so a draft is either
+ * through a temporary file that is forced to the disk and moved into place, so an entry is either
  * the old one or the new one.
  */
 class FileDraftStore(
@@ -306,33 +398,62 @@ class FileDraftStore(
 ) : DraftStore {
 
     override suspend fun load(): List<Draft> = withContext(io) {
-        val files = directory.listFiles() ?: if (directory.exists()) {
-            throw IOException("Cannot list ${directory.path}")
-        } else {
-            emptyArray()
-        }
-        files.filter { it.isFile && it.name.endsWith(EXTENSION) }.sortedBy { it.name }.mapNotNull(::parse)
+        entries(EXTENSION).mapNotNull(::parseDraft)
     }
 
     override suspend fun put(draft: Draft) = withContext(io) {
-        if (!directory.isDirectory && !directory.mkdirs() && !directory.isDirectory) {
-            throw IOException("Cannot create ${directory.path}")
-        }
-        val target = fileFor(draft.path)
-        val temporary = File(directory, target.name + TEMPORARY_SUFFIX)
         val header = buildString {
             append(MAGIC).append('\n')
             append(KEY_PATH).append(escape(draft.path)).append('\n')
             append(KEY_BASE).append(draft.baseHash ?: NO_BASE).append('\n')
             append(KEY_WRITTEN).append(draft.writtenAt).append('\n')
             if (draft.saving) append(KEY_SAVING).append(SAVING).append('\n')
-            append(KEY_HASH).append(TextHash.of(draft.text)).append('\n')
-            append('\n')
         }
+        writeAtomically(fileFor(draft.path), header, draft.text)
+    }
+
+    override suspend fun remove(path: String) = withContext(io) {
+        delete(fileFor(path))
+    }
+
+    override suspend fun kept(): List<KeptVersion> = withContext(io) {
+        entries(KEPT_EXTENSION).mapNotNull(::parseKept)
+    }
+
+    override suspend fun keep(version: KeptVersion) = withContext(io) {
+        require(version.id.isNotEmpty() && version.id.all { it.isLetterOrDigit() }) { "Not an id: ${version.id}" }
+        val header = buildString {
+            append(KEPT_MAGIC).append('\n')
+            append(KEY_PATH).append(escape(version.path)).append('\n')
+            append(KEY_ORIGIN).append(version.origin.name.lowercase()).append('\n')
+            append(KEY_KEPT).append(version.keptAt).append('\n')
+        }
+        writeAtomically(File(directory, version.id + KEPT_EXTENSION), header, version.text)
+    }
+
+    override suspend fun forgetKept(id: String) = withContext(io) {
+        if (id.isNotEmpty() && id.all { it.isLetterOrDigit() }) delete(File(directory, id + KEPT_EXTENSION))
+    }
+
+    private fun entries(extension: String): List<File> {
+        val files = directory.listFiles() ?: if (directory.exists()) {
+            throw IOException("Cannot list ${directory.path}")
+        } else {
+            emptyArray()
+        }
+        return files.filter { it.isFile && it.name.endsWith(extension) }.sortedBy { it.name }
+    }
+
+    /** [header] (lines ending in a line break), the text's hash, an empty line, then [text]; old or new, never half. */
+    private fun writeAtomically(target: File, header: String, text: String) {
+        if (!directory.isDirectory && !directory.mkdirs() && !directory.isDirectory) {
+            throw IOException("Cannot create ${directory.path}")
+        }
+        val temporary = File(directory, target.name + TEMPORARY_SUFFIX)
         try {
             FileOutputStream(temporary).use { stream ->
-                stream.write(header.toByteArray(Charsets.UTF_8))
-                stream.write(draft.text.toByteArray(Charsets.UTF_8))
+                stream.write((header + KEY_HASH + TextHash.of(text) + "\n\n").toByteArray(Charsets.UTF_8))
+                stream.write(text.toByteArray(Charsets.UTF_8))
                 stream.fd.sync()
             }
             try {
@@ -343,18 +464,16 @@ class FileDraftStore(
         } finally {
             temporary.delete()
         }
-        Unit
     }
 
-    override suspend fun remove(path: String) = withContext(io) {
-        val file = fileFor(path)
+    private fun delete(file: File) {
         if (file.exists() && !file.delete() && file.exists()) throw IOException("Cannot remove ${file.path}")
     }
 
     private fun fileFor(path: String) = File(directory, TextHash.of(path).take(NAME_LENGTH) + EXTENSION)
 
-    /** The draft in [file], or null when it is not a whole draft. */
-    private fun parse(file: File): Draft? {
+    /** The header lines of [file] and its text, or null when it is not a whole entry starting with [magic]. */
+    private fun read(file: File, magic: String): Pair<List<String>, String>? {
         val content = try {
             String(Files.readAllBytes(file.toPath()), Charsets.UTF_8)
         } catch (unreadable: IOException) {
@@ -363,15 +482,31 @@ class FileDraftStore(
         val headerEnd = content.indexOf("\n\n")
         if (headerEnd < 0) return null
         val lines = content.substring(0, headerEnd).split('\n')
-        if (lines.firstOrNull() != MAGIC) return null
-        fun value(key: String): String? = lines.firstOrNull { it.startsWith(key) }?.substring(key.length)
-        val path = unescape(value(KEY_PATH) ?: return null)
-        val base = value(KEY_BASE) ?: return null
-        val written = value(KEY_WRITTEN)?.toLongOrNull() ?: return null
-        val hash = value(KEY_HASH) ?: return null
+        if (lines.firstOrNull() != magic) return null
         val text = content.substring(headerEnd + 2)
+        val hash = lines.value(KEY_HASH) ?: return null
         if (TextHash.of(text) != hash) return null
-        return Draft(path, text, base.takeIf { it != NO_BASE }, written, saving = value(KEY_SAVING) == SAVING)
+        return lines to text
+    }
+
+    private fun List<String>.value(key: String): String? = firstOrNull { it.startsWith(key) }?.substring(key.length)
+
+    /** The draft in [file], or null when it is not a whole draft. */
+    private fun parseDraft(file: File): Draft? {
+        val (lines, text) = read(file, MAGIC) ?: return null
+        val path = unescape(lines.value(KEY_PATH) ?: return null)
+        val base = lines.value(KEY_BASE) ?: return null
+        val written = lines.value(KEY_WRITTEN)?.toLongOrNull() ?: return null
+        return Draft(path, text, base.takeIf { it != NO_BASE }, written, saving = lines.value(KEY_SAVING) == SAVING)
+    }
+
+    /** The kept version in [file], or null when it is not a whole one. */
+    private fun parseKept(file: File): KeptVersion? {
+        val (lines, text) = read(file, KEPT_MAGIC) ?: return null
+        val path = unescape(lines.value(KEY_PATH) ?: return null)
+        val origin = KeptVersion.Origin.entries.firstOrNull { it.name.lowercase() == lines.value(KEY_ORIGIN) } ?: return null
+        val keptAt = lines.value(KEY_KEPT)?.toLongOrNull() ?: return null
+        return KeptVersion(file.name.removeSuffix(KEPT_EXTENSION), path, text, origin, keptAt)
     }
 
     /** A path on one header line: a file name may hold a line break. */
@@ -409,6 +544,10 @@ class FileDraftStore(
         const val KEY_HASH = "sha256: "
         const val NO_BASE = "-"
         const val EXTENSION = ".draft"
+        const val KEPT_MAGIC = "inky-kept 1"
+        const val KEY_ORIGIN = "origin: "
+        const val KEY_KEPT = "kept: "
+        const val KEPT_EXTENSION = ".kept"
         const val TEMPORARY_SUFFIX = ".tmp"
         const val NAME_LENGTH = 32
     }

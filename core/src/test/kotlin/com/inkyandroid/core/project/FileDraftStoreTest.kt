@@ -45,6 +45,20 @@ class FileDraftStoreTest {
     }
 
     @Test
+    fun `a kept version comes back exactly as it was kept, and drafts and kept versions do not mix`() = scope.runTest {
+        val kept = KeptVersion("a1b2c3", "bölümler/bir.ink", "Bir varmış…\r\n", KeptVersion.Origin.Theirs, 77L)
+        store.keep(kept)
+        store.put(Draft("bölümler/bir.ink", "the draft", null, 1L))
+
+        assertEquals(listOf(kept), store.kept())
+        assertEquals(listOf("the draft"), store.load().map { it.text })
+
+        store.forgetKept("a1b2c3")
+        assertEquals(emptyList<KeptVersion>(), store.kept())
+        assertEquals(1, store.load().size)
+    }
+
+    @Test
     fun `a draft of a file that was never stored has no base`() = scope.runTest {
         val draft = Draft("new.ink", "", baseHash = null, writtenAt = 1L)
         store.put(draft)
