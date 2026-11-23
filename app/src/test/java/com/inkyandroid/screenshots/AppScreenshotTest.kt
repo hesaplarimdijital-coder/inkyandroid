@@ -303,6 +303,13 @@ class AppScreenshotTest {
         capture("app-phone-suggestions-dark")
     }
 
+    /** A phone on its side: the rail, the editor and the player side by side, the editor's header folded into the rail's bar. */
+    @Test @Config(qualifiers = PHONE_LANDSCAPE)
+    fun phoneLandscapeDark() {
+        story(ThemeMode.Dark)
+        capture("app-phone-landscape-dark")
+    }
+
     // ------------------------------------------------------------------ tablet
 
     @Test @Config(qualifiers = TABLET)
@@ -383,6 +390,7 @@ class AppScreenshotTest {
     private companion object {
         private const val PHONE = "tr-w411dp-h891dp-xhdpi"
         private const val PHONE_EN = "en-w411dp-h891dp-xhdpi"
+        private const val PHONE_LANDSCAPE = "tr-w891dp-h411dp-xhdpi"
         private const val TABLET = "tr-w924dp-h1480dp-mdpi"
         private const val TABLET_LANDSCAPE = "tr-w1480dp-h924dp-mdpi"
         private const val DEX = "tr-w1920dp-h1080dp-mdpi"

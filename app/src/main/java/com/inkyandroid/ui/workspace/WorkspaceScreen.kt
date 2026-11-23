@@ -59,6 +59,8 @@ import desktopkit.components.deskClickable
 import desktopkit.components.focusRing
 import desktopkit.input.showShortcutHints
 import desktopkit.shell.CompactTopBar
+import desktopkit.shell.NavKind
+import desktopkit.shell.LocalNavKind
 import desktopkit.shell.TopBarAction
 import desktopkit.shell.WidthClass
 import desktopkit.shell.rememberShellContentPadding
@@ -92,11 +94,17 @@ fun WorkspaceScreen(
     playerZoom: CodeEditorZoom,
     twoPanes: Boolean,
     availableWidth: Dp,
+    compactHeight: Boolean = false,
 ) {
     val file = project.file(state.activePath) ?: project.main
     if (!twoPanes) {
         EditorTopBar(file, state, actions)
-        EditorPane(session, state, project, settings, ui, actions, editorZoom, contentPadding = rememberShellContentPadding())
+        val padding = rememberShellContentPadding()
+        Box(Modifier.fillMaxSize()) {
+            EditorPane(session, state, project, settings, ui, actions, editorZoom, contentPadding = padding)
+            // the story is compiled while the writer is here: said under the top bar, as the player says it
+            BusyBar(live.busy, Modifier.align(Alignment.TopCenter).padding(top = padding.calculateTopPadding()))
+        }
         return
     }
     // The divider's place is a share of the workspace, as desktop Inky's is: a window that grows
@@ -128,12 +136,21 @@ fun WorkspaceScreen(
     val hints = showShortcutHints()
     val resources = appResources()
     val liveSession = session.live.session
+    // a low window with a rail (a phone on its side): the rail's own bar carries what the editor's header
+    // would, so the text keeps the height of one bar more (with the keyboard up, most of what is left)
+    val foldedHeader = compactHeight && LocalNavKind.current == NavKind.Rail
+    if (foldedHeader) WorkspaceTopBar(file, state, session, inspector, actions)
     WorkstationLayout(
         state = inspector,
         main = {
             Column(Modifier.fillMaxSize()) {
-                EditorHeader(file, state, project, session, live, inspector, actions)
-                HorizontalRule()
+                if (!foldedHeader) EditorHeader(file, state, project, session, live, inspector, actions)
+                Box(Modifier.fillMaxWidth()) {
+                    HorizontalRule()
+                    // the player says itself that the story is being compiled; where it is not in sight, the header does
+                    val playerShown = !inspector.collapsed && settings.inspectorTab == SettingsTab.Player
+                    BusyBar(live.busy && !playerShown, Modifier.align(Alignment.TopCenter))
+                }
                 EditorPane(session, state, project, settings, ui, actions, editorZoom)
             }
         },
@@ -226,6 +243,32 @@ private fun EditorTopBar(file: ProjectFile, state: SessionState, actions: Window
             add(TopBarAction(InkIcons.Snippet, stringResource(R.string.action_insert_snippet), { actions.perform(Commands.INSERT_SNIPPET) }))
         },
         // a narrow window with a rail has the same single pane, and wants the same bar
+        showOnRail = true,
+    )
+}
+
+/**
+ * The header's contents in the rail's own top bar, for a window too low for both: the file with the
+ * knot and the stitch of the cursor as the title; back, forward, the issues and the inspector's
+ * switch as its actions (what does not fit goes under "⋮").
+ */
+@Composable
+private fun WorkspaceTopBar(file: ProjectFile, state: SessionState, session: ProjectSession, inspector: InspectorState, actions: WindowActions) {
+    val row = cursorRow(session, state)
+    val flow = remember(file.symbols, row) { file.symbols?.flowAt(row) ?: FlowPath() }
+    val issueCount = state.issues.size
+    val counts = countIssues(state.issues)
+    val issuesLabel = pluralStringResource(R.plurals.issues_count, issueCount, issueCount)
+    CompactTopBar(
+        title = (listOf(fileLabel(file)) + listOfNotNull(flow.knot, flow.stitch).map { it.name }).joinToString(CRUMB.trim().let { " $it " }),
+        actions = buildList {
+            add(TopBarAction(DeskIcons.ArrowLeft, stringResource(R.string.action_back), { actions.perform(Commands.BACK) }, enabled = state.canGoBack))
+            add(TopBarAction(InkIcons.ArrowRight, stringResource(R.string.action_forward), { actions.perform(Commands.FORWARD) }, enabled = state.canGoForward))
+            if (issueCount > 0) {
+                add(TopBarAction(if (counts.errors > 0) DeskIcons.Error else DeskIcons.Warning, issuesLabel, { actions.perform(Commands.SHOW_ISSUES) }))
+            }
+            add(TopBarAction(DeskIcons.SidebarToggle, stringResource(R.string.action_toggle_inspector), { inspector.toggle() }))
+        },
         showOnRail = true,
     )
 }

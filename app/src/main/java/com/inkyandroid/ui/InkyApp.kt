@@ -18,6 +18,7 @@ import androidx.compose.runtime.saveable.LocalSaveableStateRegistry
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -243,8 +244,14 @@ fun InkyApp(
         }
         val activePath = state?.activePath
         LaunchedEffect(activePath, sidebar, session) {
-            if (activePath == null || !sidebar) return@LaunchedEffect
             val route = navController.currentBackStackEntry?.destination?.route
+            if (!sidebar) {
+                // a window narrowed from the sidebar layout: a file's route is a page of Write there, with a Back
+                // arrow on the top-level screen and the file's name twice; Write itself shows the same file
+                if (Routes.filePath(route) != null) navigator.navigate(Routes.WRITE)
+                return@LaunchedEffect
+            }
+            if (activePath == null) return@LaunchedEffect
             if (Routes.isWorkspace(route) && Routes.filePath(route) != activePath) navigator.navigate(Routes.file(activePath))
         }
         DesktopShell(
@@ -280,6 +287,7 @@ fun InkyApp(
                 RouteContent(
                     route = route,
                     navigator = shellNavigator,
+                    compactHeight = maxHeight < COMPACT_HEIGHT,
                     window = window,
                     session = session,
                     state = state,
@@ -303,6 +311,7 @@ fun InkyApp(
 /** The screen of one route, for whatever the window has open. */
 @Composable
 private fun RouteContent(
+    compactHeight: Boolean,
     route: String,
     navigator: ShellNavigator,
     window: WindowProject,
@@ -353,6 +362,7 @@ private fun RouteContent(
             playerZoom = playerZoom,
             twoPanes = twoPanes,
             availableWidth = availableWidth,
+            compactHeight = compactHeight,
         )
         route == Routes.PLAY -> {
             if (twoPanes) {
@@ -410,3 +420,6 @@ internal class RouteMemory(restored: String? = null) {
         val Saver: Saver<RouteMemory, String> = Saver(save = { memory -> memory.shown }, restore = { route -> RouteMemory(restored = route) })
     }
 }
+
+/** A window lower than this (a phone on its side) has its workspace's bars folded into one. */
+private val COMPACT_HEIGHT = 480.dp

@@ -518,7 +518,7 @@ private fun EmptyPlayer(state: LiveState, actions: PlayerActions, contentPadding
  * the work has taken long enough to be noticed, so it does not flicker with every pause in typing.
  */
 @Composable
-private fun BusyBar(busy: Boolean, modifier: Modifier = Modifier) {
+internal fun BusyBar(busy: Boolean, modifier: Modifier = Modifier) {
     var shown by remember { mutableStateOf(false) }
     LaunchedEffect(busy) {
         if (busy) {
