@@ -498,9 +498,10 @@ class ProjectSession private constructor(
      * [target], the successor's drafts, and are forgotten here only once all of them are there; a
      * null [target] means the successor keeps its drafts where this session does: they are brought
      * up to date and left. When that fails the session goes on as it was and the failure is thrown.
+     * The window's places are remembered under [successor], the reference the window shows next.
      */
     @Throws(IOException::class)
-    internal suspend fun handOver(target: DraftStore?) {
+    internal suspend fun handOver(target: DraftStore?, successor: String) {
         if (state.value.closed) return
         do {
             val revision = project.contentRevision.value
@@ -512,7 +513,8 @@ class ProjectSession private constructor(
             // typed while the drafts moved: move them again
         } while (project.contentRevision.value != revision)
         cancelTimers()
-        rememberSession()
+        // the successor is where the window is from now on: it finds the files' places under its reference
+        rememberSession(asReference = successor)
         mutableState.update { it.copy(closed = true) }
         live.close()
         closeDocuments()
@@ -601,12 +603,12 @@ class ProjectSession private constructor(
     }
 
     /** Stores where the user is, so the next start (or the restart after the system killed the app) returns there. */
-    private fun rememberSession() {
+    private fun rememberSession(asReference: String = reference) {
         for ((path, document) in documents) {
             val cursor = document.buffer.cursor
             places[path] = FilePlace(cursor.row, cursor.column, document.buffer.firstVisibleRow)
         }
-        settings.updateLastSession(LastSession(reference, state.value.activePath, places.toMap()))
+        settings.updateLastSession(LastSession(asReference, state.value.activePath, places.toMap()))
     }
 
     companion object {

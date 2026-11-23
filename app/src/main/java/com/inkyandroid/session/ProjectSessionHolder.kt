@@ -14,11 +14,13 @@ import com.inkyandroid.storage.ProjectStorage
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.Executors
@@ -91,33 +93,75 @@ class SessionEnvironment(
     fun draftsFolder(reference: String): File =
         File(draftsDirectory, TextHash.of(opener.identity(reference)).take(DRAFT_FOLDER_LENGTH))
 
-    /** Project identity → the window that has it open. */
-    private val windows = HashMap<String, Any>()
+    /** Project identity → the window that has it open, and the job of its last flush once it gives it back. */
+    private class Claim(val window: Any, var givingBack: Job? = null)
+
+    private val windows = HashMap<String, Claim>()
+
+    /** What a window that asks for a project is told ([claim]). */
+    internal sealed interface ClaimAnswer {
+        /** The project is the window's now. */
+        data object Granted : ClaimAnswer
+
+        /** The window that has it is giving it back: ask again when [lastFlush] has ended. */
+        data class Wait(val lastFlush: Job) : ClaimAnswer
+
+        /** Another window has it open. */
+        data object Refused : ClaimAnswer
+    }
 
     /**
-     * [window] opens [reference]. False when another window has the same project open: one window
-     * per project, so two sessions never share one drafts folder (each would restore, and on saving
-     * remove, the other's drafts). Upstream opens a second window and notes it should switch to the first.
+     * [window] asks for [reference]'s project. One window per project, so two sessions never share
+     * one drafts folder (each would restore, and on saving remove, the other's drafts). Upstream
+     * opens a second window and notes it should switch to the first instead.
      */
-    internal fun claim(reference: String, window: Any): Boolean = synchronized(windows) {
+    internal fun claim(reference: String, window: Any): ClaimAnswer = synchronized(windows) {
         val identity = opener.identity(reference)
-        val owner = windows[identity]
-        if (owner != null && owner !== window) return false
-        windows[identity] = window
-        true
+        val claim = windows[identity]
+        val lastFlush = claim?.givingBack
+        when {
+            claim == null || claim.window === window || (lastFlush != null && !lastFlush.isActive) -> {
+                windows[identity] = Claim(window)
+                ClaimAnswer.Granted
+            }
+            lastFlush != null -> ClaimAnswer.Wait(lastFlush)
+            else -> ClaimAnswer.Refused
+        }
+    }
+
+    /** [window] gives [reference]'s project back once [lastFlush] has ended; a window asking for it meanwhile waits. */
+    internal fun givingBack(reference: String, window: Any, lastFlush: Job) {
+        synchronized(windows) {
+            windows[opener.identity(reference)]?.takeIf { it.window === window }?.givingBack = lastFlush
+        }
     }
 
     /** [window] no longer has [reference] open. */
     internal fun release(reference: String, window: Any) {
         synchronized(windows) {
             val identity = opener.identity(reference)
-            if (windows[identity] === window) windows.remove(identity)
+            if (windows[identity]?.window === window) windows.remove(identity)
         }
     }
 
-    /** Whether a window other than [window] has the project of [reference] open. */
+    /** Whether [one] and [other] are references of the same project. */
+    internal fun isSameProject(one: String, other: String): Boolean = opener.identity(one) == opener.identity(other)
+
+    /**
+     * Removes the drafts and kept versions of [reference]'s project: it was deleted. Call it once
+     * no window has the project open any more (after the job of [ProjectSessionHolder.closed]).
+     */
+    suspend fun forgetDrafts(reference: String) {
+        val folder = draftsFolder(reference)
+        withContext(io) {
+            if (!folder.deleteRecursively() && folder.exists()) throw IOException("Cannot remove ${folder.path}")
+        }
+    }
+
+    /** Whether a window other than [window] has the project of [reference] open (and is not giving it back). */
     internal fun isOpenElsewhere(reference: String, window: Any): Boolean = synchronized(windows) {
-        windows[opener.identity(reference)]?.let { it !== window } == true
+        val claim = windows[opener.identity(reference)] ?: return false
+        claim.window !== window && claim.givingBack == null
     }
 
     companion object {
@@ -202,6 +246,20 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
     /** What the window shows: nothing, a project being opened, an open project, or why it could not be opened. */
     val project: StateFlow<WindowProject> = mutableProject.asStateFlow()
 
+    private val mutableDeclined = MutableStateFlow<IOException?>(null)
+
+    /**
+     * Why the window's last [open] or [switchTo] was not carried out while the window kept the
+     * project it shows: [ProjectOpenElsewhereException] (another window has that project open).
+     * Shown once, then [dismissDeclined]. (Without a project to keep, [project] is `Failed` instead.)
+     */
+    val declined: StateFlow<IOException?> = mutableDeclined.asStateFlow()
+
+    /** The window has told the user why its last request was declined. */
+    fun dismissDeclined() {
+        mutableDeclined.value = null
+    }
+
     /** The open session, or null. */
     val session: ProjectSession? get() = (mutableProject.value as? WindowProject.Open)?.session
 
@@ -251,52 +309,97 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
     private fun start(reference: String, carried: ProjectSession?) {
         // what the window shows now was chosen: there is nothing left to restore
         restored = true
+        // one window per project: asked for while another window has it, nothing changes here
+        val answer = environment.claim(reference, this)
+        if (answer is SessionEnvironment.ClaimAnswer.Refused) {
+            val elsewhere = ProjectOpenElsewhereException(reference)
+            // a window that shows a project, or is opening one, goes on with it
+            if (session != null || opening?.isActive == true) {
+                mutableDeclined.value = elsewhere
+            } else {
+                mutableProject.value = WindowProject.Failed(reference, elsewhere.message.orEmpty(), elsewhere)
+            }
+            return
+        }
         opening?.cancel()
         val previous = session
-        val ended = if (carried == null) previous?.let(::end) else null
+        val ended = if (carried == null) previous?.let { end(it, next = reference) } else null
         mutableProject.value = WindowProject.Opening(reference)
         opening = viewModelScope.launch {
             // the project that was open has written its last drafts before anything reads drafts again
             ended?.join()
-            if (!environment.claim(reference, this@ProjectSessionHolder)) {
-                val elsewhere = ProjectOpenElsewhereException(reference)
-                mutableProject.value = WindowProject.Failed(reference, elsewhere.message.orEmpty(), elsewhere)
-                return@launch
-            }
-            // from here the project is this window's until it is open, or the opening fails or is given up
-            var opened = false
+            // the claim on [reference] is the new session's, or given back, once this is true
+            var settled = false
             try {
+                if (answer is SessionEnvironment.ClaimAnswer.Wait && !claimAfter(answer, reference)) {
+                    val elsewhere = ProjectOpenElsewhereException(reference)
+                    settled = true
+                    mutableProject.value = WindowProject.Failed(reference, elsewhere.message.orEmpty(), elsewhere)
+                    return@launch
+                }
                 val drafts = environment.draftsFor(reference)
                 if (carried != null) {
                     // the drafts move to where the new place files them, unless that is where they are
                     val target = drafts.takeIf { environment.draftsFolder(reference) != environment.draftsFolder(carried.reference) }
                     try {
-                        carried.handOver(target)
+                        // never cut half way by a newer request: the drafts are moved or not at all
+                        withContext(NonCancellable) { carried.handOver(target, successor = reference) }
                     } catch (failed: IOException) {
                         // the unsaved text could not be carried over: the window keeps the project it has
                         carried.draftsFailed(failed)
                         mutableProject.value = WindowProject.Open(carried)
+                        settled = true
+                        releaseIfUnused(reference)
                         return@launch
                     }
                     environment.opener.close(carried.reference)
-                    environment.release(carried.reference, this@ProjectSessionHolder)
-                    // the same project under another reference has the same identity: still this window's
-                    environment.claim(reference, this@ProjectSessionHolder)
+                    releaseIfUnused(carried.reference)
                 }
-                mutableProject.value = try {
-                    WindowProject.Open(openSession(reference, drafts)).also { opened = true }
+                val session = try {
+                    openSession(reference, drafts)
                 } catch (failed: IOException) {
                     val kept = try {
                         drafts.load().map { it.path }
                     } catch (unreadable: IOException) {
                         emptyList()
                     }
-                    WindowProject.Failed(reference, failed.message?.takeIf { it.isNotBlank() } ?: failed.javaClass.simpleName, failed, kept)
+                    settled = true
+                    environment.release(reference, this@ProjectSessionHolder)
+                    mutableProject.value = WindowProject.Failed(
+                        reference,
+                        failed.message?.takeIf { it.isNotBlank() } ?: failed.javaClass.simpleName,
+                        failed,
+                        kept,
+                    )
+                    return@launch
                 }
+                settled = true
+                mutableProject.value = WindowProject.Open(session)
             } finally {
-                if (!opened) environment.release(reference, this@ProjectSessionHolder)
+                // given up for a newer request of this window, which may want the same project
+                if (!settled) releaseIfUnused(reference)
             }
         }
+    }
+
+    /**
+     * Waits until the window that has [reference]'s project has given it back (its last flush has
+     * ended), then claims it. False when another window took it meanwhile.
+     */
+    private suspend fun claimAfter(wait: SessionEnvironment.ClaimAnswer.Wait, reference: String): Boolean {
+        var answer: SessionEnvironment.ClaimAnswer = wait
+        while (answer is SessionEnvironment.ClaimAnswer.Wait) {
+            answer.lastFlush.join()
+            answer = environment.claim(reference, this)
+        }
+        return answer is SessionEnvironment.ClaimAnswer.Granted
+    }
+
+    /** Gives [reference]'s project back to the other windows, unless this window shows or opens it now. */
+    private fun releaseIfUnused(reference: String) {
+        val current = this.reference
+        if (current != null && environment.isSameProject(current, reference)) return
+        environment.release(reference, this)
     }
 
     /** Opens the session of [reference]; storage's count of the project as open is given back when that fails. */
@@ -325,18 +428,28 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
      * windows) once the session's last flush (drafts, and with autosave a save) is done: storage
      * must stay usable, and the drafts nobody else's, until then.
      */
-    private fun end(session: ProjectSession): Job = session.abandon().also { last ->
+    private fun end(session: ProjectSession, next: String? = null): Job = session.abandon().also { last ->
+        // a window that opens the same project again keeps it; otherwise others wait for the last flush
+        if (next == null || !environment.isSameProject(next, session.reference)) {
+            environment.givingBack(session.reference, this, last)
+        }
         last.invokeOnCompletion {
             environment.opener.close(session.reference)
-            environment.release(session.reference, this)
+            releaseIfUnused(session.reference)
         }
     }
 
-    /** The window shows no project any more: after [ProjectSession.requestClose] or [ProjectSession.answerClose] returned true, or to leave a failed opening. */
-    fun closed() {
+    /**
+     * The window shows no project any more: after [ProjectSession.requestClose] or
+     * [ProjectSession.answerClose] returned true, or to leave a failed opening. The returned job
+     * ends when the project's last flush is done (null when none was open): join it before deleting
+     * the project, then [SessionEnvironment.forgetDrafts].
+     */
+    fun closed(): Job? {
         opening?.cancel()
-        session?.let(::end)
+        val open = session
         mutableProject.value = WindowProject.None
+        return open?.let(::end)
     }
 
     /** The window has focus again: files may have changed underneath. One look at a time. */
@@ -354,7 +467,9 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
     override fun onCleared() {
         // the window is gone for good (not a configuration change: the holder outlives those);
         // unsaved text is in the drafts and, with autosave, is saved once more
-        session?.let(::end)
+        val open = session
+        mutableProject.value = WindowProject.None
+        open?.let(::end)
     }
 
     /** Creates the holder for an activity: `ViewModelProvider(activity, ProjectSessionHolder.Factory(environment))[ProjectSessionHolder::class.java]`. */
