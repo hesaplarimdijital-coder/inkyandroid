@@ -57,8 +57,10 @@ ink'in kendisinin burada nasıl çalıştığını (hikâyenin oynatılışında
 Uygulama ink'i telefonun içinde, ink'in Java'ya aktarılmış derleyicisiyle (blade-ink) derleyip oynatır;
 masaüstü Inky ise inkle'ın kendi derleyicisini (inklecate) çalıştırır. İkisi aynı hikâyeden aynı metni ve
 aynı seçenekleri üretir; bunu uygulamayla birlikte gelen 25 örnek hikâye ve 22 sınama hikâyesi üzerinde,
-inklecate'in çıktısıyla satır satır karşılaştıran testler denetler. Bir yazarın fark edebileceği iki
-ayrım var:
+inklecate'in çıktısıyla satır satır karşılaştıran testler denetler. Derleyicinin hata ve uyarı
+iletileri, masaüstü Inky'de olduğu gibi ink'in kendi İngilizce metinleridir ("Divert target not
+found…"); arayüz Türkçeyken de öyle kalır, Sorunlar'da iletiye dokununca satırı açılır. Bir yazarın
+fark edebileceği iki ayrım var:
 
 - **Ondalık sayılar biraz farklı yazılır.** Bir değişkenin değeri tam sayıya denk gelen bir ondalık
   sayıysa uygulama `3.0` yazar, masaüstü Inky `3`; çok büyük sayılar `1.0E8` gibi görünür. Kesirli
