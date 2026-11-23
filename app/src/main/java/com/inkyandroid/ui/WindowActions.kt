@@ -200,10 +200,16 @@ class WindowActions(
         }
     }
 
+    /**
+     * Renames the file at [path]. A name without a folder keeps the file in its folder (the form
+     * shows the name alone); a path with "/" in it is taken as written, a move made on purpose.
+     */
     fun rename(path: String, newName: String) {
         val session = session ?: return
+        val folder = ProjectPaths.folder(path)
+        val target = if ('/' in newName || folder.isEmpty()) newName.trimStart('/') else "$folder/$newName"
         scope.launch {
-            when (val result = session.rename(path, newName)) {
+            when (val result = session.rename(path, target)) {
                 is RenameResult.Renamed -> {
                     ui.dialog = null
                     notify(strings.getString(R.string.rename_done, ProjectPaths.name(result.to)))

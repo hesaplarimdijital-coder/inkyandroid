@@ -2,12 +2,14 @@ package com.inkyandroid.ui
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isSelectable
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextReplacement
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.inkyandroid.session.ProjectSessionHolder
 import com.inkyandroid.testPrefs
@@ -68,6 +70,23 @@ class FilesAndProjectsBehaviourTest {
         assertSame(session, holder.session)
         assertTrue(session.project.state.value.hasUnsavedChanges)
         assertEquals(Routes.WRITE, ui.route)
+    }
+
+    /** A new name typed for a file in a folder keeps the file in that folder. */
+    @Test
+    fun renamingAFileInAFolderKeepsItInThatFolder() {
+        val main = "INCLUDE chapters/one.ink\n-> one\n"
+        val holder = UiWorld.holder(UiWorld.project("Folders", main, mapOf("chapters/one.ink" to "== one ==\nOne.\n-> END\n")))
+        launch(holder)
+        val session = compose.awaitSession(holder)
+        compose.awaitStory(session)
+        compose.runOnUiThread { ui.dialog = WindowDialog.Rename("chapters/one.ink") }
+        compose.waitForIdle()
+        compose.onNode(hasSetTextAction()).performTextReplacement("two.ink")
+        compose.onNodeWithText("Rename").performClick()
+        compose.waitFor { session.project.state.value.files.none { it.path == "chapters/one.ink" } }
+        val paths = session.project.state.value.files.map { it.path }
+        assertTrue("after the rename the project has $paths", "chapters/two.ink" in paths)
     }
 
     /** DeX: the file shown is deleted from its sidebar entry's menu; the main file is shown and marked. */
