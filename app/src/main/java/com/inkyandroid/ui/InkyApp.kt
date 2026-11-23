@@ -219,6 +219,9 @@ fun InkyApp(
     val showKeys = showShortcutHints()
     val customSnippets = state?.projectSettings?.customInkSnippets.orEmpty()
     val ink = remember(customSnippets, resources, session, showKeys) { if (session == null) emptyList() else inkMenu(customSnippets, resources, actions, showKeys) }
+    val recents by storage.recents.entries.collectAsState()
+    val openReference = (window as? WindowProject.Open)?.session?.reference
+    val recent = remember(recents, openReference, resources) { recentMenu(recents, openReference, resources, actions) }
     val menus = WindowMenus(
         resources = resources,
         registry = shortcuts,
@@ -228,6 +231,7 @@ fun InkyApp(
         available = actions::available,
         showKeys = showKeys,
         ink = ink,
+        recent = recent,
     )
     val editorZoom = rememberCodeEditorZoom(prefs, EDITOR_ZOOM_KEY)
     val playerZoom = rememberCodeEditorZoom(prefs, PLAYER_ZOOM_KEY)

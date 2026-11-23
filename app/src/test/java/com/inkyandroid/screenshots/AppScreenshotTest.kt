@@ -12,6 +12,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -407,6 +408,30 @@ class AppScreenshotTest {
         compose.runOnUiThread { commands.perform(Commands.KEPT_VERSIONS) }
         compose.waitForIdle()
         capture("app-dex-kept-versions-light")
+    }
+
+    /** The Ink menu with a category open beside it (upstream's submenus). */
+    @Test @Config(qualifiers = DEX)
+    fun dexInkSubmenuDark() {
+        story(ThemeMode.Dark, DensityPreference.Pointer)
+        compose.onNodeWithText("Ink").performClick()
+        compose.waitForIdle()
+        compose.onNodeWithText("Seçenekler").performClick()
+        compose.waitForIdle()
+        capture("app-dex-ink-submenu-dark")
+    }
+
+    /** The phone's "⋯" sheet: the snippets as a page of the sheet, their categories as further pages. */
+    @Test @Config(qualifiers = PHONE)
+    fun phoneSnippetPagesLight() {
+        story(ThemeMode.Light)
+        compose.clickText("Daha fazla")
+        compose.waitForIdle()
+        // the Ink group is the sheet's last: scrolled to, its line opens the snippets' page
+        compose.onNodeWithText("Parçacık ekle").performScrollTo().performClick()
+        compose.waitFor { compose.onAllNodesWithText("Temel yapı").fetchSemanticsNodes().isNotEmpty() }
+        compose.waitForIdle()
+        capture("app-phone-snippet-pages-light")
     }
 
     private companion object {

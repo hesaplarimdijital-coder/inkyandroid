@@ -30,7 +30,6 @@
     <string name="action_open_file">Dosya aç…</string>
     <string name="action_open_recent">Son projeler</string>
     <string name="action_insert_snippet">Parçacık ekle…</string>
-    <string name="menu_snippet_category">%1$s…</string>
     <string name="action_clear_recent">Listeyi temizle</string>
     <string name="action_save">Projeyi kaydet</string>
     <string name="action_reload">Depolamadan yeniden yükle</string>

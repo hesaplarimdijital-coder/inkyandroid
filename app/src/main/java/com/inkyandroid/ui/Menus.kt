@@ -6,6 +6,7 @@ import com.inkyandroid.core.snippets.Accelerator
 import com.inkyandroid.core.snippets.InkSnippets
 import com.inkyandroid.core.snippets.SnippetNode
 import com.inkyandroid.settings.AppSettings
+import com.inkyandroid.storage.RecentProject
 import com.inkyandroid.ui.extras.snippets.SnippetEntry
 import com.inkyandroid.ui.extras.snippets.SnippetLocaliser
 import desktopkit.components.ActionGroup
@@ -39,6 +40,7 @@ class WindowMenus(
     private val available: (String) -> Boolean,
     private val showKeys: Boolean,
     private val ink: List<MenuEntry> = emptyList(),
+    private val recent: List<MenuEntry> = emptyList(),
 ) {
     private fun item(id: String): MenuEntry.Item? {
         if (!available(id)) return null
@@ -57,6 +59,13 @@ class WindowMenus(
 
     private fun check(label: Int, checked: Boolean, toggle: () -> Unit) = MenuEntry.Item(resources.getString(label), toggle, checked = checked)
 
+    /** Upstream's File › Open Recent: the recent projects, then "Clear list"; shown disabled while there are none. */
+    private fun recentSubmenu() = MenuEntry.Submenu(resources.getString(R.string.action_open_recent), recent)
+
+    /** The Ink menu as one line of the phone's sheet: its categories open as pages. */
+    private fun snippetSubmenu(): MenuEntry? =
+        if (ink.isEmpty()) null else MenuEntry.Submenu(resources.getString(R.string.action_insert_snippet).trimEnd('…'), ink, icon = InkIcons.Snippet)
+
     private val autoComplete get() = check(R.string.action_autocomplete, settings.autoComplete) { settings.updateAutoComplete(!settings.autoComplete) }
     private val playAnimation get() = check(R.string.action_play_animation, settings.playAnimation) { settings.updatePlayAnimation(!settings.playAnimation) }
     private val tagsVisible get() = check(R.string.action_tags_visible, settings.tagsVisible) { settings.updateTagsVisible(!settings.tagsVisible) }
@@ -69,7 +78,7 @@ class WindowMenus(
 
     private fun file(): List<MenuEntry> = menu(
         listOf(item(Commands.NEW_PROJECT), item(Commands.NEW_INCLUDE)),
-        listOf(item(Commands.OPEN_FOLDER), item(Commands.OPEN_FILE), plain(Commands.OPEN_RECENT, R.string.action_open_recent)),
+        listOf(item(Commands.OPEN_FOLDER), item(Commands.OPEN_FILE), recentSubmenu()),
         listOf(item(Commands.SAVE), item(Commands.RELOAD), plain(Commands.KEPT_VERSIONS, R.string.action_kept_versions)),
         listOf(item(Commands.EXPORT_JSON), plain(Commands.EXPORT_WEB, R.string.action_export_web), item(Commands.EXPORT_JS)),
         listOf(item(CommonShortcuts.NEW_WINDOW), item(Commands.CLOSE_PROJECT)),
@@ -139,6 +148,7 @@ class WindowMenus(
                 item(Commands.NEW_INCLUDE),
                 item(Commands.OPEN_FOLDER),
                 item(Commands.OPEN_FILE),
+                recentSubmenu(),
                 item(Commands.SAVE),
                 item(Commands.RELOAD),
                 plain(Commands.KEPT_VERSIONS, R.string.action_kept_versions),
@@ -148,26 +158,41 @@ class WindowMenus(
                 item(Commands.CLOSE_PROJECT),
             ),
         ),
-        ActionGroup(resources.getString(R.string.menu_ink), listOfNotNull(plain(Commands.INSERT_SNIPPET, R.string.action_insert_snippet))),
+        ActionGroup(resources.getString(R.string.menu_ink), listOfNotNull(snippetSubmenu())),
         ActionGroup(resources.getString(desktopkit.R.string.dk_menu_view), listOf(autoComplete, playAnimation)),
     ).filter { it.actions.isNotEmpty() }
 }
 
 /**
- * The Ink menu: upstream's snippet categories in its order and with its separators, in the
- * window's language, then the project's own snippets. Until the kit's menus can nest, a category
- * opens the palette on its snippets (all of them, to choose by name or search); a custom snippet
- * outside any category is inserted at once.
+ * The Ink menu: upstream's snippet categories in its order and with its separators, each a submenu of
+ * its snippets, in the window's language; then the project's own snippets, nested as its settings
+ * file writes them. A snippet is inserted at the cursor; a custom one shows its key.
  */
 fun inkMenu(custom: List<SnippetNode>, resources: Resources, actions: WindowActions, showKeys: Boolean): List<MenuEntry> =
-    SnippetLocaliser.of(resources).localise(InkSnippets.menu(custom)).map { entry ->
+    snippetEntries(SnippetLocaliser.of(resources).localise(InkSnippets.menu(custom)), resources, actions, showKeys)
+
+private fun snippetEntries(entries: List<SnippetEntry>, resources: Resources, actions: WindowActions, showKeys: Boolean): List<MenuEntry> =
+    entries.map { entry ->
         when (entry) {
             SnippetEntry.Separator -> MenuEntry.Separator
-            is SnippetEntry.Category -> MenuEntry.Item(resources.getString(R.string.menu_snippet_category, entry.label), { actions.openSnippets(entry.label) })
+            is SnippetEntry.Category -> MenuEntry.Submenu(entry.label, snippetEntries(entry.children, resources, actions, showKeys))
             is SnippetEntry.Snippet -> MenuEntry.Item(
                 entry.label,
                 { actions.insertSnippet(entry.ink) },
                 shortcut = if (showKeys) entry.accelerator?.let(Accelerator::parse)?.keyChord()?.label(resources) else null,
             )
         }
+    }
+
+/**
+ * File › Open Recent: the recent projects by last use (the open one checked), then "Clear list".
+ * Empty while there are none (the menu shows the line disabled).
+ */
+fun recentMenu(recents: List<RecentProject>, openReference: String?, resources: Resources, actions: WindowActions): List<MenuEntry> =
+    if (recents.isEmpty()) {
+        emptyList()
+    } else {
+        recents.map { recent ->
+            MenuEntry.Item(recent.ref.displayName, { actions.openProject(recent.ref) }, checked = (recent.ref.encode() == openReference).takeIf { it })
+        } + MenuEntry.Separator + MenuEntry.Item(resources.getString(R.string.action_clear_recent), { actions.clearRecents() })
     }

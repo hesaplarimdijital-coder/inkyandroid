@@ -585,10 +585,10 @@ class WindowActions(
         }
     }
 
-    /** The snippets in the palette, those of [category] (its label) first when one is given: the way to them until the kit's menus nest. */
-    fun openSnippets(category: String? = null): Boolean {
+    /** "Insert snippet…" of the palette: the snippets in it, to choose by name or search. */
+    fun openSnippets(): Boolean {
         if (session == null) return false
-        openPalette(category.orEmpty(), strings.getString(R.string.snippets_group))
+        openPalette("", strings.getString(R.string.snippets_group))
         return true
     }
 

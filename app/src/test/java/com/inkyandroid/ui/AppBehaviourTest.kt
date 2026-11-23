@@ -215,6 +215,44 @@ class AppBehaviourTest {
         assertEquals(text, editor.text.toString())
     }
 
+    /** The Ink menu nests upstream's categories: Ink › Basic structure › Divert inserts a divert at the cursor. */
+    @Test
+    @Config(qualifiers = DEX)
+    fun theInkMenusCategoriesAreSubmenusWhoseSnippetsInsertAtTheCursor() {
+        val holder = UiWorld.holder(UiWorld.project("Menu", "Hello.\n"))
+        launch(holder, DensityPreference.Pointer)
+        val session = compose.awaitSession(holder)
+        compose.awaitStory(session)
+        val editor = session.activeDocument.editorState!!
+        compose.runOnUiThread { editor.select(editor.length) }
+        compose.onNodeWithText("Ink").performClick()
+        compose.waitForIdle()
+        compose.onNodeWithText("Basic structure").performClick()
+        compose.waitForIdle()
+        compose.onNodeWithText("Divert").performClick()
+        compose.waitFor { editor.text.toString() != "Hello.\n" }
+        assertTrue(editor.text.toString(), editor.text.toString().startsWith("Hello.\n") && "->" in editor.text.toString())
+    }
+
+    /** File › Open Recent lists the recent projects; choosing one opens it. */
+    @Test
+    @Config(qualifiers = DEX)
+    fun openRecentIsASubmenuOfTheRecentProjects() {
+        val first = UiWorld.project("Earlier", "Earlier text.\n")
+        val second = UiWorld.project("Now", "Now text.\n")
+        runBlocking { UiWorld.app.storage.recents.add(first) }
+        val holder = UiWorld.holder(second)
+        launch(holder, DensityPreference.Pointer)
+        val session = compose.awaitSession(holder)
+        compose.awaitStory(session)
+        compose.onNodeWithText("File").performClick()
+        compose.waitForIdle()
+        compose.onNodeWithText("Recent projects").performClick()
+        compose.waitForIdle()
+        compose.onNodeWithText("Earlier").performClick()
+        compose.waitFor(10_000) { holder.session?.let { it !== session && "Earlier.ink" in it.project } == true }
+    }
+
     companion object {
         const val PHONE = "en-w411dp-h891dp-xxhdpi"
         const val TABLET = "en-w924dp-h1480dp-xhdpi"

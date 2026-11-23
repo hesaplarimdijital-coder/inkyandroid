@@ -31,7 +31,6 @@
     <string name="action_open_file">Open file…</string>
     <string name="action_open_recent">Recent projects</string>
     <string name="action_insert_snippet">Insert snippet…</string>
-    <string name="menu_snippet_category">%1$s…</string>
     <string name="action_clear_recent">Clear</string>
     <string name="action_save">Save project</string>
     <string name="action_reload">Reload from storage</string>
