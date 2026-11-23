@@ -33,7 +33,7 @@
     <string name="action_new_include">New included ink file…</string>
     <string name="action_open_folder">Open folder…</string>
     <string name="action_open_file">Open file…</string>
-    <string name="action_open_recent">Open recent</string>
+    <string name="action_open_recent">Recent projects</string>
     <string name="action_insert_snippet">Insert snippet…</string>
     <string name="menu_snippet_category">%1$s…</string>
     <string name="action_clear_recent">Clear</string>
@@ -166,7 +166,7 @@
     <string name="files_add_include">Add new include</string>
     <string name="files_no_project_title">No project is open</string>
     <string name="files_no_project_description">Open a folder or a single ink file, or start a new project.</string>
-    <string name="files_root_folder">Project folder</string>
+    <string name="files_root_folder">Main folder</string>
     <string name="include_title">New included ink file</string>
     <string name="include_name">Enter new ink filename:</string>
     <string name="include_placeholder">Folder/inkFileName.ink</string>
@@ -196,7 +196,7 @@
     <string name="conflict_title">%1$s changed outside Inky</string>
     <string name="conflict_text">The file on storage and your unsaved text differ. Nothing is overwritten until you choose.</string>
     <string name="conflict_keep_mine">Keep mine</string>
-    <string name="conflict_load_theirs">Load the other</string>
+    <string name="conflict_load_theirs">Load from storage</string>
     <string name="storage_problem_title">The project folder cannot be reached</string>
     <string name="draft_problem_title">Unsaved text could not be secured on this device</string>
     <string name="reload_done">Up to date with storage</string>

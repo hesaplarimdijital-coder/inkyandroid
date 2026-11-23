@@ -32,14 +32,14 @@ ink'in kendisinin burada nasıl çalıştığını (hikâyenin oynatılışında
 | F-001 | Yeni proje ve Aç hep yeni pencere açar | Pencere projesini değiştirir (açık proje önce kapanır; otomatik kaydetme kapalıysa upstream'in sorusu sorulur). Yeni pencere Ctrl+Shift+N (DeX). Bir proje aynı anda tek pencerede açılır; ikinci pencere bunu söyler ve başka proje seçtirir. |
 | F-009, F-011 | Gizli başlayan iki panelli kenar çubuğu; dosyalar paneli ilk `INCLUDE`'da kendiliğinden açılır | DeX'te dosyalar kenar çubuğunda hep listelidir, anahat yan panelin sekmesidir. Telefonda ve tablette "Dosyalar" ekranı (Dosyalar ve Anahat). |
 | F-018 | Görünüm menüsünde tema ve yüzde olarak yakınlaştırma | Tema Ayarlar'da; yakınlaştırma kitin adımlarıyla (Ctrl+=, Ctrl+-, Ctrl+0, kıstırma, Ctrl+tekerlek), düzenleyici ve oynatıcı birlikte. |
-| F-020, F-180 | Ink menüsünde kategoriler alt menüdür | Bir kategori komut paletini o kategorinin parçacıklarıyla açar; kitin iç içe menüleri yayımlanınca alt menü olacak. Projenin kendi parçacıkları ve tuşları menüde. |
+| F-020, F-180 | Ink menüsünde kategoriler alt menüdür | Bir kategori komut paletini o kategorinin parçacıklarıyla açar. Projenin kendi parçacıkları ve tuşları menüde. |
 | F-022 | Yardım › Hakkında | Hakkında ve lisanslar Ayarlar ekranında. |
 | F-023 | Menü öğeleri hep etkin | Yapacak işi olmayan öğe soluk görünür (kitin kuralı). |
 | F-024, F-040, F-041 | "Untitled.ink"; ilk kaydetmede yer sorulur | Yeni proje oluşturulurken adı ve yeri sorulur (projeler klasörü, seçilen bir klasör ya da uygulamanın içi); ana dosya projenin adını taşır. İlk açılışta "İlk hikâye" projesi upstream'in yeni proje metniyle açılır. |
 | F-038 | Dosya yeniden adlandırılamaz, silinemez | Dosyalar ekranından, kenar çubuğundaki girişin menüsünden yeniden adlandırılır ve (onayla) silinir. |
 | F-045 | Yüklenmekte olan dosya yarı saydam | Dosyalar proje açılmadan okunur. Okunamayanlar (UTF-8 değil, izin yok) Dosyalar ekranında ayrı listelenir, nedeniyle ve "Yeniden dene" düğmesiyle. |
 | F-046 … F-051 | Proje klasörünün sürekli izlenmesi | Android'in depolama erişimi (SAF) klasör izleyemez: pencere öne geldiğinde ve "Depolamadan yeniden yükle" (F5) ile denetlenir; kurallar upstream'inki. |
-| F-054 | Son açılanlar alt menüsü (5 yol, "Temizle") | Projeler ekranı: son açılanlar, listeden çıkarma, temizleme. Dosya › Son açılanlar oraya götürür. |
+| F-054 | Son açılanlar alt menüsü (5 yol, "Temizle") | Projeler ekranı: son projeler, listeden çıkarma, temizleme. Dosya › Son projeler oraya götürür. Klasörü ya da izni gitmiş projeler, Projeler açılınca listeden çıkar. |
 | F-080 | Yönlendirme hedefleri ve `INCLUDE` yolları hep altı çizili | Bağlantı renginde gösterilir; fare üstündeyken Ctrl ya da Alt basılıysa altı çizilir ve el imleci çıkar (kitin düzenleyicisi). Dokunmatikte uzun basınca "Tanıma git". |
 | F-090 | Önerilerin fuzzaldrin sıralaması | Öneriler upstream'in kurallarıyla toplanır, kitin eşleştirmesiyle süzülüp sıralanır (büyük/küçük harf ve Türkçe harfler katlanır). |
 | F-094 | Atlanan satır ortalanır | Uzaktaki hedef ekranın üçte birine gelir (kitin düzenleyicisi). |

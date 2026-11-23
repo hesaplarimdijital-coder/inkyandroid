@@ -32,7 +32,7 @@
     <string name="action_new_include">Yeni ink dosyası ekle…</string>
     <string name="action_open_folder">Klasör aç…</string>
     <string name="action_open_file">Dosya aç…</string>
-    <string name="action_open_recent">Son kullanılanlar</string>
+    <string name="action_open_recent">Son projeler</string>
     <string name="action_insert_snippet">Parçacık ekle…</string>
     <string name="menu_snippet_category">%1$s…</string>
     <string name="action_clear_recent">Listeyi temizle</string>
@@ -62,7 +62,7 @@
     <string name="action_show_watches">İzlemeyi göster</string>
     <string name="action_autocomplete">Otomatik tamamlama</string>
     <string name="action_play_animation">Oynatıcı animasyonu</string>
-    <string name="action_tags_visible">Etiketler görünsün</string>
+    <string name="action_tags_visible">Etiketleri göster</string>
     <string name="action_goto_anything">Her şeye git…</string>
     <string name="action_goto_line">Satıra git…</string>
     <string name="action_goto_definition">Tanıma git</string>
@@ -70,7 +70,7 @@
     <string name="action_back">Geri</string>
     <string name="action_forward">İleri</string>
     <string name="action_add_watch">İzleme ifadesi ekle…</string>
-    <string name="action_statistics">Sözcük sayısı ve daha fazlası</string>
+    <string name="action_statistics">Proje istatistikleri</string>
     <string name="action_step_back">Bir seçim geri al</string>
     <string name="action_restart">Hikâyeyi baştan başlat</string>
     <string name="action_documentation">Belgeleri göster</string>
@@ -165,7 +165,7 @@
     <string name="files_add_include">Yeni ink dosyası</string>
     <string name="files_no_project_title">Açık proje yok</string>
     <string name="files_no_project_description">Bir klasör ya da tek bir ink dosyası açın, veya yeni bir proje başlatın.</string>
-    <string name="files_root_folder">Proje klasörü</string>
+    <string name="files_root_folder">Ana klasör</string>
     <string name="include_title">Yeni ink dosyası</string>
     <string name="include_name">Yeni ink dosyasının adı:</string>
     <string name="include_placeholder">Klasör/dosyaAdi.ink</string>
@@ -176,13 +176,13 @@
     <string name="include_added">%1$s eklendi</string>
     <string name="rename_title">Dosyayı yeniden adlandır</string>
     <string name="rename_name">Yeni ad</string>
-    <string name="rename_hint">Dosyayı anan INCLUDE satırları yeniden yazılır.</string>
+    <string name="rename_hint">Bu dosyayı ekleyen INCLUDE satırları yeniden yazılır.</string>
     <string name="rename_exists">%1$s adında bir dosya zaten var.</string>
     <string name="rename_main">Ana dosya yeniden adlandırılamaz: proje adını ondan alır.</string>
     <string name="rename_failed">Dosya yeniden adlandırılamadı: %1$s</string>
     <string name="rename_done">%1$s olarak adlandırıldı</string>
     <string name="delete_title">%1$s silinsin mi?</string>
-    <string name="delete_text">Dosya projeden ve depolamadan kaldırılır. Onu anan INCLUDE satırları olduğu gibi kalır.</string>
+    <string name="delete_text">Dosya projeden ve depolamadan kaldırılır. Bu dosyayı ekleyen INCLUDE satırları olduğu gibi kalır.</string>
     <string name="delete_main">Ana dosya silinemez.</string>
     <string name="delete_failed">Dosya silinemedi: %1$s</string>
     <string name="delete_done">%1$s silindi</string>
@@ -195,10 +195,10 @@
     <string name="conflict_title">%1$s Inky dışında değişti</string>
     <string name="conflict_text">Depolamadaki dosya ile kaydedilmemiş metniniz farklı. Siz seçene kadar hiçbirinin üzerine yazılmaz.</string>
     <string name="conflict_keep_mine">Benimkini koru</string>
-    <string name="conflict_load_theirs">Ötekini yükle</string>
+    <string name="conflict_load_theirs">Depolamadakini yükle</string>
     <string name="storage_problem_title">Proje klasörüne ulaşılamıyor</string>
     <string name="draft_problem_title">Kaydedilmemiş metin bu cihazda güvenceye alınamadı</string>
-    <string name="reload_done">Depolamayla eşit</string>
+    <string name="reload_done">Dosyalar depolamadakiyle aynı</string>
     <string name="settings_problem_title">Proje ayarları hatası</string>
     <string name="settings_problem_empty">Proje ayar dosyası boş görünüyor: %1$s</string>
     <string name="settings_problem_json">Proje ayar dosyası geçerli JSON değil: %1$s: %2$s</string>
@@ -265,7 +265,7 @@
     <string name="restored_notice">Kaydedilmemiş değişiklikler geri getirildi</string>
     <string name="sample_project_name">İlk hikâye</string>
     <string name="no_project_title">Açık proje yok</string>
-    <string name="no_project_description">Bir klasör ya da ink dosyası açın, veya yeni bir proje başlatın.</string>
+    <string name="no_project_description">Bir klasör ya da tek bir ink dosyası açın veya yeni bir proje başlatın.</string>
     <plurals name="player_errors_description">
         <item quantity="one">%d hata hikâyenin oynamasını engelliyor. Ink derlenir derlenmez hikâye burada oynar.</item>
         <item quantity="other">%d hata hikâyenin oynamasını engelliyor. Ink derlenir derlenmez hikâye burada oynar.</item>
@@ -299,8 +299,8 @@
         <item quantity="other">%d sorun</item>
     </plurals>
     <plurals name="reload_report">
-        <item quantity="one">%d dosya depolamayla eşitlendi</item>
-        <item quantity="other">%d dosya depolamayla eşitlendi</item>
+        <item quantity="one">%d dosya depolamadan yenilendi</item>
+        <item quantity="other">%d dosya depolamadan yenilendi</item>
     </plurals>
     <string name="project_open_elsewhere_title">Bu proje başka bir pencerede açık</string>
     <string name="project_open_elsewhere_text">Kaydedilmemiş metni tek bir yerde kalsın diye bir proje aynı anda tek pencerede açılır. Burada başka bir proje seçin ya da öbür pencerede sürdürün.</string>
