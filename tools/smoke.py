@@ -75,14 +75,15 @@ LARGE_WINDOW_DP = 1200
 #   wide=True/False   the window is at least LARGE_WINDOW_DP wide / narrower
 #   only="phone"|"tablet"  the step runs on this profile only
 #   soft=True         a failed check is reported as a warning and does not fail the run
+#   read=False       the screen is only photographed, not read (for screens uiautomator cannot read)
 # A crash (FATAL EXCEPTION, native crash) or an ANR of the app always fails the step.
 # ---------------------------------------------------------------------------------------------
 
 
 def step(name, do=(), expect=(), played=(), absent=(), unplayed=(), foreground=True, same_process=False,
-         new_process=False, wide=None, only=None, soft=False):
+         new_process=False, wide=None, only=None, soft=False, read=True):
     return dict(name=name, do=[list(a) for a in do], expect=list(expect), played=list(played), absent=list(absent),
-                unplayed=list(unplayed),
+                unplayed=list(unplayed), read=read,
                 foreground=foreground, same_process=same_process, new_process=new_process,
                 wide=wide, only=only, soft=soft)
 
@@ -229,32 +230,73 @@ SCENARIO_1_TABLET = [
          expect=[S1_TR["menu_file"], KEPT_WORD], played=[KEPT_WORD], new_process=True),
 ]
 
-# Not an app test: the same two ways of typing before an existing word, in a stock EditText
-# (Settings > About > Device name), to tell the keyboard's behaviour from the editor's. Settings
-# cannot be read by uiautomator here: the screenshots show the result. Run with --scenarios ime-control.
+# Typing on the on-screen keyboard right before an existing word, every way a cursor gets there:
+# after a tap and after Ctrl+Home, with and without a space after the typed word, with and without
+# Enter after it, and after opening an issue. Each victim is a line of its own typed with key events
+# first; ime_type itself fails a step if anything but the typed text changed. Phone only.
+def _victim(line):
+    return TOP + [["type", line], ["key", "ENTER"]]
+
+
+_tap_line_1 = ["tap_field_at", 1, LINE_START_DX, line_dy(1)]
+
+SCENARIO_IME_EXPERIMENTS = [
+    step("ime-setup", only="phone", do=[["locale", "en-US"], ["cold_start"], ["tap", S1["write"]]],
+         expect=[S1["write"]]),
+    step("ime-tap-word", only="phone", do=_victim("Pine tree") + [_tap_line_1, ["ime_type", "tap"], ["hide_keyboard"]],
+         expect=["tappine tree"]),
+    step("ime-tap-word-space", only="phone",
+         do=_victim("Oak tree") + [_tap_line_1, ["ime_type", "tap "], ["hide_keyboard"]], expect=["tap oak tree"]),
+    step("ime-tap-word-enter", only="phone",
+         do=_victim("Bay tree") + [_tap_line_1, ["ime_type", "tap"], ["key", "ENTER"], ["hide_keyboard"]],
+         expect=["bay tree"]),
+    step("ime-home-word", only="phone",
+         do=_victim("Elm tree") + [["key", "CTRL+MOVE_HOME"], ["ime_type", "home"], ["hide_keyboard"]],
+         expect=["homeelm tree"]),
+    step("ime-home-word-space", only="phone",
+         do=_victim("Ash tree") + [["key", "CTRL+MOVE_HOME"], ["ime_type", "home "], ["hide_keyboard"]],
+         expect=["home ash tree"]),
+    step("ime-home-word-enter", only="phone",
+         do=_victim("Fir tree") + [["key", "CTRL+MOVE_HOME"], ["ime_type", "enter"], ["key", "ENTER"],
+                                   ["hide_keyboard"]],
+         expect=["fir tree"]),
+    step("ime-home-word-space-enter", only="phone",
+         do=_victim("Yew tree") + [["key", "CTRL+MOVE_HOME"], ["ime_type", "enter "], ["key", "ENTER"],
+                                   ["hide_keyboard"]],
+         expect=["yew tree"]),
+    step("ime-issue-click-then-type", only="phone",
+         do=_victim("-> missing_knot") + [["hide_keyboard"], ["wait", 3], ["tap", S1["more"]], ["tap", S1["issues"]],
+                                          ["tap_contains", "Divert target not found"], ["wait", 1],
+                                          ["ime_type", "issue"], ["hide_keyboard"]],
+         expect=["missing_knot"]),
+]
+
+# The same in a stock EditText (Settings > About > Device name, "sdk_gphone64_x86_64"), to tell the
+# keyboard's behaviour from the editor's. uiautomator cannot read Settings: the screenshots show the
+# result. Enter would close the dialog, so the Enter variants have no counterpart here.
+_device_name = [["shell", "am start -W -a android.settings.DEVICE_INFO_SETTINGS"],
+                # the "Device name" row and the field's first character, where they are drawn on the phone
+                ["shell", "input tap 300 923"], ["wait", 3]]
+_device_name_again = [["back"], ["back"], ["shell", "input tap 300 923"], ["wait", 3]]
+_field_start = ["shell", "input tap 136 799"]
+
 SCENARIO_IME_CONTROL = [
-    step("control-device-name-home-key", only="phone", foreground=False, soft=True, do=[
-        ["shell", "am start -W -a android.settings.DEVICE_INFO_SETTINGS"],
-        # the "Device name" row, where it is drawn on the phone emulator
-        ["shell", "input tap 300 923"],
-        ["wait", 3],
-        ["key", "CTRL+MOVE_HOME"],
-        ["ime_type", "key"],
-    ]),
-    step("control-device-name-tap", only="phone", foreground=False, soft=True, do=[
-        ["back"], ["back"],
-        ["shell", "input tap 300 923"],
-        ["wait", 3],
-        # the field's first character, where it is drawn
-        ["shell", "input tap 136 799"],
-        ["ime_type", "tap"],
-    ]),
+    step("control-tap-word", only="phone", foreground=False, soft=True, read=False,
+         do=_device_name + [_field_start, ["ime_type", "tap", False]]),
+    step("control-tap-word-space", only="phone", foreground=False, soft=True, read=False,
+         do=_device_name_again + [_field_start, ["ime_type", "tap ", False]]),
+    step("control-home-word", only="phone", foreground=False, soft=True, read=False,
+         do=_device_name_again + [["key", "CTRL+MOVE_HOME"], ["ime_type", "home", False]]),
+    step("control-home-word-space", only="phone", foreground=False, soft=True, read=False,
+         do=_device_name_again + [["key", "CTRL+MOVE_HOME"], ["ime_type", "home ", False], ["back"], ["back"]]),
 ]
 
 SCENARIOS = {
     "1": dict(title="The app: write and play, issues, files, lifecycle, Turkish; the large window's workspace",
               steps=SCENARIO_1_PHONE + SCENARIO_1_TABLET),
-    "ime-control": dict(title="Typing before a word in a stock text field (keyboard behaviour, not the app)",
+    "ime-experiments": dict(title="Typing on the on-screen keyboard before an existing word, every way",
+                            steps=SCENARIO_IME_EXPERIMENTS),
+    "ime-control": dict(title="The same in a stock text field (keyboard behaviour, not the app)",
                         steps=SCENARIO_IME_CONTROL),
 }
 DEFAULT_SCENARIOS = ["1"]
@@ -689,7 +731,7 @@ class Smoke:
         node = next((n for n in nodes if n.focused and n.cls == "android.widget.EditText"), None)
         return None if node is None else node.text
 
-    def do_ime_type(self, text):
+    def do_ime_type(self, text, read=True):
         """Types by tapping the on-screen keyboard's keys, so the text arrives as the owner's typing
         does: through the IME's InputConnection, not as key events. Letters a-z and spaces only (a
         space lets the keyboard autocorrect the word before it). Checks the focused field afterwards."""
@@ -701,7 +743,7 @@ class Smoke:
             raise StepFailure("the on-screen keyboard is not shown")
         left, top, right, bottom = area
         key_w, height = (right - left) / 10, bottom - top
-        before = self.focused_text()
+        before = self.focused_text() if read else None
         for ch in text.lower():
             if ch == " ":
                 x, y = left + (right - left) * self.GBOARD_SPACE[0], top + height * self.GBOARD_SPACE[1]
@@ -714,7 +756,7 @@ class Smoke:
             self.tap_xy(int(x), int(y))
             time.sleep(0.25)
         time.sleep(1)
-        after = self.focused_text()
+        after = self.focused_text() if read else None
         word = text.strip().lower()
         if after is None or before is None:
             self.note("typed on the on-screen keyboard; the field could not be read back")
@@ -793,7 +835,11 @@ class Smoke:
                 getattr(self, "do_" + action[0])(*action[1:])
         except StepFailure as e:
             self.problem(str(e))
-        nodes = self.wait_idle()
+        if st["read"]:
+            nodes = self.wait_idle()
+        else:
+            time.sleep(2)
+            nodes = []
         fname, size, nbytes = self.snap(st["name"])
         labels = self.visible_labels(nodes)
         self.pid = self.current_pid()
@@ -887,12 +933,14 @@ class Smoke:
         shell("settings put global hide_error_dialogs 1")
         if self.profile == "tablet":
             # With a keyboard attached, as in DeX, no on-screen keyboard covers half the window. The
-            # emulator's keyboard does not keep Gboard away (show_ime_with_hard_keyboard 0 was tried),
-            # so the keyboard apps are switched off: key events reach the editor directly.
-            for ime in shell("ime list -s").split():
-                shell(f"ime disable {ime}")
+            # emulator's keyboard does not keep Gboard away (show_ime_with_hard_keyboard 0 and
+            # `ime disable` were tried: Android enables a default keyboard again), so the keyboard
+            # apps are switched off; key events then reach the editor directly.
+            packages = {ime.split("/")[0] for ime in shell("ime list -a -s").split() if "/" in ime}
+            for package in sorted(packages):
+                shell(f"pm disable-user --user 0 {package}")
             left = " ".join(shell("ime list -s").split()) or "none"
-            self.log(f"tablet: on-screen keyboards switched off (enabled now: {left})")
+            self.log(f"tablet: keyboard apps switched off ({', '.join(sorted(packages))}); enabled now: {left}")
         if self.profile == "phone":
             # the owner's phone uses three-button navigation, not gestures
             shell("cmd overlay enable-exclusive --category com.android.internal.systemui.navbar.threebutton")
