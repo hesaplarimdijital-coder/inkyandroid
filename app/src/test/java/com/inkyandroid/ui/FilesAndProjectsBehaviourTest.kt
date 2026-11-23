@@ -108,6 +108,27 @@ class FilesAndProjectsBehaviourTest {
         compose.onNode(hasText("Files.ink") and isSelectable()).assertIsSelected()
     }
 
+    /** DeX: the file shown is renamed; the editor and the sidebar's mark follow it. */
+    @Test
+    @Config(qualifiers = DEX)
+    fun renamingTheFileShownInALargeWindowFollowsIt() {
+        val holder = UiWorld.holder(UiWorld.project("Files", "INCLUDE intro.ink\n-> intro\n", mapOf("intro.ink" to "== intro ==\nHi.\n-> END\n")))
+        launch(holder, DensityPreference.Pointer)
+        val session = compose.awaitSession(holder)
+        compose.awaitStory(session)
+        compose.onNode(hasText("intro.ink") and isSelectable()).performClick()
+        compose.waitFor { session.state.value.activePath == "intro.ink" }
+        compose.runOnUiThread { ui.dialog = WindowDialog.Rename("intro.ink") }
+        compose.waitForIdle()
+        compose.onNode(hasSetTextAction()).performTextReplacement("opening.ink")
+        compose.onNodeWithText("Rename").performClick()
+        compose.waitFor(10_000) { session.project.state.value.files.any { it.path == "opening.ink" } }
+        compose.waitForIdle()
+        assertEquals("renamed, but the editor shows another file", "opening.ink", session.state.value.activePath)
+        compose.onNode(hasText("opening.ink") and isSelectable()).assertIsSelected()
+        assertEquals(Routes.file("opening.ink"), ui.route)
+    }
+
     companion object {
         const val PHONE = "en-w411dp-h891dp-xxhdpi"
         const val DEX = "en-w1920dp-h1080dp-mdpi"

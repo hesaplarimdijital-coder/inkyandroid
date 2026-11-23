@@ -208,10 +208,14 @@ class WindowActions(
         val session = session ?: return
         val folder = ProjectPaths.folder(path)
         val target = if ('/' in newName || folder.isEmpty()) newName.trimStart('/') else "$folder/$newName"
+        val shown = session.state.value.activePath == path
         scope.launch {
             when (val result = session.rename(path, target)) {
                 is RenameResult.Renamed -> {
                     ui.dialog = null
+                    // while the old name is gone and the new one not yet there, the session shows the main
+                    // file: the renamed file stays the one in the editor (and a large window's sidebar follows)
+                    if (shown && session.state.value.activePath != result.to) session.show(result.to, addStep = false)
                     notify(strings.getString(R.string.rename_done, ProjectPaths.name(result.to)))
                 }
                 is RenameResult.AlreadyExists -> ui.dialog = WindowDialog.Rename(path, strings.getString(R.string.rename_exists, ProjectPaths.name(result.path)))
