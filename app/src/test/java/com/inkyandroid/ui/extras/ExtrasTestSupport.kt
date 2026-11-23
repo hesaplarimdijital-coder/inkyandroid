@@ -4,47 +4,47 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
+import com.inkyandroid.R
+import com.inkyandroid.ui.NavFiles
+import com.inkyandroid.ui.Routes
+import com.inkyandroid.ui.buildShellSpec
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import desktopkit.DesktopKitRoot
-import desktopkit.components.DeskIcons
 import desktopkit.components.ToastState
 import desktopkit.settings.DeskPreferences
 import desktopkit.shell.DesktopShell
-import desktopkit.shell.NavItem
-import desktopkit.shell.NavSection
-import desktopkit.shell.ShellSpec
 import desktopkit.shell.ShellTransitions
 import java.io.File
 import java.io.FileOutputStream
 
-/** The shell's routes the extras' screens are shown at in the tests, as the app has them. */
+/** The shell's routes the extras' screens are shown at in the tests: the app's own. */
 object TestRoutes {
-    const val WRITE = "write"
-    const val DOCS = "docs"
-    const val SETTINGS = "settings"
+    const val WRITE = Routes.WRITE
+    const val DOCS = Routes.DOCS
+    const val SETTINGS = Routes.SETTINGS
 }
 
 /**
- * One of the extras' screens inside the kit's root and shell, as the app shows it: a stand-in
- * "write" route first (the phone's bottom bar needs company), the screen at [route].
+ * One of the extras' screens inside the kit's root and the app's own shell (its navigation as
+ * [buildShellSpec] makes it, with a one-file project open), at [route].
  */
 @Composable
 fun ExtrasHost(prefs: DeskPreferences, route: String, toasts: ToastState? = null, screen: @Composable () -> Unit) {
-    val spec = ShellSpec(
-        appTitle = "Inky",
-        sections = listOf(
-            NavSection(
-                null,
-                listOf(
-                    NavItem(TestRoutes.WRITE, "Yaz", DeskIcons.Lyrics),
-                    NavItem(TestRoutes.DOCS, "Belgeler", DeskIcons.Info),
-                ),
-            ),
-        ),
-        footer = NavItem(TestRoutes.SETTINGS, "Ayarlar", DeskIcons.Settings),
-        startRoute = route,
-    )
+    val resources = LocalContext.current.resources
+    val spec = remember(resources, route) {
+        val main = resources.getString(R.string.sample_project_name) + ".ink"
+        buildShellSpec(
+            resources = resources,
+            files = NavFiles(resources.getString(R.string.sample_project_name), main, emptyList(), emptyList()),
+            playOnRail = false,
+            docs = true,
+            settings = true,
+            startRoute = route,
+        )
+    }
     DesktopKitRoot(prefs) { widthClass ->
         DesktopShell(
             spec = spec,

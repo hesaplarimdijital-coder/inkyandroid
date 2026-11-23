@@ -57,9 +57,10 @@ object SettingsTags {
 }
 
 /**
- * The route `settings`: the kit's appearance and input sections and the list of shortcuts (only with
- * a mouse or a keyboard), then the app's own: the editor, the player, files (autosave, the folder new
- * projects go to) and about, from which the licences page opens over the list.
+ * The route `settings`, in architecture 4.3's order: the kit's appearance and input sections, the
+ * app's own (the editor, the player, files: autosave and the folder new projects go to), the list of
+ * shortcuts (only with a mouse or a keyboard; long, so after the settings) and about, from which the
+ * licences page opens over the list.
  *
  * @param prefs the kit's preferences.
  * @param settings the app's settings, changed here as the switches are used.
@@ -127,11 +128,11 @@ private fun SettingsList(
         item(key = "header") { PageHeader(stringResource(desktopkit.R.string.dk_settings)) }
         item(key = "appearance") { AppearanceSection(prefs) }
         item(key = "input") { InputSection(prefs) }
-        // the list of shortcuts only where there is a keyboard to use them with
-        if (keyboard) item(key = "shortcuts") { ShortcutListSection(shortcuts) }
         item(key = "editor") { EditorSection(settings) }
         item(key = "player") { PlayerSection(settings) }
         item(key = "files") { FilesSection(settings, projectsFolder) }
+        // the long list of shortcuts after the settings, and only where there is a keyboard to use them with
+        if (keyboard) item(key = "shortcuts") { ShortcutListSection(shortcuts) }
         item(key = "about") { AboutSection(onOpenLicences) }
     }
 }

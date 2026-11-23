@@ -23,7 +23,7 @@ olarak kurulur.
   satırlarına bağlantı olarak, izleme ifadeleri. Sonu gelmeyen döngüler uygulamayı kilitlemez.
 - **Proje:** bir klasör ve içindeki ana ink dosyası; `INCLUDE` ile çok dosyalı projeler, yeni dosya
   ekleme, yeniden adlandırma, silme. Klasörler Android'in depolama erişimiyle (SAF) açılır; ayrıca
-  uygulamanın içinde tutulan projeler ve yeni projeler için bir proje klasörü. Otomatik kaydetme
+  uygulamanın içinde tutulan projeler ve yeni projelerin oluşturulduğu bir projeler klasörü. Otomatik kaydetme
   (kapatılabilir) ve her zaman taslaklar: kaydedilmemiş metin uygulama kapansa da kaybolmaz.
 - **Gezinmek:** her şeye git (dosyalar, düğümler, dikişler, metin, satır numarası, çalışma yolu), anahat,
   sorunlar listesi, sonraki sorun, geri ve ileri.
@@ -54,7 +54,7 @@ ve ayarlar kalır.
 
 **İlk açılış:** uygulama "İlk hikâye" adlı, uygulamanın içinde tutulan bir projeyle açılır; hemen yazılıp
 oynatılabilir. Kendi klasörlerin için Projeler › Klasör aç (Ctrl+O); yeni projelerin bir klasörde
-oluşması için Ayarlar › Dosyalar › Proje klasörü (örneğin `Documents/Inky`).
+oluşması için Ayarlar › Dosyalar › Projeler klasörü (örneğin `Documents/Inky`).
 
 ## Belgeler
 

@@ -62,7 +62,13 @@ eklenir. ink'in kendi anahtar sözcükleri (`VAR`, `INCLUDE`, `END`, `TODO` …)
 | compile | derlemek | |
 | export | dışa aktarmak | |
 | manual | kılavuz | Belgeler ekranındaki *Writing with ink* |
-| word count and more | proje istatistikleri | upstream'in Story › Word count and more penceresi |
+| word count and more | proje istatistikleri | upstream'in Story › Word count and more penceresi; menüde de bu ad |
 | storylet | hikâyecik | "Yararlı sistemler" parçacıklarından biri |
 | swing variable | salınım değişkeni | "Yararlı sistemler" parçacıklarından biri |
 | monospace, proportional | eş aralıklı, orantılı | düzenleyicinin yazı tipi |
+| projects folder | projeler klasörü | yeni projelerin oluşturulduğu klasör (Ayarlar › Dosyalar) |
+| project's folder | ana klasör | açık projenin kendi klasörü (Dosyalar'daki grup) |
+| Open Recent | son projeler | Projeler ekranındaki liste ve Dosya menüsündeki giriş |
+| tags visible | etiketleri göster | Hikâye menüsü ve Ayarlar › Oynatıcı |
+| reload from storage | depolamadan yeniden yükle | F5; dışarıda değişen dosyaları alır |
+| keep mine, load the stored one | benimkini koru, depolamadakini yükle | dışarıda değişen dosyanın sorusu |
