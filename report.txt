@@ -1,0 +1,300 @@
+Inky device smoke: profile phone, sdk_gphone64_x86_64, Android 14 (API 34), Physical size: 1080x2400, density 420
+navigation bar overlays: [ ] com.android.internal.systemui.navbar.gestural_wide_back; [x] com.android.internal.systemui.navbar.threebutton; [ ] com.android.internal.systemui.navbar.twobutton; [ ] com.android.internal.systemui.navbar.gestural_extra_wide_back; [ ] com.android.internal.systemui.navbar.transparent; [ ] com.android.internal.systemui.navbar.gestural; [ ] com.android.internal.systemui.navbar.gestural_narrow_back
+installed app-release.apk
+
+== Scenario ime-control: Typing before a word in a stock text field (keyboard behaviour, not the app)
+[01] control-device-name-home-key: PASS   (01-control-device-name-home-key.png, 1080x2400 px, 411 dp wide)
+     do: shell am start -W -a android.settings.DEVICE_INFO_SETTINGS; shell input tap 300 923; wait 3; key CTRL+MOVE_HOME; ime_type key
+     $ am start -W -a android.settings.DEVICE_INFO_SETTINGS
+       Starting: Intent { act=android.settings.DEVICE_INFO_SETTINGS }
+Status: ok
+LaunchState: WARM
+Activity: com.android.settings/.Settings$MyDeviceInfoActivity
+TotalTime: 1912
+WaitTime: 1937
+Complete
+     $ input tap 300 923
+     typed on the on-screen keyboard; the field could not be read back
+     uiautomator could not read the screen (it never went idle)
+     visible: 
+[02] control-device-name-tap: PASS   (02-control-device-name-tap.png, 1080x2400 px, 411 dp wide)
+     do: back; back; shell input tap 300 923; wait 3; shell input tap 136 799; ime_type tap
+     $ input tap 300 923
+     $ input tap 136 799
+     typed on the on-screen keyboard; the field could not be read back
+     uiautomator could not read the screen (it never went idle)
+     visible: 
+
+== Scenario 1: The app: write and play, issues, files, lifecycle, Turkish; the large window's workspace
+[03] cold-start-first-story: PASS   (03-cold-start-first-story.png, 1080x2400 px, 411 dp wide)
+     do: locale en-US; cold_start
+     device language already en-US
+     launch: COLD 1427 ms
+     checks: seen 'Write'; seen 'Play'; seen 'Files'; seen 'Once upon a time'; new process 7389
+     visible: Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[04] play-first-story: PASS   (04-play-first-story.png, 1080x2400 px, 411 dp wide)
+     do: tap Play
+     checks: played 'Once upon a time'; played 'There were two choices.'
+     visible: Once upon a time... | There were two choices. | There were four lines of content. | Play | Rewind a single choice | Restart story | Watches | Search or run a command | Write | Files | More
+[05] write-line-with-keys: PASS   (05-write-line-with-keys.png, 1080x2400 px, 411 dp wide)
+     do: tap Write; tap_field 1; key CTRL+MOVE_HOME; type Smoke line from keys.; key ENTER
+     checks: seen 'Smoke line from keys.'
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command
+[06] append-word-on-screen-keyboard: FAIL   (06-append-word-on-screen-keyboard.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; tap_field_at 1 -24 18.0; ime_type  imeword; hide_keyboard
+     text field 1 at [0,128][1080,1517]: tapped at 1017,175
+     typed ' imeword' on the on-screen keyboard; the field now holds it
+     checks: MISSING 'Smoke line from keys. imeword'
+     ! 'Smoke line from keys. imeword' is not on the screen
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Back | imeword | Clear | Esc | All | Files | Knots and stitches | Text | Snippets | Nothing found
+[07] play-typed-text: FAIL   (07-play-typed-text.png, 1080x2400 px, 411 dp wide)
+     do: tap Play
+     checks: NOT PLAYED 'Smoke line from keys.'; NOT PLAYED 'imeword'
+     ! 'Play' is not on the screen
+     ! 'Smoke line from keys.' is not on the screen outside the text fields
+     ! 'imeword' is not on the screen outside the text fields
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Back | imeword | Clear | Esc | All | Files | Knots and stitches | Text | Snippets | Nothing found
+[08] choose: FAIL   (08-choose.png, 1080x2400 px, 411 dp wide)
+     do: tap There were two choices.
+     checks: NOT PLAYED 'They lived happily ever after.'
+     ! 'There were two choices.' is not on the screen
+     ! 'They lived happily ever after.' is not on the screen outside the text fields
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Back | imeword | Clear | Esc | All | Files | Knots and stitches | Text | Snippets | Nothing found
+[09] rewind: FAIL   (09-rewind.png, 1080x2400 px, 411 dp wide)
+     do: tap Rewind a single choice
+     checks: NOT PLAYED 'There were two choices.'; not played 'They lived happily ever after.'
+     ! 'Rewind a single choice' is not on the screen
+     ! 'There were two choices.' is not on the screen outside the text fields
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Back | imeword | Clear | Esc | All | Files | Knots and stitches | Text | Snippets | Nothing found
+[10] restart: FAIL   (10-restart.png, 1080x2400 px, 411 dp wide)
+     do: tap Restart story
+     checks: NOT PLAYED 'Smoke line from keys.'; NOT PLAYED 'There were two choices.'
+     ! 'Restart story' is not on the screen
+     ! 'Smoke line from keys.' is not on the screen outside the text fields
+     ! 'There were two choices.' is not on the screen outside the text fields
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Back | imeword | Clear | Esc | All | Files | Knots and stitches | Text | Snippets | Nothing found
+[11] insert-on-screen-keyboard-after-tap: FAIL   (11-insert-on-screen-keyboard-after-tap.png, 1080x2400 px, 411 dp wide)
+     do: tap Write; tap_field 1; key CTRL+MOVE_HOME; type victimtap; key ENTER; tap_field_at 1 58 18.0; ime_type tap; hide_keyboard
+     checks: MISSING 'tapvictimtap'
+     ! 'Write' is not on the screen
+     ! 'tapvictimtap' is not on the screen
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Back | imeword | Clear | Esc | All | Files | Knots and stitches | Text | Snippets | Nothing found
+[12] insert-on-screen-keyboard-after-home-key: FAIL   (12-insert-on-screen-keyboard-after-home-key.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type victimkey; key ENTER; key CTRL+MOVE_HOME; ime_type key; hide_keyboard
+     checks: MISSING 'keyvictimkey'
+     ! typed 'key' on the on-screen keyboard, but the field reads 'key'
+     ! 'keyvictimkey' is not on the screen
+     visible: Back | key | Clear | Esc | All | Files | Knots and stitches | Text | Snippets | Best match | Keyboard shortcuts | Ctrl+/ | Smoke line from keys. | First story.ink – line 1
+[13] error-in-issues: FAIL   (13-error-in-issues.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type -> smoke_missing_knot; key ENTER; hide_keyboard; wait 3; tap More; tap Issues
+     checks: MISSING '1 error'; NOT PLAYED 'smoke_missing_knot'
+     ! 'More' is not on the screen
+     ! '1 error' is not on the screen
+     ! 'smoke_missing_knot' is not on the screen outside the text fields
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Back | key-> smoke_missing_knot | Clear | Esc | All | Files | Knots and stitches | Text | Snippets | Nothing found
+[14] error-fixed: FAIL   (14-error-fixed.png, 1080x2400 px, 411 dp wide)
+     do: tap Write; tap_field 1; key CTRL+MOVE_HOME; key SHIFT+DPAD_DOWN; key DEL; hide_keyboard; wait 3; tap More; tap Issues
+     checks: MISSING 'No issues'; PRESENT 'smoke_missing_knot'
+     ! 'Write' is not on the screen
+     ! 'No issues' is not on the screen
+     ! 'smoke_missing_knot' is on the screen
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Back | key-> smoke_missing_knot | Clear | Esc | All | Files | Knots and stitches | Text | Snippets | Nothing found
+[15] files: FAIL   (15-files.png, 1080x2400 px, 411 dp wide)
+     do: tap Files
+     checks: MISSING 'First story.ink'
+     ! 'First story.ink' is not on the screen
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Back | key-> smoke_missing_knot | Clear | Esc | All | Files | Knots and stitches | Text | Snippets | Nothing found
+[16] documentation: FAIL   (16-documentation.png, 1080x2400 px, 411 dp wide)
+     do: tap More; tap Documentation; wait 3
+     checks: MISSING 'Writing with ink'
+     ! 'More' is not on the screen
+     ! 'Writing with ink' is not on the screen
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Back | key-> smoke_missing_knot | Clear | Esc | All | Files | Knots and stitches | Text | Snippets | Nothing found
+[17] settings: PASS   (17-settings.png, 1080x2400 px, 411 dp wide)
+     do: back; tap More; tap Settings
+     checks: seen 'Appearance'
+     visible: Appearance | Theme | System | Light | Dark | OLED black | Accent colour | Blue | Amber | Green | Coral | Input | Interface density | Touch | Mouse and keyboard | Automatic (follows mouse or touch) | Keyboard shortcuts | File | New project… | Ctrl+N | New included ink file… | Ctrl+Alt+N | Open folder… | Ctrl+O | Open file… | Ctrl+Shift+O | Save project | Ctrl+S | Reload from storage | F5 | Export story.js only… | Ctrl+Alt+S | New window | Ctrl+Shift+N | Close project | Ctrl+W | Settings | Search or run a command | Write | Play | Files | More
+[18] editor-again: FAIL   (18-editor-again.png, 1080x2400 px, 411 dp wide)
+     do: tap Write
+     checks: seen 'Smoke line from keys.'; MISSING 'imeword'
+     ! 'imeword' is not on the screen
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[19] rotated: PASS   (19-rotated.png, 2400x1080 px, 914 dp wide)
+     do: rotate flip
+     rotated: 1080x2400 -> 2400x1080 px
+     checks: seen 'Smoke line from keys.'; same process 7389
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Write | Search or run a command | Menus | Files | Projects | Documentation | Settings
+[20] rotated-back: PASS   (20-rotated-back.png, 1080x2400 px, 411 dp wide)
+     do: rotate natural
+     rotated: 2400x1080 -> 1080x2400 px
+     checks: seen 'Smoke line from keys.'; same process 7389
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[21] background-foreground: PASS   (21-background-foreground.png, 1080x2400 px, 411 dp wide)
+     do: home; launch
+     launch: HOT 151 ms
+     checks: seen 'Smoke line from keys.'; same process 7389
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[22] process-death-restored: FAIL   (22-process-death-restored.png, 1080x2400 px, 411 dp wide)
+     do: home; kill_background; launch
+     process 7389 killed in the background
+     launch: COLD 862 ms
+     checks: seen 'Smoke line from keys.'; MISSING 'imeword'; new process 10221
+     ! 'imeword' is not on the screen
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[23] typed-then-force-stopped: FAIL   (23-typed-then-force-stopped.png, 1080x2400 px, 411 dp wide)
+     do: tap Write; tap_field 1; key CTRL+MOVE_HOME; tap_field_at 1 -24 18.0; ime_type  keptword; wait 3; force_stop; launch
+     text field 1 at [0,128][1080,1517]: tapped at 1017,175
+     typed ' keptword' on the on-screen keyboard; the field now holds it
+     launch: COLD 752 ms
+     checks: MISSING 'keptword'; seen 'Smoke line from keys.'; MISSING 'imeword'; new process 10567
+     ! 'keptword' is not on the screen
+     ! 'imeword' is not on the screen
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[24] turkish: FAIL   (24-turkish.png, 1080x2400 px, 411 dp wide)
+     do: locale tr-TR; cold_start
+     device language switched to tr-TR (framework restarted)
+     launch: COLD 1848 ms
+     checks: seen 'Yaz'; seen 'Oyna'; seen 'Dosyalar'; MISSING 'keptword'; new process 13903
+     ! 'keptword' is not on the screen
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Oyna | Geri al | Diğer seçenekler | Ara veya komut çalıştır | Yaz | Dosyalar | Daha fazla
+[25] turkish-play: FAIL   (25-turkish-play.png, 1080x2400 px, 411 dp wide)
+     do: tap Oyna
+     checks: NOT PLAYED 'keptword'; played 'There were two choices.'
+     ! 'keptword' is not on the screen outside the text fields
+     visible: Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Oyna | Bir seçim geri al | Hikâyeyi baştan başlat | İzleme | Ara veya komut çalıştır | Yaz | Dosyalar | Daha fazla
+
+language changes: the device language
+failed steps: append-word-on-screen-keyboard, play-typed-text, choose, rewind, restart, insert-on-screen-keyboard-after-tap, insert-on-screen-keyboard-after-home-key, error-in-issues, error-fixed, files, documentation, editor-again, process-death-restored, typed-then-force-stopped, turkish, turkish-play
+RESULT: FAIL

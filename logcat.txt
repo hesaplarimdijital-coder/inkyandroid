@@ -1,0 +1,587 @@
+11-23 00:02:47.436  1097  1097 D CarrierSvcBindHelper: onPackageAdded: com.inkyandroid
+11-23 00:02:47.448  1097  1406 D ImsResolver: maybeAddedImsService, packageName: com.inkyandroid
+11-23 00:02:47.456   536   840 I SdkSandboxManager: No SDKs used. Skipping SDK data reconcilation for CallingInfo{mUid=10192, mPackageName='com.inkyandroid, mAppProcessToken='null'}
+11-23 00:02:48.137  1730  1730 I AiAiEcho: AppFetcherImplV2 updateApps package:[com.inkyandroid], userId:[0], reason:[package is added.].
+11-23 00:02:48.274  1097  1097 D CarrierSvcBindHelper: onPackageModified: com.inkyandroid
+11-23 00:02:48.364  1097  1406 D ImsResolver: maybeAddedImsService, packageName: com.inkyandroid
+11-23 00:02:48.411  1730  1730 I AiAiEcho: AppFetcherImpl onPackageChanged com.inkyandroid.
+11-23 00:02:48.411  1730  3071 I AiAiEcho: AppIndexer Package:[com.inkyandroid] UserProfile:[0] Enabled:[true].
+11-23 00:02:48.411  1730  3071 I AiAiEcho: AppFetcherImplV2 updateApps package:[com.inkyandroid], userId:[0], reason:[package is updated.].
+11-23 00:02:51.342   871   871 I SafetyLabelChangedBroadcastReceiver: received broadcast packageName: com.inkyandroid, current user: UserHandle{0}, packageChangeEvent: NEW_INSTALL, intent user: UserHandle{0}
+11-23 00:02:55.147  1508  5339 I BlockstoreStorage: Clearing Blockstore Data for package com.inkyandroid [CONTEXT service_id=258 ]
+11-23 00:02:55.181  1455  5235 I FontLog : Package com.inkyandroid has no metadata [CONTEXT service_id=132 ]
+11-23 00:10:12.738   536  2444 I ActivityManager: Force stopping com.inkyandroid appid=10192 user=0: from pid 7380
+11-23 00:10:12.748  1097  1097 D CarrierSvcBindHelper: onHandleForceStop: [com.inkyandroid]
+11-23 00:10:13.810   869   910 V WindowManagerShell: Transition requested: android.os.BinderProxy@5fccd74 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity } baseActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} topActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} origActivity=null realActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} numActivities=1 lastActiveTime=515230 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@ef5029d} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{78c2312 com.inkyandroid.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-23 00:10:13.811   536  2444 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity} with LAUNCH_MULTIPLE from uid 0 (BAL_ALLOW_ALLOWLISTED_UID) result code=0
+11-23 00:10:13.847   536   567 I ActivityManager: Start proc 7389:com.inkyandroid/u0a192 for next-top-activity {com.inkyandroid/com.inkyandroid.MainActivity}
+11-23 00:10:13.864  7389  7389 I com.inkyandroid: Using CollectorTypeCC GC.
+11-23 00:10:13.864  7389  7389 W com.inkyandroid: Unexpected CPU variant for x86: x86_64.
+11-23 00:10:13.864  7389  7389 W com.inkyandroid: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-23 00:10:13.866  7389  7389 E com.inkyandroid: Not starting debugger since process cannot load the jdwp agent.
+11-23 00:10:14.040  7389  7389 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 10192; state: ENABLED
+11-23 00:10:14.040  7389  7389 D CompatibilityChangeReporter: Compat change id reported: 242716250; UID 10192; state: ENABLED
+11-23 00:10:14.051  7389  7389 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+11-23 00:10:14.051  7389  7389 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+11-23 00:10:14.085  7389  7389 D nativeloader: Configuring clns-6 for other apk /data/app/~~EhORaz3eLYy6j_aoP7s3WA==/com.inkyandroid-OViVG-XPqJZUUKxhQlL4rg==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~EhORaz3eLYy6j_aoP7s3WA==/com.inkyandroid-OViVG-XPqJZUUKxhQlL4rg==/lib/x86_64:/data/app/~~EhORaz3eLYy6j_aoP7s3WA==/com.inkyandroid-OViVG-XPqJZUUKxhQlL4rg==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.inkyandroid
+11-23 00:10:14.160  7389  7389 V GraphicsEnvironment: Currently set values for:
+11-23 00:10:14.161  7389  7389 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+11-23 00:10:14.161  7389  7389 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+11-23 00:10:14.161  7389  7389 V GraphicsEnvironment: ANGLE GameManagerService for com.inkyandroid: false
+11-23 00:10:14.161  7389  7389 V GraphicsEnvironment: com.inkyandroid is not listed in per-application setting
+11-23 00:10:14.162  7389  7389 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+11-23 00:10:14.192  7389  7412 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+11-23 00:10:14.202  7389  7412 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+11-23 00:10:14.203  7389  7412 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+11-23 00:10:14.514   536   555 V WindowManager: Sent Transition #11 createdAt=11-23 00:10:13.790 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity } baseActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} topActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} origActivity=null realActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} numActivities=1 lastActiveTime=515230 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{20b13e9 Task{cce5d09 #9 type=standard A=10192:com.inkyandroid}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{dfea86e com.inkyandroid.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-23 00:10:14.514   536   555 V WindowManager:     info={id=11 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{20b13e9 Task{cce5d09 #9 type=standard A=10192:com.inkyandroid}}} m=OPEN f=NONE leash=Surface(name=Task=9)/@0xc7816b3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{d520424 TaskFragment{14e9205 mode=fullscreen}}} m=TO_BACK f=IN_TASK_WITH_EMBEDDED_ACTIVITY|FILLS_TASK p=WCT{RemoteToken{95de64d Task{94f73b4 #8 type=standard A=1000:com.android.settings}}} leash=Surface(name=TaskFragment{14e9205 mode=fullscreen})/@0x449eeea sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{95de64d Task{94f73b4 #8 type=standard A=1000:com.android.settings}}} m=TO_BACK f=NONE leash=Surface(name=Task=8)/@0x850a177 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-23 00:10:14.560  7389  7389 D CompatibilityChangeReporter: Compat change id reported: 237531167; UID 10192; state: DISABLED
+11-23 00:10:14.561  7389  7389 W OpenGLRenderer: Unknown dataspace 0
+11-23 00:10:14.601   536  1234 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@13412a3, mPriority=-1, mIsAnimationCallback=false}
+11-23 00:10:14.699  7389  7389 D CompatibilityChangeReporter: Compat change id reported: 193247900; UID 10192; state: ENABLED
+11-23 00:10:14.900  7389  7410 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+11-23 00:10:14.935  7389  7410 I Gralloc4: mapper 4.x is not supported
+11-23 00:10:15.223  7389  7389 I Choreographer: Skipped 33 frames!  The application may be doing too much work on its main thread.
+11-23 00:10:15.233   536   555 I ActivityTaskManager: Displayed com.inkyandroid/.MainActivity for user 0: +1s427ms
+11-23 00:10:15.234  7389  7401 I OpenGLRenderer: Davey! duration=1051ms; Flags=1, FrameTimelineVsyncId=28198, IntendedVsync=515590995087, Vsync=516007661737, InputEventId=0, HandleInputStart=516020366108, AnimationStart=516020366769, PerformTraversalsStart=516020503622, DrawStart=516378850115, FrameDeadline=515607661753, FrameInterval=516020220061, FrameStartTime=16666666, SyncQueued=516390922930, SyncStart=516391116832, IssueDrawCommandsStart=516391597675, SwapBuffers=516525531286, FrameCompleted=516642980317, DequeueBufferDuration=2724, QueueBufferDuration=200317, GpuCompleted=516642980317, SwapBuffersCompleted=516631960800, DisplayPresentTime=0, CommandSubmissionCompleted=516525531286, 
+11-23 00:10:15.244   536  2092 W InputManager-JNI: Input channel object 'f69437d Splash Screen com.inkyandroid (client)' was disposed without first being removed with the input manager!
+11-23 00:10:15.308   536  2092 I ImeTracker: com.inkyandroid:eff0b34c: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+11-23 00:10:15.324  7389  7389 D CompatibilityChangeReporter: Compat change id reported: 247079863; UID 10192; state: ENABLED
+11-23 00:10:15.365   536  1234 W ProcessStats: Tracking association SourceState{8666e7e com.inkyandroid/10192 BTop #14335} whose proc state 2 is better than process ProcessState{4decf75 com.google.android.gms.persistent/10128 pkg=com.google.android.gms} proc state 4 (260 skipped)
+11-23 00:10:15.371  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=0 fieldName=null extras=null}, false)
+11-23 00:10:15.372  1098  1098 I ImeTracker: com.inkyandroid:eff0b34c: onHidden
+11-23 00:10:15.805  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=0 fieldName=null extras=null}, false)
+11-23 00:10:15.972  7389  7389 D CompatibilityChangeReporter: Compat change id reported: 210923482; UID 10192; state: ENABLED
+11-23 00:10:15.982  7389  7389 D AutofillManager: notifyViewEnteredForFillDialog:1073741825
+11-23 00:10:20.030  7389  7459 D ProfileInstaller: Installing profile for com.inkyandroid
+11-23 00:10:27.613   536  2727 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@3e5bf86, mPriority=0, mIsAnimationCallback=true}
+11-23 00:10:27.626  7389  7410 D EGL_emulation: app_time_stats: avg=1378.92ms min=16.79ms max=11566.78ms count=9
+11-23 00:10:38.945  7389  7389 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=androidx.navigationevent.OnBackInvokedInput$createOnBackAnimationCallback$1@46caa18
+11-23 00:10:38.946   536   947 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@ab54665, mPriority=-1, mIsAnimationCallback=false}
+11-23 00:10:38.960  7389  7410 D EGL_emulation: app_time_stats: avg=2828.90ms min=23.58ms max=11168.71ms count=4
+11-23 00:10:38.988  7389  7389 D AutofillManager: notifyViewEnteredForFillDialog:1073741826
+11-23 00:10:44.773  7389  7389 D CompatibilityChangeReporter: Compat change id reported: 163400105; UID 10192; state: ENABLED
+11-23 00:10:44.774  7389  7389 I ImeTracker: com.inkyandroid:c578669d: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+11-23 00:10:44.774  7389  7389 D InputMethodManager: showSoftInput() view=desktopkit.editor.CodeEditorView{6032009 VFED..CL. .F.P..ID 0,0-1080,2272 aid=1073741826} flags=0 reason=SHOW_SOFT_INPUT
+11-23 00:10:44.776  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x2c001(Normal) imeOptions=0x52000001 privateImeOptions=null actionName=NONE actionLabel=null actionId=0 initialSelStart=103 initialSelEnd=103 initialCapsMode=0x0 hintText=non-empty label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=null}, false)
+11-23 00:10:44.778  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1995 onStartInputView(EditorInfo{inputType=0x2c001(Normal) imeOptions=0x52000001 privateImeOptions=null actionName=NONE actionLabel=null actionId=0 initialSelStart=103 initialSelEnd=103 initialCapsMode=0x0 hintText=non-empty label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=null}, false)
+11-23 00:10:44.780  1622  1622 I AndroidIME: AbstractIme.onActivate():86 LatinIme.onActivate() : EditorInfo = inputType=0x2c001(Normal) imeOptions=0x52000001 privateImeOptions=null actionName=NONE actionLabel=null actionId=0 initialSelStart=103 initialSelEnd=103 initialCapsMode=0x0 hintText=non-empty label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=null, IncognitoMode = false, DeviceLocked = false
+11-23 00:10:44.799  7389  7389 I AssistStructure: Flattened final assist data: 920 bytes, containing 2 windows, 4 views
+11-23 00:10:44.800   536  1234 D ContentCapturePerUserService: Notified activity assist data for activity: Token{22c8b0e ActivityRecord{2ca9e10 u0 com.inkyandroid/.MainActivity t9}} without a session Id
+11-23 00:10:44.803  7389  7410 D EGL_emulation: app_time_stats: avg=1459.64ms min=24.08ms max=5732.38ms count=4
+11-23 00:10:45.104   536  1234 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@b99364e, mPriority=0, mIsAnimationCallback=false}
+11-23 00:10:45.164  7389  7389 D InsetsController: show(ime(), fromIme=true)
+11-23 00:10:45.338  7389  7389 I ImeTracker: com.inkyandroid:c578669d: onShown
+11-23 00:10:45.474  7389  7395 I com.inkyandroid: Compiler allocated 4472KB to compile void desktopkit.shell.DesktopShellKt.ShellContent(desktopkit.shell.ShellSpec, desktopkit.shell.WidthClass, androidx.compose.ui.Modifier, androidx.navigation.NavHostController, boolean, kotlin.jvm.functions.Function1, java.util.Map, java.util.Map, kotlin.jvm.functions.Function3, java.util.List, kotlin.jvm.functions.Function0, java.lang.String, java.lang.String, kotlin.jvm.functions.Function3, boolean, desktopkit.shell.ShellTransitions, boolean, java.util.List, boolean, desktopkit.theme.MotionTier, desktopkit.theme.GlassMode, desktopkit.components.ToastState, kotlin.jvm.functions.Function2, desktopkit.shell.NavDrop, kotlin.jvm.functions.Function1, kotlin.jvm.functions.Function4, androidx.compose.runtime.Composer, int, int, int)
+11-23 00:10:45.826  7389  7410 D EGL_emulation: app_time_stats: avg=126.53ms min=29.07ms max=296.66ms count=8
+11-23 00:10:46.817  7389  7389 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.widget.PopupWindow$PopupDecorView$$ExternalSyntheticLambda0@84378d2
+11-23 00:10:46.886  7389  7410 D EGL_emulation: app_time_stats: avg=195.60ms min=23.89ms max=530.75ms count=5
+11-23 00:10:47.896  7389  7410 D EGL_emulation: app_time_stats: avg=47.72ms min=22.65ms max=100.10ms count=15
+11-23 00:10:48.965  7389  7410 D EGL_emulation: app_time_stats: avg=45.68ms min=25.87ms max=78.73ms count=17
+11-23 00:10:49.995  7389  7410 D EGL_emulation: app_time_stats: avg=50.99ms min=27.00ms max=141.15ms count=17
+11-23 00:10:51.372  7389  7410 D EGL_emulation: app_time_stats: avg=193.52ms min=24.05ms max=430.31ms count=7
+11-23 00:10:52.862  7389  7410 D EGL_emulation: app_time_stats: avg=496.62ms min=490.57ms max=500.77ms count=3
+11-23 00:10:53.888  7389  7410 D EGL_emulation: app_time_stats: avg=252.63ms min=26.09ms max=499.84ms count=4
+11-23 00:10:54.889  7389  7410 D EGL_emulation: app_time_stats: avg=500.26ms min=500.06ms max=500.47ms count=2
+11-23 00:10:55.638  7389  7389 E FrameTracker: force finish cuj, time out: J<IME_INSETS_ANIMATION::0@1@com.inkyandroid>
+11-23 00:10:55.894  7389  7410 D EGL_emulation: app_time_stats: avg=502.74ms min=499.58ms max=505.90ms count=2
+11-23 00:10:56.906  7389  7410 D EGL_emulation: app_time_stats: avg=505.71ms min=500.72ms max=510.70ms count=2
+11-23 00:10:57.906  7389  7410 D EGL_emulation: app_time_stats: avg=499.90ms min=498.40ms max=501.39ms count=2
+11-23 00:10:59.405  7389  7410 D EGL_emulation: app_time_stats: avg=499.53ms min=498.26ms max=500.27ms count=3
+11-23 00:11:00.405  7389  7410 D EGL_emulation: app_time_stats: avg=500.03ms min=499.48ms max=500.59ms count=2
+11-23 00:11:01.905  7389  7410 D EGL_emulation: app_time_stats: avg=499.99ms min=499.21ms max=500.74ms count=3
+11-23 00:11:02.303  7389  7389 I ImeTracker: com.inkyandroid:8bfdf494: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+11-23 00:11:02.303  7389  7389 D InputMethodManager: showSoftInput() view=desktopkit.editor.CodeEditorView{6032009 VFED..CL. .F.P.... 0,0-1080,1389 aid=1073741826} flags=0 reason=SHOW_SOFT_INPUT
+11-23 00:11:02.330  7389  7389 D InsetsController: show(ime(), fromIme=true)
+11-23 00:11:02.330  7389  7389 I ImeTracker: com.inkyandroid:8bfdf494: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+11-23 00:11:02.939  7389  7410 D EGL_emulation: app_time_stats: avg=196.84ms min=55.44ms max=447.35ms count=5
+11-23 00:11:04.393  7389  7410 D EGL_emulation: app_time_stats: avg=234.40ms min=32.21ms max=501.95ms count=6
+11-23 00:11:05.888  7389  7410 D EGL_emulation: app_time_stats: avg=498.37ms min=497.32ms max=499.58ms count=3
+11-23 00:11:06.305  7389  7389 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.widget.PopupWindow$PopupDecorView$$ExternalSyntheticLambda0@6bfb965
+11-23 00:11:07.411  7389  7410 D EGL_emulation: app_time_stats: avg=507.72ms min=490.35ms max=523.75ms count=3
+11-23 00:11:08.905  7389  7410 D EGL_emulation: app_time_stats: avg=497.76ms min=492.91ms max=500.24ms count=3
+11-23 00:11:09.319   536  1781 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@cb3067, mPriority=0, mIsAnimationCallback=true}
+11-23 00:11:09.362  7389  7389 D CompatibilityChangeReporter: Compat change id reported: 289878283; UID 10192; state: ENABLED
+11-23 00:11:09.428   536  1781 I ImeTracker: com.inkyandroid:41c83eae: onRequestShow at ORIGIN_SERVER_START_INPUT reason ATTACH_NEW_INPUT
+11-23 00:11:09.428   536  1781 I ImeTracker: com.inkyandroid:1f172ea4: onRequestShow at ORIGIN_SERVER_START_INPUT reason ATTACH_NEW_INPUT
+11-23 00:11:09.429  7389  7389 I ImeTracker: com.inkyandroid:7f11795a: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT_BY_INSETS_API
+11-23 00:11:09.429  7389  7389 D InsetsController: show(ime(), fromIme=false)
+11-23 00:11:09.429  7389  7389 I ImeTracker: com.inkyandroid:7f11795a: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+11-23 00:11:09.433  7389  7389 I AssistStructure: Flattened final assist data: 2036 bytes, containing 1 windows, 9 views
+11-23 00:11:09.434   536  1781 D ContentCapturePerUserService: Notified activity assist data for activity: Token{22c8b0e ActivityRecord{2ca9e10 u0 com.inkyandroid/.MainActivity t9}} without a session Id
+11-23 00:11:09.435  7389  7389 I ImeTracker: com.inkyandroid:1ea454dc: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+11-23 00:11:09.435  7389  7389 D InputMethodManager: showSoftInput() view=androidx.compose.ui.platform.AndroidComposeView{3c982bd VFED..... .F....ID 0,0-1080,2400 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+11-23 00:11:09.450  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[mParcelledData.dataSize=404]}, false)
+11-23 00:11:09.451  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1995 onStartInputView(EditorInfo{inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}]}, false)
+11-23 00:11:09.453  1622  1622 I AndroidIME: AbstractIme.onActivate():86 LatinIme.onActivate() : EditorInfo = inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}], IncognitoMode = false, DeviceLocked = false
+11-23 00:11:09.488  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[mParcelledData.dataSize=404]}, true)
+11-23 00:11:09.493  7389  7389 D InsetsController: show(ime(), fromIme=true)
+11-23 00:11:09.493  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1995 onStartInputView(EditorInfo{inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}]}, true)
+11-23 00:11:09.493  7389  7389 I ImeTracker: com.inkyandroid:41c83eae: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+11-23 00:11:09.494   536   947 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@eeb0157, mPriority=0, mIsAnimationCallback=false}
+11-23 00:11:09.502  1622  1622 I AndroidIME: AbstractIme.onActivate():86 LatinIme.onActivate() : EditorInfo = inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}], IncognitoMode = false, DeviceLocked = false
+11-23 00:11:09.526  7389  7389 D InsetsController: show(ime(), fromIme=true)
+11-23 00:11:09.526  7389  7389 I ImeTracker: com.inkyandroid:1f172ea4: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+11-23 00:11:09.527  7389  7389 D InsetsController: show(ime(), fromIme=true)
+11-23 00:11:09.527  7389  7389 I ImeTracker: com.inkyandroid:1ea454dc: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+11-23 00:11:09.959  7389  7410 D EGL_emulation: app_time_stats: avg=260.84ms min=24.31ms max=511.41ms count=4
+11-23 00:11:10.960  7389  7410 D EGL_emulation: app_time_stats: avg=500.32ms min=497.04ms max=503.61ms count=2
+11-23 00:11:11.960  7389  7410 D EGL_emulation: app_time_stats: avg=499.98ms min=499.72ms max=500.25ms count=2
+11-23 00:11:13.022  7389  7410 D EGL_emulation: app_time_stats: avg=210.92ms min=27.82ms max=495.19ms count=5
+11-23 00:11:14.112  7389  7410 D EGL_emulation: app_time_stats: avg=132.93ms min=28.91ms max=244.70ms count=8
+11-23 00:11:14.135  7389  7395 I com.inkyandroid: Compiler allocated 5428KB to compile void desktopkit.components.CommandPaletteKt.PalettePanel(desktopkit.components.CommandPaletteState, boolean, kotlin.jvm.functions.Function1, java.util.List, java.lang.String, androidx.compose.ui.Modifier, androidx.compose.runtime.Composer, int)
+11-23 00:11:15.392  7389  7410 D EGL_emulation: app_time_stats: avg=252.58ms min=23.27ms max=500.63ms count=5
+11-23 00:11:16.891  7389  7410 D EGL_emulation: app_time_stats: avg=499.61ms min=499.25ms max=500.23ms count=3
+11-23 00:11:17.759   536   947 I ImeTracker: com.inkyandroid:d96e4c90: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_SOFT_INPUT_BY_BACK_KEY
+11-23 00:11:17.800  7389  7389 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=ImeCallback=ImeOnBackInvokedCallback@84196987 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@a805d86
+11-23 00:11:17.801   536   947 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@8e9b551, mPriority=0, mIsAnimationCallback=true}
+11-23 00:11:17.853  7389  7389 I ImeTracker: com.inkyandroid:26bd869: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT_BY_INSETS_API
+11-23 00:11:17.857   536  1234 I ImeTracker: com.inkyandroid:26bd869: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-23 00:11:17.858  7389  7389 I ImeTracker: com.inkyandroid:d96e4c90: onHidden
+11-23 00:11:17.920  7389  7410 D EGL_emulation: app_time_stats: avg=342.70ms min=80.49ms max=503.02ms count=3
+11-23 00:11:18.950  7389  7410 D EGL_emulation: app_time_stats: avg=254.19ms min=33.23ms max=503.10ms count=4
+11-23 00:11:19.960  7389  7410 D EGL_emulation: app_time_stats: avg=505.09ms min=495.19ms max=514.99ms count=2
+11-23 00:11:21.460  7389  7410 D EGL_emulation: app_time_stats: avg=500.04ms min=498.93ms max=500.80ms count=3
+11-23 00:11:22.461  7389  7410 D EGL_emulation: app_time_stats: avg=500.28ms min=500.20ms max=500.37ms count=2
+11-23 00:11:23.961  7389  7410 D EGL_emulation: app_time_stats: avg=500.10ms min=499.07ms max=500.65ms count=3
+11-23 00:11:25.462  7389  7410 D EGL_emulation: app_time_stats: avg=500.12ms min=477.64ms max=522.21ms count=3
+11-23 00:11:26.960  7389  7410 D EGL_emulation: app_time_stats: avg=499.51ms min=499.18ms max=499.75ms count=3
+11-23 00:11:27.961  7389  7410 D EGL_emulation: app_time_stats: avg=500.28ms min=499.36ms max=501.20ms count=2
+11-23 00:11:28.114  7389  7389 E FrameTracker: force finish cuj, time out: J<IME_INSETS_ANIMATION::1@1@com.inkyandroid>
+11-23 00:11:28.961  7389  7410 D EGL_emulation: app_time_stats: avg=500.02ms min=496.32ms max=503.72ms count=2
+11-23 00:11:30.460  7389  7410 D EGL_emulation: app_time_stats: avg=499.59ms min=498.69ms max=500.38ms count=3
+11-23 00:11:31.461  7389  7410 D EGL_emulation: app_time_stats: avg=500.48ms min=500.43ms max=500.53ms count=2
+11-23 00:11:32.962  7389  7410 D EGL_emulation: app_time_stats: avg=500.27ms min=499.66ms max=501.16ms count=3
+11-23 00:11:34.464  7389  7410 D EGL_emulation: app_time_stats: avg=500.44ms min=498.40ms max=503.67ms count=3
+11-23 00:11:35.477  7389  7410 D EGL_emulation: app_time_stats: avg=506.56ms min=495.78ms max=517.34ms count=2
+11-23 00:11:36.477  7389  7410 D EGL_emulation: app_time_stats: avg=499.97ms min=498.08ms max=501.87ms count=2
+11-23 00:11:37.477  7389  7410 D EGL_emulation: app_time_stats: avg=500.15ms min=498.14ms max=502.15ms count=2
+11-23 00:11:38.998  7389  7410 D EGL_emulation: app_time_stats: avg=506.83ms min=498.96ms max=520.74ms count=3
+11-23 00:11:40.479  7389  7410 D EGL_emulation: app_time_stats: avg=493.51ms min=479.33ms max=503.10ms count=3
+11-23 00:11:41.977  7389  7410 D EGL_emulation: app_time_stats: avg=499.34ms min=496.83ms max=501.22ms count=3
+11-23 00:11:42.977  7389  7410 D EGL_emulation: app_time_stats: avg=500.07ms min=498.58ms max=501.57ms count=2
+11-23 00:11:43.977  7389  7410 D EGL_emulation: app_time_stats: avg=500.16ms min=500.04ms max=500.28ms count=2
+11-23 00:11:45.477  7389  7410 D EGL_emulation: app_time_stats: avg=500.00ms min=499.27ms max=500.37ms count=3
+11-23 00:11:46.480  7389  7410 D EGL_emulation: app_time_stats: avg=501.20ms min=499.27ms max=503.14ms count=2
+11-23 00:11:47.977  7389  7410 D EGL_emulation: app_time_stats: avg=499.03ms min=497.13ms max=499.97ms count=3
+11-23 00:11:48.977  7389  7410 D EGL_emulation: app_time_stats: avg=500.08ms min=499.16ms max=501.00ms count=2
+11-23 00:11:49.994  7389  7410 D EGL_emulation: app_time_stats: avg=508.20ms min=499.80ms max=516.59ms count=2
+11-23 00:11:50.995  7389  7410 D EGL_emulation: app_time_stats: avg=500.50ms min=500.16ms max=500.85ms count=2
+11-23 00:11:52.494  7389  7410 D EGL_emulation: app_time_stats: avg=499.67ms min=499.20ms max=500.01ms count=3
+11-23 00:11:53.495  7389  7410 D EGL_emulation: app_time_stats: avg=500.48ms min=499.45ms max=501.51ms count=2
+11-23 00:11:54.496  7389  7410 D EGL_emulation: app_time_stats: avg=499.85ms min=498.31ms max=501.38ms count=2
+11-23 00:11:55.994  7389  7410 D EGL_emulation: app_time_stats: avg=499.26ms min=497.71ms max=500.11ms count=3
+11-23 00:11:56.994  7389  7410 D EGL_emulation: app_time_stats: avg=500.18ms min=499.89ms max=500.46ms count=2
+11-23 00:11:58.494  7389  7410 D EGL_emulation: app_time_stats: avg=499.90ms min=499.40ms max=500.30ms count=3
+11-23 00:11:59.494  7389  7410 D EGL_emulation: app_time_stats: avg=500.02ms min=499.77ms max=500.27ms count=2
+11-23 00:12:00.496  7389  7410 D EGL_emulation: app_time_stats: avg=500.72ms min=498.89ms max=502.54ms count=2
+11-23 00:12:01.993  7389  7410 D EGL_emulation: app_time_stats: avg=498.90ms min=495.31ms max=501.60ms count=3
+11-23 00:12:02.996  7389  7410 D EGL_emulation: app_time_stats: avg=501.51ms min=500.29ms max=502.73ms count=2
+11-23 00:12:04.010  7389  7410 D EGL_emulation: app_time_stats: avg=506.82ms min=498.81ms max=514.82ms count=2
+11-23 00:12:05.011  7389  7410 D EGL_emulation: app_time_stats: avg=500.66ms min=500.53ms max=500.78ms count=2
+11-23 00:12:06.510  7389  7410 D EGL_emulation: app_time_stats: avg=499.52ms min=496.69ms max=502.82ms count=3
+11-23 00:12:08.010  7389  7410 D EGL_emulation: app_time_stats: avg=500.08ms min=479.10ms max=519.70ms count=3
+11-23 00:12:09.510  7389  7410 D EGL_emulation: app_time_stats: avg=499.79ms min=498.18ms max=501.44ms count=3
+11-23 00:12:10.511  7389  7410 D EGL_emulation: app_time_stats: avg=500.38ms min=499.44ms max=501.32ms count=2
+11-23 00:12:11.511  7389  7410 D EGL_emulation: app_time_stats: avg=500.19ms min=499.68ms max=500.69ms count=2
+11-23 00:12:13.011  7389  7410 D EGL_emulation: app_time_stats: avg=499.78ms min=499.42ms max=500.10ms count=3
+11-23 00:12:14.512  7389  7410 D EGL_emulation: app_time_stats: avg=500.53ms min=498.99ms max=502.09ms count=3
+11-23 00:12:16.011  7389  7410 D EGL_emulation: app_time_stats: avg=499.37ms min=498.93ms max=499.65ms count=3
+11-23 00:12:17.011  7389  7410 D EGL_emulation: app_time_stats: avg=500.08ms min=499.64ms max=500.53ms count=2
+11-23 00:12:18.515  7389  7410 D EGL_emulation: app_time_stats: avg=501.26ms min=499.62ms max=504.40ms count=3
+11-23 00:12:19.528  7389  7410 D EGL_emulation: app_time_stats: avg=506.60ms min=500.30ms max=512.90ms count=2
+11-23 00:12:21.027  7389  7410 D EGL_emulation: app_time_stats: avg=499.69ms min=497.18ms max=502.08ms count=3
+11-23 00:12:22.528  7389  7410 D EGL_emulation: app_time_stats: avg=500.07ms min=499.38ms max=501.07ms count=3
+11-23 00:12:24.029  7389  7410 D EGL_emulation: app_time_stats: avg=500.37ms min=498.94ms max=501.73ms count=3
+11-23 00:12:25.527  7389  7410 D EGL_emulation: app_time_stats: avg=499.21ms min=498.21ms max=499.79ms count=3
+11-23 00:12:26.527  7389  7410 D EGL_emulation: app_time_stats: avg=500.30ms min=499.37ms max=501.22ms count=2
+11-23 00:12:27.527  7389  7410 D EGL_emulation: app_time_stats: avg=499.98ms min=499.72ms max=500.23ms count=2
+11-23 00:12:29.027  7389  7410 D EGL_emulation: app_time_stats: avg=499.93ms min=498.52ms max=501.98ms count=3
+11-23 00:12:30.044  7389  7410 D EGL_emulation: app_time_stats: avg=508.48ms min=499.82ms max=517.14ms count=2
+11-23 00:12:31.570  7389  7410 D EGL_emulation: app_time_stats: avg=508.41ms min=499.40ms max=525.68ms count=3
+11-23 00:12:33.044  7389  7410 D EGL_emulation: app_time_stats: avg=491.44ms min=474.58ms max=504.23ms count=3
+11-23 00:12:34.545  7389  7410 D EGL_emulation: app_time_stats: avg=500.11ms min=499.19ms max=500.99ms count=3
+11-23 00:12:36.044  7389  7410 D EGL_emulation: app_time_stats: avg=499.91ms min=497.07ms max=501.83ms count=3
+11-23 00:12:37.545  7389  7410 D EGL_emulation: app_time_stats: avg=500.06ms min=499.20ms max=500.72ms count=3
+11-23 00:12:39.073  7389  7410 D EGL_emulation: app_time_stats: avg=509.42ms min=498.88ms max=529.25ms count=3
+11-23 00:12:40.091  7389  7410 D EGL_emulation: app_time_stats: avg=508.87ms min=487.65ms max=530.08ms count=2
+11-23 00:12:41.561  7389  7410 D EGL_emulation: app_time_stats: avg=489.84ms min=469.19ms max=500.48ms count=3
+11-23 00:12:43.073  7389  7410 D EGL_emulation: app_time_stats: avg=503.85ms min=498.88ms max=512.31ms count=3
+11-23 00:12:44.560  7389  7410 D EGL_emulation: app_time_stats: avg=495.74ms min=487.78ms max=501.91ms count=3
+11-23 00:12:46.061  7389  7410 D EGL_emulation: app_time_stats: avg=500.28ms min=497.45ms max=502.08ms count=3
+11-23 00:12:47.561  7389  7410 D EGL_emulation: app_time_stats: avg=499.71ms min=499.12ms max=500.44ms count=3
+11-23 00:12:48.561  7389  7410 D EGL_emulation: app_time_stats: avg=500.17ms min=498.52ms max=501.82ms count=2
+11-23 00:12:49.563  7389  7410 D EGL_emulation: app_time_stats: avg=501.19ms min=500.01ms max=502.37ms count=2
+11-23 00:12:51.060  7389  7410 D EGL_emulation: app_time_stats: avg=498.91ms min=497.08ms max=500.31ms count=3
+11-23 00:12:52.578  7389  7410 D EGL_emulation: app_time_stats: avg=505.67ms min=492.43ms max=518.40ms count=3
+11-23 00:12:54.078  7389  7410 D EGL_emulation: app_time_stats: avg=500.06ms min=499.06ms max=500.80ms count=3
+11-23 00:12:55.080  7389  7410 D EGL_emulation: app_time_stats: avg=501.12ms min=499.98ms max=502.26ms count=2
+11-23 00:12:56.578  7389  7410 D EGL_emulation: app_time_stats: avg=499.10ms min=496.89ms max=500.82ms count=3
+11-23 00:12:57.578  7389  7410 D EGL_emulation: app_time_stats: avg=500.14ms min=499.47ms max=500.82ms count=2
+11-23 00:12:59.077  7389  7410 D EGL_emulation: app_time_stats: avg=499.59ms min=496.72ms max=501.86ms count=3
+11-23 00:13:00.080  7389  7410 D EGL_emulation: app_time_stats: avg=501.34ms min=501.27ms max=501.42ms count=2
+11-23 00:13:01.579  7389  7410 D EGL_emulation: app_time_stats: avg=499.92ms min=497.02ms max=502.46ms count=3
+11-23 00:13:03.078  7389  7410 D EGL_emulation: app_time_stats: avg=499.34ms min=497.57ms max=500.67ms count=3
+11-23 00:13:04.577  7389  7410 D EGL_emulation: app_time_stats: avg=499.93ms min=496.48ms max=502.28ms count=3
+11-23 00:13:06.077  7389  7410 D EGL_emulation: app_time_stats: avg=499.77ms min=499.36ms max=500.25ms count=3
+11-23 00:13:07.578  7389  7410 D EGL_emulation: app_time_stats: avg=500.32ms min=499.44ms max=501.22ms count=3
+11-23 00:13:08.596  7389  7410 D EGL_emulation: app_time_stats: avg=509.24ms min=502.76ms max=515.73ms count=2
+11-23 00:13:10.093  7389  7410 D EGL_emulation: app_time_stats: avg=498.65ms min=495.70ms max=502.24ms count=3
+11-23 00:13:11.093  7389  7410 D EGL_emulation: app_time_stats: avg=500.46ms min=499.21ms max=501.70ms count=2
+11-23 00:13:12.094  7389  7410 D EGL_emulation: app_time_stats: avg=500.21ms min=499.52ms max=500.91ms count=2
+11-23 00:13:13.094  7389  7410 D EGL_emulation: app_time_stats: avg=500.01ms min=484.95ms max=515.07ms count=2
+11-23 00:13:14.594  7389  7410 D EGL_emulation: app_time_stats: avg=500.02ms min=495.84ms max=502.75ms count=3
+11-23 00:13:16.096  7389  7410 D EGL_emulation: app_time_stats: avg=500.39ms min=499.92ms max=501.33ms count=3
+11-23 00:13:17.099  7389  7410 D EGL_emulation: app_time_stats: avg=501.47ms min=497.64ms max=505.30ms count=2
+11-23 00:13:18.116  7389  7410 D EGL_emulation: app_time_stats: avg=508.21ms min=495.01ms max=521.41ms count=2
+11-23 00:13:19.594  7389  7410 D EGL_emulation: app_time_stats: avg=492.83ms min=478.98ms max=499.82ms count=3
+11-23 00:13:19.915   536  2724 I ImeTracker: com.inkyandroid:c1ec435d: onRequestShow at ORIGIN_SERVER_START_INPUT reason SHOW_SOFT_INPUT_FROM_IME
+11-23 00:13:19.917  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1995 onStartInputView(EditorInfo{inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}]}, false)
+11-23 00:13:19.918  1622  1622 I AndroidIME: AbstractIme.onActivate():86 LatinIme.onActivate() : EditorInfo = inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}], IncognitoMode = false, DeviceLocked = false
+11-23 00:13:19.947   536  2443 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@cf14014, mPriority=0, mIsAnimationCallback=false}
+11-23 00:13:20.030  7389  7389 D InsetsController: show(ime(), fromIme=true)
+11-23 00:13:20.058  7389  7389 I ImeTracker: com.inkyandroid:c1ec435d: onShown
+11-23 00:13:20.643  7389  7410 D EGL_emulation: app_time_stats: avg=146.05ms min=29.28ms max=399.41ms count=7
+11-23 00:13:21.648  7389  7410 D EGL_emulation: app_time_stats: avg=72.44ms min=22.34ms max=314.36ms count=12
+11-23 00:13:23.058  7389  7410 D EGL_emulation: app_time_stats: avg=281.18ms min=89.55ms max=500.01ms count=5
+11-23 00:13:24.075  7389  7410 D EGL_emulation: app_time_stats: avg=508.49ms min=500.33ms max=516.65ms count=2
+11-23 00:13:25.576  7389  7410 D EGL_emulation: app_time_stats: avg=500.20ms min=497.28ms max=502.64ms count=3
+11-23 00:13:26.576  7389  7410 D EGL_emulation: app_time_stats: avg=499.99ms min=499.75ms max=500.23ms count=2
+11-23 00:13:27.727  7389  7410 D EGL_emulation: app_time_stats: avg=160.07ms min=29.08ms max=443.72ms count=7
+11-23 00:13:29.227  7389  7410 D EGL_emulation: app_time_stats: avg=499.96ms min=498.64ms max=500.83ms count=3
+11-23 00:13:30.347  7389  7389 E FrameTracker: force finish cuj, time out: J<IME_INSETS_ANIMATION::0@1@com.inkyandroid>
+11-23 00:13:30.726  7389  7410 D EGL_emulation: app_time_stats: avg=499.74ms min=498.88ms max=500.51ms count=3
+11-23 00:13:32.226  7389  7410 D EGL_emulation: app_time_stats: avg=500.10ms min=499.60ms max=500.98ms count=3
+11-23 00:13:33.227  7389  7410 D EGL_emulation: app_time_stats: avg=500.49ms min=499.25ms max=501.72ms count=2
+11-23 00:13:34.726  7389  7410 D EGL_emulation: app_time_stats: avg=499.29ms min=498.40ms max=500.54ms count=3
+11-23 00:13:36.252  7389  7410 D EGL_emulation: app_time_stats: avg=508.75ms min=498.47ms max=526.59ms count=3
+11-23 00:13:37.262  7389  7410 D EGL_emulation: app_time_stats: avg=504.96ms min=490.24ms max=519.67ms count=2
+11-23 00:13:38.742  7389  7410 D EGL_emulation: app_time_stats: avg=493.31ms min=479.33ms max=500.46ms count=3
+11-23 00:13:39.744  7389  7410 D EGL_emulation: app_time_stats: avg=500.59ms min=500.54ms max=500.64ms count=2
+11-23 00:13:40.803  7389  7389 I ImeTracker: com.inkyandroid:e2292a8c: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT_BY_INSETS_API
+11-23 00:13:40.803  7389  7389 D InsetsController: show(ime(), fromIme=false)
+11-23 00:13:40.803  7389  7389 I ImeTracker: com.inkyandroid:e2292a8c: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+11-23 00:13:40.805  7389  7389 I ImeTracker: com.inkyandroid:217a4488: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+11-23 00:13:40.806  7389  7389 D InputMethodManager: showSoftInput() view=androidx.compose.ui.platform.AndroidComposeView{3c982bd VFED..... .F...... 0,0-1080,2400 aid=1073741824} flags=0 reason=SHOW_SOFT_INPUT
+11-23 00:13:40.807  7389  7389 D InsetsController: show(ime(), fromIme=true)
+11-23 00:13:40.807  7389  7389 I ImeTracker: com.inkyandroid:217a4488: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+11-23 00:13:40.814  7389  7410 D EGL_emulation: app_time_stats: avg=356.61ms min=70.83ms max=500.35ms count=3
+11-23 00:13:42.245  7389  7410 D EGL_emulation: app_time_stats: avg=286.27ms min=53.04ms max=502.75ms count=5
+11-23 00:13:42.862  7389  7389 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=androidx.compose.ui.window.Api33Impl$$ExternalSyntheticLambda0@e9ec89e
+11-23 00:13:43.310  7389  7410 D EGL_emulation: app_time_stats: avg=163.49ms min=47.32ms max=497.72ms count=6
+11-23 00:13:44.658  7389  7410 D EGL_emulation: app_time_stats: avg=69.07ms min=23.07ms max=428.83ms count=18
+11-23 00:13:45.658  7389  7410 D EGL_emulation: app_time_stats: avg=500.05ms min=500.05ms max=500.05ms count=2
+11-23 00:13:46.341   536  2445 I ImeTracker: com.inkyandroid:824b5f0e: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_SOFT_INPUT_BY_BACK_KEY
+11-23 00:13:46.347  7389  7389 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=ImeCallback=ImeOnBackInvokedCallback@84196987 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@c65de88
+11-23 00:13:46.348   536  2445 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@e6fe99b, mPriority=0, mIsAnimationCallback=true}
+11-23 00:13:46.372  7389  7389 I ImeTracker: com.inkyandroid:657aab23: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT_BY_INSETS_API
+11-23 00:13:46.373   536   929 I ImeTracker: com.inkyandroid:657aab23: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-23 00:13:46.373  7389  7389 I ImeTracker: com.inkyandroid:824b5f0e: onHidden
+11-23 00:13:46.505  7389  7395 I com.inkyandroid: Compiler allocated 5852KB to compile void desktopkit.editor.CodeEditorKt.CodeEditor(desktopkit.editor.CodeEditorState, androidx.compose.ui.Modifier, desktopkit.editor.LineTokenizer, java.util.List, kotlin.jvm.functions.Function1, java.util.List, desktopkit.editor.CodeLinks, kotlin.jvm.functions.Function1, kotlin.jvm.functions.Function1, desktopkit.editor.CodeEditorZoom, boolean, boolean, boolean, boolean, boolean, boolean, desktopkit.editor.CodeIndent, java.lang.String, androidx.compose.foundation.layout.PaddingValues, boolean, boolean, boolean, java.lang.String, kotlin.jvm.functions.Function1, desktopkit.editor.CodeSearchState, desktopkit.editor.CodeCompleter, boolean, androidx.compose.runtime.Composer, int, int, int, int)
+11-23 00:13:46.661  7389  7410 D EGL_emulation: app_time_stats: avg=162.06ms min=31.01ms max=500.11ms count=6
+11-23 00:13:48.160  7389  7410 D EGL_emulation: app_time_stats: avg=499.72ms min=499.18ms max=500.40ms count=3
+11-23 00:13:49.179  7389  7410 D EGL_emulation: app_time_stats: avg=509.38ms min=499.11ms max=519.65ms count=2
+11-23 00:13:50.677  7389  7410 D EGL_emulation: app_time_stats: avg=499.38ms min=497.89ms max=500.90ms count=3
+11-23 00:13:52.177  7389  7410 D EGL_emulation: app_time_stats: avg=499.76ms min=499.35ms max=500.03ms count=3
+11-23 00:13:53.180  7389  7410 D EGL_emulation: app_time_stats: avg=501.67ms min=500.65ms max=502.69ms count=2
+11-23 00:13:54.677  7389  7410 D EGL_emulation: app_time_stats: avg=498.95ms min=496.50ms max=500.93ms count=3
+11-23 00:13:55.677  7389  7410 D EGL_emulation: app_time_stats: avg=500.18ms min=499.81ms max=500.55ms count=2
+11-23 00:13:56.694  7389  7389 E FrameTracker: force finish cuj, time out: J<IME_INSETS_ANIMATION::1@1@com.inkyandroid>
+11-23 00:13:57.177  7389  7410 D EGL_emulation: app_time_stats: avg=499.87ms min=489.01ms max=510.19ms count=3
+11-23 00:13:58.676  7389  7410 D EGL_emulation: app_time_stats: avg=499.67ms min=499.30ms max=500.28ms count=3
+11-23 00:13:59.677  7389  7410 D EGL_emulation: app_time_stats: avg=500.10ms min=499.86ms max=500.34ms count=2
+11-23 00:14:01.177  7389  7410 D EGL_emulation: app_time_stats: avg=500.03ms min=498.21ms max=501.60ms count=3
+11-23 00:14:02.177  7389  7410 D EGL_emulation: app_time_stats: avg=500.07ms min=499.46ms max=500.68ms count=2
+11-23 00:14:03.177  7389  7410 D EGL_emulation: app_time_stats: avg=499.92ms min=499.30ms max=500.55ms count=2
+11-23 00:14:04.677  7389  7410 D EGL_emulation: app_time_stats: avg=499.78ms min=499.35ms max=500.47ms count=3
+11-23 00:14:05.694  7389  7410 D EGL_emulation: app_time_stats: avg=508.44ms min=500.16ms max=516.73ms count=2
+11-23 00:14:06.696  7389  7410 D EGL_emulation: app_time_stats: avg=501.15ms min=501.07ms max=501.23ms count=2
+11-23 00:14:08.194  7389  7410 D EGL_emulation: app_time_stats: avg=499.46ms min=496.87ms max=501.14ms count=3
+11-23 00:14:09.693  7389  7410 D EGL_emulation: app_time_stats: avg=499.44ms min=498.78ms max=500.39ms count=3
+11-23 00:14:10.715  7389  7410 D EGL_emulation: app_time_stats: avg=510.99ms min=500.48ms max=521.51ms count=2
+11-23 00:14:12.194  7389  7410 D EGL_emulation: app_time_stats: avg=492.84ms min=478.52ms max=504.49ms count=3
+11-23 00:14:13.199  7389  7410 D EGL_emulation: app_time_stats: avg=502.48ms min=500.33ms max=504.62ms count=2
+11-23 00:14:14.693  7389  7410 D EGL_emulation: app_time_stats: avg=498.22ms min=495.16ms max=500.83ms count=3
+11-23 00:14:15.694  7389  7410 D EGL_emulation: app_time_stats: avg=500.13ms min=479.42ms max=520.84ms count=2
+11-23 00:14:16.697  7389  7410 D EGL_emulation: app_time_stats: avg=501.45ms min=500.94ms max=501.96ms count=2
+11-23 00:14:18.212  7389  7410 D EGL_emulation: app_time_stats: avg=505.01ms min=496.72ms max=518.04ms count=3
+11-23 00:14:19.230  7389  7410 D EGL_emulation: app_time_stats: avg=508.92ms min=497.43ms max=520.42ms count=2
+11-23 00:14:20.711  7389  7410 D EGL_emulation: app_time_stats: avg=493.66ms min=480.59ms max=501.39ms count=3
+11-23 00:14:22.211  7389  7410 D EGL_emulation: app_time_stats: avg=500.09ms min=497.68ms max=501.41ms count=3
+11-23 00:14:23.213  7389  7410 D EGL_emulation: app_time_stats: avg=500.89ms min=498.14ms max=503.64ms count=2
+11-23 00:14:24.710  7389  7410 D EGL_emulation: app_time_stats: avg=498.88ms min=496.41ms max=500.96ms count=3
+11-23 00:14:25.710  7389  7410 D EGL_emulation: app_time_stats: avg=500.03ms min=498.47ms max=501.58ms count=2
+11-23 00:14:26.728  7389  7410 D EGL_emulation: app_time_stats: avg=508.85ms min=499.81ms max=517.90ms count=2
+11-23 00:14:28.211  7389  7410 D EGL_emulation: app_time_stats: avg=494.29ms min=481.49ms max=501.66ms count=3
+11-23 00:14:29.711  7389  7410 D EGL_emulation: app_time_stats: avg=499.88ms min=498.30ms max=500.97ms count=3
+11-23 00:14:30.712  7389  7410 D EGL_emulation: app_time_stats: avg=500.69ms min=499.41ms max=501.97ms count=2
+11-23 00:14:32.210  7389  7410 D EGL_emulation: app_time_stats: avg=499.13ms min=498.15ms max=499.80ms count=3
+11-23 00:14:33.213  7389  7410 D EGL_emulation: app_time_stats: avg=501.54ms min=499.99ms max=503.09ms count=2
+11-23 00:14:34.710  7389  7410 D EGL_emulation: app_time_stats: avg=499.04ms min=497.75ms max=501.32ms count=3
+11-23 00:14:36.227  7389  7410 D EGL_emulation: app_time_stats: avg=505.40ms min=499.76ms max=516.54ms count=3
+11-23 00:14:37.227  7389  7410 D EGL_emulation: app_time_stats: avg=499.96ms min=499.92ms max=500.00ms count=2
+11-23 00:14:38.726  7389  7410 D EGL_emulation: app_time_stats: avg=499.82ms min=499.76ms max=499.91ms count=3
+11-23 00:14:39.728  7389  7410 D EGL_emulation: app_time_stats: avg=198.84ms min=24.49ms max=502.08ms count=5
+11-23 00:14:41.226  7389  7410 D EGL_emulation: app_time_stats: avg=499.50ms min=498.48ms max=500.24ms count=3
+11-23 00:14:42.226  7389  7410 D EGL_emulation: app_time_stats: avg=500.08ms min=500.07ms max=500.10ms count=2
+11-23 00:14:43.228  7389  7410 D EGL_emulation: app_time_stats: avg=500.61ms min=498.83ms max=502.39ms count=2
+11-23 00:14:44.229  7389  7410 D EGL_emulation: app_time_stats: avg=500.13ms min=496.84ms max=503.42ms count=2
+11-23 00:14:45.726  7389  7410 D EGL_emulation: app_time_stats: avg=499.29ms min=498.10ms max=501.45ms count=3
+11-23 00:14:46.728  7389  7410 D EGL_emulation: app_time_stats: avg=500.51ms min=500.25ms max=500.78ms count=2
+11-23 00:14:48.226  7389  7410 D EGL_emulation: app_time_stats: avg=499.57ms min=498.83ms max=500.08ms count=3
+11-23 00:14:49.227  7389  7410 D EGL_emulation: app_time_stats: avg=500.17ms min=500.17ms max=500.17ms count=2
+11-23 00:14:50.727  7389  7410 D EGL_emulation: app_time_stats: avg=499.99ms min=499.03ms max=500.55ms count=3
+11-23 00:14:52.227  7389  7410 D EGL_emulation: app_time_stats: avg=500.00ms min=499.79ms max=500.25ms count=3
+11-23 00:14:53.227  7389  7410 D EGL_emulation: app_time_stats: avg=500.15ms min=499.72ms max=500.59ms count=2
+11-23 00:14:54.246  7389  7410 D EGL_emulation: app_time_stats: avg=509.17ms min=503.80ms max=514.55ms count=2
+11-23 00:14:55.247  7389  7410 D EGL_emulation: app_time_stats: avg=500.77ms min=498.10ms max=503.44ms count=2
+11-23 00:14:56.743  7389  7410 D EGL_emulation: app_time_stats: avg=498.56ms min=495.58ms max=501.18ms count=3
+11-23 00:14:57.743  7389  7410 D EGL_emulation: app_time_stats: avg=500.08ms min=499.69ms max=500.47ms count=2
+11-23 00:14:59.244  7389  7410 D EGL_emulation: app_time_stats: avg=500.26ms min=498.96ms max=501.36ms count=3
+11-23 00:15:00.744  7389  7410 D EGL_emulation: app_time_stats: avg=499.83ms min=499.10ms max=500.44ms count=3
+11-23 00:15:02.244  7389  7410 D EGL_emulation: app_time_stats: avg=499.97ms min=499.29ms max=500.62ms count=3
+11-23 00:15:03.245  7389  7410 D EGL_emulation: app_time_stats: avg=500.38ms min=499.15ms max=501.60ms count=2
+11-23 00:15:04.750  7389  7410 D EGL_emulation: app_time_stats: avg=501.78ms min=499.03ms max=506.92ms count=3
+11-23 00:15:05.760  7389  7410 D EGL_emulation: app_time_stats: avg=505.04ms min=493.95ms max=516.14ms count=2
+11-23 00:15:06.766  7389  7410 D EGL_emulation: app_time_stats: avg=502.54ms min=483.10ms max=521.98ms count=2
+11-23 00:15:07.335  7389  7389 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=androidx.navigationevent.OnBackInvokedInput$createOnBackAnimationCallback$1@46caa18
+11-23 00:15:07.335   536   946 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@8196e3b, mPriority=-1, mIsAnimationCallback=false}
+11-23 00:15:07.391  7389  7389 I ImeTracker: com.inkyandroid:9837e10b: onRequestHide at ORIGIN_CLIENT_HIDE_SOFT_INPUT reason HIDE_SOFT_INPUT_BY_INSETS_API
+11-23 00:15:07.391  7389  7389 I ImeTracker: com.inkyandroid:9837e10b: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+11-23 00:15:07.394  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=0 fieldName=null extras=null}, true)
+11-23 00:15:13.586   536  1234 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@677c9f5, mPriority=0, mIsAnimationCallback=true}
+11-23 00:15:13.651  7389  7410 D EGL_emulation: app_time_stats: avg=1375.12ms min=22.48ms max=6228.70ms count=5
+11-23 00:15:19.359  7389  7389 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=androidx.navigationevent.OnBackInvokedInput$createOnBackAnimationCallback$1@46caa18
+11-23 00:15:19.360   536   997 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@48840f9, mPriority=-1, mIsAnimationCallback=false}
+11-23 00:15:19.360   536   997 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@b65b83e, mPriority=0, mIsAnimationCallback=true}
+11-23 00:15:19.384  7389  7410 D EGL_emulation: app_time_stats: avg=2862.82ms min=29.04ms max=5696.61ms count=2
+11-23 00:15:30.690  7389  7389 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=androidx.navigationevent.OnBackInvokedInput$createOnBackAnimationCallback$1@46caa18
+11-23 00:15:30.690   536   996 D CoreBackPreview: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@11e2fd4, mPriority=-1, mIsAnimationCallback=false}
+11-23 00:15:30.713  7389  7410 D EGL_emulation: app_time_stats: avg=2830.19ms min=32.90ms max=11171.04ms count=4
+11-23 00:15:30.722  7389  7389 D AutofillManager: notifyViewEnteredForFillDialog:1073741829
+11-23 00:15:37.403  7389  7389 D CompatibilityChangeReporter: Compat change id reported: 150939131; UID 10192; state: ENABLED
+11-23 00:15:37.574  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=0 fieldName=null extras=null}, true)
+11-23 00:15:37.727  7389  7389 D AutofillManager: notifyViewEnteredForFillDialog:1073741830
+11-23 00:15:37.803   536  1884 I WindowManager: finishDrawing of orientation change: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity} 303ms
+11-23 00:15:37.817   536   555 V WindowManager:     info={id=12 t=CHANGE f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{20b13e9 Task{cce5d09 #9 type=standard A=10192:com.inkyandroid}}} m=CHANGE f=NONE p=WCT{RemoteToken{e71e003 DefaultTaskDisplayArea@259920164}} leash=Surface(name=Task=9)/@0xc7816b3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 2400, 1080) d=0 r=0->1:0},{WCT{RemoteToken{e71e003 DefaultTaskDisplayArea@259920164}} m=CHANGE f=NONE p=WCT{RemoteToken{6d54446 Display{#0 state=ON size=2400x1080 ROTATION_90}}} leash=Surface(name=DefaultTaskDisplayArea)/@0x8ca93d3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 2400, 1080) d=0 r=0->1:-1},{WCT{RemoteToken{6d54446 Display{#0 state=ON size=2400x1080 ROTATION_90}}} m=CHANGE f=IS_DISPLAY leash=Surface(name=WindowedMagnification:0:31)/@0x459aefb sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 2400, 1080) d=0 r=0->1:-1}]}
+11-23 00:15:46.501  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=0 fieldName=null extras=null}, true)
+11-23 00:15:46.641  7389  7389 D AutofillManager: notifyViewEnteredForFillDialog:1073741831
+11-23 00:15:46.667   536   996 I WindowManager: finishDrawing of orientation change: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity} 187ms
+11-23 00:15:46.672   536   555 V WindowManager:     info={id=13 t=CHANGE f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{20b13e9 Task{cce5d09 #9 type=standard A=10192:com.inkyandroid}}} m=CHANGE f=NONE p=WCT{RemoteToken{e71e003 DefaultTaskDisplayArea@259920164}} leash=Surface(name=Task=9)/@0xc7816b3 sb=Rect(0, 0 - 2400, 1080) eb=Rect(0, 0 - 1080, 2400) d=0 r=1->0:0},{WCT{RemoteToken{e71e003 DefaultTaskDisplayArea@259920164}} m=CHANGE f=NONE p=WCT{RemoteToken{6d54446 Display{#0 state=ON size=1080x2400 ROTATION_0}}} leash=Surface(name=DefaultTaskDisplayArea)/@0x8ca93d3 sb=Rect(0, 0 - 2400, 1080) eb=Rect(0, 0 - 1080, 2400) d=0 r=1->0:-1},{WCT{RemoteToken{6d54446 Display{#0 state=ON size=1080x2400 ROTATION_0}}} m=CHANGE f=IS_DISPLAY leash=Surface(name=WindowedMagnification:0:31)/@0x459aefb sb=Rect(0, 0 - 2400, 1080) eb=Rect(0, 0 - 1080, 2400) d=0 r=1->0:-1}]}
+11-23 00:15:55.420   536   555 V WindowManager:     info={id=14 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{ea3de13 Task{42664af #1 type=home}}} m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP leash=Surface(name=Task=1)/@0xf7d6b10 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{20b13e9 Task{cce5d09 #9 type=standard A=10192:com.inkyandroid}}} m=TO_BACK f=NONE leash=Surface(name=Task=9)/@0xc7816b3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{d7b7cd token=android.os.Binder@715964})/@0xb7ecb92 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-23 00:15:57.158   536  1884 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity} with LAUNCH_MULTIPLE from uid 0 (BAL_ALLOW_ALLOWLISTED_UID) result code=2
+11-23 00:15:57.158   869   910 V WindowManagerShell: Transition requested: android.os.BinderProxy@f0f2f3e TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity } baseActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} topActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} origActivity=null realActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} numActivities=1 lastActiveTime=856564 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@1d0319f} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{4bdc2ec com.inkyandroid.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-23 00:15:57.159   869   910 D WindowManagerShell: onActivityRestartAttempt: ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity}
+11-23 00:15:57.166   536   555 V WindowManager: Sent Transition #15 createdAt=11-23 00:15:57.155 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity } baseActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} topActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} origActivity=null realActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} numActivities=1 lastActiveTime=856564 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{20b13e9 Task{cce5d09 #9 type=standard A=10192:com.inkyandroid}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{dfea86e com.inkyandroid.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-23 00:15:57.166   536   555 V WindowManager:     info={id=15 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{20b13e9 Task{cce5d09 #9 type=standard A=10192:com.inkyandroid}}} m=TO_FRONT f=MOVE_TO_TOP leash=Surface(name=Task=9)/@0xc7816b3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{ea3de13 Task{42664af #1 type=home}}} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0xf7d6b10 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-23 00:15:57.366   536  2724 I ImeTracker: com.inkyandroid:92dbe2e: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+11-23 00:15:57.366   536  2724 I ImeTracker: com.inkyandroid:92dbe2e: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-23 00:15:57.373  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=0 fieldName=null extras=null}, false)
+11-23 00:16:04.965   536   555 V WindowManager:     info={id=16 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{ea3de13 Task{42664af #1 type=home}}} m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP leash=Surface(name=Task=1)/@0xf7d6b10 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{20b13e9 Task{cce5d09 #9 type=standard A=10192:com.inkyandroid}}} m=TO_BACK f=NONE leash=Surface(name=Task=9)/@0xc7816b3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{d7b7cd token=android.os.Binder@715964})/@0xb7ecb92 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-23 00:16:06.904   536  1884 I ActivityManager: Killing 7389:com.inkyandroid/u0a192 (adj 700): kill background
+11-23 00:16:06.904   536   565 W UsageStatsService: Unexpected activity event reported! (com.inkyandroid/com.inkyandroid.MainActivity event : 23 instanceId : 36473614)
+11-23 00:16:06.914   536  2448 V ActivityManager: Got obituary of 7389:com.inkyandroid
+11-23 00:16:06.914   536  2447 I WindowManager: WIN DEATH: Window{9e5a92b u0 com.inkyandroid/com.inkyandroid.MainActivity}
+11-23 00:16:06.914   536  2447 W InputManager-JNI: Input channel object '9e5a92b com.inkyandroid/com.inkyandroid.MainActivity (client)' was disposed without first being removed with the input manager!
+11-23 00:16:08.940   536  1778 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity} with LAUNCH_MULTIPLE from uid 0 (BAL_ALLOW_ALLOWLISTED_UID) result code=2
+11-23 00:16:08.941   869   910 V WindowManagerShell: Transition requested: android.os.BinderProxy@db62eae TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity } baseActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} topActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} origActivity=null realActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} numActivities=1 lastActiveTime=866272 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@15f144f} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{1c5e7dc com.inkyandroid.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-23 00:16:08.944   869   910 D WindowManagerShell: onActivityRestartAttempt: ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity}
+11-23 00:16:08.947   536   567 I ActivityManager: Start proc 10221:com.inkyandroid/u0a192 for next-top-activity {com.inkyandroid/com.inkyandroid.MainActivity}
+11-23 00:16:08.982 10221 10221 I com.inkyandroid: Using CollectorTypeCC GC.
+11-23 00:16:08.983 10221 10221 W com.inkyandroid: Unexpected CPU variant for x86: x86_64.
+11-23 00:16:08.983 10221 10221 W com.inkyandroid: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-23 00:16:08.985 10221 10221 E com.inkyandroid: Not starting debugger since process cannot load the jdwp agent.
+11-23 00:16:09.054   536   555 V WindowManager: Sent Transition #17 createdAt=11-23 00:16:08.936 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity } baseActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} topActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} origActivity=null realActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} numActivities=1 lastActiveTime=866272 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{20b13e9 Task{cce5d09 #9 type=standard A=10192:com.inkyandroid}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{dfea86e com.inkyandroid.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-23 00:16:09.054   536   555 V WindowManager:     info={id=17 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{20b13e9 Task{cce5d09 #9 type=standard A=10192:com.inkyandroid}}} m=TO_FRONT f=MOVE_TO_TOP leash=Surface(name=Task=9)/@0xc7816b3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{ea3de13 Task{42664af #1 type=home}}} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0xf7d6b10 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-23 00:16:09.056 10221 10221 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 10192; state: ENABLED
+11-23 00:16:09.056 10221 10221 D CompatibilityChangeReporter: Compat change id reported: 242716250; UID 10192; state: ENABLED
+11-23 00:16:09.060 10221 10221 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+11-23 00:16:09.060 10221 10221 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+11-23 00:16:09.070 10221 10221 D nativeloader: Configuring clns-6 for other apk /data/app/~~EhORaz3eLYy6j_aoP7s3WA==/com.inkyandroid-OViVG-XPqJZUUKxhQlL4rg==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~EhORaz3eLYy6j_aoP7s3WA==/com.inkyandroid-OViVG-XPqJZUUKxhQlL4rg==/lib/x86_64:/data/app/~~EhORaz3eLYy6j_aoP7s3WA==/com.inkyandroid-OViVG-XPqJZUUKxhQlL4rg==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.inkyandroid
+11-23 00:16:09.073 10221 10221 V GraphicsEnvironment: Currently set values for:
+11-23 00:16:09.073 10221 10221 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+11-23 00:16:09.073 10221 10221 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+11-23 00:16:09.073 10221 10221 V GraphicsEnvironment: ANGLE GameManagerService for com.inkyandroid: false
+11-23 00:16:09.073 10221 10221 V GraphicsEnvironment: com.inkyandroid is not listed in per-application setting
+11-23 00:16:09.073 10221 10221 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+11-23 00:16:09.095 10221 10240 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+11-23 00:16:09.100 10221 10240 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+11-23 00:16:09.101 10221 10240 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+11-23 00:16:09.209 10221 10221 D CompatibilityChangeReporter: Compat change id reported: 237531167; UID 10192; state: DISABLED
+11-23 00:16:09.210 10221 10221 W OpenGLRenderer: Unknown dataspace 0
+11-23 00:16:09.216   536  2448 D CoreBackPreview: Window{4bc0ad0 u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@b1da5ce, mPriority=-1, mIsAnimationCallback=false}
+11-23 00:16:09.222 10221 10221 D CompatibilityChangeReporter: Compat change id reported: 193247900; UID 10192; state: ENABLED
+11-23 00:16:09.430 10221 10239 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+11-23 00:16:09.453 10221 10239 I Gralloc4: mapper 4.x is not supported
+11-23 00:16:09.800   536   555 I ActivityTaskManager: Displayed com.inkyandroid/.MainActivity for user 0: +862ms
+11-23 00:16:09.808   536  2444 W InputManager-JNI: Input channel object 'dbe9d07 Splash Screen com.inkyandroid (client)' was disposed without first being removed with the input manager!
+11-23 00:16:09.814 10221 10235 I OpenGLRenderer: Davey! duration=716ms; Flags=1, FrameTimelineVsyncId=46091, IntendedVsync=870507636463, Vsync=870624303125, InputEventId=0, HandleInputStart=870638114175, AnimationStart=870638114576, PerformTraversalsStart=870638143008, DrawStart=870899705855, FrameDeadline=870524303129, FrameInterval=870638047406, FrameStartTime=16666666, SyncQueued=870919201502, SyncStart=870919618506, IssueDrawCommandsStart=870920226668, SwapBuffers=871109365218, FrameCompleted=871224587615, DequeueBufferDuration=2904, QueueBufferDuration=202030, GpuCompleted=871224587615, SwapBuffersCompleted=871214083302, DisplayPresentTime=0, CommandSubmissionCompleted=871109365218, 
+11-23 00:16:09.842 10221 10221 I Choreographer: Skipped 36 frames!  The application may be doing too much work on its main thread.
+11-23 00:16:09.881   536  2724 I ImeTracker: com.inkyandroid:6a97911c: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+11-23 00:16:09.881   536  2724 I ImeTracker: com.inkyandroid:6a97911c: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-23 00:16:09.906  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=0 fieldName=null extras=null}, false)
+11-23 00:16:09.975 10221 10234 I OpenGLRenderer: Davey! duration=709ms; Flags=0, FrameTimelineVsyncId=46172, IntendedVsync=870657636457, Vsync=871257636433, InputEventId=0, HandleInputStart=871266638316, AnimationStart=871266638687, PerformTraversalsStart=871282321861, DrawStart=871291550532, FrameDeadline=871257636433, FrameInterval=871266345522, FrameStartTime=16666666, SyncQueued=871292767517, SyncStart=871301277722, IssueDrawCommandsStart=871301389759, SwapBuffers=871333904743, FrameCompleted=871375466434, DequeueBufferDuration=2083, QueueBufferDuration=125136, GpuCompleted=871375466434, SwapBuffersCompleted=871372700776, DisplayPresentTime=0, CommandSubmissionCompleted=871333904743, 
+11-23 00:16:10.111  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=0 fieldName=null extras=null}, false)
+11-23 00:16:10.185 10221 10221 D CompatibilityChangeReporter: Compat change id reported: 210923482; UID 10192; state: ENABLED
+11-23 00:16:10.196 10221 10221 D AutofillManager: notifyViewEnteredForFillDialog:1073741833
+11-23 00:16:15.085 10221 10296 D ProfileInstaller: Skipping profile installation for com.inkyandroid
+11-23 00:16:27.897 10221 10221 D CompatibilityChangeReporter: Compat change id reported: 163400105; UID 10192; state: ENABLED
+11-23 00:16:27.898 10221 10221 I ImeTracker: com.inkyandroid:f9cfef04: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+11-23 00:16:27.898 10221 10221 D InputMethodManager: showSoftInput() view=desktopkit.editor.CodeEditorView{360c9b8 VFED..CL. .F.P..ID 0,0-1080,2272 aid=1073741833} flags=0 reason=SHOW_SOFT_INPUT
+11-23 00:16:27.902  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x2c001(Normal) imeOptions=0x52000001 privateImeOptions=null actionName=NONE actionLabel=null actionId=0 initialSelStart=125 initialSelEnd=125 initialCapsMode=0x0 hintText=non-empty label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=null}, false)
+11-23 00:16:27.905  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1995 onStartInputView(EditorInfo{inputType=0x2c001(Normal) imeOptions=0x52000001 privateImeOptions=null actionName=NONE actionLabel=null actionId=0 initialSelStart=125 initialSelEnd=125 initialCapsMode=0x0 hintText=non-empty label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=null}, false)
+11-23 00:16:27.908  1622  1622 I AndroidIME: AbstractIme.onActivate():86 LatinIme.onActivate() : EditorInfo = inputType=0x2c001(Normal) imeOptions=0x52000001 privateImeOptions=null actionName=NONE actionLabel=null actionId=0 initialSelStart=125 initialSelEnd=125 initialCapsMode=0x0 hintText=non-empty label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=null, IncognitoMode = false, DeviceLocked = false
+11-23 00:16:27.954 10221 10239 D EGL_emulation: app_time_stats: avg=2269.51ms min=17.63ms max=17660.72ms count=8
+11-23 00:16:27.958 10221 10221 I AssistStructure: Flattened final assist data: 968 bytes, containing 2 windows, 4 views
+11-23 00:16:27.962   536  1884 D ContentCapturePerUserService: Notified activity assist data for activity: Token{22c8b0e ActivityRecord{2ca9e10 u0 com.inkyandroid/.MainActivity t9}} without a session Id
+11-23 00:16:28.164   536  1884 D CoreBackPreview: Window{4bc0ad0 u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@24198f6, mPriority=0, mIsAnimationCallback=false}
+11-23 00:16:28.414 10221 10221 D InsetsController: show(ime(), fromIme=true)
+11-23 00:16:28.429 10221 10221 I ImeTracker: com.inkyandroid:f9cfef04: onShown
+11-23 00:16:29.080 10221 10239 D EGL_emulation: app_time_stats: avg=111.17ms min=24.63ms max=266.10ms count=10
+11-23 00:16:30.504 10221 10239 D EGL_emulation: app_time_stats: avg=275.41ms min=32.07ms max=517.23ms count=5
+11-23 00:16:31.505 10221 10239 D EGL_emulation: app_time_stats: avg=500.25ms min=499.79ms max=500.71ms count=2
+11-23 00:16:31.900 10221 10221 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.widget.PopupWindow$PopupDecorView$$ExternalSyntheticLambda0@d3494f2
+11-23 00:16:33.005 10221 10239 D EGL_emulation: app_time_stats: avg=499.84ms min=490.26ms max=508.74ms count=3
+11-23 00:16:34.008 10221 10239 D EGL_emulation: app_time_stats: avg=501.58ms min=499.74ms max=503.43ms count=2
+11-23 00:16:34.720   536  2447 D CoreBackPreview: Window{4bc0ad0 u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@73a7231, mPriority=0, mIsAnimationCallback=true}
+11-23 00:16:34.766 10221 10221 D CompatibilityChangeReporter: Compat change id reported: 289878283; UID 10192; state: ENABLED
+11-23 00:16:34.866   536  2447 I ImeTracker: com.inkyandroid:372a9fe0: onRequestShow at ORIGIN_SERVER_START_INPUT reason ATTACH_NEW_INPUT
+11-23 00:16:34.867   536  2447 I ImeTracker: com.inkyandroid:fc351949: onRequestShow at ORIGIN_SERVER_START_INPUT reason ATTACH_NEW_INPUT
+11-23 00:16:34.868 10221 10221 I ImeTracker: com.inkyandroid:de812631: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT_BY_INSETS_API
+11-23 00:16:34.868 10221 10221 D InsetsController: show(ime(), fromIme=false)
+11-23 00:16:34.868 10221 10221 I ImeTracker: com.inkyandroid:de812631: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+11-23 00:16:34.872  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[mParcelledData.dataSize=404]}, false)
+11-23 00:16:34.873  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1995 onStartInputView(EditorInfo{inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}]}, false)
+11-23 00:16:34.875  1622  1622 I AndroidIME: AbstractIme.onActivate():86 LatinIme.onActivate() : EditorInfo = inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}], IncognitoMode = false, DeviceLocked = false
+11-23 00:16:34.881 10221 10221 I AssistStructure: Flattened final assist data: 2036 bytes, containing 1 windows, 9 views
+11-23 00:16:34.885   536  2447 D ContentCapturePerUserService: Notified activity assist data for activity: Token{22c8b0e ActivityRecord{2ca9e10 u0 com.inkyandroid/.MainActivity t9}} without a session Id
+11-23 00:16:34.928  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[mParcelledData.dataSize=404]}, true)
+11-23 00:16:34.930  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInputView():1995 onStartInputView(EditorInfo{inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}]}, true)
+11-23 00:16:34.949 10221 10221 I ImeTracker: com.inkyandroid:6b8ae8b3: onRequestShow at ORIGIN_CLIENT_SHOW_SOFT_INPUT reason SHOW_SOFT_INPUT
+11-23 00:16:34.949 10221 10221 D InputMethodManager: showSoftInput() view=androidx.compose.ui.platform.AndroidComposeView{6c96380 VFED..... .F...... 0,0-1080,2400 aid=1073741832} flags=0 reason=SHOW_SOFT_INPUT
+11-23 00:16:34.950 10221 10221 D InsetsController: show(ime(), fromIme=true)
+11-23 00:16:34.950 10221 10221 I ImeTracker: com.inkyandroid:372a9fe0: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+11-23 00:16:34.951   536  2724 D CoreBackPreview: Window{4bc0ad0 u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@52b7e08, mPriority=0, mIsAnimationCallback=false}
+11-23 00:16:34.987  1622  1622 I AndroidIME: AbstractIme.onActivate():86 LatinIme.onActivate() : EditorInfo = inputType=0x8001(Normal) imeOptions=0x2000002 privateImeOptions=null actionName=GO actionLabel=null actionId=0 initialSelStart=0 initialSelEnd=0 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=-1 fieldName=null extras=Bundle[{android.support.text.emoji.emojiCompat_metadataVersion=9, androidx.core.view.inputmethod.EditorInfoCompat.STYLUS_HANDWRITING_ENABLED=true, android.support.text.emoji.emojiCompat_replaceAll=false}], IncognitoMode = false, DeviceLocked = false
+11-23 00:16:35.009 10221 10239 D EGL_emulation: app_time_stats: avg=250.32ms min=61.65ms max=496.50ms count=4
+11-23 00:16:35.032 10221 10221 D InsetsController: show(ime(), fromIme=true)
+11-23 00:16:35.032 10221 10221 I ImeTracker: com.inkyandroid:fc351949: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+11-23 00:16:35.062 10221 10221 D InsetsController: show(ime(), fromIme=true)
+11-23 00:16:35.062 10221 10221 I ImeTracker: com.inkyandroid:6b8ae8b3: onCancelled at PHASE_CLIENT_APPLY_ANIMATION
+11-23 00:16:36.409 10221 10239 D EGL_emulation: app_time_stats: avg=466.69ms min=402.61ms max=525.11ms count=3
+11-23 00:16:37.870 10221 10239 D EGL_emulation: app_time_stats: avg=486.85ms min=461.90ms max=499.74ms count=3
+11-23 00:16:38.709 10221 10221 E FrameTracker: force finish cuj, time out: J<IME_INSETS_ANIMATION::0@1@com.inkyandroid>
+11-23 00:16:38.992 10221 10239 D EGL_emulation: app_time_stats: avg=139.48ms min=29.87ms max=265.35ms count=8
+11-23 00:16:39.480 10221 10227 I com.inkyandroid: Compiler allocated 5426KB to compile void desktopkit.components.CommandPaletteKt.PalettePanel(desktopkit.components.CommandPaletteState, boolean, kotlin.jvm.functions.Function1, java.util.List, java.lang.String, androidx.compose.ui.Modifier, androidx.compose.runtime.Composer, int)
+11-23 00:16:40.041 10221 10239 D EGL_emulation: app_time_stats: avg=129.78ms min=30.11ms max=242.28ms count=8
+11-23 00:16:41.041 10221 10239 D EGL_emulation: app_time_stats: avg=332.86ms min=35.33ms max=499.56ms count=3
+11-23 00:16:42.042 10221 10239 D EGL_emulation: app_time_stats: avg=500.25ms min=500.11ms max=500.39ms count=2
+11-23 00:16:43.042 10221 10239 D EGL_emulation: app_time_stats: avg=500.24ms min=500.04ms max=500.44ms count=2
+11-23 00:16:44.542 10221 10239 D EGL_emulation: app_time_stats: avg=499.70ms min=498.83ms max=500.70ms count=3
+11-23 00:16:45.558 10221 10239 D EGL_emulation: app_time_stats: avg=508.32ms min=498.46ms max=518.18ms count=2
+11-23 00:16:46.243   536  2444 I ActivityManager: Force stopping com.inkyandroid appid=10192 user=0: from pid 10557
+11-23 00:16:46.244   536  2444 I ActivityManager: Killing 10221:com.inkyandroid/u0a192 (adj 0): stop com.inkyandroid due to from pid 10557
+11-23 00:16:46.245   536  2444 W ActivityTaskManager: Force removing ActivityRecord{2ca9e10 u0 com.inkyandroid/.MainActivity t9 f}}: app died, no saved state
+11-23 00:16:46.245   869   910 V WindowManagerShell: Transition requested: android.os.BinderProxy@e3e1209 TransitionRequestInfo { type = CLOSE, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=false baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity } baseActivity=null topActivity=null origActivity=null realActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} numActivities=0 lastActiveTime=870442 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@5e29c0e} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=null topActivityInfo=null launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-23 00:16:46.272  1097  1097 D CarrierSvcBindHelper: onHandleForceStop: [com.inkyandroid]
+11-23 00:16:46.278   536  1778 V ActivityManager: Got obituary of 10221:com.inkyandroid
+11-23 00:16:46.279   536   996 I WindowManager: WIN DEATH: Window{4bc0ad0 u0 com.inkyandroid/com.inkyandroid.MainActivity}
+11-23 00:16:46.280   536   996 W InputManager-JNI: Input channel object '4bc0ad0 com.inkyandroid/com.inkyandroid.MainActivity (client)' was disposed without first being removed with the input manager!
+11-23 00:16:46.280   536  1891 I ImeTracker: com.inkyandroid:6e93f1d3: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_REMOVE_CLIENT
+11-23 00:16:46.280   536   996 W WindowManager: Failed to deliver inset control state change to w=Window{4bc0ad0 u0 com.inkyandroid/com.inkyandroid.MainActivity EXITING}
+11-23 00:16:46.288   536   997 I ImeTracker: com.inkyandroid:6e93f1d3: onFailed at PHASE_SERVER_APPLY_IME_VISIBILITY
+11-23 00:16:46.650   536   555 V WindowManager: Sent Transition #18 createdAt=11-23 00:16:46.245 via request=TransitionRequestInfo { type = CLOSE, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=false baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity } baseActivity=null topActivity=null origActivity=null realActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} numActivities=0 lastActiveTime=870442 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{20b13e9 Task{cce5d09 #9 type=standard A=10192:com.inkyandroid}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=null topActivityInfo=null launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-23 00:16:46.650   536   555 V WindowManager:     info={id=18 t=CLOSE f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{20b13e9 Task{cce5d09 #9 type=standard A=10192:com.inkyandroid}}} m=CLOSE f=NONE leash=Surface(name=Task=9)/@0xc7816b3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{ea3de13 Task{42664af #1 type=home}}} m=TO_FRONT f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0xf7d6b10 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{d7b7cd token=android.os.Binder@715964})/@0xb7ecb92 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-23 00:16:46.676   536  1891 W WindowManager: Exception thrown during dispatchAppVisibility Window{4bc0ad0 u0 com.inkyandroid/com.inkyandroid.MainActivity EXITING}
+11-23 00:16:47.307   869   910 V WindowManagerShell: Transition requested: android.os.BinderProxy@3beaed TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=10 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity } baseActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} topActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} origActivity=null realActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} numActivities=1 lastActiveTime=908730 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@b656d22} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{bbc03b3 com.inkyandroid.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-23 00:16:47.308   536  1891 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity} with LAUNCH_MULTIPLE from uid 0 (BAL_ALLOW_ALLOWLISTED_UID) result code=0
+11-23 00:16:47.315   536   567 I ActivityManager: Start proc 10567:com.inkyandroid/u0a192 for next-top-activity {com.inkyandroid/com.inkyandroid.MainActivity}
+11-23 00:16:47.351 10567 10567 I com.inkyandroid: Using CollectorTypeCC GC.
+11-23 00:16:47.352 10567 10567 W com.inkyandroid: Unexpected CPU variant for x86: x86_64.
+11-23 00:16:47.352 10567 10567 W com.inkyandroid: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-23 00:16:47.353 10567 10567 E com.inkyandroid: Not starting debugger since process cannot load the jdwp agent.
+11-23 00:16:47.386   536   555 V WindowManager: Sent Transition #19 createdAt=11-23 00:16:47.300 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=10 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity } baseActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} topActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} origActivity=null realActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} numActivities=1 lastActiveTime=908730 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{72209e8 Task{cf6c982 #10 type=standard A=10192:com.inkyandroid}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{9f31801 com.inkyandroid.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-23 00:16:47.390   536   555 V WindowManager:     info={id=19 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{72209e8 Task{cf6c982 #10 type=standard A=10192:com.inkyandroid}}} m=OPEN f=NONE leash=Surface(name=Task=10)/@0x5b006da sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{ea3de13 Task{42664af #1 type=home}}} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0xf7d6b10 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-23 00:16:47.417 10567 10567 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 10192; state: ENABLED
+11-23 00:16:47.417 10567 10567 D CompatibilityChangeReporter: Compat change id reported: 242716250; UID 10192; state: ENABLED
+11-23 00:16:47.421 10567 10567 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+11-23 00:16:47.421 10567 10567 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+11-23 00:16:47.435 10567 10567 D nativeloader: Configuring clns-6 for other apk /data/app/~~EhORaz3eLYy6j_aoP7s3WA==/com.inkyandroid-OViVG-XPqJZUUKxhQlL4rg==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~EhORaz3eLYy6j_aoP7s3WA==/com.inkyandroid-OViVG-XPqJZUUKxhQlL4rg==/lib/x86_64:/data/app/~~EhORaz3eLYy6j_aoP7s3WA==/com.inkyandroid-OViVG-XPqJZUUKxhQlL4rg==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.inkyandroid
+11-23 00:16:47.440 10567 10567 V GraphicsEnvironment: Currently set values for:
+11-23 00:16:47.440 10567 10567 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+11-23 00:16:47.440 10567 10567 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+11-23 00:16:47.440 10567 10567 V GraphicsEnvironment: ANGLE GameManagerService for com.inkyandroid: false
+11-23 00:16:47.440 10567 10567 V GraphicsEnvironment: com.inkyandroid is not listed in per-application setting
+11-23 00:16:47.440 10567 10567 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+11-23 00:16:47.465 10567 10586 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+11-23 00:16:47.466 10567 10586 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+11-23 00:16:47.469 10567 10586 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+11-23 00:16:47.525 10567 10567 D CompatibilityChangeReporter: Compat change id reported: 237531167; UID 10192; state: DISABLED
+11-23 00:16:47.526 10567 10567 W OpenGLRenderer: Unknown dataspace 0
+11-23 00:16:47.536   536  2447 D CoreBackPreview: Window{d710371 u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@2ca79d7, mPriority=-1, mIsAnimationCallback=false}
+11-23 00:16:47.544 10567 10567 D CompatibilityChangeReporter: Compat change id reported: 193247900; UID 10192; state: ENABLED
+11-23 00:16:47.682 10567 10584 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+11-23 00:16:47.710 10567 10584 I Gralloc4: mapper 4.x is not supported
+11-23 00:16:48.054   536   555 I ActivityTaskManager: Displayed com.inkyandroid/.MainActivity for user 0: +752ms
+11-23 00:16:48.074   536  2447 W InputManager-JNI: Input channel object '5cbfbce Splash Screen com.inkyandroid (client)' was disposed without first being removed with the input manager!
+11-23 00:16:48.077 10567 10567 I Choreographer: Skipped 31 frames!  The application may be doing too much work on its main thread.
+11-23 00:16:48.173   536  1891 I ImeTracker: com.inkyandroid:c9d2f860: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+11-23 00:16:48.174   536  1891 I ImeTracker: com.inkyandroid:c9d2f860: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-23 00:16:48.198  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=0 fieldName=null extras=null}, false)
+11-23 00:16:48.399  1622  1622 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=0 fieldName=null extras=null}, false)
+11-23 00:16:48.466 10567 10567 D CompatibilityChangeReporter: Compat change id reported: 210923482; UID 10192; state: ENABLED
+11-23 00:16:48.477 10567 10567 D AutofillManager: notifyViewEnteredForFillDialog:1073741825
+11-23 00:16:52.955 10567 10628 D ProfileInstaller: Skipping profile installation for com.inkyandroid
+11-23 00:16:54.025   536  2447 W ProcessStats: Tracking association SourceState{8666e7e com.inkyandroid/10192 BTop #15363} whose proc state 2 is better than process ProcessState{4decf75 com.google.android.gms.persistent/10128 pkg=com.google.android.gms} proc state 4 (81 skipped)
+11-23 00:16:59.944 10784 10845 D SystemServerTimingAsync: InitThreadPoolExec:Update app-ops uidState in case package com.inkyandroid changed
+11-23 00:16:59.944 10784 10845 D SystemServerInitThreadPool: Started executing Update app-ops uidState in case package com.inkyandroid changed
+11-23 00:16:59.945 10784 10845 D SystemServerInitThreadPool: Finished executing Update app-ops uidState in case package com.inkyandroid changed
+11-23 00:16:59.945 10784 10845 V SystemServerTimingAsync: InitThreadPoolExec:Update app-ops uidState in case package com.inkyandroid changed took to complete: 1ms
+11-23 00:17:00.559 10784 10784 V StorageManagerService: Package com.inkyandroid does not have legacy storage
+11-23 00:17:18.078 10784 12335 I ActivityManager: Force stopping com.inkyandroid appid=10192 user=0: from pid 13788
+11-23 00:17:18.232 11153 11153 D CarrierSvcBindHelper: onHandleForceStop: [com.inkyandroid]
+11-23 00:17:19.197 10986 11037 V WindowManagerShell: Transition requested: android.os.BinderProxy@3a1a8a5 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=12 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity } baseActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} topActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} origActivity=null realActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} numActivities=1 lastActiveTime=940619 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@1d5447a} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{307842b com.inkyandroid.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-23 00:17:19.200 10784 12015 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity} with LAUNCH_MULTIPLE from uid 0 (BAL_ALLOW_ALLOWLISTED_UID) result code=0
+11-23 00:17:19.222 10784 10817 I ActivityManager: Start proc 13903:com.inkyandroid/u0a192 for next-top-activity {com.inkyandroid/com.inkyandroid.MainActivity}
+11-23 00:17:19.238 13903 13903 I com.inkyandroid: Using CollectorTypeCC GC.
+11-23 00:17:19.239 13903 13903 W com.inkyandroid: Unexpected CPU variant for x86: x86_64.
+11-23 00:17:19.239 13903 13903 W com.inkyandroid: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-23 00:17:19.241 13903 13903 E com.inkyandroid: Not starting debugger since process cannot load the jdwp agent.
+11-23 00:17:19.293 13903 13903 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 10192; state: ENABLED
+11-23 00:17:19.293 13903 13903 D CompatibilityChangeReporter: Compat change id reported: 242716250; UID 10192; state: ENABLED
+11-23 00:17:19.296 13903 13903 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+11-23 00:17:19.296 13903 13903 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+11-23 00:17:19.410 13903 13903 D nativeloader: Configuring clns-6 for other apk /data/app/~~EhORaz3eLYy6j_aoP7s3WA==/com.inkyandroid-OViVG-XPqJZUUKxhQlL4rg==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~EhORaz3eLYy6j_aoP7s3WA==/com.inkyandroid-OViVG-XPqJZUUKxhQlL4rg==/lib/x86_64:/data/app/~~EhORaz3eLYy6j_aoP7s3WA==/com.inkyandroid-OViVG-XPqJZUUKxhQlL4rg==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.inkyandroid
+11-23 00:17:19.570 13903 13903 V GraphicsEnvironment: Currently set values for:
+11-23 00:17:19.570 13903 13903 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+11-23 00:17:19.570 13903 13903 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+11-23 00:17:19.570 13903 13903 V GraphicsEnvironment: ANGLE GameManagerService for com.inkyandroid: false
+11-23 00:17:19.570 13903 13903 V GraphicsEnvironment: com.inkyandroid is not listed in per-application setting
+11-23 00:17:19.570 13903 13903 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+11-23 00:17:19.722 13903 13934 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+11-23 00:17:19.724 13903 13934 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+11-23 00:17:19.727 13903 13934 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+11-23 00:17:19.777 10784 10801 V WindowManager: Sent Transition #6 createdAt=11-23 00:17:19.167 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=12 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.inkyandroid/.MainActivity } baseActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} topActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} origActivity=null realActivity=ComponentInfo{com.inkyandroid/com.inkyandroid.MainActivity} numActivities=1 lastActiveTime=940619 supportsMultiWindow=true resizeMode=2 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{692f8a4 Task{3950142 #12 type=standard A=10192:com.inkyandroid}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{72e060d com.inkyandroid.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-23 00:17:19.788 10784 10801 V WindowManager:     info={id=6 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{692f8a4 Task{3950142 #12 type=standard A=10192:com.inkyandroid}}} m=OPEN f=NONE leash=Surface(name=Task=12)/@0xeadd036 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{f7eb9c2 Task{645848f #1 type=home}}} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0x9e63dbb sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-23 00:17:20.107 13903 13903 D CompatibilityChangeReporter: Compat change id reported: 237531167; UID 10192; state: DISABLED
+11-23 00:17:20.107 13903 13903 W OpenGLRenderer: Unknown dataspace 0
+11-23 00:17:20.177 13903 13903 I Choreographer: Skipped 30 frames!  The application may be doing too much work on its main thread.
+11-23 00:17:20.195 13903 13903 D CompatibilityChangeReporter: Compat change id reported: 193247900; UID 10192; state: ENABLED
+11-23 00:17:20.308 10784 12326 D CoreBackPreview: Window{9b57866 u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@493f814, mPriority=-1, mIsAnimationCallback=false}
+11-23 00:17:20.413 13903 13933 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+11-23 00:17:20.439 13903 13933 I Gralloc4: mapper 4.x is not supported
+11-23 00:17:20.993 13903 13923 I OpenGLRenderer: Davey! duration=1313ms; Flags=1, FrameTimelineVsyncId=54087, IntendedVsync=941090966973, Vsync=941590966953, InputEventId=0, HandleInputStart=941600977554, AnimationStart=941600977885, PerformTraversalsStart=941601005365, DrawStart=941915603599, FrameDeadline=941107633639, FrameInterval=941600847782, FrameStartTime=16666666, SyncQueued=941926611048, SyncStart=941930246342, IssueDrawCommandsStart=941930473433, SwapBuffers=942211435799, FrameCompleted=942407846593, DequeueBufferDuration=2734, QueueBufferDuration=219155, GpuCompleted=942407846593, SwapBuffersCompleted=942396591036, DisplayPresentTime=0, CommandSubmissionCompleted=942211435799, 
+11-23 00:17:21.010 13903 13903 I Choreographer: Skipped 49 frames!  The application may be doing too much work on its main thread.
+11-23 00:17:21.031 10784 10801 I ActivityTaskManager: Displayed com.inkyandroid/.MainActivity for user 0: +1s848ms
+11-23 00:17:21.096 10784 10797 W InputManager-JNI: Input channel object '2ad6149 Splash Screen com.inkyandroid (client)' was disposed without first being removed with the input manager!
+11-23 00:17:21.232 13903 13924 I OpenGLRenderer: Davey! duration=1016ms; Flags=0, FrameTimelineVsyncId=54327, IntendedVsync=941607633619, Vsync=942424300253, InputEventId=0, HandleInputStart=942436591865, AnimationStart=942436592135, PerformTraversalsStart=942481564381, DrawStart=942493671471, FrameDeadline=942440966919, FrameInterval=942434226566, FrameStartTime=16666666, SyncQueued=942494975986, SyncStart=942495041373, IssueDrawCommandsStart=942495125948, SwapBuffers=942548889394, FrameCompleted=942624529303, DequeueBufferDuration=3816, QueueBufferDuration=2973130, GpuCompleted=942624523008, SwapBuffersCompleted=942624529303, DisplayPresentTime=0, CommandSubmissionCompleted=942548889394, 
+11-23 00:17:21.497 10784 10962 I ImeTracker: com.inkyandroid:1b6c7c76: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+11-23 00:17:21.497 10784 10962 I ImeTracker: com.inkyandroid:1b6c7c76: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-23 00:17:21.509 11645 11645 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=0 fieldName=null extras=null}, false)
+11-23 00:17:21.596 11645 11645 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.inkyandroid fieldId=0 fieldName=null extras=null}, false)
+11-23 00:17:21.682 13903 13903 W InputMethodManager: Ignoring onBind: cur seq=6, given seq=5
+11-23 00:17:21.818 13903 13903 D CompatibilityChangeReporter: Compat change id reported: 210923482; UID 10192; state: ENABLED
+11-23 00:17:21.858 13903 13903 D AutofillManager: notifyViewEnteredForFillDialog:1073741825
+11-23 00:17:25.777 13903 14325 D ProfileInstaller: Skipping profile installation for com.inkyandroid
+11-23 00:17:34.372 10784 10971 D CoreBackPreview: Window{9b57866 u0 com.inkyandroid/com.inkyandroid.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@67551be, mPriority=0, mIsAnimationCallback=true}
+11-23 00:17:34.397 13903 13933 D EGL_emulation: app_time_stats: avg=1488.43ms min=21.27ms max=12393.46ms count=9
