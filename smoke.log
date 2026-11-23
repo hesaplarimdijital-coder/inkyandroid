@@ -1,0 +1,327 @@
+++ ls apk/app-release.apk
+++ head -1
++ APK=apk/app-release.apk
++ adb devices
+List of devices attached
+emulator-5554	device
+
++ ls -l /dev/kvm
+crw-rw-rw- 1 root kvm 10, 232 Nov 23 00:21 /dev/kvm
++ nproc
+4
++ uptime
+ 00:22:05 up 2 min,  0 users,  load average: 3.46, 1.14, 0.41
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:           15983        5865        2029          47        8480       10117
+Swap:           3071           0        3071
++ adb shell getprop ro.build.version.release
+17
++ adb shell getprop ro.build.version.sdk
+37
++ adb shell getprop ro.product.model
+sdk_gphone64_x86_64
++ adb shell wm size
+Physical size: 2560x1600
++ adb shell wm density
+Physical density: 320
++ adb shell getprop persist.sys.locale
+
++ adb shell getprop sys.boot_completed
+1
++ adb shell top -b -n 1 -m 15
+Tasks: 266 total,   9 running, 257 sleeping,   0 stopped,   0 zombie
+  Mem:  4006608K total,  3787088K used,   219520K free,   110548K buffers
+ Swap:  3004952K total,        0K used,  3004952K free,  2798816K cached
+300%cpu  46%user  21%nice 121%sys   7%idle   0%iow   7%irq   0%sirq 111%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+  637 system       18  -2  18G 422M 304M S 50.0  10.7   0:25.60 system_server
+ 1398 u0_a198      10 -10  16G 172M 107M S 42.8   4.4   0:05.76 com.google.android.apps.nexuslauncher
+  509 system       -3  -8  11G  39M  24M S 28.5   1.0   0:21.27 surfaceflinger
+ 1809 u0_a179      20   0  16G 161M 105M R 17.8   4.1   0:00.23 com.google.android.inputmethod.latin
+ 2022 shell        20   0  10G 5.2M 4.5M R  7.1   0.1   0:00.01 top -b -n 1 -m 15
+ 1978 u0_a162      20   0  17G 100M  53M R  7.1   2.5   0:00.01 com.google.android.googlequicksearchbox:interactor
+ 1091 u0_a189      20   0  16G 273M 167M R  7.1   6.9   0:07.82 com.android.systemui
+  568 logd         30  10  10G 4.7M 4.1M R  7.1   0.1   0:02.39 logcat -f /dev/hvc1 *:V
+  225 root          0 -20    0    0    0 I  7.1   0.0   0:03.32 [kworker/2:2H-kverityd]
+   58 root         20   0    0    0    0 S  7.1   0.0   0:00.23 [kswapd0]
+ 1996 u0_a161      20   0  17G  83M  37M R  3.5   2.1   0:00.00 <pre-initialized>
+ 1267 radio        20   0  16G 157M 103M S  3.5   4.0   0:01.40 com.android.phone
+  449 root         20   0  15G 190M 144M S  3.5   4.8   0:01.03 zygote64
+  281 logd         30  10  10G 7.6M 4.7M S  3.5   0.1   0:00.81 logd
+   20 root         20   0    0    0    0 S  3.5   0.0   0:00.04 [rcuop/0]
++ adb root
++ sleep 3
++ adb wait-for-device
++ adb shell id
+uid=0(root) gid=0(root) groups=0(root),1004(input),1007(log),1011(adb),1015(sdcard_rw),1028(sdcard_r),1078(ext_data_rw),1079(ext_obb_rw),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats),3009(readproc),3011(uhid),3012(readtracefs) context=u:r:su:s0
++ adb logcat -G 16M
++ python3 tools/smoke.py apk/app-release.apk smoke-out --profile tablet --scenarios 1
+Inky device smoke: profile tablet, sdk_gphone64_x86_64, Android 17 (API 37), Physical size: 2560x1600, density 320
+tablet: on-screen keyboards switched off (enabled now: none)
+installed app-release.apk
+
+== Scenario 1: The app: write and play, issues, files, lifecycle, Turkish; the large window's workspace
+[01] large-cold-start: PASS   (01-large-cold-start.png, 2560x1600 px, 1280 dp wide)
+     do: locale en-US; cold_start
+     device language already en-US
+     launch: COLD 2940 ms
+     checks: seen 'File'; seen 'Edit'; seen 'View'; seen 'Story'; seen 'Help'; seen 'First story.ink'; seen 'Once upon a time'; played 'There were two choices.'; new process 4430
+     visible: Back | Forward | First story.ink | Hide the inspector | Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | Projects | Documentation | First story | Settings | Collapse sidebar
+[02] large-write-line: PASS   (02-large-write-line.png, 2560x1600 px, 1280 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type Smoke line from keys.; key ENTER; wait 2
+     checks: seen 'Smoke line from keys.'; played 'Smoke line from keys.'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | Projects | Documentation | First story | Settings | Collapse sidebar
+[03] large-choose: PASS   (03-large-choose.png, 2560x1600 px, 1280 dp wide)
+     do: tap There were two choices.
+     checks: played 'They lived happily ever after.'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Turn 2 | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | They lived happily ever after. | End of story | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | Projects | Documentation | First story | Settings | Collapse sidebar
+[04] large-rewind: PASS   (04-large-rewind.png, 2560x1600 px, 1280 dp wide)
+     do: tap Rewind a single choice
+     checks: played 'There were two choices.'; not played 'They lived happily ever after.'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | Projects | Documentation | First story | Settings | Collapse sidebar
+[05] large-restart: PASS   (05-large-restart.png, 2560x1600 px, 1280 dp wide)
+     do: tap There were two choices.; tap Restart story
+     checks: played 'Smoke line from keys.'; played 'There were two choices.'; not played 'They lived happily ever after.'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | Projects | Documentation | First story | Settings | Collapse sidebar
+[06] large-palette: PASS   (06-large-palette.png, 2560x1600 px, 1280 dp wide)
+     do: key CTRL+K
+     checks: seen 'Knots and stitches'
+     visible: Back | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Outline | Watches | Hide the inspector | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | Issues | Projects | Documentation | First story | First story.ink | Settings | Collapse sidebar | Esc | All | Files | Knots and stitches | Text | Snippets | Screens
+[07] large-palette-closed: PASS   (07-large-palette-closed.png, 2560x1600 px, 1280 dp wide)
+     do: key ESCAPE
+     checks: absent 'Knots and stitches'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | Projects | Documentation | First story | Settings | Collapse sidebar
+[08] large-find: PASS   (08-large-find.png, 2560x1600 px, 1280 dp wide)
+     do: tap_field 1; key CTRL+F
+     checks: seen 'Match case'
+     visible: Back | Forward | First story.ink | Hide the inspector | Show replace | Find | Match case | Whole word | Regular expression | Previous match | Next match | Close search | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | Projects | Documentation | First story | Settings | Collapse sidebar
+[09] large-find-closed: PASS   (09-large-find-closed.png, 2560x1600 px, 1280 dp wide)
+     do: key ESCAPE
+     checks: absent 'Match case'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | Projects | Documentation | First story | Settings | Collapse sidebar
+[10] large-file-menu: PASS   (10-large-file-menu.png, 2560x1600 px, 1280 dp wide)
+     do: tap File
+     checks: seen 'New project…'; seen 'Export to JSON…'
+     visible: New project… | Ctrl+N | New included ink file… | Ctrl+Alt+N | Open folder… | Ctrl+O | Open file… | Ctrl+Shift+O | Open recent | Save project | Ctrl+S | Reload from storage | F5 | Export to JSON… | Ctrl+Shift+S | Export for web… | Export story.js only… | Ctrl+Alt+S | New window | Ctrl+Shift+N | Close project | Ctrl+W
+[11] large-error-in-issues: PASS   (11-large-error-in-issues.png, 2560x1600 px, 1280 dp wide)
+     do: key ESCAPE; tap_field 1; key CTRL+MOVE_HOME; type -> smoke_missing_knot; key ENTER; wait 3; tap Issues
+     checks: seen '1 error'; played 'smoke_missing_knot'
+     visible: Back | Forward | First story.ink | 1 issue | 1 error | Hide the inspector | -> smoke_missing_knot
+Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Error on line 1: Divert target not found: '-> smoke_missing_knot' | Resize the inspector | Player | Issues | Outline | Watches | Error, Line 1, Divert target not found: '-> smoke_missing_knot' | Divert target not found: '-> smoke_missing_knot' | Line 1 | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | 1 | Projects | Documentation | First story | Settings | Collapse sidebar
+[12] large-error-fixed: PASS   (12-large-error-fixed.png, 2560x1600 px, 1280 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; key SHIFT+DPAD_DOWN; key DEL; wait 3
+     checks: seen 'No issues'; not played 'smoke_missing_knot'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | No issues | Errors, warnings and TODO notes of the project are listed here as you type. | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | Projects | Documentation | First story | Settings | Collapse sidebar
+[13] large-typed-then-force-stopped: PASS   (13-large-typed-then-force-stopped.png, 2560x1600 px, 1280 dp wide)
+     do: tap Player; tap_field 1; key CTRL+MOVE_HOME; type keptword; key ENTER; wait 3; force_stop; launch
+     launch: COLD 1759 ms
+     checks: seen 'keptword'; seen 'Smoke line from keys.'; new process 6296
+     visible: Back | Forward | First story.ink | Hide the inspector | Keptword
+Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Keptword | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | Projects | Documentation | First story | Settings | Collapse sidebar
+[14] large-rotated-rail: PASS   (14-large-rotated-rail.png, 1600x2560 px, 800 dp wide)
+     do: rotate flip
+     rotated: 2560x1600 -> 1600x2560 px
+     checks: seen 'keptword'; seen 'Write'; seen 'Files'; same process 6296
+     visible: Back | Forward | First story.ink | Hide the inspector | Keptword
+Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Keptword | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Search or run a command | Menus | Write | Files | Projects | Documentation | Settings
+[15] large-rotated-back: PASS   (15-large-rotated-back.png, 2560x1600 px, 1280 dp wide)
+     do: rotate natural
+     rotated: 1600x2560 -> 2560x1600 px
+     checks: seen 'keptword'; same process 6296
+     visible: Back | Forward | First story.ink | Hide the inspector | Keptword
+Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Keptword | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | Projects | Documentation | First story | Settings | Collapse sidebar
+[16] large-background-foreground: PASS   (16-large-background-foreground.png, 2560x1600 px, 1280 dp wide)
+     do: home; launch
+     launch: HOT 93 ms
+     checks: seen 'keptword'; same process 6296
+     visible: Back | Forward | First story.ink | Hide the inspector | Keptword
+Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Keptword | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File name, stitch, knot, line number, or text | Ctrl+K | Projects | Documentation | First story | Settings | Collapse sidebar
+[17] large-process-death-restored: FAIL   (17-large-process-death-restored.png, 2560x1600 px, 1280 dp wide)
+     do: home; kill_background; launch
+     process 6296 killed in the background
+     launch: existing task brought to the front
+     checks: MISSING 'keptword'
+     ! 'keptword' is not on the screen
+     ! the app is not in the foreground
+     ! the app did not start a new process: 6296 -> None
+     !! crash (FATAL EXCEPTION):
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: FATAL EXCEPTION: main
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: Process: com.inkyandroid, PID: 6645
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: java.lang.IllegalStateException: Restoring the Navigation back stack failed: destination 1643896560 cannot be found from the current destination Destination(0xa3052872) route=write
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.navigation.internal.NavControllerImpl.onGraphCreated$navigation_runtime(NavControllerImpl.kt:942)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.navigation.internal.NavControllerImpl.setGraph$navigation_runtime(NavControllerImpl.kt:893)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.navigation.internal.NavControllerImpl.setGraph$navigation_runtime(NavControllerImpl.kt:84)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.navigation.NavController.setGraph(NavController.android.kt:83)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.navigation.compose.NavHostKt.NavHost(NavHost.kt:815)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at desktopkit.shell.DesktopShellKt.ShellContent$lambda$46$3$0(DesktopShell.kt:603)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at desktopkit.shell.DesktopShellKt.$r8$lambda$UvO1hJpMZbeZyvWeb1H5NaLWzgE(DesktopShell.kt:0)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at desktopkit.shell.DesktopShellKt$$ExternalSyntheticLambda49.invoke(D8$$SyntheticClass:0)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.compose.runtime.internal.ComposableLambdaImpl.invoke(ComposableLambda.kt:122)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.compose.runtime.internal.ComposableLambdaImpl.invoke(ComposableLambda.kt:52)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.compose.runtime.CompositionLocalKt.CompositionLocalProvider(CompositionLocal.kt:428)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at desktopkit.shell.DesktopShellKt.ShellContent$lambda$46$3(DesktopShell.kt:593)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at desktopkit.shell.DesktopShellKt.$r8$lambda$XDz4XLis-IAj3gP66YB1LkQYuRI(DesktopShell.kt:0)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at desktopkit.shell.DesktopShellKt$$ExternalSyntheticLambda34.invoke(D8$$SyntheticClass:0)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.compose.runtime.internal.ComposableLambdaImpl.invoke(ComposableLambda.kt:122)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.compose.runtime.internal.ComposableLambdaImpl.invoke(ComposableLambda.kt:52)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at desktopkit.shell.ShellLayoutKt.ShellLayout-t7ov2YI(ShellLayout.kt:129)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at desktopkit.shell.DesktopShellKt.ShellContent$lambda$46(DesktopShell.kt:504)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at desktopkit.shell.DesktopShellKt$$ExternalSyntheticLambda9.invoke(D8$$SyntheticClass:0)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.compose.runtime.internal.ComposableLambdaImpl.invoke(ComposableLambda.kt:122)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.compose.runtime.internal.ComposableLambdaImpl.invoke(ComposableLambda.kt:52)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.compose.runtime.CompositionLocalKt.CompositionLocalProvider(CompositionLocal.kt:408)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at desktopkit.shell.DesktopShellKt.ShellContent(DesktopShell.kt:492)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at desktopkit.shell.DesktopShellKt.DesktopShell$lambda$3$0(DesktopShell.kt:275)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at desktopkit.shell.DesktopShellKt.$r8$lambda$DqMyr3pE6NeLNPHmMIKqaJ4L47w(DesktopShell.kt:0)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at desktopkit.shell.DesktopShellKt$$ExternalSyntheticLambda47.invoke(D8$$SyntheticClass:0)
+        11-23 00:27:03.783  6645  6645 E AndroidRuntime: 	at androidx.compose.runtime.internal.ComposableLambdaImpl.invoke(ComposableLambda.kt:122)
+     visible: At a glance | Mon, Nov 23 | Analog | 00:27 | Monday, Nov 23, 12:27 AM | Folder: Google, 4 or more items | Google | Calendar schedule | Calendar | Sign in to view your schedule | Sign in | Home | Google search | Google app | Voice search | Camera search | Gmail | Chrome | YouTube | Photos | Messages | Predicted app: Messages | Inky | Predicted app: Inky
+[18] large-turkish: PASS   (18-large-turkish.png, 2560x1600 px, 1280 dp wide)
+     do: locale tr-TR; cold_start
+     device language switched to tr-TR (framework restarted)
+     launch: COLD 4502 ms
+     checks: seen 'Dosya'; seen 'keptword'; played 'keptword'; new process 8612
+     visible: Geri | İleri | First story.ink | Ayrıntı panelini gizle | Keptword
+Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Ayrıntı panelini boyutlandır | Oynatıcı | Sorunlar | Anahat | İzleme | Hikâyenin başı | Bir seçim geri al | Hikâyeyi baştan başlat | Keptword | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | Dosya | Düzen | Görünüm | Hikâye | Ink | Yardım | Dosya adı, dikiş, düğüm, satır numarası ya da metin | Ctrl+K | Projeler | Belgeler | First story | Ayarlar | Kenar çubuğunu daralt
+
+language changes: the device language
+failed steps: large-process-death-restored
+RESULT: FAIL
++ echo SMOKE_FAILED
+SMOKE_FAILED
++ uptime
+ 00:27:54 up 7 min,  0 users,  load average: 6.43, 3.99, 1.91
++ adb shell top -b -n 1 -m 15
+Tasks: 300 total,   3 running, 297 sleeping,   0 stopped,   0 zombie
+  Mem:  4006608K total,  3851552K used,   155056K free,    61964K buffers
+ Swap:  3004952K total,     6944K used,  2998008K free,  2165680K cached
+300%cpu 112%user  85%nice  92%sys   4%idle   0%iow   4%irq   0%sirq   4%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+ 8684 u0_a159      20   0  16G 186M 114M S 88.4   4.7   0:02.33 com.google.android.dialer
+ 7675 u0_a232      20   0  16G 258M 187M S 30.7   6.5   0:02.12 com.google.android.gms
+ 7398 u0_a232      20   0  16G 292M 211M S 30.7   7.4   0:04.04 com.google.android.gms.persistent
+ 7231 u0_a198      20   0  16G 282M 190M S 23.0   7.2   0:07.66 com.google.android.apps.nexuslauncher
+ 9357 u0_a155      20   0  33G 117M  63M R 15.3   2.9   0:00.20 com.google.android.settings.intelligence
+ 6805 system       18  -2  19G 515M 363M S 15.3  13.1   0:12.56 system_server
+ 8240 u0_a162      20   0  17G 200M 139M S 11.5   5.1   0:00.97 com.google.android.googlequicksearchbox:search
+  568 logd         30  10  10G 4.7M 4.1M S 11.5   0.1   0:16.04 logcat -f /dev/hvc1 *:V
+ 8884 u0_a182      20   0  17G 201M 138M R  7.6   5.1   0:00.34 com.google.android.apps.photos
+ 9402 root         20   0  10G 5.1M 4.3M R  3.8   0.1   0:00.01 top -b -n 1 -m 15
+ 9337 u0_a233      20   0  16G 121M  71M S  3.8   3.0   0:00.10 com.google.android.rkpdapp
+ 7981 u0_a112      20   0  16G 122M  73M S  3.8   3.1   0:00.14 android.process.media
+ 7711 u0_a207      20   0  16G 142M  89M S  3.8   3.6   0:01.03 com.google.android.providers.media.module
+ 7698 u0_a160      20   0  16G 174M 116M S  3.8   4.4   0:00.80 com.google.android.apps.wellbeing
+ 7213 radio        20   0  16G 158M 104M S  3.8   4.0   0:01.28 com.android.phone
++ exit 0
