@@ -259,6 +259,31 @@ class CutShortSaveTest {
         assertFalse(project.file("main.ink").hasConflict)
     }
 
+    /**
+     * Known and left as it is (review-final F5, a note): what storage holds is a beginning of the
+     * "saving" draft's text, as a truncating write cut short leaves it, so the draft comes back without
+     * a conflict, also when it was in fact the other device that cut the end after the save had
+     * finished. No text is lost (the draft holds more than storage), but that cut is undone. Asking
+     * instead would cost a question after every torn write; this test keeps the choice visible.
+     */
+    @Test
+    fun `a saving draft over a beginning of its own text is taken for its torn write, also when another device cut the end`() = projectTest {
+        store.put("main.ink", "Chapter one.\n")
+        val first = open(writeAhead = journal)
+        first.edit("main.ink").type("Chapter one.\nChapter two.\nChapter three, which the tablet later cuts.\n")
+        assertEquals(SaveResult.Saved, first.save("main.ink"))
+        // the process dies before the flush that removes the saving draft; then the tablet cuts chapter three
+        store.put("main.ink", "Chapter one.\nChapter two.\n")
+
+        val secondJournal = DraftJournal(drafts) { now }
+        val second = open(writeAhead = secondJournal)
+        val report = secondJournal.restore(second)
+
+        assertEquals(listOf("main.ink"), report.restored)
+        assertEquals(emptyList<String>(), report.conflicts)
+        assertEquals("Chapter one.\nChapter two.\nChapter three, which the tablet later cuts.\n", second.text("main.ink").toString())
+    }
+
     @Test
     fun `remains that are not a beginning of the draft's text, as an overwrite in place leaves them, are a conflict`() = projectTest {
         // a provider without truncation writes over the old text: the new beginning, then the old end
