@@ -389,9 +389,42 @@ class NoTextLostTest {
         val next = open(settings = settingsAfterRestart())
         pass(0)
         val mine = next.kept.value.single { it.origin == KeptVersion.Origin.Mine }
-        assertTrue(next.restoreKept(mine))
+        assertEquals(KeptRestore.Restored, next.restoreKept(mine))
         assertEquals(written, next.project.text("main.ink").toString())
         assertTrue(next.project.state.value.file("main.ink")!!.hasUnsavedChanges)
+    }
+
+    @Test
+    fun `bringing back a kept version keeps the text it replaces first`() = sessionTest {
+        settings.updateAutosave(false)
+        onStorage("main.ink", story)
+        val session = open()
+        val editor = editor(session, "main.ink")
+        editor.type(written)
+        onStorage("main.ink", "Rewritten on the computer\n")
+        session.syncWithStorage()
+        session.resolveConflict("main.ink", keepMine = true)
+        editor.type("$written An hour more.\n")
+
+        val theirs = session.kept.value.single { it.origin == KeptVersion.Origin.Theirs }
+        assertEquals(KeptRestore.Restored, session.restoreKept(theirs))
+
+        assertEquals("Rewritten on the computer\n", editor.text.toString())
+        assertTrue("the replaced text is kept", session.kept.value.any { it.origin == KeptVersion.Origin.Mine && it.text == "$written An hour more.\n" })
+    }
+
+    @Test
+    fun `a kept version of a file that left the project changes nothing`() = sessionTest {
+        onStorage("main.ink", "INCLUDE a.ink\n")
+        onStorage("a.ink", "A\n")
+        val session = open()
+        editor(session, "a.ink").type("A, mine\n")
+        onStorage("a.ink", "A, theirs\n")
+        session.syncWithStorage()
+        session.resolveConflict("a.ink", keepMine = true)
+        session.delete("a.ink")
+
+        assertEquals(KeptRestore.FileGone, session.restoreKept(session.kept.value.single()))
     }
 
     @Test

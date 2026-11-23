@@ -23,6 +23,18 @@ data class ShowRequest(val id: Long, val path: String, val position: TextPositio
  */
 data class SaveProblem(val failed: Map<String, String>, val errors: Map<String, IOException> = emptyMap())
 
+/** What [ProjectSession.restoreKept] did. */
+enum class KeptRestore {
+    /** The kept text is its file's text again, as an edit Undo takes out; the text it replaced is kept in turn. */
+    Restored,
+
+    /** The file is no longer in the project: nothing changed (the text is still in the version). */
+    FileGone,
+
+    /** The file's text could not be kept first, so nothing was replaced; [SessionState.draftProblem] says why. */
+    NotKept,
+}
+
 /** The three answers to upstream's "Would you like to save changes before exiting?". */
 enum class CloseAnswer { Save, DontSave, Cancel }
 

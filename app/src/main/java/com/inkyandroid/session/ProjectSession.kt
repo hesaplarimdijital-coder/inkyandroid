@@ -366,14 +366,26 @@ class ProjectSession private constructor(
 
     /**
      * Brings a [kept] version back into its file as an edit the writer can undo: the file shows it
-     * and has unsaved changes. False when the file is no longer in the project (its text is still
-     * in [version] for the screens to offer otherwise, e.g. to copy).
+     * and has unsaved changes. Bringing one back is itself an answer that replaces a text, so the
+     * file's text is kept first, as "keep mine" keeps the other version; when it cannot be kept
+     * nothing is replaced ([KeptRestore.NotKept]). A file no longer in the project changes nothing
+     * ([KeptRestore.FileGone]: the text is still in [version] for the screens to offer otherwise).
      */
-    suspend fun restoreKept(version: KeptVersion): Boolean {
-        val document = document(version.path) ?: return false
+    suspend fun restoreKept(version: KeptVersion): KeptRestore {
+        val document = document(version.path) ?: return KeptRestore.FileGone
+        val current = document.buffer.text.toString()
+        if (current != version.text) {
+            try {
+                journal.setAside(version.path, mine = current, theirs = null)
+            } catch (failed: IOException) {
+                draftsFailed(CopyNotKeptException(failed))
+                return KeptRestore.NotKept
+            }
+        }
         document.buffer.edit(0, document.buffer.text.length, version.text)
         show(version.path)
-        return true
+        refreshKept()
+        return KeptRestore.Restored
     }
 
     /** Forgets a [kept] version: the writer has no more use for it. */

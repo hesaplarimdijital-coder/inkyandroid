@@ -16,6 +16,7 @@ import com.inkyandroid.core.symbols.FlowSymbol
 import com.inkyandroid.core.symbols.InkProjectSymbols
 import com.inkyandroid.ink.InkLink
 import com.inkyandroid.session.CloseAnswer
+import com.inkyandroid.session.KeptRestore
 import com.inkyandroid.session.ProjectSession
 import com.inkyandroid.session.ProjectSessionHolder
 import com.inkyandroid.session.TextPosition
@@ -266,20 +267,25 @@ class WindowActions(
     }
 
     /**
-     * Brings a kept text back into its file, as an edit Undo takes out again. A file that is no longer
-     * in the project cannot take it: the text goes to the clipboard instead, and the notice says so.
+     * Brings a kept text back into its file, as an edit Undo takes out again; the text it replaces is
+     * kept in turn. A file that is no longer in the project cannot take it: the text goes to the
+     * clipboard instead, and the notice says so.
      */
     fun restoreKept(version: KeptVersion) {
         val session = session ?: return
         scope.launch {
             val name = ProjectPaths.name(version.path)
-            if (session.restoreKept(version)) {
-                ui.dialog = null
-                showEditor()
-                notify(strings.getString(R.string.kept_restored, name))
-            } else {
-                copyText(version.text)
-                notify(strings.getString(R.string.kept_copied, name))
+            when (session.restoreKept(version)) {
+                KeptRestore.Restored -> {
+                    ui.dialog = null
+                    showEditor()
+                    notify(strings.getString(R.string.kept_restored, name))
+                }
+                KeptRestore.FileGone -> {
+                    copyText(version.text)
+                    notify(strings.getString(R.string.kept_copied, name))
+                }
+                KeptRestore.NotKept -> notify(strings.getString(R.string.draft_problem_title), BannerTone.Error)
             }
         }
     }

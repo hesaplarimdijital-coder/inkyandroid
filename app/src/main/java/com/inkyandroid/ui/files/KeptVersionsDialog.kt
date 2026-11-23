@@ -11,6 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -63,18 +66,22 @@ fun KeptVersionsDialog(
                 } else {
                     DateUtils.getRelativeTimeSpanString(version.keptAt, now, DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString()
                 }
+                // a tap on the row only shows more of the text: bringing it back, which replaces the
+                // file's text, is the button's alone
+                var expanded by remember(version.id) { mutableStateOf(false) }
+                val lines = if (expanded) EXPANDED_PREVIEW_LINES else PREVIEW_LINES
                 DeskListRow(
                     title = if (path == null) version.path else ProjectPaths.name(version.path),
                     subtitle = "$origin · $time",
-                    preview = version.text.lineSequence().filter { it.isNotBlank() }.take(PREVIEW_LINES).joinToString("\n"),
-                    previewMaxLines = PREVIEW_LINES,
+                    preview = version.text.lineSequence().filter { it.isNotBlank() }.take(lines).joinToString("\n"),
+                    previewMaxLines = lines,
                     trailingContent = {
                         Row(horizontalArrangement = Arrangement.spacedBy(DeskTheme.dimens.gapXs), verticalAlignment = Alignment.CenterVertically) {
                             DeskButton(stringResource(R.string.kept_restore), { onRestore(version) })
                             DeskIconButton(DeskIcons.Delete, stringResource(R.string.kept_forget), { onForget(version) })
                         }
                     },
-                    onClick = { onRestore(version) },
+                    onClick = { expanded = !expanded },
                 )
             }
         }
@@ -86,3 +93,6 @@ private const val LIST_SHARE = 0.5f
 
 /** The first lines of a kept text shown under its row. */
 private const val PREVIEW_LINES = 2
+
+/** The lines shown once the row was tapped to read more. */
+private const val EXPANDED_PREVIEW_LINES = 12
