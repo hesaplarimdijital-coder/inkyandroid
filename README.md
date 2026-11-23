@@ -8,9 +8,9 @@ inkle/inky'nin bir çatalıdır; Electron uygulaması geçmişte ve upstream'de 
 olarak kurulur.
 
 > **Durum:** 0.1.0, ilk sürüm. Masaüstü Inky 0.15.2'nin özellik listesinin tamamı ya uygulamada ya da
-> nedeniyle birlikte `docs/TASINMAYANLAR.md`'de. Uygulama Robolectric'te, ekran görüntüleriyle sınandı;
-> gerçek bir telefonda, tablette ve DeX'te henüz denenmedi: denenmesi gerekenler aşağıda. Yapılanlar
-> `CHANGELOG.md`'de.
+> nedeniyle birlikte `docs/TASINMAYANLAR.md`'de. Uygulama Robolectric'te ekran görüntüleriyle ve
+> emülatörde (bir telefon, bir tablet) sınandı; gerçek bir telefonda, tablette ve DeX'te henüz denenmedi:
+> denenmesi gerekenler `docs/CIHAZ-TESTLERI.md`'de. Yapılanlar `CHANGELOG.md`'de.
 
 ## Neler var
 
@@ -65,28 +65,14 @@ oluşması için Ayarlar › Dosyalar › Projeler klasörü (örneğin `Documen
 | `docs/KISAYOLLAR.md` | Bütün klavye kısayolları, masaüstünden farklarıyla |
 | `docs/TASINMAYANLAR.md` | Masaüstünden farklı olan ve taşınmayan her şey, nedeniyle; ink'in burada çalışışındaki farklar |
 | `docs/SOZLUK.md` | ink ve Inky kavramlarının arayüzdeki Türkçe karşılıkları |
+| `docs/CIHAZ-TESTLERI.md` | Telefonda, tablette ve DeX'te elle denenecekler, doğrusu ve bilinen sınırlarıyla |
 | `docs/BAKIM.md` | Güncellerken bakılacaklar; emülatörde duman testi |
 
 ## Cihazda denenecekler
 
-Robolectric ve emülatör şunları söyleyemez; sürümden önce cihazda bir kez denenir:
-
-- **Depolama sağlayıcıları:** dahili depolamada ve SD kartta bir klasör (`Documents/Inky`) seçmek, proje
-  oluşturmak, kaydetmek, dosyayı başka klasöre taşıyarak yeniden adlandırmak, silmek; `.ink` ve `.json`
-  adlarının `.txt` almadığı. Google Drive ve Samsung bulut klasörlerinde kaydetmenin yerinde yazdığı ve
-  kaydedilen dosyanın "dışarıda değişti" sanılmadığı.
-- **Dosya yöneticilerinden açmak:** Samsung Dosyalarım, Files by Google ve Drive'da bir `.ink` dosyasına
-  dokununca Inky'nin önerilmesi; salt okunur paylaşılan dosyada "klasöre erişim ver" yolu.
-- **İzinler:** cihaz yeniden başlayınca klasör izinlerinin sürmesi; izin Ayarlar'dan geri alınınca
-  şeridin çıkması; SD kart çıkarılınca projenin ulaşılamaz görünmesi.
-- **DeX:** pencereyi fareyle boyutlandırırken düzenin değişmesi ve açık dosyanın, imlecin, oynatıcının
-  yerinde kalması; iki pencerede iki proje; menü çubuğunun başlık çubuğuna yerleşmesi; kısayollar ve
-  Meta+/ listesi.
-- **Klavyeler:** Samsung Klavye ile yazarken ink şeridi, öneriler açık ve kapalı (Ayarlar › Düzenleyici);
-  klavye kapağı ve Bluetooth klavyeyle Türkçe Q düzeninde Ctrl+/, Ctrl+= gibi tuşlar.
-- **Hız:** uzun bir projede (Ink menüsündeki *The Intercept*, yaklaşık 1.700 satır) yazarken takılma olmaması,
-  oynatıcının yazmayı bekletmemesi.
-- **Dışa aktarma:** web için dışa aktarılan klasörün bir bilgisayarda tarayıcıda açılıp oynaması.
+Robolectric ve emülatörün gösteremediği her şey (depolama sağlayıcıları, dosya yöneticileri, izinler, DeX,
+klavyeler, hız, dışa aktarılan web sayfası) madde madde, neyin doğru sayılacağıyla ve bilinen sınırlarıyla
+`docs/CIHAZ-TESTLERI.md`'de: S24'te ve Tab S11 Ultra'da (DeX dahil) sürümden önce bir kez denenir.
 
 ## Yapı
 
