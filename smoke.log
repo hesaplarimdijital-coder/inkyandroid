@@ -1,0 +1,330 @@
+++ head -1
+++ ls apk/app-release.apk
++ APK=apk/app-release.apk
++ adb devices
+List of devices attached
+emulator-5554	device
+
++ ls -l /dev/kvm
+crw-rw-rw- 1 root kvm 10, 232 Nov 23 00:35 /dev/kvm
++ nproc
+4
++ uptime
+ 00:36:10 up 4 min,  0 users,  load average: 2.24, 0.82, 0.32
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:           15700        4753        4287          46        7042       10947
+Swap:              0           0           0
++ adb shell getprop ro.build.version.release
+14
++ adb shell getprop ro.build.version.sdk
+34
++ adb shell getprop ro.product.model
+sdk_gphone64_x86_64
++ adb shell wm size
+Physical size: 1080x2400
++ adb shell wm density
+Physical density: 420
++ adb shell getprop persist.sys.locale
+
++ adb shell getprop sys.boot_completed
+1
++ adb shell top -b -n 1 -m 15
+Tasks: 285 total,   6 running, 279 sleeping,   0 stopped,   0 zombie
+  Mem:  3050432K total,  2958020K used,    92412K free,    22244K buffers
+ Swap:  2287820K total,        0K used,  2287820K free,  2107792K cached
+300%cpu  48%user  39%nice 139%sys   3%idle   0%iow   3%irq   3%sirq  70%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+ 1132 u0_a169      20   0  13G 120M  67M S 48.4   4.0   0:00.07 com.google.android.apps.nexuslauncher
+  536 system       18  -2  15G 430M 315M S 30.3  14.4   0:15.20 system_server
+ 1559 u0_a140      10 -10  13G 180M 118M D 27.2   6.0   0:00.25 com.google.android.inputmethod.latin
+  870 u0_a166      20   0  13G 247M 137M D 27.2   8.3   0:01.85 com.android.systemui
+  416 system       -3  -8  10G  38M  24M S 15.1   1.2   0:07.03 surfaceflinger
+  404 system       -3  -8  10G  29M  15M S 15.1   0.9   0:00.62 android.hardware.graphics.composer3-service.ranchu
+ 1710 u0_a132      20   0  14G  84M  37M R 12.1   2.8   0:00.02 com.google.android.googlequicksearchbox:interactor
+ 1861 shell        20   0  10G 5.0M 4.2M R  6.0   0.1   0:00.01 top -b -n 1 -m 15
+  883 u0_a191      20   0  13G 147M  80M S  6.0   4.9   0:00.26 com.google.android.permissioncontroller
+  349 root         20   0  14G 175M 128M R  6.0   5.8   0:00.77 zygote64
+  214 root         20   0  10G  10M 7.8M R  6.0   0.3   0:01.63 apexd
+   10 root         20   0    0    0    0 I  6.0   0.0   0:00.00 [kworker/u6:1-ext4-rsv-conversion]
+ 1869 root         20   0  14G  47M    0 R  3.0   1.5   0:00.00 zygote64
+ 1651 u0_a123      20   0  13G 103M  55M D  3.0   3.4   0:00.03 com.google.android.as
+ 1642 u0_a187      20   0  13G 101M  52M D  3.0   3.3   0:00.02 com.google.android.providers.media.module
++ adb root
++ sleep 3
++ adb wait-for-device
++ adb shell id
+uid=0(root) gid=0(root) groups=0(root),1004(input),1007(log),1011(adb),1015(sdcard_rw),1028(sdcard_r),1078(ext_data_rw),1079(ext_obb_rw),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats),3009(readproc),3011(uhid),3012(readtracefs) context=u:r:su:s0
++ adb logcat -G 16M
++ python3 tools/smoke.py apk/app-release.apk smoke-out --profile phone
+Inky device smoke: profile phone, sdk_gphone64_x86_64, Android 14 (API 34), Physical size: 1080x2400, density 420
+navigation bar overlays: [ ] com.android.internal.systemui.navbar.gestural_wide_back; [x] com.android.internal.systemui.navbar.threebutton; [ ] com.android.internal.systemui.navbar.twobutton; [ ] com.android.internal.systemui.navbar.gestural_extra_wide_back; [ ] com.android.internal.systemui.navbar.transparent; [ ] com.android.internal.systemui.navbar.gestural; [ ] com.android.internal.systemui.navbar.gestural_narrow_back
+installed app-release.apk
+
+== Scenario 1: The app: write and play, issues, files, lifecycle, Turkish; the large window's workspace
+[01] cold-start-first-story: PASS   (01-cold-start-first-story.png, 1080x2400 px, 411 dp wide)
+     do: locale en-US; cold_start
+     device language already en-US
+     launch: COLD 1578 ms
+     checks: seen 'Write'; seen 'Play'; seen 'Files'; seen 'Once upon a time'; new process 5101
+     visible: Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[02] play-first-story: PASS   (02-play-first-story.png, 1080x2400 px, 411 dp wide)
+     do: tap Play
+     checks: played 'Once upon a time'; played 'There were two choices.'
+     visible: Once upon a time... | There were two choices. | There were four lines of content. | Play | Rewind a single choice | Restart story | Watches | Search or run a command | Write | Files | More
+[03] write-line-with-keys: PASS   (03-write-line-with-keys.png, 1080x2400 px, 411 dp wide)
+     do: tap Write; tap_field 1; key CTRL+MOVE_HOME; type Smoke line from keys.; key ENTER
+     checks: seen 'Smoke line from keys.'
+     visible: Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command
+[04] append-word-on-screen-keyboard: PASS   (04-append-word-on-screen-keyboard.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; tap_field_at 1 -24 74.3; ime_type  imeword; hide_keyboard
+     text field 1 at [0,128][1080,1517]: tapped at 1017,323
+     typed ' imeword' on the on-screen keyboard; the field holds it and nothing else changed
+     checks: seen 'Smoke line from keys. imeword'
+     visible: Smoke line from keys. Imeword
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[05] play-typed-text: PASS   (05-play-typed-text.png, 1080x2400 px, 411 dp wide)
+     do: tap Play
+     checks: played 'Smoke line from keys.'; played 'imeword'
+     visible: Smoke line from keys. Imeword | Once upon a time... | There were two choices. | There were four lines of content. | Play | Rewind a single choice | Restart story | Watches | Search or run a command | Write | Files | More
+[06] choose: PASS   (06-choose.png, 1080x2400 px, 411 dp wide)
+     do: tap There were two choices.
+     checks: played 'They lived happily ever after.'
+     visible: Smoke line from keys. Imeword | Once upon a time... | There were two choices. | They lived happily ever after. | End of story | Restart story | Play | Rewind a single choice | Watches | Search or run a command | Write | Files | More
+[07] rewind: PASS   (07-rewind.png, 1080x2400 px, 411 dp wide)
+     do: tap Rewind a single choice
+     checks: played 'There were two choices.'; not played 'They lived happily ever after.'
+     visible: Smoke line from keys. Imeword | Once upon a time... | There were two choices. | There were four lines of content. | Play | Rewind a single choice | Restart story | Watches | Search or run a command | Write | Files | More
+[08] restart: PASS   (08-restart.png, 1080x2400 px, 411 dp wide)
+     do: tap Restart story
+     checks: played 'Smoke line from keys.'; played 'There were two choices.'
+     visible: Smoke line from keys. Imeword | Once upon a time... | There were two choices. | There were four lines of content. | Play | Rewind a single choice | Restart story | Watches | Search or run a command | Write | Files | More
+[09] insert-on-screen-keyboard-after-tap: PASS   (09-insert-on-screen-keyboard-after-tap.png, 1080x2400 px, 411 dp wide)
+     do: tap Write; tap_field 1; key CTRL+MOVE_HOME; type victimtap; key ENTER; tap_field_at 1 58 74.3; ime_type tap; hide_keyboard
+     text field 1 at [0,128][1080,1517]: tapped at 152,323
+     typed 'tap' on the on-screen keyboard; the field holds it and nothing else changed
+     checks: seen 'tapvictimtap'
+     visible: Tapvictimtap
+Smoke line from keys. Imeword
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[10] insert-on-screen-keyboard-after-home-key: PASS   (10-insert-on-screen-keyboard-after-home-key.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type victimkey; key ENTER; key CTRL+MOVE_HOME; ime_type key; hide_keyboard
+     typed 'key' on the on-screen keyboard; the field holds it and nothing else changed
+     checks: seen 'keyvictimkey'
+     visible: Keyvictimkey
+Tapvictimtap
+Smoke line from keys. Imeword
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[11] insert-on-screen-keyboard-then-enter: PASS   (11-insert-on-screen-keyboard-then-enter.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type victimenter; key ENTER; key CTRL+MOVE_HOME; ime_type enter; key ENTER; hide_keyboard
+     typed 'enter' on the on-screen keyboard; the field holds it and nothing else changed
+     checks: seen 'victimenter'
+     visible: Enter
+victimenter
+Keyvictimkey
+Tapvictimtap
+Smoke line from keys. Imeword
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[12] error-in-issues: PASS   (12-error-in-issues.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type -> smoke_missing_knot; key ENTER; hide_keyboard; wait 3; tap More; tap Issues
+     checks: seen '1 error'; played 'smoke_missing_knot'
+     visible: 1 error | Error, Line 1, Divert target not found: '-> smoke_missing_knot' | Divert target not found: '-> smoke_missing_knot' | Line 1 | Issues | Search or run a command | Write | Play | Files | More
+[13] error-fixed: PASS   (13-error-fixed.png, 1080x2400 px, 411 dp wide)
+     do: tap Write; tap_field 1; key CTRL+MOVE_HOME; key SHIFT+DPAD_DOWN; key DEL; hide_keyboard; wait 3; tap More; tap Issues
+     checks: seen 'No issues'; absent 'smoke_missing_knot'
+     visible: No issues | Errors, warnings and TODO notes of the project are listed here as you type. | Issues | Search or run a command | Write | Play | Files | More
+[14] files: PASS   (14-files.png, 1080x2400 px, 411 dp wide)
+     do: tap Files
+     checks: seen 'First story.ink'
+     visible: Files | Outline | Main ink file | First story.ink | Search or run a command | Write | Play | More | Add new include
+[15] documentation: PASS   (15-documentation.png, 1080x2400 px, 411 dp wide)
+     do: tap More; tap Documentation; wait 3
+     checks: seen 'Writing with ink'
+     visible: Writing with ink | Introduction | ink is a scripting language built around the idea of marking up pure-text with flow in order to produce interactive scripts. | At its most basic, it can be used to write a Choose Your Own-style story, or a branching dialogue tree. But its real strength is in writing dialogues with lots of options and lots of recombination of the flow. | ink offers several features to enable non-technical writers to branch often, and play out the consequences of those branches, in both minor and major ways, without fuss. | The script aims to be clean and logically ordered, so branching dialogue can be tested "by eye". The flow is described in a declarative fashion where possible. | It's also designed with redrafting in mind; so editing a flow should be fast. | Part One: The Basics | 1) Content | The most basic ink script is just text in a .ink file. | Hello, world! | Copy the example | Documentation | Contents | Find in the manual | More options | Write | Play | Files | More
+[16] settings: PASS   (16-settings.png, 1080x2400 px, 411 dp wide)
+     do: back; tap More; tap Settings
+     checks: seen 'Appearance'
+     visible: Appearance | Theme | System | Light | Dark | OLED black | Accent colour | Blue | Amber | Green | Coral | Input | Interface density | Touch | Mouse and keyboard | Automatic (follows mouse or touch) | Keyboard shortcuts | File | New project… | Ctrl+N | New included ink file… | Ctrl+Alt+N | Open folder… | Ctrl+O | Open file… | Ctrl+Shift+O | Save project | Ctrl+S | Reload from storage | F5 | Export story.js only… | Ctrl+Alt+S | New window | Ctrl+Shift+N | Close project | Ctrl+W | Settings | Search or run a command | Write | Play | Files | More
+[17] editor-again: PASS   (17-editor-again.png, 1080x2400 px, 411 dp wide)
+     do: tap Write
+     checks: seen 'Smoke line from keys.'; seen 'imeword'
+     visible: Enter
+victimenter
+Keyvictimkey
+Tapvictimtap
+Smoke line from keys. Imeword
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[18] rotated: PASS   (18-rotated.png, 2400x1080 px, 914 dp wide)
+     do: rotate flip
+     rotated: 1080x2400 -> 2400x1080 px
+     checks: seen 'Smoke line from keys.'; same process 5101
+     visible: Back | Forward | First story.ink | Hide the inspector | Enter
+victimenter
+Keyvictimkey
+Tapvictimtap
+Smoke line from keys. Imeword
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Enter | victimenter | Keyvictimkey | Tapvictimtap | Smoke line from keys. Imeword | Once upon a time... | Write | Search or run a command | Menus | Files | Projects | Documentation | Settings
+[19] rotated-back: PASS   (19-rotated-back.png, 1080x2400 px, 411 dp wide)
+     do: rotate natural
+     rotated: 2400x1080 -> 1080x2400 px
+     checks: seen 'Smoke line from keys.'; same process 5101
+     visible: Enter
+victimenter
+Keyvictimkey
+Tapvictimtap
+Smoke line from keys. Imeword
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[20] background-foreground: PASS   (20-background-foreground.png, 1080x2400 px, 411 dp wide)
+     do: home; launch
+     launch: HOT 204 ms
+     checks: seen 'Smoke line from keys.'; same process 5101
+     visible: Enter
+victimenter
+Keyvictimkey
+Tapvictimtap
+Smoke line from keys. Imeword
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[21] process-death-restored: PASS   (21-process-death-restored.png, 1080x2400 px, 411 dp wide)
+     do: home; kill_background; launch
+     process 5101 killed in the background
+     launch: COLD 813 ms
+     checks: seen 'Smoke line from keys.'; seen 'imeword'; new process 9094
+     visible: Enter
+victimenter
+Keyvictimkey
+Tapvictimtap
+Smoke line from keys. Imeword
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[22] typed-then-force-stopped: PASS   (22-typed-then-force-stopped.png, 1080x2400 px, 411 dp wide)
+     do: tap Write; tap_field 1; key CTRL+MOVE_HOME; tap_field_at 1 -24 74.3; ime_type  keptword; wait 3; force_stop; launch
+     text field 1 at [0,128][1080,1517]: tapped at 1017,323
+     typed ' keptword' on the on-screen keyboard; the field holds it and nothing else changed
+     launch: COLD 807 ms
+     checks: seen 'keptword'; seen 'Smoke line from keys.'; seen 'imeword'; new process 9457
+     visible: Enter keptword
+victimenter
+Keyvictimkey
+Tapvictimtap
+Smoke line from keys. Imeword
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[23] turkish: PASS   (23-turkish.png, 1080x2400 px, 411 dp wide)
+     do: locale tr-TR; cold_start
+     device language switched to tr-TR (framework restarted)
+     launch: COLD 1481 ms
+     checks: seen 'Yaz'; seen 'Oyna'; seen 'Dosyalar'; seen 'keptword'; new process 12949
+     visible: Enter keptword
+victimenter
+Keyvictimkey
+Tapvictimtap
+Smoke line from keys. Imeword
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Oyna | Geri al | Diğer seçenekler | Ara veya komut çalıştır | Yaz | Dosyalar | Daha fazla
+[24] turkish-play: PASS   (24-turkish-play.png, 1080x2400 px, 411 dp wide)
+     do: tap Oyna
+     checks: played 'keptword'; played 'There were two choices.'
+     visible: Enter keptword | victimenter | Keyvictimkey | Tapvictimtap | Smoke line from keys. Imeword | Once upon a time... | There were two choices. | There were four lines of content. | Oyna | Bir seçim geri al | Hikâyeyi baştan başlat | İzleme | Ara veya komut çalıştır | Yaz | Dosyalar | Daha fazla
+
+language changes: the device language
+RESULT: PASS
++ uptime
+ 00:44:27 up 12 min,  0 users,  load average: 2.20, 1.85, 1.11
++ adb shell top -b -n 1 -m 15
+Tasks: 343 total,   1 running, 342 sleeping,   0 stopped,   0 zombie
+  Mem:  3050432K total,  2754460K used,   295972K free,    11076K buffers
+ Swap:  2287820K total,   111616K used,  2176204K free,  1238784K cached
+300%cpu   8%user   8%nice   8%sys 277%idle   0%iow   0%irq   0%sirq   0%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+10379 u0_a166      20   0  13G 242M 132M S 11.5   8.1   0:07.09 com.android.systemui
+13680 root         20   0  10G 4.8M 4.0M R  7.6   0.1   0:00.01 top -b -n 1 -m 15
+ 9663 system       18  -2  15G 314M 207M S  3.8  10.5   0:12.22 system_server
+13576 u0_a132      20   0  14G 182M 113M S  0.0   6.1   0:00.12 com.google.android.googlequicksearchbox
+13342 root         20   0    0    0    0 I  0.0   0.0   0:00.17 [kworker/2:1-virtio_vsock]
+13290 root          0 -20    0    0    0 I  0.0   0.0   0:00.00 [kworker/1:1H]
+13098 u0_a128      20   0  13G 159M 105M S  0.0   5.3   0:00.22 com.google.android.gms.ui
+13064 u0_a138      20   0  13G 101M  55M S  0.0   3.3   0:00.01 com.google.android.marvin.talkback
+13034 u0_a188      20   0  13G  88M  43M S  0.0   2.9   0:00.02 com.google.android.healthconnect.controller
+13026 root          0 -20    0    0    0 I  0.0   0.0   0:00.02 [kworker/u7:3-blk_crypto_wq]
+12981 u0_a167      20   0  13G  90M  44M S  0.0   3.0   0:00.01 com.android.emergency
+12949 u0_a192      10 -10  13G 177M 101M S  0.0   5.9   0:01.19 com.inkyandroid
+12719 u0_a118      20   0  13G 219M 143M S  0.0   7.3   0:01.09 com.google.android.settings.intelligence
+12697 u0_a173      20   0  13G 100M  50M S  0.0   3.3   0:00.05 com.google.android.rkpdapp
+12641 u0_a124      20   0  13G  91M  44M S  0.0   3.0   0:00.02 com.google.android.projection.gearhead:shared
++ exit 0
