@@ -151,7 +151,14 @@ fun InkyApp(
         }
         actions.newWindow = activity?.let { host -> { DeskWindows.openNewWindow(host) } }
         actions.copyText = { text ->
-            context.getSystemService(android.content.ClipboardManager::class.java)?.setPrimaryClip(android.content.ClipData.newPlainText(text.take(CLIP_LABEL_LENGTH), text))
+            val clipboard = context.getSystemService(android.content.ClipboardManager::class.java)
+            try {
+                clipboard?.setPrimaryClip(android.content.ClipData.newPlainText(text.take(CLIP_LABEL_LENGTH), text))
+                clipboard != null
+            } catch (refused: RuntimeException) {
+                // the system refuses a clip too large for one transaction
+                false
+            }
         }
         commands?.perform = actions::perform
         commands?.otherKey = actions::performSnippetKey

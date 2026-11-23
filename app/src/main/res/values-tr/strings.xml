@@ -303,6 +303,7 @@
     <string name="kept_forget">Unut</string>
     <string name="kept_restored">%1$s saklanan metne döndü; Geri al onu çıkarır</string>
     <string name="kept_copied">%1$s artık projede değil: saklanan metni panoya kopyalandı</string>
+    <string name="kept_too_long">%1$s artık projede değil ve saklanan metni panoya sığmayacak kadar uzun: %1$s yolunda yeni bir ink dosyası ekleyin, sonra metni ona geri getirin</string>
     <string name="kept_just_now">az önce</string>
     <!-- ui: end -->
 </resources>

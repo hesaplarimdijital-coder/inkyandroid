@@ -279,8 +279,13 @@ class WindowActions(
                     notify(strings.getString(R.string.kept_restored, name))
                 }
                 KeptRestore.FileGone -> {
-                    copyText(version.text)
-                    notify(strings.getString(R.string.kept_copied, name))
+                    // a long chapter in one clip can be more than the system takes in one go (it would
+                    // crash the app): then the notice says how to bring it back into a file instead
+                    if (version.text.length <= CLIPBOARD_LIMIT && copyText(version.text)) {
+                        notify(strings.getString(R.string.kept_copied, name))
+                    } else {
+                        notify(strings.getString(R.string.kept_too_long, version.path))
+                    }
                 }
                 KeptRestore.NotKept -> notify(strings.getString(R.string.draft_problem_title), BannerTone.Error)
             }
@@ -292,8 +297,8 @@ class WindowActions(
         scope.launch { session.forgetKept(version) }
     }
 
-    /** Puts [text] on the system's clipboard. */
-    var copyText: (String) -> Unit = {}
+    /** Puts [text] on the system's clipboard; false when the system refused it. */
+    var copyText: (String) -> Boolean = { false }
 
     // ------------------------------------------------------------------ saving
 
@@ -802,3 +807,6 @@ fun singleFileNotice(session: ProjectSession, ui: WindowUi): SingleFileNotice? {
     val ref = ProjectRef.decode(session.reference) as? ProjectRef.SingleDocument ?: return null
     return ui.singleFile?.takeIf { it.ref == ref } ?: SingleFileNotice(ref, readOnly = false, grantHint = null)
 }
+
+/** The longest text put on the clipboard in one go: far below what the system takes in one transaction. */
+private const val CLIPBOARD_LIMIT = 100_000
