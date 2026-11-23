@@ -459,7 +459,9 @@ class InkProject private constructor(
             if (!overwrite) {
                 val theirs = store.stat(path)
                 val seen = record.stored
-                if (theirs != null && theirs != seen) {
+                // an equal answer proves nothing when storage tells no times: a same-size change looks the same
+                val timeless = theirs != null && theirs == seen && theirs.modified == 0L && record.storedHash != null
+                if (theirs != null && (theirs != seen || timeless)) {
                     // someone wrote to it, or it appeared: only the content says whether it matters
                     val theirHash = TextHash.of(store.read(path))
                     if (theirHash != hash && theirHash != record.storedHash) {

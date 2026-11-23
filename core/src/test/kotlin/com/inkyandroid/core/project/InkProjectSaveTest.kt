@@ -205,6 +205,31 @@ class InkProjectSaveTest {
     }
 
     @Test
+    fun `over storage that tells no times a save does not overwrite a same-size change made outside`() = projectTest {
+        store.reportsTimes = false
+        store.put("main.ink", "Bir varmis bir yokmus.\n")
+        val project = open()
+        project.edit("main.ink").type("Bir varmis bir yokmus. The phone's new line.\n")
+        // another app fixes a typo: the same number of bytes, another text
+        store.put("main.ink", "Bir varmis bir YOKMUS.\n")
+
+        assertEquals(SaveResult.Conflict, project.save("main.ink"))
+        assertEquals("Bir varmis bir YOKMUS.\n", store.textOf("main.ink"))
+    }
+
+    @Test
+    fun `over storage that tells no times an unchanged file is saved after one look at its content`() = projectTest {
+        store.reportsTimes = false
+        store.put("main.ink", "Hello\n")
+        val project = open()
+        project.edit("main.ink").type("Hello, world\n")
+
+        assertEquals(SaveResult.Saved, project.save("main.ink"))
+        assertEquals("Hello, world\n", store.textOf("main.ink"))
+        assertEquals("the next save has nothing to write", SaveResult.NothingToSave, project.save("main.ink"))
+    }
+
+    @Test
     fun `a file deleted outside while it has unsaved changes is created again by the save`() = projectTest {
         store.put("main.ink", "INCLUDE a.ink\n")
         store.put("a.ink", "A")
