@@ -16,7 +16,7 @@ GitHub'ın makinelerinde iki emülatörde açar ve `tools/smoke.py` ile adım ad
 
 **Çalıştırmak:** commit'i `smoke/<ad>` adlı bir dala itmek yeter
 (`git push origin <commit>:refs/heads/smoke/<ad>`), ya da GitHub'da Actions › Device smoke › Run workflow
-(alanlar: denenecek commit ya da dal, sonuçların adı, senaryolar). Bir çalıştırma 9–11 dakika sürer.
+(alanlar: denenecek commit ya da dal, sonuçların adı, senaryolar). Bir çalıştırma 12–15 dakika sürer.
 
 **Sonuçlar:** her profil için `ci/smoke/<ad>/<profil>` dalına konur (`git clone --depth 1 -b
 ci/smoke/<ad>/phone …`): her adımın ekran görüntüsü (`NN-<adım>.png`), adım adım rapor (`report.txt`,
@@ -25,11 +25,16 @@ uygulama çökerse ya da yanıt vermez olursa iş kırmızı olur. Raporun yeşi
 olduğunu söyler; ekranın doğru göründüğünü görüntülere bakarak anlarız.
 
 **Senaryolar** `tools/smoke.py`'nin başında veri olarak durur (adımlar, eylemler, denetimler; nasıl
-yazıldıkları orada anlatılıyor). Senaryo 0 iskeletin "kuruluyor" ekranını İngilizce ve Türkçe (cihazın
-dili gerçekten değiştirilerek) döndürme, arka plan, süreç ölümü ve zorla durdurma boyunca dener;
-senaryo 1 uygulamanın kendisini: yaz, oynat, seçim, bir adım geri, yeniden başlat, hata ve düzeltmesi,
-dosyalar, kılavuz, ayarlar, zorla durdurmadan sonra yazının yerinde olması; tablette menü çubuğu, kenar
-çubuğu, yan yana düzenleyici ve oynatıcı, komut paleti (Ctrl+K) ve kısayollar.
+yazıldıkları orada anlatılıyor). Senaryo 1 uygulamanın kendisini dener. Telefonda: ilk açılıştaki proje
+düzenleyicide ve oynatıcıda; tuşlarla yazılan bir satır ve ekran klavyesinin tuşlarına basılarak yazılan
+bir sözcük, ikisi de oynatıcıda; seçim, bir seçim geri, baştan başlatma; var olan bir sözcüğün hemen
+önüne ekran klavyesiyle yazmak (imleç dokunarak ve Home tuşuyla konmuş); hata ve düzeltmesi; dosyalar,
+belgeler, ayarlar; döndürme, arka plan, süreç ölümü; zorla durdurmadan üç saniye önce yazılan sözcüğün
+yeniden açılışta yerinde olması; Türkçe (cihazın dili gerçekten değiştirilerek). Tablette: menü çubuğu,
+kenar çubuğu, yan yana düzenleyici ve oynatıcı, komut paleti (Ctrl+K), bul (Ctrl+F), Dosya menüsü,
+sorunlar, zorla durdurma, döndürünce dar düzen, süreç ölümü, Türkçe. `ime-control` senaryosu (istenince)
+aynı yazma yollarını Android'in sıradan bir metin alanında dener: bir hata klavyeden mi düzenleyiciden
+mi, onu ayırmak için.
 
 **Bakımda:**
 

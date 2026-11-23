@@ -23,7 +23,7 @@ Sürümler [SemVer](https://semver.org/lang/tr/) kuralına uyar; `versionCode` h
 - Yeni metnin yavaşça belirmesi (kapatılabilir; "Animasyonları kaldır"a uyar).
 
 ### Proje ve dosyalar
-- Proje bir klasör ve ana ink dosyasıdır: Android'in depolama erişimiyle açılan klasörler, uygulamanın içinde tutulan projeler, yeni projeler için bir proje klasörü.
+- Proje bir klasör ve ana ink dosyasıdır: Android'in depolama erişimiyle açılan klasörler, uygulamanın içinde tutulan projeler, yeni projelerin oluşturulduğu bir projeler klasörü.
 - Klasör aç (birden çok aday varsa ana dosya sorulur), dosya aç (klasörüne erişim sonradan verilebilir), dosya yöneticilerinden `.ink` açma, son projeler.
 - `INCLUDE` ile çok dosyalı projeler: dosyalar masaüstündeki gibi gruplanır, kullanılmayan dosyalar ayrı, var olmayan `INCLUDE` dosyaları oluşturulabilir.
 - Yeni ink dosyası ekle (ana dosyaya `INCLUDE` satırıyla); masaüstünde olmayan yeniden adlandırma (`INCLUDE` satırları da değişir) ve silme.
@@ -39,12 +39,12 @@ Sürümler [SemVer](https://semver.org/lang/tr/) kuralına uyar; `versionCode` h
 - Ink menüsünün bütün parçacıkları, adları Türkçe ve İngilizce; menüde, telefonda "Parçacık ekle…" ile ve komut paletinde.
 - inkle'ın *Writing with ink* kılavuzu uygulamanın içinde: kendi yazısıyla çizilir, içindekiler, kılavuzda arama, ink renkleriyle örnekler (kopyalama, düzenleyiciye ekleme), yazı boyu, kalınan yer.
 - Üç dışa aktarma: JSON, yalnızca `story.js`, web için (inkjs 2.4.0 ile oynanan sayfa); ink'te hata varken yapılmaz, seçici son yerde açılır.
-- Proje istatistikleri (sözcük sayısı ve daha fazlası), masaüstündeki sayılar ve notuyla.
+- Proje istatistikleri (masaüstündeki "Word count and more"): aynı yedi sayı, aynı not.
 
 ### Düzen, ayarlar, dil
 - Telefonda alt çubuk ve "⋯", tablette ray ve yan yana düzenleyici ile oynatıcı, DeX'te menü çubuğu (Dosya, Düzen, Görünüm, Hikâye, Ink, Yardım), kenar çubuğunda projenin dosyaları ve birden çok pencere.
 - Masaüstünün kısayolları (kitin ortak tuşlarıyla çakışanlar değişti; liste `docs/KISAYOLLAR.md`'de), Meta+/ listesi.
-- Ayarlar: tema ve vurgu rengi, giriş yoğunluğu, kısayollar, düzenleyici, oynatıcı, otomatik kaydetme, proje klasörü, hakkında ve açık kaynak lisansları.
+- Ayarlar: tema ve vurgu rengi, giriş yoğunluğu, düzenleyici, oynatıcı, otomatik kaydetme, projeler klasörü, kısayollar, hakkında ve açık kaynak lisansları.
 - Türkçe ve İngilizce arayüz; ink kavramlarının karşılıkları `docs/SOZLUK.md`'de.
 
 ### Altyapı
