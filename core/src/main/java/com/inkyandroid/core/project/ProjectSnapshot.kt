@@ -121,8 +121,12 @@ sealed interface AddIncludeResult {
     /** A file with that path is already in the project or on storage; nothing was changed (upstream: "…because it already exists"). */
     data class AlreadyExists(val path: String) : AddIncludeResult
 
-    /** The typed name cannot be a file inside the project (empty, absolute, or leaving the root). */
-    data class InvalidName(val name: String) : AddIncludeResult
+    /**
+     * The typed name cannot be a file inside the project (empty, absolute, or leaving the root); or,
+     * with [needsFolder], the project is a single file opened without its folder, where no other file
+     * can be created until the folder is granted.
+     */
+    data class InvalidName(val name: String, val needsFolder: Boolean = false) : AddIncludeResult
 }
 
 /** What a rename did. */

@@ -3,12 +3,14 @@ package com.inkyandroid.session
 import com.inkyandroid.core.engine.InkIssue
 import com.inkyandroid.core.engine.InkIssues
 import com.inkyandroid.core.project.AddIncludeResult
+import com.inkyandroid.core.project.CopyNotKeptException
 import com.inkyandroid.core.project.DeleteResult
 import com.inkyandroid.core.project.DraftJournal
 import com.inkyandroid.core.project.DraftRestoreReport
 import com.inkyandroid.core.project.DraftStore
 import com.inkyandroid.core.project.InkFileParser
 import com.inkyandroid.core.project.InkProject
+import com.inkyandroid.core.project.KeptVersion
 import com.inkyandroid.core.project.LiveText
 import com.inkyandroid.core.project.NavStep
 import com.inkyandroid.core.project.NavigationHistory
@@ -67,6 +69,11 @@ class ProjectSession private constructor(
     val reference: String,
     /** The project model: its `state` is the files, their flags and symbols. */
     val project: InkProject,
+    /**
+     * The project is one file opened without its folder (it survives a restart: it comes from the
+     * reference): no other file can be added, its INCLUDEs do not resolve; offer to grant the folder.
+     */
+    val isSingleFile: Boolean,
     private val scope: CoroutineScope,
     private val journal: DraftJournal,
     private val settings: AppSettings,
@@ -90,6 +97,14 @@ class ProjectSession private constructor(
 
     /** What the window shows of the session; see [SessionState]. */
     val state: StateFlow<SessionState>
+
+    private val mutableKept = MutableStateFlow<List<KeptVersion>>(emptyList())
+
+    /**
+     * The texts the writer's answers to conflicts replaced, kept so that an answer can be taken
+     * back ([restoreKept], [forgetKept]), oldest first; at most [DraftJournal.MAX_KEPT_VERSIONS].
+     */
+    val kept: StateFlow<List<KeptVersion>> = mutableKept.asStateFlow()
 
     /** The live compile session's link: the session feeds it; the screens read the player from the live session itself. */
     val live: LiveLink = liveFactory.create(scope) { project.sources() }
@@ -118,6 +133,7 @@ class ProjectSession private constructor(
         rememberSession()
         live.setInstructionPrefix(projectSettings.instructionPrefix)
         live.reloadNow()
+        scope.launch { refreshKept() }
     }
 
     // ------------------------------------------------------------------ documents
@@ -248,6 +264,8 @@ class ProjectSession private constructor(
      * worked, shows it and adds a history step.
      */
     suspend fun addInclude(name: String, addToMain: Boolean): AddIncludeResult {
+        // the file could never be saved beside a single document: refused until the folder is granted
+        if (isSingleFile) return AddIncludeResult.InvalidName(name, needsFolder = true)
         val result = project.addInclude(name, addToMain)
         if (result is AddIncludeResult.Added) show(result.path)
         return result
@@ -325,8 +343,10 @@ class ProjectSession private constructor(
 
     /**
      * Answers the banner of a file that changed outside while it has unsaved changes: [keepMine]
-     * writes this window's text over storage's, otherwise storage's version is loaded and the
-     * unsaved changes are dropped.
+     * writes this window's text over storage's; otherwise storage's version replaces the text as an
+     * edit the writer can undo (Undo brings their text back, unsaved). Either way the text that is
+     * replaced is kept first ([kept]: "keep mine" keeps the other version, "load theirs" both); when
+     * it cannot be kept nothing is replaced and [SessionState.draftProblem] says why.
      */
     suspend fun resolveConflict(path: String, keepMine: Boolean) {
         try {
@@ -334,11 +354,44 @@ class ProjectSession private constructor(
             if (result is SaveResult.Failed) {
                 mutableState.update { it.copy(saveProblem = SaveProblem(mapOf(path to describe(result.error)), mapOf(path to result.error))) }
             }
+        } catch (notKept: CopyNotKeptException) {
+            draftsFailed(notKept)
         } catch (failed: IOException) {
             // storage's version cannot be read ("load theirs"): this text stays, unsaved
             storageFailed(failed)
         }
+        refreshKept()
         writeDrafts()
+    }
+
+    /**
+     * Brings a [kept] version back into its file as an edit the writer can undo: the file shows it
+     * and has unsaved changes. False when the file is no longer in the project (its text is still
+     * in [version] for the screens to offer otherwise, e.g. to copy).
+     */
+    suspend fun restoreKept(version: KeptVersion): Boolean {
+        val document = document(version.path) ?: return false
+        document.buffer.edit(0, document.buffer.text.length, version.text)
+        show(version.path)
+        return true
+    }
+
+    /** Forgets a [kept] version: the writer has no more use for it. */
+    suspend fun forgetKept(version: KeptVersion) {
+        try {
+            journal.forgetKept(version.id)
+        } catch (failed: IOException) {
+            draftsFailed(failed)
+        }
+        refreshKept()
+    }
+
+    private suspend fun refreshKept() {
+        mutableKept.value = try {
+            journal.kept()
+        } catch (unreadable: IOException) {
+            mutableKept.value
+        }
     }
 
     // ------------------------------------------------------------------ the window's life
@@ -452,9 +505,10 @@ class ProjectSession private constructor(
      * [target], the successor's drafts, and are forgotten here only once all of them are there; a
      * null [target] means the successor keeps its drafts where this session does: they are brought
      * up to date and left. When that fails the session goes on as it was and the failure is thrown.
+     * The window's places are remembered under [successor], the reference the window shows next.
      */
     @Throws(IOException::class)
-    internal suspend fun handOver(target: DraftStore?) {
+    internal suspend fun handOver(target: DraftStore?, successor: String) {
         if (state.value.closed) return
         do {
             val revision = project.contentRevision.value
@@ -466,7 +520,8 @@ class ProjectSession private constructor(
             // typed while the drafts moved: move them again
         } while (project.contentRevision.value != revision)
         cancelTimers()
-        rememberSession()
+        // the successor is where the window is from now on: it finds the files' places under its reference
+        rememberSession(asReference = successor)
         mutableState.update { it.copy(closed = true) }
         live.close()
         closeDocuments()
@@ -555,12 +610,12 @@ class ProjectSession private constructor(
     }
 
     /** Stores where the user is, so the next start (or the restart after the system killed the app) returns there. */
-    private fun rememberSession() {
+    private fun rememberSession(asReference: String = reference) {
         for ((path, document) in documents) {
             val cursor = document.buffer.cursor
             places[path] = FilePlace(cursor.row, cursor.column, document.buffer.firstVisibleRow)
         }
-        settings.updateLastSession(LastSession(reference, state.value.activePath, places.toMap()))
+        settings.updateLastSession(LastSession(asReference, state.value.activePath, places.toMap()))
     }
 
     companion object {
@@ -587,6 +642,7 @@ class ProjectSession private constructor(
          * @param context the session's thread: the main thread in the app. A `Job` in it becomes the
          *   parent of everything the session runs.
          * @param parseContext where symbol parsing runs.
+         * @param singleFile the project is one file opened without its folder ([isSingleFile]).
          */
         @Throws(IOException::class)
         suspend fun open(
@@ -599,6 +655,7 @@ class ProjectSession private constructor(
             live: LiveLinkFactory,
             context: CoroutineContext = Dispatchers.Main.immediate,
             parseContext: CoroutineContext = Dispatchers.Default,
+            singleFile: Boolean = false,
         ): ProjectSession = withContext(context.minusKey(Job)) {
             // a child of the job in [context] when there is one: ending that job ends the session
             val scope = CoroutineScope(context + SupervisorJob(context[Job]))
@@ -614,7 +671,7 @@ class ProjectSession private constructor(
                     // the project is as storage has it; the journal will say so when it cannot write either
                     DraftRestoreReport()
                 }
-                ProjectSession(reference, project, scope, journal, settings, editors, live, tokenizer, projectSettings, restored)
+                ProjectSession(reference, project, singleFile, scope, journal, settings, editors, live, tokenizer, projectSettings, restored)
             } catch (failed: Throwable) {
                 scope.cancel()
                 throw failed

@@ -165,6 +165,7 @@ class SessionWorld(val scope: TestScope) {
         settings: AppSettings = this.settings,
         kit: Boolean = false,
         live: LiveLinkFactory? = null,
+        singleFile: Boolean = false,
     ): ProjectSession {
         editors.clear()
         kitEditors.clear()
@@ -184,6 +185,7 @@ class SessionWorld(val scope: TestScope) {
             live = live ?: LiveLinkFactory { _: CoroutineScope, sources: () -> InkSources -> FakeLiveLink().also { it.lastSources = sources; lives.add(it) } },
             context = dispatcher + lifetime,
             parseContext = dispatcher,
+            singleFile = singleFile,
         )
     }
 

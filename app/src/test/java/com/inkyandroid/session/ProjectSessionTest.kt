@@ -319,6 +319,20 @@ class ProjectSessionTest {
     }
 
     @Test
+    fun `in a single file opened without its folder add include is refused until the folder is granted`() = sessionTest {
+        onStorage("main.ink", "Hello\n")
+        val session = open(singleFile = true)
+
+        val result = session.addInclude("chapter", addToMain = true)
+
+        assertTrue(session.isSingleFile)
+        assertEquals(AddIncludeResult.InvalidName("chapter", needsFolder = true), result)
+        assertEquals(listOf("main.ink"), session.project.state.value.files.map { it.path })
+        assertEquals("Hello\n", session.project.text("main.ink").toString())
+        assertFalse(session.project.state.value.hasUnsavedChanges)
+    }
+
+    @Test
     fun `with autosave a new include is created on storage two seconds later`() = sessionTest {
         onStorage("main.ink", "Hello\n")
         val session = open()

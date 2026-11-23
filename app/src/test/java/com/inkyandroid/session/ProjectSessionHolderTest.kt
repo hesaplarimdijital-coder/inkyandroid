@@ -78,11 +78,11 @@ class ProjectSessionHolderTest {
     }
 
     /** The storage package as the holder sees it: each reference is a folder with its main file. */
-    private inner class FakeOpener(private val places: Map<String, File>) : ProjectOpener {
+    private inner class FakeOpener(private val places: Map<String, File>, private val singles: Set<String>) : ProjectOpener {
         override suspend fun open(reference: String): OpenedProject {
             log.add("open $reference")
             val root = places[reference] ?: throw NoSuchFileException(reference)
-            return OpenedProject(LoggedStore(DirectoryProjectStore(root, io = main)), "main.ink")
+            return OpenedProject(LoggedStore(DirectoryProjectStore(root, io = main)), "main.ink", singleFile = reference in singles)
         }
 
         override fun close(reference: String) {
@@ -93,11 +93,11 @@ class ProjectSessionHolderTest {
     private fun settings() = AppSettings(context.getSharedPreferences("holder-test", Context.MODE_PRIVATE))
 
     /** One process's environment; [kill] ends every session it made, as the system ends a process. */
-    private fun environment(places: Map<String, File>, settings: AppSettings = settings()): SessionEnvironment {
+    private fun environment(places: Map<String, File>, settings: AppSettings = settings(), singles: Set<String> = emptySet()): SessionEnvironment {
         val lifetime = Job().also(lifetimes::add)
         return SessionEnvironment(
             settings = settings,
-            opener = FakeOpener(places),
+            opener = FakeOpener(places, singles),
             editors = { path, text -> FakeEditorBuffer(text).also { editors[path] = it } },
             live = { _: CoroutineScope, _: () -> InkSources -> FakeLiveLink() },
             draftsDirectory = draftsDirectory,
@@ -395,6 +395,103 @@ class ProjectSessionHolderTest {
     }
 
     @Test
+    fun `opening a project another window has open keeps this window's own project, and says why`() = test {
+        val one = folder("one").apply { File(this, "main.ink").writeText(story) }
+        val two = folder("two").apply { File(this, "main.ink").writeText(story) }
+        val environment = environment(mapOf("one" to one, "two" to two))
+        val first = ProjectSessionHolder(environment)
+        val second = ProjectSessionHolder(environment)
+        first.open("one")
+        second.open("two")
+        pass()
+        val kept = second.open()
+
+        second.open("one")
+        pass()
+
+        assertSame(kept, second.session)
+        assertTrue(second.declined.value is ProjectOpenElsewhereException)
+        assertEquals("nothing was ended or given back", listOf("open one", "open two"), log)
+        second.dismissDeclined()
+        assertNull(second.declined.value)
+    }
+
+    @Test
+    fun `a switch to a project another window has open keeps the window's project working, and says why`() = test {
+        val single = folder("single").apply { File(this, "main.ink").writeText(story) }
+        val granted = folder("granted").apply { File(this, "main.ink").writeText(story) }
+        val environment = environment(mapOf("single" to single, "folder" to granted)).also { it.settings.updateAutosave(false) }
+        val other = ProjectSessionHolder(environment)
+        other.open("folder")
+        val holder = ProjectSessionHolder(environment)
+        holder.open("single")
+        pass()
+        val session = holder.open()
+        holder.editor("main.ink").type(written)
+
+        holder.switchTo("folder")
+        pass()
+
+        assertSame(session, holder.session)
+        assertTrue(holder.declined.value is ProjectOpenElsewhereException)
+        assertTrue("the session goes on", session.project.state.value.hasUnsavedChanges)
+        pass(ProjectSession.DRAFT_DELAY_MILLIS)
+        assertEquals(listOf(written), FileDraftStore(environment.draftsFolder("single"), main).load().map { it.text })
+    }
+
+    @Test
+    fun `after a switch to the same project in another place each file opens where it was left`() = test {
+        val single = folder("single").apply { File(this, "main.ink").writeText("line\n".repeat(30)) }
+        val granted = folder("granted").apply { File(this, "main.ink").writeText("line\n".repeat(30)) }
+        val holder = ProjectSessionHolder(environment(mapOf("single" to single, "folder" to granted)))
+        holder.open("single")
+        pass()
+        holder.editor("main.ink").cursor = TextPosition(12, 3)
+
+        holder.switchTo("folder")
+        pass()
+
+        assertEquals("folder", holder.open().reference)
+        assertEquals(TextPosition(12, 3), holder.editor("main.ink").cursor)
+    }
+
+    @Test
+    fun `reopening the open project keeps it this window's`() = test {
+        val root = folder("story").apply { File(this, "main.ink").writeText(story) }
+        val environment = environment(mapOf("ref" to root))
+        val holder = ProjectSessionHolder(environment)
+        holder.open("ref")
+        pass()
+
+        holder.open("ref")
+        pass()
+        val other = ProjectSessionHolder(environment)
+        other.open("ref")
+        pass()
+
+        assertEquals("ref", holder.open().reference)
+        assertTrue((other.project.value as WindowProject.Failed).cause is ProjectOpenElsewhereException)
+    }
+
+    @Test
+    fun `a deleted project's drafts are forgotten once its last flush is done`() = test {
+        val root = folder("story").apply { File(this, "main.ink").writeText(story) }
+        val environment = environment(mapOf("ref" to root)).also { it.settings.updateAutosave(false) }
+        val holder = ProjectSessionHolder(environment)
+        holder.open("ref")
+        pass()
+        holder.editor("main.ink").type(written)
+
+        val last = holder.closed()
+        pass()
+        assertTrue(last!!.isCompleted)
+        assertEquals("the last flush wrote the draft", 1, FileDraftStore(environment.draftsFolder("ref"), main).load().size)
+        environment.forgetDrafts("ref")
+
+        assertTrue(!environment.draftsFolder("ref").exists())
+    }
+
+    @Test
     fun `a new window beside the one that has the last project open starts without a project`() = test {
         val root = folder("story").apply { File(this, "main.ink").writeText(story) }
         val environment = environment(mapOf("ref" to root))
@@ -440,6 +537,22 @@ class ProjectSessionHolderTest {
         pass()
 
         assertEquals(written, holder.open().project.text("main.ink").toString())
+    }
+
+    @Test
+    fun `a single file opened without its folder is known as one, also after the process died`() = test {
+        val root = folder("single").apply { File(this, "main.ink").writeText(story) }
+        val first = ProjectSessionHolder(environment(mapOf("single" to root), singles = setOf("single")))
+        first.open("single")
+        pass()
+        assertTrue(first.open().isSingleFile)
+        kill(first)
+
+        val second = ProjectSessionHolder(environment(mapOf("single" to root), settings(), singles = setOf("single")))
+        second.restore(savedReference = null)
+        pass()
+
+        assertTrue(second.open().isSingleFile)
     }
 
     // ------------------------------------------------------------------ the activity's hooks

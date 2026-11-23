@@ -158,11 +158,10 @@ class InkProjectSaveTest {
     }
 
     @Test
-    fun `load theirs replaces this text by storage's version, as a load and not as an edit`() = projectTest {
+    fun `load theirs replaces this text by storage's version as one edit the writer can undo`() = projectTest {
         store.put("main.ink", "Hello\n")
         val project = open()
         val editor = project.edit("main.ink")
-        editor.echoesLoads = true
         editor.type("Mine\n")
         store.put("main.ink", "INCLUDE a.ink\nTheirs\n")
         store.put("a.ink", "")
@@ -171,7 +170,8 @@ class InkProjectSaveTest {
         project.resolveConflict("main.ink", keepMine = false)
 
         assertEquals("INCLUDE a.ink\nTheirs\n", editor.text)
-        assertEquals(listOf("INCLUDE a.ink\nTheirs\n"), editor.loads)
+        assertEquals("an edit (undo brings the writer's text back), not a load", listOf("INCLUDE a.ink\nTheirs\n"), editor.edits)
+        assertEquals(emptyList<String>(), editor.loads)
         assertEquals("INCLUDE a.ink\nTheirs\n", store.textOf("main.ink"))
         assertFalse(project.file("main.ink").hasConflict)
         assertFalse(project.file("main.ink").hasUnsavedChanges)
@@ -202,6 +202,31 @@ class InkProjectSaveTest {
 
         assertEquals(SaveResult.Saved, project.save("main.ink"))
         assertEquals("Mine\n", store.textOf("main.ink"))
+    }
+
+    @Test
+    fun `over storage that tells no times a save does not overwrite a same-size change made outside`() = projectTest {
+        store.reportsTimes = false
+        store.put("main.ink", "Bir varmis bir yokmus.\n")
+        val project = open()
+        project.edit("main.ink").type("Bir varmis bir yokmus. The phone's new line.\n")
+        // another app fixes a typo: the same number of bytes, another text
+        store.put("main.ink", "Bir varmis bir YOKMUS.\n")
+
+        assertEquals(SaveResult.Conflict, project.save("main.ink"))
+        assertEquals("Bir varmis bir YOKMUS.\n", store.textOf("main.ink"))
+    }
+
+    @Test
+    fun `over storage that tells no times an unchanged file is saved after one look at its content`() = projectTest {
+        store.reportsTimes = false
+        store.put("main.ink", "Hello\n")
+        val project = open()
+        project.edit("main.ink").type("Hello, world\n")
+
+        assertEquals(SaveResult.Saved, project.save("main.ink"))
+        assertEquals("Hello, world\n", store.textOf("main.ink"))
+        assertEquals("the next save has nothing to write", SaveResult.NothingToSave, project.save("main.ink"))
     }
 
     @Test

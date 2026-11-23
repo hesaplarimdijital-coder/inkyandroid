@@ -304,4 +304,19 @@ class InkProjectSyncTest {
         assertTrue(report.isEmpty)
         assertEquals(listOf("main.ink", ".lib/util.ink"), project.paths)
     }
+
+    @Test
+    fun `a file removed outside whose editor holds a change it has not reported yet stays, with the change`() = projectTest {
+        store.put("main.ink", "INCLUDE a.ink\n")
+        store.put("a.ink", "Chapter A\n")
+        val project = open()
+        project.edit("a.ink").typeUnreported("Chapter A, and a sentence typed this frame\n")
+        store.remove("a.ink")
+
+        val report = project.syncWithStorage()
+
+        assertEquals(listOf("a.ink"), report.keptMissing)
+        assertEquals("Chapter A, and a sentence typed this frame\n", project.text("a.ink").toString())
+        assertTrue(project.file("a.ink").hasUnsavedChanges)
+    }
 }
