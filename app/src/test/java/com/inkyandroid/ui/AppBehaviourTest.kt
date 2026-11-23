@@ -197,6 +197,24 @@ class AppBehaviourTest {
         compose.onNodeWithText("Divert target").assertExists()
     }
 
+    /** Upstream's Ctrl+/ (here Alt+/): the lines the selection touches become comments, and back. */
+    @Test
+    fun toggleCommentCommentsTheLinesAndTakesTheCommentAway() {
+        val text = "Hello.\n    -> start\n== start ==\nFine.\n-> END\n"
+        val holder = UiWorld.holder(UiWorld.project("Comments", text))
+        launch(holder)
+        val session = compose.awaitSession(holder)
+        compose.awaitStory(session)
+        val editor = session.activeDocument.editorState!!
+        compose.runOnUiThread { editor.select(0, editor.text.indexOf("start")) }
+        compose.waitForIdle()
+        compose.runOnUiThread { assertTrue(commands.perform(Commands.TOGGLE_COMMENT)) }
+        // at the indentation of the least indented line, with a space after the slashes
+        assertEquals("// Hello.\n//     -> start\n== start ==\nFine.\n-> END\n", editor.text.toString())
+        compose.runOnUiThread { assertTrue(commands.perform(Commands.TOGGLE_COMMENT)) }
+        assertEquals(text, editor.text.toString())
+    }
+
     companion object {
         const val PHONE = "en-w411dp-h891dp-xxhdpi"
         const val TABLET = "en-w924dp-h1480dp-xhdpi"

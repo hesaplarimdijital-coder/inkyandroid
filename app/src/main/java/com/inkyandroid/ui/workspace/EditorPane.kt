@@ -195,6 +195,9 @@ fun EditorPane(
 /** Upstream's editor: soft tabs of four spaces (Ace's default). */
 private val INK_INDENT = CodeIndent.spaces(4)
 
+/** What a line comment starts with in ink (Ace's ink mode: `lineCommentStart`). */
+private const val INK_COMMENT = "//"
+
 /**
  * Calls [onStep] after a plain tap or click on the editor has placed the cursor (upstream adds a
  * navigation step for every editor click). A drag that scrolled is no click. The events are only
@@ -340,6 +343,8 @@ private class KitActiveEditor(
     override fun focus() = editor.requestFocus()
 
     override fun find(replace: Boolean) = search.open(replace)
+
+    override fun toggleComment() = editor.toggleLineComment(INK_COMMENT)
 
     override fun showCompletion() {
         editor.requestFocus()

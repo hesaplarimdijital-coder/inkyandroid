@@ -563,8 +563,6 @@ class WindowActions(
 
     /** Whether this build has the command [id] at all; a command it lacks is listed nowhere. */
     fun available(id: String): Boolean = when (id) {
-        // the kit's editor brings its line commands with its next build
-        Commands.TOGGLE_COMMENT -> false
         Commands.EXPORT_JSON, Commands.EXPORT_WEB, Commands.EXPORT_JS, Commands.STATISTICS -> extras != null || session == null
         CommonShortcuts.NEW_WINDOW -> newWindow != null
         else -> true
@@ -612,6 +610,7 @@ class WindowActions(
             Commands.FIND -> editor?.find(replace = false) != null
             Commands.REPLACE -> editor?.find(replace = true) != null
             Commands.COMPLETE -> editor?.showCompletion() != null
+            Commands.TOGGLE_COMMENT -> editor?.toggleComment() != null
 
             Commands.ZOOM_IN -> zoom(1)
             Commands.ZOOM_OUT -> zoom(-1)

@@ -62,7 +62,7 @@ class ShortcutBehaviourTest {
             Commands.GOTO_DEFINITION, Commands.BACK, Commands.FORWARD, Commands.NEXT_ISSUE,
             Commands.STEP_BACK, Commands.RESTART,
             Commands.UNDO, Commands.REDO, Commands.SELECT_ALL, Commands.COPY, Commands.CUT, Commands.PASTE,
-            Commands.FIND, Commands.REPLACE, Commands.COMPLETE,
+            Commands.FIND, Commands.REPLACE, Commands.COMPLETE, Commands.TOGGLE_COMMENT,
             Commands.ZOOM_IN, Commands.ZOOM_OUT, Commands.ZOOM_RESET,
             Commands.SHOW_ISSUES, Commands.SHOW_OUTLINE, Commands.SHOW_WATCHES, Commands.SHOW_PLAYER, Commands.TOGGLE_INSPECTOR,
             CommonShortcuts.TOGGLE_SIDEBAR, CommonShortcuts.SEARCH, Commands.GOTO_ANYTHING, Commands.GOTO_LINE,
@@ -71,8 +71,8 @@ class ShortcutBehaviourTest {
             Commands.SAVE, Commands.RELOAD, Commands.EXPORT_JSON, Commands.EXPORT_JS,
             Commands.CLOSE_PROJECT,
         )
-        // every key of the table is in the run, or known to be missing from this build
-        val missing = setOf(Commands.TOGGLE_COMMENT, CommonShortcuts.NEW_WINDOW)
+        // every key of the table is in the run (a new window needs an activity of its own)
+        val missing = setOf(CommonShortcuts.NEW_WINDOW)
         assertEquals(shortcuts.shortcuts.map { it.id }.toSet(), order.toSet() + missing)
 
         val failed = mutableListOf<String>()

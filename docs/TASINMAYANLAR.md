@@ -18,7 +18,7 @@ ink'in kendisinin burada nasıl çalıştığını (hikâyenin oynatılışında
 | F-060 | Çıkarken her pencereye kaydetme sorusu | Android'de "çık" yoktur; kaydedilmemiş metin taslak olarak her zaman saklanır ve geri gelir. |
 | F-071 | Seçili sözcüğün öteki geçişlerinin vurgulanması | Kitin düzenleyicisinde yok (etkin satır ve eşleşen ayraç vurgulanır). |
 | F-072 | Çoklu imleç, dikdörtgen seçim | Düzenleyici kitin `CodeEditor`'üdür (mimari 4.4). |
-| F-075 | Yorum satırı yap / kaldır (`//`, `/* */`) | Kitin düzenleyicisinin satır komutları henüz yayımlanmadı; gelince Alt+/ ile eklenecek. Menülerde görünmez. |
+| F-075 | Blok yorumu yap / kaldır (`/* */`) | Kitin düzenleyicisinde yok; satır yorumu (`//`) var (Düzen › Yorum satırı yap / kaldır, Alt+/). |
 | F-076 | Düğüm ve dikiş satırlarında katlama | Kitin düzenleyicisinde katlama yok (mimari 4.4). |
 | F-085 | Ace'in "önceki hata" komutu | "Sonraki sorun" (Ctrl+.) sorunlar arasında döner; geriye giden ayrı bir komut yok. |
 | F-176 | Tam ekran | Pencereyi sistem yönetir. |

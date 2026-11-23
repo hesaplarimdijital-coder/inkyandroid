@@ -42,6 +42,9 @@ interface ActiveEditor {
     /** Opens the list of suggestions at the cursor, as Ctrl+Space does in the editor. */
     fun showCompletion()
 
+    /** Comments the lines the selection touches out with `//`, or takes the comment away when every one has it (upstream's Ctrl+/). */
+    fun toggleComment()
+
     /** Where the cursor is. */
     val cursor: TextPosition
 
