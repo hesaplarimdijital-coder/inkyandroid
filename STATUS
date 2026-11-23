@@ -1,0 +1,6 @@
+commit=9264e03b88dcb1d59bcb483cbd9560693e6a1d6d
+profile=tablet
+api=37.0
+device=pixel_tablet
+result=fail
+run=https://github.com/hesaplarimdijital-coder/inkyandroid/actions/runs/45089280896
