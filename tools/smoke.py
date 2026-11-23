@@ -288,7 +288,7 @@ SCENARIO_IME_CONTROL = [
     step("control-home-word", only="phone", foreground=False, soft=True, read=False,
          do=_device_name_again + [["key", "CTRL+MOVE_HOME"], ["ime_type", "home", False]]),
     step("control-home-word-space", only="phone", foreground=False, soft=True, read=False,
-         do=_device_name_again + [["key", "CTRL+MOVE_HOME"], ["ime_type", "home ", False], ["back"], ["back"]]),
+         do=_device_name_again + [["key", "CTRL+MOVE_HOME"], ["ime_type", "home ", False]]),
 ]
 
 SCENARIOS = {
@@ -939,8 +939,8 @@ class Smoke:
             packages = {ime.split("/")[0] for ime in shell("ime list -a -s").split() if "/" in ime}
             for package in sorted(packages):
                 shell(f"pm disable-user --user 0 {package}")
-            left = " ".join(shell("ime list -s").split()) or "none"
-            self.log(f"tablet: keyboard apps switched off ({', '.join(sorted(packages))}); enabled now: {left}")
+            off = [p for p in sorted(packages) if f"package:{p}" in shell(f"pm list packages -d {p}")]
+            self.log(f"tablet: keyboard apps switched off: {', '.join(off) or 'none'} (of {', '.join(sorted(packages))})")
         if self.profile == "phone":
             # the owner's phone uses three-button navigation, not gestures
             shell("cmd overlay enable-exclusive --category com.android.internal.systemui.navbar.threebutton")
