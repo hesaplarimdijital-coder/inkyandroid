@@ -303,5 +303,6 @@
     <string name="kept_forget">Unut</string>
     <string name="kept_restored">%1$s saklanan metne döndü; Geri al onu çıkarır</string>
     <string name="kept_copied">%1$s artık projede değil: saklanan metni panoya kopyalandı</string>
+    <string name="kept_just_now">az önce</string>
     <!-- ui: end -->
 </resources>

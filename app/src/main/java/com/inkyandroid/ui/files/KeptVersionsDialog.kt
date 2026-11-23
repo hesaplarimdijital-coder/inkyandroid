@@ -14,7 +14,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.inkyandroid.R
@@ -43,7 +42,6 @@ fun KeptVersionsDialog(
 ) {
     val kept by session.kept.collectAsState()
     val shown = kept.filter { path == null || it.path == path }.sortedByDescending { it.keptAt }
-    val context = LocalContext.current
     val colors = DeskTheme.colors
     DeskDialog(
         onDismiss = onDismiss,
@@ -58,7 +56,13 @@ fun KeptVersionsDialog(
         LazyColumn(Modifier.fillMaxWidth().heightIn(max = (LocalConfiguration.current.screenHeightDp * LIST_SHARE).dp)) {
             items(shown, key = { it.id }) { version ->
                 val origin = stringResource(if (version.origin == KeptVersion.Origin.Mine) R.string.kept_mine else R.string.kept_theirs)
-                val time = DateUtils.formatDateTime(context, version.keptAt, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME or DateUtils.FORMAT_ABBREV_MONTH)
+                // how long ago, as the system says it ("5 dk. önce", "dün"): when it was kept matters more than the hour
+                val now = System.currentTimeMillis()
+                val time = if (now - version.keptAt < DateUtils.MINUTE_IN_MILLIS) {
+                    stringResource(R.string.kept_just_now)
+                } else {
+                    DateUtils.getRelativeTimeSpanString(version.keptAt, now, DateUtils.MINUTE_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString()
+                }
                 DeskListRow(
                     title = if (path == null) version.path else ProjectPaths.name(version.path),
                     subtitle = "$origin · $time",
