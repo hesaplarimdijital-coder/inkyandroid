@@ -570,6 +570,8 @@ class InkProject private constructor(
             val seen = record.stored
             if (theirs == null) {
                 if (seen == null) continue
+                // a change the editor has not reported yet makes the file unsaved: it stays (see below)
+                if (record.live?.hasUnreportedChanges() == true) record.edited = true
                 if (record.unsaved || path == mainPath) {
                     record.stored = null
                     record.storedHash = null
