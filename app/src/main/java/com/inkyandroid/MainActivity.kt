@@ -39,8 +39,8 @@ class MainActivity : ComponentActivity() {
     /** Ctrl+K and Ctrl+P: the command palette. Kept here, so the keys can be left alone while it is open. */
     private val palette = CommandPaletteState()
 
-    /** The composition says what performs the window's commands. */
-    private val commands = CommandHost()
+    /** The composition says what performs the window's commands (the keys, and the tests, ask here). */
+    internal val commands = CommandHost()
 
     private val keys = KeyRouter(
         registry = shortcuts,

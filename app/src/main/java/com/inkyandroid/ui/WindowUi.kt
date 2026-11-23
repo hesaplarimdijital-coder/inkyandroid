@@ -79,6 +79,10 @@ class WindowUi {
 
     /** The window was just started (not recreated): with nothing to show, a first launch gets its sample project. */
     var freshStart = false
+
+    /** The route the window shows (the shell's current destination); null before the first frame. */
+    var route: String? by mutableStateOf(null)
+        internal set
 }
 
 /** The open project is a single file: [readOnly] when even that could not be opened for writing; [dismissed] once the banner was closed. */

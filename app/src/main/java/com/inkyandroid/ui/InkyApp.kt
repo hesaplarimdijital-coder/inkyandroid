@@ -6,6 +6,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
@@ -13,11 +14,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.saveable.LocalSaveableStateRegistry
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.inkyandroid.R
 import com.inkyandroid.core.live.LiveState
@@ -89,7 +94,7 @@ fun InkyApp(
     commands: CommandHost? = null,
     startRoute: String? = null,
 ) {
-    val navController = rememberNavController()
+    val navController = rememberWindowNavController()
     val navigator = remember(navController) { ShellNavigator(navController) }
     val activity = LocalActivity.current
     val resources = appResources()
@@ -168,6 +173,20 @@ fun InkyApp(
     }
     val entry by navController.currentBackStackEntryAsState()
     val currentRoute = entry?.destination?.route ?: spec.startRoute
+    SideEffect { if (ui.route != currentRoute) ui.route = currentRoute }
+
+    // The screen the window showed when the system ended the process comes back once the project
+    // is open again and the graph is the project's (a file's route needs nothing: the sidebar marks
+    // the active file by itself).
+    val routeMemory = rememberSaveable(saver = RouteMemory.Saver) { RouteMemory() }
+    SideEffect { routeMemory.shown = currentRoute.takeIf { Routes.filePath(it) == null && it != spec.startRoute } }
+    LaunchedEffect(window is WindowProject.Opening, spec) {
+        val route = routeMemory.pending ?: return@LaunchedEffect
+        if (window is WindowProject.Opening) return@LaunchedEffect
+        routeMemory.pending = null
+        val exists = runCatching { navController.graph.findNode(route) != null }.getOrDefault(false)
+        if (exists && route != navController.currentBackStackEntry?.destination?.route) navigator.navigate(route)
+    }
 
     val fileIssues = remember(state?.issues) { issuesByFile(state?.issues.orEmpty()) }
     val unsaved = project?.files?.filter { it.hasUnsavedChanges }?.map { it.path }?.toSet().orEmpty()
@@ -362,3 +381,32 @@ private fun holderReference(window: WindowProject): String? = when (window) {
 /** The key under which the editor's zoom is kept in the kit's preferences; likewise the player's. */
 private const val EDITOR_ZOOM_KEY = "editor"
 private const val PLAYER_ZOOM_KEY = "player"
+
+/**
+ * The window's navigation, never saved with the activity's state. The graph is built from the
+ * project's files (the sidebar lists each as a route of its own), and after the system ended the
+ * process those routes are not there until the project has opened again: a saved back stack that
+ * holds one cannot be restored, and the window would fail at every such start. What the window
+ * showed comes back through [RouteMemory] instead. (The activity handles configuration changes
+ * itself, so nothing else would restore the back stack.)
+ */
+@Composable
+private fun rememberWindowNavController(): NavHostController {
+    lateinit var controller: NavHostController
+    // the library's own controller, made where there is no registry to save it in
+    CompositionLocalProvider(LocalSaveableStateRegistry provides null) { controller = rememberNavController() }
+    return controller
+}
+
+/**
+ * The route a window shows, kept in its saved state ([shown]: a screen other than the start one and
+ * not a file's), and after a restore the one to show again ([pending]).
+ */
+internal class RouteMemory(restored: String? = null) {
+    var shown: String? = null
+    var pending: String? = restored
+
+    companion object {
+        val Saver: Saver<RouteMemory, String> = Saver(save = { memory -> memory.shown }, restore = { route -> RouteMemory(restored = route) })
+    }
+}
