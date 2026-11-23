@@ -260,6 +260,12 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
      */
     val declined: StateFlow<IOException?> = mutableDeclined.asStateFlow()
 
+    /**
+     * Whether another window of the app has [reference]'s project open: ask before closing this
+     * window's project for it, since such a request is refused ([declined]).
+     */
+    fun isOpenElsewhere(reference: String): Boolean = environment.isOpenElsewhere(reference, this)
+
     /** The window has told the user why its last request was declined. */
     fun dismissDeclined() {
         mutableDeclined.value = null
@@ -318,11 +324,17 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
         val answer = environment.claim(reference, this)
         if (answer is SessionEnvironment.ClaimAnswer.Refused) {
             val elsewhere = ProjectOpenElsewhereException(reference)
-            // a window that shows a project, or is opening one, goes on with it
-            if (session != null || opening?.isActive == true) {
-                mutableDeclined.value = elsewhere
-            } else {
-                mutableProject.value = WindowProject.Failed(reference, elsewhere.message.orEmpty(), elsewhere)
+            val shown = session
+            when {
+                // the screens closed the window's project before asking (they should ask first, see
+                // isOpenElsewhere): the window never shows a session that has ended, it opens its own again
+                shown != null && shown.state.value.closed -> {
+                    mutableDeclined.value = elsewhere
+                    start(shown.reference, carried = null)
+                }
+                // a window that shows a project, or is opening one, goes on with it
+                shown != null || opening?.isActive == true -> mutableDeclined.value = elsewhere
+                else -> mutableProject.value = WindowProject.Failed(reference, elsewhere.message.orEmpty(), elsewhere)
             }
             return
         }

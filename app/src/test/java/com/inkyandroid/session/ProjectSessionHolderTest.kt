@@ -26,6 +26,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
@@ -414,6 +415,32 @@ class ProjectSessionHolderTest {
         assertEquals("nothing was ended or given back", listOf("open one", "open two"), log)
         second.dismissDeclined()
         assertNull(second.declined.value)
+    }
+
+    @Test
+    fun `a refusal that comes after this window's project was closed reopens that project, never a dead session`() = test {
+        val one = folder("one").apply { File(this, "main.ink").writeText(story) }
+        val two = folder("two").apply { File(this, "main.ink").writeText(story) }
+        val environment = environment(mapOf("one" to one, "two" to two))
+        val other = ProjectSessionHolder(environment)
+        other.open("one")
+        val holder = ProjectSessionHolder(environment)
+        holder.open("two")
+        pass()
+        val closing = holder.open()
+
+        // the screens asked the project to close before asking for the other one, which is refused
+        assertTrue(closing.requestClose())
+        holder.open("one")
+        pass()
+
+        val session = holder.open()
+        assertEquals("two", session.reference)
+        assertFalse("the window never shows a session that has ended", session.state.value.closed)
+        assertTrue(holder.declined.value is ProjectOpenElsewhereException)
+        holder.editor("main.ink").type(written)
+        pass(ProjectSession.AUTOSAVE_DELAY_MILLIS)
+        assertEquals(written, File(two, "main.ink").readText())
     }
 
     @Test

@@ -338,6 +338,11 @@ class WindowActions(
             navigate(Routes.WRITE)
             return
         }
+        // another window has it: refused before this window's project is asked to close for it
+        if (holder.isOpenElsewhere(ref.encode())) {
+            notify(strings.getString(R.string.project_open_elsewhere_title), BannerTone.Warning)
+            return
+        }
         whenClosed {
             ui.singleFile = notice
             holder.open(ref.encode())
