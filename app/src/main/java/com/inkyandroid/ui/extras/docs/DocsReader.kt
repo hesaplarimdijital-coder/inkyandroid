@@ -216,6 +216,8 @@ internal fun DocsReader(
         }
     } else {
         CompactTopBar(
+            // the screen's own name, whole: the navigation's label may be a short one ("Docs")
+            title = stringResource(R.string.docs_title),
             actions = listOf(
                 TopBarAction(DeskIcons.ListView, stringResource(R.string.docs_contents), { contentsSheet = true }),
                 TopBarAction(DeskIcons.Search, stringResource(R.string.docs_find), openFind),
