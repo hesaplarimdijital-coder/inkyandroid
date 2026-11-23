@@ -146,7 +146,8 @@ class FilesAndProjectsBehaviourTest {
         compose.onNode(hasSetTextAction()).performTextReplacement("opening.ink")
         compose.onNodeWithText("Rename").performClick()
         compose.waitFor(10_000) { session.project.state.value.files.any { it.path == "opening.ink" } }
-        compose.waitForIdle()
+        // (no wait for an idle Compose here: the story recompiles after the rename, and its busy bar animates)
+        compose.waitFor { session.state.value.activePath == "opening.ink" && ui.route == Routes.file("opening.ink") }
         assertEquals("renamed, but the editor shows another file", "opening.ink", session.state.value.activePath)
         compose.onNode(hasText("opening.ink") and isSelectable()).assertIsSelected()
         assertEquals(Routes.file("opening.ink"), ui.route)

@@ -146,12 +146,14 @@ fun IssuesPane(
 
 /** "2 errors · 1 warning · 3 TODOs": the counts desktop Inky keeps in its toolbar, each with its mark. */
 @Composable
-fun IssueSummary(counts: IssueCounts, modifier: Modifier = Modifier) {
+fun IssueSummary(counts: IssueCounts, modifier: Modifier = Modifier, compact: Boolean = false) {
     val dimens = DeskTheme.dimens
-    Row(modifier, horizontalArrangement = Arrangement.spacedBy(dimens.gapL), verticalAlignment = Alignment.CenterVertically) {
-        if (counts.errors > 0) SummaryPart(IssueKind.Error, pluralStringResource(R.plurals.issues_errors, counts.errors, counts.errors))
-        if (counts.warnings > 0) SummaryPart(IssueKind.Warning, pluralStringResource(R.plurals.issues_warnings, counts.warnings, counts.warnings))
-        if (counts.todos > 0) SummaryPart(IssueKind.Todo, pluralStringResource(R.plurals.issues_todos, counts.todos, counts.todos))
+    // compact (a narrow pane): the marks with their numbers only; the whole summary keeps its words for TalkBack
+    fun text(count: Int, words: String) = if (compact) count.toString() else words
+    Row(modifier, horizontalArrangement = Arrangement.spacedBy(if (compact) dimens.gapS else dimens.gapL), verticalAlignment = Alignment.CenterVertically) {
+        if (counts.errors > 0) SummaryPart(IssueKind.Error, text(counts.errors, pluralStringResource(R.plurals.issues_errors, counts.errors, counts.errors)))
+        if (counts.warnings > 0) SummaryPart(IssueKind.Warning, text(counts.warnings, pluralStringResource(R.plurals.issues_warnings, counts.warnings, counts.warnings)))
+        if (counts.todos > 0) SummaryPart(IssueKind.Todo, text(counts.todos, pluralStringResource(R.plurals.issues_todos, counts.todos, counts.todos)))
         if (counts.isEmpty) Text(stringResource(R.string.issues_none_title), style = DeskTheme.type.label, color = DeskTheme.colors.textSecondary)
     }
 }

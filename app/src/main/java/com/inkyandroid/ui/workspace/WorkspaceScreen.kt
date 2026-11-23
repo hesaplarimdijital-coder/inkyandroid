@@ -20,6 +20,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -292,10 +296,18 @@ private fun EditorHeader(
     val dimens = DeskTheme.dimens
     val hints = showShortcutHints()
     val resources = appResources()
+    val density = LocalDensity.current
     val row = cursorRow(session, state)
     val flow = remember(file.symbols, row) { file.symbols?.flowAt(row) ?: FlowPath() }
+    // a narrow editor pane (a tablet upright): the issue counts without their words, so the file's name keeps its room
+    var compact by remember { mutableStateOf(false) }
     Row(
-        Modifier.fillMaxWidth().background(colors.surface).heightIn(min = dimens.minTarget.coerceAtLeast(HEADER_HEIGHT)).padding(horizontal = dimens.gapXs),
+        Modifier
+            .fillMaxWidth()
+            .onSizeChanged { size -> compact = with(density) { size.width.toDp() } < COMPACT_HEADER }
+            .background(colors.surface)
+            .heightIn(min = dimens.minTarget.coerceAtLeast(HEADER_HEIGHT))
+            .padding(horizontal = dimens.gapXs),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(dimens.gapXs),
     ) {
@@ -333,7 +345,7 @@ private fun EditorHeader(
                     .padding(horizontal = dimens.gapS, vertical = dimens.gapXs)
                     .semantics(mergeDescendants = true) { contentDescription = label },
             ) {
-                IssueSummary(countIssues(state.issues))
+                IssueSummary(countIssues(state.issues), compact = compact)
             }
         }
         InspectorToggleButton(inspector)
@@ -342,6 +354,9 @@ private fun EditorHeader(
 
 /** What stands between the parts of the place shown in the header: file › knot › stitch. */
 private const val CRUMB = "  ›  "
+
+/** Below this width the editor's header shows the issue counts without their words. */
+private val COMPACT_HEADER = 560.dp
 
 /** The header is as high as the inspector's row of tabs beside it, so the two rules under them meet. */
 private val HEADER_HEIGHT = 36.dp

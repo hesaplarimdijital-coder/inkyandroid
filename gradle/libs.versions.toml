@@ -4,7 +4,9 @@
 [versions]
 agp = "9.4.1"
 kotlin = "2.4.20"
-desktopKit = "c31ef03cf3"
+# desktop-kit 2.10.0 as merged into its main (5aa957d0d3, VERSION_NAME=2.10.0); the tag is pending: switch this
+# line to "2.10.0" once the owner has tagged the release
+desktopKit = "5aa957d0d3"
 activityCompose = "1.13.0"
 # ink: blade-ink is the Java port of ink's runtime and compiler, at the level of ink 1.2.0;
 # the runtime and the compiler are released together under one version.
