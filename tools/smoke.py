@@ -98,7 +98,7 @@ def step(name, do=(), expect=(), played=(), absent=(), unplayed=(), foreground=T
 # restart, palette (Ctrl+K), find (Ctrl+F), the File menu, issues, force-stop, the rail when
 # rotated, background, process death, Turkish. The app's texts are collected in S1 and S1_TR.
 S1 = dict(
-    write="Write", play="Play", files="Files", more="More", issues="Issues", docs="Documentation",
+    write="Write", play="Play", files="Files", more="More", issues="Issues", docs="Docs",
     settings="Settings", rewind="Rewind a single choice", restart="Restart story", player="Player",
     menus=["File", "Edit", "View", "Story", "Help"],
     file_menu=["New project…", "Export to JSON…"],
