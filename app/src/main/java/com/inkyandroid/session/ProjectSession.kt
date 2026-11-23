@@ -69,6 +69,11 @@ class ProjectSession private constructor(
     val reference: String,
     /** The project model: its `state` is the files, their flags and symbols. */
     val project: InkProject,
+    /**
+     * The project is one file opened without its folder (it survives a restart: it comes from the
+     * reference): no other file can be added, its INCLUDEs do not resolve; offer to grant the folder.
+     */
+    val isSingleFile: Boolean,
     private val scope: CoroutineScope,
     private val journal: DraftJournal,
     private val settings: AppSettings,
@@ -259,6 +264,8 @@ class ProjectSession private constructor(
      * worked, shows it and adds a history step.
      */
     suspend fun addInclude(name: String, addToMain: Boolean): AddIncludeResult {
+        // the file could never be saved beside a single document: refused until the folder is granted
+        if (isSingleFile) return AddIncludeResult.InvalidName(name, needsFolder = true)
         val result = project.addInclude(name, addToMain)
         if (result is AddIncludeResult.Added) show(result.path)
         return result
@@ -635,6 +642,7 @@ class ProjectSession private constructor(
          * @param context the session's thread: the main thread in the app. A `Job` in it becomes the
          *   parent of everything the session runs.
          * @param parseContext where symbol parsing runs.
+         * @param singleFile the project is one file opened without its folder ([isSingleFile]).
          */
         @Throws(IOException::class)
         suspend fun open(
@@ -647,6 +655,7 @@ class ProjectSession private constructor(
             live: LiveLinkFactory,
             context: CoroutineContext = Dispatchers.Main.immediate,
             parseContext: CoroutineContext = Dispatchers.Default,
+            singleFile: Boolean = false,
         ): ProjectSession = withContext(context.minusKey(Job)) {
             // a child of the job in [context] when there is one: ending that job ends the session
             val scope = CoroutineScope(context + SupervisorJob(context[Job]))
@@ -662,7 +671,7 @@ class ProjectSession private constructor(
                     // the project is as storage has it; the journal will say so when it cannot write either
                     DraftRestoreReport()
                 }
-                ProjectSession(reference, project, scope, journal, settings, editors, live, tokenizer, projectSettings, restored)
+                ProjectSession(reference, project, singleFile, scope, journal, settings, editors, live, tokenizer, projectSettings, restored)
             } catch (failed: Throwable) {
                 scope.cancel()
                 throw failed

@@ -26,8 +26,13 @@ import java.io.IOException
 import java.util.concurrent.Executors
 import kotlin.coroutines.CoroutineContext
 
-/** A project reference resolved to its storage. */
-class OpenedProject(val store: ProjectStore, val mainPath: String)
+/**
+ * A project reference resolved to its storage.
+ *
+ * @property singleFile the project is one file opened without its folder: nothing beside it can be
+ *   created or read (its INCLUDEs do not resolve) until the folder is granted.
+ */
+class OpenedProject(val store: ProjectStore, val mainPath: String, val singleFile: Boolean = false)
 
 /**
  * Turns a project reference in its string form into the project's storage: the storage package's
@@ -54,7 +59,7 @@ class StorageProjectOpener(private val storage: ProjectStorage) : ProjectOpener 
 
     override suspend fun open(reference: String): OpenedProject {
         val ref = ProjectRef.decode(reference) ?: throw IOException("Not a project reference")
-        return OpenedProject(storage.open(ref), ref.mainPath)
+        return OpenedProject(storage.open(ref), ref.mainPath, singleFile = ref is ProjectRef.SingleDocument)
     }
 
     override fun close(reference: String) {
@@ -410,6 +415,7 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
                 reference = reference,
                 store = opened.store,
                 mainPath = opened.mainPath,
+                singleFile = opened.singleFile,
                 drafts = drafts,
                 settings = environment.settings,
                 editors = environment.editors,

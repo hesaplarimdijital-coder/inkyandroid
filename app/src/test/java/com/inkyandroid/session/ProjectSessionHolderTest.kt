@@ -78,11 +78,11 @@ class ProjectSessionHolderTest {
     }
 
     /** The storage package as the holder sees it: each reference is a folder with its main file. */
-    private inner class FakeOpener(private val places: Map<String, File>) : ProjectOpener {
+    private inner class FakeOpener(private val places: Map<String, File>, private val singles: Set<String>) : ProjectOpener {
         override suspend fun open(reference: String): OpenedProject {
             log.add("open $reference")
             val root = places[reference] ?: throw NoSuchFileException(reference)
-            return OpenedProject(LoggedStore(DirectoryProjectStore(root, io = main)), "main.ink")
+            return OpenedProject(LoggedStore(DirectoryProjectStore(root, io = main)), "main.ink", singleFile = reference in singles)
         }
 
         override fun close(reference: String) {
@@ -93,11 +93,11 @@ class ProjectSessionHolderTest {
     private fun settings() = AppSettings(context.getSharedPreferences("holder-test", Context.MODE_PRIVATE))
 
     /** One process's environment; [kill] ends every session it made, as the system ends a process. */
-    private fun environment(places: Map<String, File>, settings: AppSettings = settings()): SessionEnvironment {
+    private fun environment(places: Map<String, File>, settings: AppSettings = settings(), singles: Set<String> = emptySet()): SessionEnvironment {
         val lifetime = Job().also(lifetimes::add)
         return SessionEnvironment(
             settings = settings,
-            opener = FakeOpener(places),
+            opener = FakeOpener(places, singles),
             editors = { path, text -> FakeEditorBuffer(text).also { editors[path] = it } },
             live = { _: CoroutineScope, _: () -> InkSources -> FakeLiveLink() },
             draftsDirectory = draftsDirectory,
@@ -537,6 +537,22 @@ class ProjectSessionHolderTest {
         pass()
 
         assertEquals(written, holder.open().project.text("main.ink").toString())
+    }
+
+    @Test
+    fun `a single file opened without its folder is known as one, also after the process died`() = test {
+        val root = folder("single").apply { File(this, "main.ink").writeText(story) }
+        val first = ProjectSessionHolder(environment(mapOf("single" to root), singles = setOf("single")))
+        first.open("single")
+        pass()
+        assertTrue(first.open().isSingleFile)
+        kill(first)
+
+        val second = ProjectSessionHolder(environment(mapOf("single" to root), settings(), singles = setOf("single")))
+        second.restore(savedReference = null)
+        pass()
+
+        assertTrue(second.open().isSingleFile)
     }
 
     // ------------------------------------------------------------------ the activity's hooks
