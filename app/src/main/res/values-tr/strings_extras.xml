@@ -66,7 +66,7 @@
     <string name="settings_autosave">Otomatik kaydet</string>
     <string name="settings_autosave_on_note">Değişiklikler yazmayı bıraktıktan iki saniye sonra kaydedilir. Kaydedilmemiş metin ayrıca her zaman taslak olarak saklanır.</string>
     <string name="settings_autosave_off_note">Ctrl+S ya da Kaydet ile kaydedersiniz. Kaydedilmemiş metin yine taslak olarak saklanır ve değişiklikleri olan bir proje kapanmadan önce sorulur.</string>
-    <string name="settings_projects_folder">Proje klasörü</string>
+    <string name="settings_projects_folder">Projeler klasörü</string>
     <string name="settings_projects_folder_none">Seçilmedi: yeni projeler uygulamanın içinde tutulur</string>
     <string name="settings_projects_folder_choose">Seç…</string>
     <string name="settings_projects_folder_change">Değiştir…</string>
