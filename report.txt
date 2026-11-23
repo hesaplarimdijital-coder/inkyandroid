@@ -1,0 +1,131 @@
+Inky device smoke: profile phone, sdk_gphone64_x86_64, Android 14 (API 34), Physical size: 1080x2400, density 420
+navigation bar overlays: [ ] com.android.internal.systemui.navbar.gestural_wide_back; [x] com.android.internal.systemui.navbar.threebutton; [ ] com.android.internal.systemui.navbar.twobutton; [ ] com.android.internal.systemui.navbar.gestural_extra_wide_back; [ ] com.android.internal.systemui.navbar.transparent; [ ] com.android.internal.systemui.navbar.gestural; [ ] com.android.internal.systemui.navbar.gestural_narrow_back
+installed app-release.apk
+
+== Scenario ime-experiments: Typing on the on-screen keyboard before an existing word, every way
+[01] ime-setup: PASS   (01-ime-setup.png, 1080x2400 px, 411 dp wide)
+     do: locale en-US; cold_start; tap Write
+     device language already en-US
+     launch: COLD 1875 ms
+     checks: seen 'Write'
+     visible: Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[02] ime-tap-word: PASS   (02-ime-tap-word.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type Pine tree; key ENTER; tap_field_at 1 58 74.3; ime_type tap; hide_keyboard
+     text field 1 at [0,128][1080,1517]: tapped at 152,323
+     typed 'tap' on the on-screen keyboard; the field holds it and nothing else changed
+     checks: seen 'tappine tree'
+     visible: TapPine tree
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[03] ime-tap-word-space: PASS   (03-ime-tap-word-space.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type Oak tree; key ENTER; tap_field_at 1 58 74.3; ime_type tap ; hide_keyboard
+     text field 1 at [0,128][1080,1517]: tapped at 152,323
+     typed 'tap ' on the on-screen keyboard; the field holds it and nothing else changed
+     checks: seen 'tap oak tree'
+     visible: Tap Oak treeTapPine tree
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[04] ime-tap-word-enter: PASS   (04-ime-tap-word-enter.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type Bay tree; key ENTER; tap_field_at 1 58 74.3; ime_type tap; key ENTER; hide_keyboard
+     text field 1 at [0,128][1080,1517]: tapped at 152,323
+     typed 'tap' on the on-screen keyboard; the field holds it and nothing else changed
+     checks: seen 'bay tree'
+     visible: Tap
+Bay treeTap Oak treeTapPine tree
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command | Write | Files | More
+[05] ime-home-word: FAIL   (05-ime-home-word.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type Elm tree; key ENTER; key CTRL+MOVE_HOME; ime_type home; hide_keyboard
+     checks: MISSING 'homeelm tree'
+     ! typing 'home' on the on-screen keyboard changed other text: before 'Elm treeTap\nBay treeTap Oak tr', after 'Home treeTap\nBay treeTap Oak t'
+     ! 'homeelm tree' is not on the screen
+     visible: Home treeTap
+Bay treeTap Oak treeTapPine tree
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command
+[06] ime-home-word-space: FAIL   (06-ime-home-word-space.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type Ash tree; key ENTER; key CTRL+MOVE_HOME; ime_type home ; hide_keyboard
+     checks: MISSING 'home ash tree'
+     ! typing 'home ' on the on-screen keyboard changed other text: before 'Ash treeHome treeTap\nBay treeT', after 'Home  treeHome treeTap\nBay tre'
+     ! 'home ash tree' is not on the screen
+     visible: Home  treeHome treeTap
+Bay treeTap Oak treeTapPine tree
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command
+[07] ime-home-word-enter: FAIL   (07-ime-home-word-enter.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type Fir tree; key ENTER; key CTRL+MOVE_HOME; ime_type enter; key ENTER; hide_keyboard
+     checks: MISSING 'fir tree'
+     ! typing 'enter' on the on-screen keyboard changed other text: before 'Fir treeHome  treeHome treeTap', after 'Enter treeHome  treeHome treeT'
+     ! 'fir tree' is not on the screen
+     visible: Enter treeHome  treeHome treeTap
+Bay treeTap Oak treeTapPine tree
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command
+[08] ime-home-word-space-enter: FAIL   (08-ime-home-word-space-enter.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type Yew tree; key ENTER; key CTRL+MOVE_HOME; ime_type enter ; key ENTER; hide_keyboard
+     checks: MISSING 'yew tree'
+     ! typing 'enter ' on the on-screen keyboard changed other text: before 'Yew treeEnter treeHome  treeHo', after 'Enter  treeEnter treeHome  tre'
+     ! 'yew tree' is not on the screen
+     visible: Enter  treeEnter treeHome  treeHome treeTap
+Bay treeTap Oak treeTapPine tree
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | First story.ink | Play | Undo | More options | Search or run a command
+[09] ime-issue-click-then-type: PASS   (09-ime-issue-click-then-type.png, 1080x2400 px, 411 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type -> missing_knot; key ENTER; hide_keyboard; wait 3; tap More; tap Issues; tap_contains Divert target not found; wait 1; ime_type issue; hide_keyboard
+     typed 'issue' on the on-screen keyboard; the field holds it and nothing else changed
+     checks: seen 'missing_knot'
+     visible: Issue-> missing_knot
+Enter  treeEnter treeHome  treeHome treeTap
+Bay treeTap Oak treeTapPine tree
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Error on line 1: Divert target not found: '-> missing_knot' | First story.ink | Play | 1 issue | More options | Search or run a command | Write | Files | More
+
+language changes: the device language
+failed steps: ime-home-word, ime-home-word-space, ime-home-word-enter, ime-home-word-space-enter
+RESULT: FAIL
