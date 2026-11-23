@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.syntax.TokenizerGoldenTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:36.144Z" hostname="runnervm0hi8g" time="0.454">
+  <properties/>
+  <testcase name="every input tokenizes exactly as in Ace" classname="com.inkyandroid.core.syntax.TokenizerGoldenTest" time="0.385"/>
+  <testcase name="an invalid instruction prefix is reported and the standard rules are used" classname="com.inkyandroid.core.syntax.TokenizerGoldenTest" time="0.016"/>
+  <testcase name="instruction prefixes tokenize exactly as in Ace" classname="com.inkyandroid.core.syntax.TokenizerGoldenTest" time="0.052"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

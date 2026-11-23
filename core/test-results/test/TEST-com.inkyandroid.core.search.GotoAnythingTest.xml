@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.search.GotoAnythingTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:34.811Z" hostname="runnervm0hi8g" time="0.054">
+  <properties/>
+  <testcase name="every symbol of the active file in upstream's order, only the top level of the others" classname="com.inkyandroid.core.search.GotoAnythingTest" time="0.015"/>
+  <testcase name="files with their names and folders, in project order" classname="com.inkyandroid.core.search.GotoAnythingTest" time="0.01"/>
+  <testcase name="text search ignores case, lists the active file first and stops at the limit" classname="com.inkyandroid.core.search.GotoAnythingTest" time="0.011"/>
+  <testcase name="line numbers and runtime paths" classname="com.inkyandroid.core.search.GotoAnythingTest" time="0.009"/>
+  <testcase name="positions survive lower-casing that changes the length" classname="com.inkyandroid.core.search.GotoAnythingTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

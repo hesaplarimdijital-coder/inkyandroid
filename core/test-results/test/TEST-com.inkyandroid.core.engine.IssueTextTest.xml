@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.engine.IssueTextTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:32.410Z" hostname="runnervm0hi8g" time="0.006">
+  <properties/>
+  <testcase name="parserErrorInIncludedFile" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.0"/>
+  <testcase name="todoInMainFile" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.001"/>
+  <testcase name="aMessageOfSeveralLinesStaysWhole" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.001"/>
+  <testcase name="aQuotedWordAtTheStartOfTheMessageIsNotAFile" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.0"/>
+  <testcase name="runtimeWarningWithoutLocation" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.0"/>
+  <testcase name="aNameThatLeavesTheProjectIsKeptAsWritten" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.0"/>
+  <testcase name="runtimeErrorWithPathOnly" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.0"/>
+  <testcase name="runtimeErrorWithLocation" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.001"/>
+  <testcase name="warning" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.0"/>
+  <testcase name="theFileNameAsWrittenIsResolvedAgainstTheMainFilesFolder" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.0"/>
+  <testcase name="anUnexpectedShapeKeepsTheWholeTextUnderTheFallbackKind" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.0"/>
+  <testcase name="upstreamsOrderAndCounts" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.001"/>
+  <testcase name="aFileNameWithAnApostrophe" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.0"/>
+  <testcase name="errorWithLineButNoFile" classname="com.inkyandroid.core.engine.IssueTextTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

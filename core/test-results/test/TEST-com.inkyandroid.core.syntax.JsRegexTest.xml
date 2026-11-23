@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.syntax.JsRegexTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:36.047Z" hostname="runnervm0hi8g" time="0.057">
+  <properties/>
+  <testcase name="dot and dollar are JavaScript's" classname="com.inkyandroid.core.syntax.JsRegexTest" time="0.0"/>
+  <testcase name="lenient escapes and braces are literals" classname="com.inkyandroid.core.syntax.JsRegexTest" time="0.002"/>
+  <testcase name="start info never excludes a position where the regex matches" classname="com.inkyandroid.core.syntax.JsRegexTest" time="0.053"/>
+  <testcase name="group counting matches Java's" classname="com.inkyandroid.core.syntax.JsRegexTest" time="0.0"/>
+  <testcase name="invalid sources are rejected" classname="com.inkyandroid.core.syntax.JsRegexTest" time="0.001"/>
+  <testcase name="word characters and boundaries are ASCII" classname="com.inkyandroid.core.syntax.JsRegexTest" time="0.0"/>
+  <testcase name="white space is JavaScript's" classname="com.inkyandroid.core.syntax.JsRegexTest" time="0.0"/>
+  <testcase name="character classes follow Annex B" classname="com.inkyandroid.core.syntax.JsRegexTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

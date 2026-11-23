@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.project.InkProjectSaveTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:34.764Z" hostname="runnervm0hi8g" time="0.024">
+  <properties/>
+  <testcase name="load theirs replaces this text by storage's version as one edit the writer can undo" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="a new file is not written over a file that appeared at its path" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="the text is written exactly, line endings and all" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="a save that cannot ask storage fails without writing" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="a file deleted outside while it has unsaved changes is created again by the save" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="a file that is not on storage has nothing to revert to" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="saves run one at a time" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.004"/>
+  <testcase name="over storage that tells no times a save does not overwrite a same-size change made outside" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="saving with nothing unsaved writes nothing" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="an outside change to the very text the user typed is no conflict" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="revert discards the unsaved changes and shows storage's version" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="a save never overwrites a version it has not seen, it reports a conflict" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="text typed while a save is under way is kept and leaves the file unsaved" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.002"/>
+  <testcase name="text typed and taken back needs no write" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="keep mine writes this text over storage's version" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="a file whose time stamp changed but not its content is saved over without a conflict" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.0"/>
+  <testcase name="over storage that tells no times an unchanged file is saved after one look at its content" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="save all writes the main file first and only the files that differ from storage" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.001"/>
+  <testcase name="a failed write leaves the file unsaved, the text untouched and storage as it was" classname="com.inkyandroid.core.project.InkProjectSaveTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.session.KitEditorSessionTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:25.543Z" hostname="runnervm0hi8g" time="0.689">
+  <properties/>
+  <testcase name="an INCLUDE line the session adds to the main file is an edit the writer can undo" classname="com.inkyandroid.session.KitEditorSessionTest" time="0.083"/>
+  <testcase name="the screens find the kit's state of each document" classname="com.inkyandroid.session.KitEditorSessionTest" time="0.036"/>
+  <testcase name="an editor asked for after the session ended is not watched" classname="com.inkyandroid.session.KitEditorSessionTest" time="0.067"/>
+  <testcase name="a file with mixed line breaks, open and untouched, is reloaded silently when it changes outside" classname="com.inkyandroid.session.KitEditorSessionTest" time="0.057"/>
+  <testcase name="what is typed into the kit's editor is unsaved, journaled, and back in a kit editor after the process died" classname="com.inkyandroid.session.KitEditorSessionTest" time="0.082"/>
+  <testcase name="a file with CRLF line breaks is saved with CRLF line breaks after typing" classname="com.inkyandroid.session.KitEditorSessionTest" time="0.064"/>
+  <testcase name="typing that the editor has not reported yet is never replaced by a reload" classname="com.inkyandroid.session.KitEditorSessionTest" time="0.088"/>
+  <testcase name="a reload from storage reaches the kit's editor as a load, not as an edit" classname="com.inkyandroid.session.KitEditorSessionTest" time="0.039"/>
+  <testcase name="loading storage's version written with other line breaks leaves the file saved, and writes nothing" classname="com.inkyandroid.session.KitEditorSessionTest" time="0.056"/>
+  <testcase name="load theirs is an edit the writer can undo, and Undo brings their own text back as unsaved changes" classname="com.inkyandroid.session.KitEditorSessionTest" time="0.036"/>
+  <testcase name="an untouched CRLF file is not unsaved and is never written" classname="com.inkyandroid.session.KitEditorSessionTest" time="0.032"/>
+  <testcase name="after the process died each file opens at its cursor and with the same line at the top" classname="com.inkyandroid.session.KitEditorSessionTest" time="0.042"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

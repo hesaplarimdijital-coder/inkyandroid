@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.session.KitEditorBufferTest" tests="20" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:25.335Z" hostname="runnervm0hi8g" time="0.205">
+  <properties/>
+  <testcase name="the cursor is in rows and columns" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.016"/>
+  <testcase name="a change by the user is reported once Compose has applied it" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.013"/>
+  <testcase name="the app's own edit is one step the user can undo, and is reported" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.011"/>
+  <testcase name="the line at the top of the view is the kit's, and setting it is where the view opens" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.011"/>
+  <testcase name="the first line break decides, as in upstream's editor" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.009"/>
+  <testcase name="a load replaces the text, forgets the undo history, is not reported, and keeps the cursor" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.01"/>
+  <testcase name="a change is unreported until Compose has applied it, and a load leaves nothing unreported" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.009"/>
+  <testcase name="typing after a load is reported again" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.009"/>
+  <testcase name="the text is a value that does not change afterwards" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.008"/>
+  <testcase name="a load into a shorter text puts the cursor where the text ends" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.009"/>
+  <testcase name="an offset inside a CRLF lands before the line break" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.007"/>
+  <testcase name="a load keeps the line at the top of the view" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.009"/>
+  <testcase name="a closed buffer reports nothing" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.008"/>
+  <testcase name="an edit of part of the text keeps the file's line breaks" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.008"/>
+  <testcase name="an edit of the whole text takes the line breaks of the text put in" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.01"/>
+  <testcase name="a file written with CR alone keeps CR" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.011"/>
+  <testcase name="the app's edits count a CRLF as the two characters it is on storage" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.011"/>
+  <testcase name="the text is right at once, also before the change is reported" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.011"/>
+  <testcase name="a file written with CRLF keeps CRLF, also in what the user types" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.011"/>
+  <testcase name="a load takes the line breaks of the new text" classname="com.inkyandroid.session.KitEditorBufferTest" time="0.01"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

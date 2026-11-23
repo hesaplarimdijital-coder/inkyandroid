@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.ui.OpenElsewhereTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:36.944Z" hostname="runnervm0hi8g" time="0.519">
+  <properties/>
+  <testcase name="deletingAProjectAnotherWindowHasOpenIsRefusedAndItsDraftsStay" classname="com.inkyandroid.ui.OpenElsewhereTest" time="0.257"/>
+  <testcase name="choosingInRecentProjectsAProjectOpenInAnotherWindowKeepsThisWindowsProjectWorking" classname="com.inkyandroid.ui.OpenElsewhereTest" time="0.257"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

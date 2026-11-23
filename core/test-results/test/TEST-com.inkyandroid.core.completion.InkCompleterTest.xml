@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.completion.InkCompleterTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:27.644Z" hostname="runnervm0hi8g" time="0.617">
+  <properties/>
+  <testcase name="nothing without a prefix unless asked for" classname="com.inkyandroid.core.completion.InkCompleterTest" time="0.241"/>
+  <testcase name="keywords come first, consecutive duplicates go, and an exact sole match closes the popup" classname="com.inkyandroid.core.completion.InkCompleterTest" time="0.053"/>
+  <testcase name="the cursor in the middle of a word completes the part before it" classname="com.inkyandroid.core.completion.InkCompleterTest" time="0.068"/>
+  <testcase name="in prose only vocabulary, and matching is case-sensitive" classname="com.inkyandroid.core.completion.InkCompleterTest" time="0.075"/>
+  <testcase name="the prefix is Ace's identifier before the cursor" classname="com.inkyandroid.core.completion.InkCompleterTest" time="0.071"/>
+  <testcase name="in a divert only divert targets, from every file, in project order" classname="com.inkyandroid.core.completion.InkCompleterTest" time="0.062"/>
+  <testcase name="in logic divert targets then variables then vocabulary" classname="com.inkyandroid.core.completion.InkCompleterTest" time="0.045"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

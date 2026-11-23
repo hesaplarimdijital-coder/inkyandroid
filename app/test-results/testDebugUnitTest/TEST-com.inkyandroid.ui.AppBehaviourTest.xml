@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.ui.AppBehaviourTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:29.993Z" hostname="runnervm0hi8g" time="3.567">
+  <properties/>
+  <testcase name="openRecentIsASubmenuOfTheRecentProjects" classname="com.inkyandroid.ui.AppBehaviourTest" time="0.646"/>
+  <testcase name="anIssueOpensItsFileAtItsLine" classname="com.inkyandroid.ui.AppBehaviourTest" time="0.273"/>
+  <testcase name="saveWritesTheTextToStorage" classname="com.inkyandroid.ui.AppBehaviourTest" time="0.23"/>
+  <testcase name="findTakesTheSelectionAndCountsItsMatches" classname="com.inkyandroid.ui.AppBehaviourTest" time="0.355"/>
+  <testcase name="suggestionsOfferTheProjectsKnotsInADivert" classname="com.inkyandroid.ui.AppBehaviourTest" time="0.339"/>
+  <testcase name="toggleCommentCommentsTheLinesAndTakesTheCommentAway" classname="com.inkyandroid.ui.AppBehaviourTest" time="0.209"/>
+  <testcase name="aTabletPutsThePlayerBesideTheEditor" classname="com.inkyandroid.ui.AppBehaviourTest" time="0.147"/>
+  <testcase name="goToDefinitionFindsAKnotInAnotherFile" classname="com.inkyandroid.ui.AppBehaviourTest" time="0.259"/>
+  <testcase name="theInkMenusCategoriesAreSubmenusWhoseSnippetsInsertAtTheCursor" classname="com.inkyandroid.ui.AppBehaviourTest" time="0.272"/>
+  <testcase name="theStoryPlaysAndAChoiceAdvancesIt" classname="com.inkyandroid.ui.AppBehaviourTest" time="0.283"/>
+  <testcase name="aLargeWindowListsTheProjectsFilesAndMarksTheOneInTheEditor" classname="com.inkyandroid.ui.AppBehaviourTest" time="0.272"/>
+  <testcase name="replaceAllChangesEveryMatchInOneStep" classname="com.inkyandroid.ui.AppBehaviourTest" time="0.275"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.ui.ShellSpecTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:38.691Z" hostname="runnervm0hi8g" time="0.075">
+  <properties/>
+  <testcase name="theBadgesCountIssuesAndMarkUnsavedFiles" classname="com.inkyandroid.ui.ShellSpecTest" time="0.013"/>
+  <testcase name="playIsOnTheRailOnlyWhereTheEditorAndThePlayerDoNotFitSideBySide" classname="com.inkyandroid.ui.ShellSpecTest" time="0.007"/>
+  <testcase name="aLargeWindowsSidebarListsTheFilesAsUpstreamsFilesViewGroupsThem" classname="com.inkyandroid.ui.ShellSpecTest" time="0.008"/>
+  <testcase name="noTwoCommandsShareAKey" classname="com.inkyandroid.ui.ShellSpecTest" time="0.008"/>
+  <testcase name="aFilesRouteCarriesItsPathWhateverItContains" classname="com.inkyandroid.ui.ShellSpecTest" time="0.007"/>
+  <testcase name="theEditorsOwnKeysAreListedButNeverRoutedFromTheActivity" classname="com.inkyandroid.ui.ShellSpecTest" time="0.008"/>
+  <testcase name="upstreamsKeysAreKeptWhereTheKitLeavesThemFree" classname="com.inkyandroid.ui.ShellSpecTest" time="0.007"/>
+  <testcase name="withoutAProjectTheSidebarOffersWriteAsTheWayToOne" classname="com.inkyandroid.ui.ShellSpecTest" time="0.007"/>
+  <testcase name="aPhoneHasWritePlayAndFilesAndTheRestUnderTheSheet" classname="com.inkyandroid.ui.ShellSpecTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

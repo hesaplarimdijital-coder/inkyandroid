@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.live.LiveSessionTest" tests="36" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:33.886Z" hostname="runnervm0hi8g" time="0.543">
+  <properties/>
+  <testcase name="everyPublishedTranscriptIsAFinishedOne" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.006"/>
+  <testcase name="onlyThePauseAfterTheLatestEditCounts" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.004"/>
+  <testcase name="theFirstLoadCompilesAndPlaysAtOnce" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.002"/>
+  <testcase name="watchesAreEvaluatedAfterEveryTurn" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.012"/>
+  <testcase name="whileTheInkHasErrorsTheLastStoryStaysAndIsPlayable" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.008"/>
+  <testcase name="errorsBeforeAnyStoryCompiledShowNoTranscript" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.004"/>
+  <testcase name="anUnchangedProjectIsNotCompiledTwice" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.003"/>
+  <testcase name="aReloadDoesNotWaitAndThePendingPauseThenHasNothingToDo" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.005"/>
+  <testcase name="watchesAreCleanedAsUpstreamsFieldCleansThem" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.005"/>
+  <testcase name="changingTheWatchesReplaysAfterThePauseWithoutCompiling" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.005"/>
+  <testcase name="runtimeIssuesAreInTheTranscriptAndInTheIssueList" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.005"/>
+  <testcase name="textKnowsWhereItCameFrom" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.004"/>
+  <testcase name="theSeedIsKeptAcrossRecompilesAndDrawnAnewByRewind" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.005"/>
+  <testcase name="theInstructionPrefixMarksLinesInPlace" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.003"/>
+  <testcase name="aRememberedChoiceThatIsGoneEndsTheReplayThere" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.006"/>
+  <testcase name="nothingIsCompiledBeforeTheFirstReload" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.001"/>
+  <testcase name="rewindForgetsEveryChoice" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.005"/>
+  <testcase name="anEditCompilesOnceThePauseIsOverAndNotBefore" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.004"/>
+  <testcase name="choiceTagsComeWithTheChoices" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.003"/>
+  <testcase name="aChoiceTakenDuringThePauseIsReplayedByTheCompileThatFollows" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.004"/>
+  <testcase name="aRecompileReplaysTheChoicesAndPublishesTheTranscriptWhole" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.005"/>
+  <testcase name="aChoiceFromATranscriptThatWasReplacedIsIgnored" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.004"/>
+  <testcase name="linesWithoutTextShowOnlyTheirTags" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.004"/>
+  <testcase name="aCompileOvertakenByAnEditIsThrownAway" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.006"/>
+  <testcase name="stepBackTakesBackOneChoiceWithoutCompiling" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.003"/>
+  <testcase name="aChoiceAppendsItsTurn" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.002"/>
+  <testcase name="editsDuringCompilesNeverQueueUp" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.02"/>
+  <testcase name="typingWithoutAPauseNeverCompilesAndThenCompilesOnce" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.007"/>
+  <testcase name="aBrokenCompileOvertakenByAnEditPublishesNoErrors" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.004"/>
+  <testcase name="warningsAndTodosComeWithAStoryThatPlays" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.002"/>
+  <testcase name="aStoryThatNowEndsEarlierEndsTheReplayThere" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.003"/>
+  <testcase name="stepBackCompilesAtOnceWhenTheTextChanged" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.003"/>
+  <testcase name="aStoryThatLoopsIsStoppedNotHung" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.375"/>
+  <testcase name="watchesFollowAChoiceAtOnce" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.005"/>
+  <testcase name="aRuntimeThatThrowsEndsTheStoryWithItsMessage" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.003"/>
+  <testcase name="stepBackAtTheFirstTurnOnlyReloads" classname="com.inkyandroid.core.live.LiveSessionTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

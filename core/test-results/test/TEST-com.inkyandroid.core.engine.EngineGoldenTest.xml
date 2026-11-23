@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.engine.EngineGoldenTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:29.538Z" hostname="runnervm0hi8g" time="2.461">
+  <properties/>
+  <testcase name="compileMessagesAreTheReferences" classname="com.inkyandroid.core.engine.EngineGoldenTest" time="0.492"/>
+  <testcase name="statisticsAreTheReferences" classname="com.inkyandroid.core.engine.EngineGoldenTest" time="0.247"/>
+  <testcase name="evaluationsAreTheReferences" classname="com.inkyandroid.core.engine.EngineGoldenTest" time="0.162"/>
+  <testcase name="transcriptsAreTheReferences" classname="com.inkyandroid.core.engine.EngineGoldenTest" time="1.336"/>
+  <testcase name="theGoldensCoverEverySampleAndCase" classname="com.inkyandroid.core.engine.EngineGoldenTest" time="0.008"/>
+  <testcase name="compiledStoriesAreTheReferencesAsTrees" classname="com.inkyandroid.core.engine.EngineGoldenTest" time="0.215"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

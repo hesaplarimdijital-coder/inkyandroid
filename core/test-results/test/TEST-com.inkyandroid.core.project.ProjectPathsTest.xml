@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.project.ProjectPathsTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:34.809Z" hostname="runnervm0hi8g" time="0.001">
+  <properties/>
+  <testcase name="a new include gets ink appended unless the name ends with it" classname="com.inkyandroid.core.project.ProjectPathsTest" time="0.0"/>
+  <testcase name="a new include name that cannot be a project path is refused" classname="com.inkyandroid.core.project.ProjectPathsTest" time="0.0"/>
+  <testcase name="name and folder split a path at its last slash" classname="com.inkyandroid.core.project.ProjectPathsTest" time="0.0"/>
+  <testcase name="an include that names nothing inside the project is no path" classname="com.inkyandroid.core.project.ProjectPathsTest" time="0.0"/>
+  <testcase name="an include path is resolved against the root like a file system would" classname="com.inkyandroid.core.project.ProjectPathsTest" time="0.0"/>
+  <testcase name="the end of a row is found for every kind of line break" classname="com.inkyandroid.core.project.ProjectPathsTest" time="0.0"/>
+  <testcase name="the paths of INCLUDE lines are found without their comment and trailing blanks" classname="com.inkyandroid.core.project.ProjectPathsTest" time="0.0"/>
+  <testcase name="an include path is read as the compiler reads it" classname="com.inkyandroid.core.project.ProjectPathsTest" time="0.0"/>
+  <testcase name="the hash of a text is its SHA-256 in UTF-8" classname="com.inkyandroid.core.project.ProjectPathsTest" time="0.0"/>
+  <testcase name="a path is root-relative with single slashes and no dot segments" classname="com.inkyandroid.core.project.ProjectPathsTest" time="0.0"/>
+  <testcase name="an ink file is one whose text after the last dot is exactly ink" classname="com.inkyandroid.core.project.ProjectPathsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.ui.FilesAndProjectsBehaviourTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:33.565Z" hostname="runnervm0hi8g" time="2.382">
+  <properties/>
+  <testcase name="choosingTheOpenProjectOnTheProjectsScreenLeavesItOpen" classname="com.inkyandroid.ui.FilesAndProjectsBehaviourTest" time="0.666"/>
+  <testcase name="deletingTheFileShownInALargeWindowShowsTheMainFile" classname="com.inkyandroid.ui.FilesAndProjectsBehaviourTest" time="0.723"/>
+  <testcase name="renamingTheFileShownInALargeWindowFollowsIt" classname="com.inkyandroid.ui.FilesAndProjectsBehaviourTest" time="0.442"/>
+  <testcase name="renamingAFileInAFolderKeepsItInThatFolder" classname="com.inkyandroid.ui.FilesAndProjectsBehaviourTest" time="0.288"/>
+  <testcase name="undoingADeletionAfterAnotherProjectOpenedLeavesThatProjectAlone" classname="com.inkyandroid.ui.FilesAndProjectsBehaviourTest" time="0.258"/>
+  <system-out><![CDATA[FocusRelatedWarning: 
+   FocusRequester is not initialized. Here are some possible fixes:
+
+   1. Remember the FocusRequester: val focusRequester = remember { FocusRequester() }
+   2. Did you forget to add a Modifier.focusRequester() ?
+   3. Are you attempting to request focus during composition? Focus requests should be made in
+   response to some event. Eg Modifier.clickable { focusRequester.requestFocus() }
+
+FocusRelatedWarning: 
+   FocusRequester is not initialized. Here are some possible fixes:
+
+   1. Remember the FocusRequester: val focusRequester = remember { FocusRequester() }
+   2. Did you forget to add a Modifier.focusRequester() ?
+   3. Are you attempting to request focus during composition? Focus requests should be made in
+   response to some event. Eg Modifier.clickable { focusRequester.requestFocus() }
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

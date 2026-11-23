@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.ui.extras.SettingsScreenshotTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:45.142Z" hostname="runnervm0hi8g" time="1.227">
+  <properties/>
+  <testcase name="phoneLicencesLight" classname="com.inkyandroid.ui.extras.SettingsScreenshotTest" time="0.344"/>
+  <testcase name="phoneAppSectionsDark" classname="com.inkyandroid.ui.extras.SettingsScreenshotTest" time="0.242"/>
+  <testcase name="phoneLargeFont" classname="com.inkyandroid.ui.extras.SettingsScreenshotTest" time="0.212"/>
+  <testcase name="tabletLight" classname="com.inkyandroid.ui.extras.SettingsScreenshotTest" time="0.162"/>
+  <testcase name="dexDark" classname="com.inkyandroid.ui.extras.SettingsScreenshotTest" time="0.264"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

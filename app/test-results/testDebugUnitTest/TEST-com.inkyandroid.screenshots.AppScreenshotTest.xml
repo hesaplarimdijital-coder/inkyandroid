@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.screenshots.AppScreenshotTest" tests="29" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:07.802Z" hostname="runnervm0hi8g" time="17.529">
+  <properties/>
+  <testcase name="phoneInkKeysLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="3.502"/>
+  <testcase name="dexFindReplaceDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="2.103"/>
+  <testcase name="phoneWriteDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.384"/>
+  <testcase name="phoneFilesDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.532"/>
+  <testcase name="dexNewIncludeDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.518"/>
+  <testcase name="phoneIssuesLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.477"/>
+  <testcase name="dexKeptVersionsLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.624"/>
+  <testcase name="tabletIssuesDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.375"/>
+  <testcase name="phoneProjectOpenElsewhereDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.365"/>
+  <testcase name="dexOutlineLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.453"/>
+  <testcase name="phoneOutlineLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.416"/>
+  <testcase name="dexGotoAnythingLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.517"/>
+  <testcase name="tabletWorkspaceLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.595"/>
+  <testcase name="phoneWriteLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.332"/>
+  <testcase name="phoneFilesUnreadableLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.401"/>
+  <testcase name="phoneSnippetPagesLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.362"/>
+  <testcase name="phonePlayEndedDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.441"/>
+  <testcase name="dexWatchesLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.906"/>
+  <testcase name="phoneFindLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.311"/>
+  <testcase name="phoneLandscapeDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.294"/>
+  <testcase name="dexWorkspaceDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.634"/>
+  <testcase name="phonePlayFont200Light" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.352"/>
+  <testcase name="phoneSuggestionsDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.32"/>
+  <testcase name="tabletLandscapeDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.329"/>
+  <testcase name="dexInkSubmenuDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.449"/>
+  <testcase name="phonePlayStaleWhileTheInkHasErrorsDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.828"/>
+  <testcase name="phonePlayLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.213"/>
+  <testcase name="phoneWriteEnglishLight" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.27"/>
+  <testcase name="phoneNoProjectDark" classname="com.inkyandroid.screenshots.AppScreenshotTest" time="0.121"/>
+  <system-out><![CDATA[FocusRelatedWarning: 
+   FocusRequester is not initialized. Here are some possible fixes:
+
+   1. Remember the FocusRequester: val focusRequester = remember { FocusRequester() }
+   2. Did you forget to add a Modifier.focusRequester() ?
+   3. Are you attempting to request focus during composition? Focus requests should be made in
+   response to some event. Eg Modifier.clickable { focusRequester.requestFocus() }
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.symbols.SymbolsGoldenTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:34.917Z" hostname="runnervm0hi8g" time="0.204">
+  <properties/>
+  <testcase name="findSymbol follows upstream's search order" classname="com.inkyandroid.core.symbols.SymbolsGoldenTest" time="0.016"/>
+  <testcase name="the default word split is upstream's for ASCII text and keeps non-English words whole" classname="com.inkyandroid.core.symbols.SymbolsGoldenTest" time="0.083"/>
+  <testcase name="every input's symbols are upstream's" classname="com.inkyandroid.core.symbols.SymbolsGoldenTest" time="0.105"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

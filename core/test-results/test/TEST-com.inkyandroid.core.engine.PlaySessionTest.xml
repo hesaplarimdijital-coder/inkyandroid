@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.engine.PlaySessionTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:32.445Z" hostname="runnervm0hi8g" time="0.559">
+  <properties/>
+  <testcase name="spansCoverTheTextThroughGlueAndCollapsedBlanks" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.002"/>
+  <testcase name="runtimePathsAreLocated" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.006"/>
+  <testcase name="everyLineKnowsItsFileAndLine" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.005"/>
+  <testcase name="twoPlaythroughsOfOneStoryDoNotDisturbEachOther" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.011"/>
+  <testcase name="aStoryThatCallsItselfWithoutEndStopsAtTheDepthLimit" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.138"/>
+  <testcase name="aLoopWithoutOutputStopsAtTheTimeLimit" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.317"/>
+  <testcase name="runningOutOfContentIsARuntimeError" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.002"/>
+  <testcase name="deepButFiniteCallsAreNoRunaway" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.024"/>
+  <testcase name="anExternalFunctionFallsBackToItsInkDefinition" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.002"/>
+  <testcase name="aRuntimeErrorIsReportedOnItsLineAndEndsTheStory" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.002"/>
+  <testcase name="anExternalWithoutAFallbackIsReportedAndEndsTheStory" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.002"/>
+  <testcase name="anIntegerDivisionByZeroEscapesTheRuntimeButNotTheSession" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.003"/>
+  <testcase name="aChoiceThatIsNotThereIsRefused" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.003"/>
+  <testcase name="theSameSeedGivesTheSameStory" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.007"/>
+  <testcase name="continuingWithoutAChoiceChangesNothing" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.004"/>
+  <testcase name="aLoopWithOutputStopsAtTheLineLimit" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.003"/>
+  <testcase name="theCharactersOfOneLineKeepTheirOwnSource" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.003"/>
+  <testcase name="linesTagsChoicesAndTheEnd" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.003"/>
+  <testcase name="globalTagsMustComeBeforeAnyInclude" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.009"/>
+  <testcase name="aSavedStateBringsThePlaythroughBack" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.005"/>
+  <testcase name="aStateThatCannotBeReadLeavesThePlaythroughAsItWas" classname="com.inkyandroid.core.engine.PlaySessionTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

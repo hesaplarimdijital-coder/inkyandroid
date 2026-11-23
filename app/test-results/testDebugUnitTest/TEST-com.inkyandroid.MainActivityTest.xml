@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.MainActivityTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:58.097Z" hostname="runnervm0hi8g" time="7.283">
+  <properties/>
+  <testcase name="aFirstStartOpensTheSampleProjectAtTheEditor" classname="com.inkyandroid.MainActivityTest" time="6.729"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

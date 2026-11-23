@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.snippets.SnippetsGoldenTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:34.876Z" hostname="runnervm0hi8g" time="0.013">
+  <properties/>
+  <testcase name="the tree has upstream's categories, snippets, separators and texts in upstream's order" classname="com.inkyandroid.core.snippets.SnippetsGoldenTest" time="0.007"/>
+  <testcase name="every built-in node has a unique id of lower-case letters and underscores, found by byId" classname="com.inkyandroid.core.snippets.SnippetsGoldenTest" time="0.003"/>
+  <testcase name="the menu adds a separator and the custom entries only when there are custom entries" classname="com.inkyandroid.core.snippets.SnippetsGoldenTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

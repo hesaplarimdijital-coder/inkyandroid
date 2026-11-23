@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.syntax.RulesGoldenTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:36.108Z" hostname="runnervm0hi8g" time="0.035">
+  <properties/>
+  <testcase name="standard rules are Ace's" classname="com.inkyandroid.core.syntax.RulesGoldenTest" time="0.022"/>
+  <testcase name="rules with an instruction prefix are Ace's" classname="com.inkyandroid.core.syntax.RulesGoldenTest" time="0.013"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.live.LiveSessionFailureTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:33.006Z" hostname="runnervm0hi8g" time="0.164">
+  <properties/>
+  <testcase name="sourcesThatCannotBeReadAreACrashReportToo" classname="com.inkyandroid.core.live.LiveSessionFailureTest" time="0.092"/>
+  <testcase name="cancellingTheScopeEndsTheSessionQuietly" classname="com.inkyandroid.core.live.LiveSessionFailureTest" time="0.013"/>
+  <testcase name="aFailureNobodyForesawStillLeavesAWorkingSession" classname="com.inkyandroid.core.live.LiveSessionFailureTest" time="0.007"/>
+  <testcase name="errorsAfterACrashClearTheCrashReport" classname="com.inkyandroid.core.live.LiveSessionFailureTest" time="0.005"/>
+  <testcase name="aCompilerThatThrowsIsACrashReportAndTheSessionGoesOn" classname="com.inkyandroid.core.live.LiveSessionFailureTest" time="0.006"/>
+  <testcase name="aTurnThatThrowsDuringAReplayEndsTheTranscriptThere" classname="com.inkyandroid.core.live.LiveSessionFailureTest" time="0.007"/>
+  <testcase name="aCancellationThatIsNotTheSessionsOwnIsAFailureLikeAnyOther" classname="com.inkyandroid.core.live.LiveSessionFailureTest" time="0.009"/>
+  <testcase name="cancellationInsideTheSourcesProviderEndsTheSessionWithoutACrashReport" classname="com.inkyandroid.core.live.LiveSessionFailureTest" time="0.002"/>
+  <testcase name="requestsAnswerEvenWhenTheEngineThrows" classname="com.inkyandroid.core.live.LiveSessionFailureTest" time="0.004"/>
+  <testcase name="aPlaythroughThatCannotStartIsAStoppedStory" classname="com.inkyandroid.core.live.LiveSessionFailureTest" time="0.003"/>
+  <testcase name="aCrashKeepsTheRememberedChoicesForTheNextStory" classname="com.inkyandroid.core.live.LiveSessionFailureTest" time="0.006"/>
+  <testcase name="closingEndsTheSessionAndLeavesTheScopeAlone" classname="com.inkyandroid.core.live.LiveSessionFailureTest" time="0.005"/>
+  <testcase name="aTurnThatThrowsAfterAChoiceIsAppendedAsAStop" classname="com.inkyandroid.core.live.LiveSessionFailureTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

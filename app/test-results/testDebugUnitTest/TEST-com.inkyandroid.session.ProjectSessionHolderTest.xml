@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.session.ProjectSessionHolderTest" tests="26" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:27.008Z" hostname="runnervm0hi8g" time="0.701">
+  <properties/>
+  <testcase name="a window finished for good saves once more and only then gives its project's storage back" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.034"/>
+  <testcase name="when the unsaved text cannot be carried over the window keeps its project and says why" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.03"/>
+  <testcase name="a window that died with the process comes back to its project, its file and the text that was typed" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.041"/>
+  <testcase name="a deleted project's drafts are forgotten once its last flush is done" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.061"/>
+  <testcase name="the project of the saved instance state comes first" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.036"/>
+  <testcase name="a single file opened without its folder is known as one, also after the process died" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.024"/>
+  <testcase name="the drafts of a project some window has open are never forgotten" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.028"/>
+  <testcase name="switching to the same project in another place carries the unsaved text along and moves its drafts" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.029"/>
+  <testcase name="a refusal that comes after this window's project was closed reopens that project, never a dead session" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.029"/>
+  <testcase name="once the first window has closed the project, another window opens it with the drafts the first one left" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.038"/>
+  <testcase name="restore happens once, so a new onCreate does not reopen anything" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.017"/>
+  <testcase name="opening a project another window has open keeps this window's own project, and says why" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.023"/>
+  <testcase name="opening another project ends the first, which gives its storage back after its last save" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.027"/>
+  <testcase name="reopening the open project keeps it this window's" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.022"/>
+  <testcase name="a project open in one window is not opened in a second, which says why" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.021"/>
+  <testcase name="a switch to a project another window has open keeps the window's project working, and says why" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.022"/>
+  <testcase name="a main file that is not text fails to open with the failure itself, and nothing crashes" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.013"/>
+  <testcase name="a project whose main file is gone fails with the reason, and storage is not left counting it as open" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.016"/>
+  <testcase name="a new window beside the one that has the last project open starts without a project" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.015"/>
+  <testcase name="the window gaining focus looks at storage, and going to the background writes the drafts" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.036"/>
+  <testcase name="after a switch to the same project in another place each file opens where it was left" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.023"/>
+  <testcase name="an included file that is not text is a load failure of that file, and the project opens" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.017"/>
+  <testcase name="opening the open project again in the same window waits for its last drafts" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.027"/>
+  <testcase name="a project that cannot be reached says which unsaved texts are kept for when it can" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.021"/>
+  <testcase name="a main file deleted while the app was dead opens with its unsaved text" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.021"/>
+  <testcase name="closing the project gives its storage back and the next start opens nothing" classname="com.inkyandroid.session.ProjectSessionHolderTest" time="0.018"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

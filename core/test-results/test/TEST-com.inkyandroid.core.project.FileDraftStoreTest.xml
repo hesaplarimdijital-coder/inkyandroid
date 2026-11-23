@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.project.FileDraftStoreTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:34.650Z" hostname="runnervm0hi8g" time="0.031">
+  <properties/>
+  <testcase name="a draft of a file that was never stored has no base" classname="com.inkyandroid.core.project.FileDraftStoreTest" time="0.003"/>
+  <testcase name="a kept version comes back exactly as it was kept, and drafts and kept versions do not mix" classname="com.inkyandroid.core.project.FileDraftStoreTest" time="0.004"/>
+  <testcase name="putting a draft for the same path replaces it" classname="com.inkyandroid.core.project.FileDraftStoreTest" time="0.004"/>
+  <testcase name="a truncated draft is skipped, the others are read" classname="com.inkyandroid.core.project.FileDraftStoreTest" time="0.003"/>
+  <testcase name="remove forgets one draft and is quiet about a missing one" classname="com.inkyandroid.core.project.FileDraftStoreTest" time="0.002"/>
+  <testcase name="files that are not drafts are ignored" classname="com.inkyandroid.core.project.FileDraftStoreTest" time="0.002"/>
+  <testcase name="text that looks like the header is still text" classname="com.inkyandroid.core.project.FileDraftStoreTest" time="0.003"/>
+  <testcase name="a draft comes back exactly as it was put" classname="com.inkyandroid.core.project.FileDraftStoreTest" time="0.002"/>
+  <testcase name="the draft of a save that has begun says so, and an older draft without the mark is no such draft" classname="com.inkyandroid.core.project.FileDraftStoreTest" time="0.003"/>
+  <testcase name="a path with a line break or a backslash survives" classname="com.inkyandroid.core.project.FileDraftStoreTest" time="0.002"/>
+  <testcase name="a draft is on disk when put returns, with no temporary file left" classname="com.inkyandroid.core.project.FileDraftStoreTest" time="0.002"/>
+  <testcase name="a store whose directory does not exist yet has no drafts" classname="com.inkyandroid.core.project.FileDraftStoreTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

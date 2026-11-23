@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.project.DraftJournalTest" tests="20" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:34.612Z" hostname="runnervm0hi8g" time="0.036">
+  <properties/>
+  <testcase name="a restored draft is not written again until the text changes, and is removed once saved" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.002"/>
+  <testcase name="a restored draft is parsed, so the includes it adds are followed" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.001"/>
+  <testcase name="the draft of a file is removed once the file is saved" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.002"/>
+  <testcase name="a draft is written once per change, not once per flush" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.001"/>
+  <testcase name="the draft of a new file that was never saved brings the file back" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.002"/>
+  <testcase name="a flush writes a draft of every unsaved file, with the hash of the stored version it was edited from" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.001"/>
+  <testcase name="a process that dies in the middle of writing a draft leaves the previous draft readable" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.003"/>
+  <testcase name="discard all forgets every draft, also ones this journal did not write" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.002"/>
+  <testcase name="a draft that cannot be written is reported and tried again" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.002"/>
+  <testcase name="the draft of a reverted file is removed" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.001"/>
+  <testcase name="a failed save keeps the draft" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.001"/>
+  <testcase name="the draft of a file that was deleted outside brings the text back as a file that is not on storage" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.001"/>
+  <testcase name="a draft over another version than storage holds now comes back as unsaved changes and as a conflict" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.001"/>
+  <testcase name="text typed and journaled survives the death of the process" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.005"/>
+  <testcase name="a draft over the version storage still holds comes back as unsaved changes" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.001"/>
+  <testcase name="the draft of a deleted or renamed file does not stay behind" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.002"/>
+  <testcase name="a new file that was never saved has a draft without a base" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.002"/>
+  <testcase name="a draft with a path that cannot be in a project is dropped" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.001"/>
+  <testcase name="a draft whose text storage already holds is obsolete and dropped" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.001"/>
+  <testcase name="a main file deleted outside while the app was dead opens with the text of its draft, as a file to create again" classname="com.inkyandroid.core.project.DraftJournalTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.ui.extras.ExportActionsTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:44.439Z" hostname="runnervm0hi8g" time="0.257">
+  <properties/>
+  <testcase name="backingOutOfThePickerWritesNothing" classname="com.inkyandroid.ui.extras.ExportActionsTest" time="0.052"/>
+  <testcase name="inkWithErrorsIsNotExported" classname="com.inkyandroid.ui.extras.ExportActionsTest" time="0.03"/>
+  <testcase name="theWebVersionIsAFolderOfThePlayer" classname="com.inkyandroid.ui.extras.ExportActionsTest" time="0.042"/>
+  <testcase name="jsonIsWrittenWhereTheUserChose" classname="com.inkyandroid.ui.extras.ExportActionsTest" time="0.065"/>
+  <testcase name="aFailedWriteSaysWhy" classname="com.inkyandroid.ui.extras.ExportActionsTest" time="0.031"/>
+  <testcase name="storyJsIsTheJsonAsAScript" classname="com.inkyandroid.ui.extras.ExportActionsTest" time="0.029"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

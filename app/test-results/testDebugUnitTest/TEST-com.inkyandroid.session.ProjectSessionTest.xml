@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.session.ProjectSessionTest" tests="36" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:27.713Z" hostname="runnervm0hi8g" time="0.988">
+  <properties/>
+  <testcase name="a settings file that changes on storage is read again and gives a new tokenizer" classname="com.inkyandroid.session.ProjectSessionTest" time="0.046"/>
+  <testcase name="in a single file opened without its folder add include is refused until the folder is granted" classname="com.inkyandroid.session.ProjectSessionTest" time="0.034"/>
+  <testcase name="with autosave closing saves and closes without a question" classname="com.inkyandroid.session.ProjectSessionTest" time="0.022"/>
+  <testcase name="with autosave a file is saved two seconds after the last edit" classname="com.inkyandroid.session.ProjectSessionTest" time="0.023"/>
+  <testcase name="the editor, the place and the history of a renamed file follow it" classname="com.inkyandroid.session.ProjectSessionTest" time="0.026"/>
+  <testcase name="add include shows the new file and adds a history step" classname="com.inkyandroid.session.ProjectSessionTest" time="0.017"/>
+  <testcase name="issues arrive in upstream's order and are found by file" classname="com.inkyandroid.session.ProjectSessionTest" time="0.019"/>
+  <testcase name="an abandoned session saves once more with autosave and keeps its drafts without" classname="com.inkyandroid.session.ProjectSessionTest" time="0.03"/>
+  <testcase name="switching autosave on takes effect with the next edit" classname="com.inkyandroid.session.ProjectSessionTest" time="0.022"/>
+  <testcase name="show makes the file active and asks the screen to bring the place into view until it says it has" classname="com.inkyandroid.session.ProjectSessionTest" time="0.017"/>
+  <testcase name="cancel keeps the project open and the changes unsaved" classname="com.inkyandroid.session.ProjectSessionTest" time="0.041"/>
+  <testcase name="next issue walks the issues, wraps around, and starts over after a recompile" classname="com.inkyandroid.session.ProjectSessionTest" time="0.017"/>
+  <testcase name="an INCLUDE inside a comment includes nothing" classname="com.inkyandroid.session.ProjectSessionTest" time="0.013"/>
+  <testcase name="deleting the file that is shown shows the main file, and its steps leave the history" classname="com.inkyandroid.session.ProjectSessionTest" time="0.016"/>
+  <testcase name="the live session compiles at once when the project is open and hears of every change" classname="com.inkyandroid.session.ProjectSessionTest" time="0.029"/>
+  <testcase name="revert shows storage's version again and drops the draft" classname="com.inkyandroid.session.ProjectSessionTest" time="0.019"/>
+  <testcase name="the window comes back to the file and the places it was at" classname="com.inkyandroid.session.ProjectSessionTest" time="0.025"/>
+  <testcase name="save saves everything and closes" classname="com.inkyandroid.session.ProjectSessionTest" time="0.024"/>
+  <testcase name="the project settings file is read when the project opens" classname="com.inkyandroid.session.ProjectSessionTest" time="0.02"/>
+  <testcase name="the places of another project are not applied" classname="com.inkyandroid.session.ProjectSessionTest" time="0.026"/>
+  <testcase name="with autosave a new include is created on storage two seconds later" classname="com.inkyandroid.session.ProjectSessionTest" time="0.027"/>
+  <testcase name="a project without a settings file has no settings" classname="com.inkyandroid.session.ProjectSessionTest" time="0.015"/>
+  <testcase name="when the save fails on closing the project stays open, with the question and the reason" classname="com.inkyandroid.session.ProjectSessionTest" time="0.019"/>
+  <testcase name="opening a project whose main file is gone fails and leaves nothing running" classname="com.inkyandroid.session.ProjectSessionTest" time="0.012"/>
+  <testcase name="an INCLUDE line typed into the main file makes the file included and reaches the compiler" classname="com.inkyandroid.session.ProjectSessionTest" time="0.018"/>
+  <testcase name="showing a file the project does not have changes nothing" classname="com.inkyandroid.session.ProjectSessionTest" time="0.018"/>
+  <testcase name="do not save closes, leaves storage alone and forgets the drafts" classname="com.inkyandroid.session.ProjectSessionTest" time="0.139"/>
+  <testcase name="without autosave nothing is written until the user saves" classname="com.inkyandroid.session.ProjectSessionTest" time="0.09"/>
+  <testcase name="each opened file keeps its own editor for the life of the session" classname="com.inkyandroid.session.ProjectSessionTest" time="0.018"/>
+  <testcase name="a file removed outside leaves the window the same way" classname="com.inkyandroid.session.ProjectSessionTest" time="0.018"/>
+  <testcase name="watches go to the live session and into the state" classname="com.inkyandroid.session.ProjectSessionTest" time="0.013"/>
+  <testcase name="back and forward retrace file switches, jumps and clicks" classname="com.inkyandroid.session.ProjectSessionTest" time="0.018"/>
+  <testcase name="a project without unsaved changes closes at once" classname="com.inkyandroid.session.ProjectSessionTest" time="0.016"/>
+  <testcase name="an issue without a file of the project goes nowhere" classname="com.inkyandroid.session.ProjectSessionTest" time="0.015"/>
+  <testcase name="the notice about restored drafts can be dismissed" classname="com.inkyandroid.session.ProjectSessionTest" time="0.043"/>
+  <testcase name="without autosave closing a project with unsaved changes asks upstream's question" classname="com.inkyandroid.session.ProjectSessionTest" time="0.019"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

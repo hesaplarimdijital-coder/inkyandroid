@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.storage.SafProjectStoreTest" tests="24" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:29.392Z" hostname="runnervm0hi8g" time="0.597">
+  <properties/>
+  <testcase name="renameNeverOverwritesAndNeedsAnExistingSource" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.012"/>
+  <testcase name="movesToAnotherFolderCreatingIt" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.013"/>
+  <testcase name="refusesTextThatIsNotUtf8" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.01"/>
+  <testcase name="deletesAFileAndReportsAMissingOne" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.012"/>
+  <testcase name="aWriteTheProviderSilentlyLosesFails" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.012"/>
+  <testcase name="aPermissionRevokedMidSessionIsReportedAsLost" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.011"/>
+  <testcase name="namesAreMatchedExactly" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.009"/>
+  <testcase name="aCrashingProviderIsAProviderFailureWithItsWords" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.008"/>
+  <testcase name="rejectsPathsOutsideTheRules" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.008"/>
+  <testcase name="followsAFileRenamedOutsideAfterListing" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.01"/>
+  <testcase name="renamesInTheSameFolder" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.011"/>
+  <testcase name="aFolderWithTooManyEntriesIsReportedInsteadOfListedInPart" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.344"/>
+  <testcase name="listsNestedFilesWithSizesAndSkipsHiddenOnes" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.014"/>
+  <testcase name="writeReplacesALongerTextCompletely" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.013"/>
+  <testcase name="aFileTheProviderStoresWithAnotherExtensionIsRenamedBack" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.01"/>
+  <testcase name="anExistingFileTheCacheDidNotKnowIsUsedInsteadOfANumberedCopy" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.009"/>
+  <testcase name="aFolderTooDeepIsReportedInsteadOfListedInPart" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.01"/>
+  <testcase name="withoutRenameAndMoveSupportARenameCopiesAndDeletes" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.015"/>
+  <testcase name="writeFallsBackWhenTheProviderRefusesTruncatingMode" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.01"/>
+  <testcase name="aProjectFolderDeletedOutsideIsNotFound" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.008"/>
+  <testcase name="aRenamedCreateThatCannotBeUndoneFailsAndLeavesNothingBehind" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.009"/>
+  <testcase name="readsUtf8WithoutTheByteOrderMarkAndKeepsLineEndings" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.009"/>
+  <testcase name="writeCreatesMissingFoldersAndReturnsWhatStatReports" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.011"/>
+  <testcase name="withoutASizeColumnTheWriteIsVerifiedByReadingBack" classname="com.inkyandroid.storage.SafProjectStoreTest" time="0.011"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

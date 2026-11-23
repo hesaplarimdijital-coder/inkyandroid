@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.project.CutShortSaveTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:34.493Z" hostname="runnervm0hi8g" time="0.072">
+  <properties/>
+  <testcase name="a failed write leaves the draft in place, still marked as a save that did not finish" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.006"/>
+  <testcase name="a save made before the draft timer fired still writes the draft first" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.002"/>
+  <testcase name="a draft over a file that cannot be read, from no save of ours, is a conflict the writer settles" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.004"/>
+  <testcase name="remains that are not a beginning of the draft's text, as an overwrite in place leaves them, are a conflict" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.001"/>
+  <testcase name="a change the editor has not reported yet is never replaced by a reload" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.001"/>
+  <testcase name="a saving draft over a beginning of its own text is taken for its torn write, also when another device cut the end" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.001"/>
+  <testcase name="an included file cut in the middle of a character comes back from its draft" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.024"/>
+  <testcase name="undoing back to the old text after a failed write still writes, because storage holds the remains" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.002"/>
+  <testcase name="a main file cut in the middle of a character opens with the text its save was writing" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.008"/>
+  <testcase name="after a failed write left part of the text behind, the next save writes over it without calling it a change from outside" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.002"/>
+  <testcase name="without the draft of an unfinished save a main file that cannot be read does not open" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.001"/>
+  <testcase name="when a draft cannot be moved nothing is forgotten" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.001"/>
+  <testcase name="text typed after a failed write is journaled as unfinished too, until a write succeeds" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.002"/>
+  <testcase name="a saving draft left behind by a save that finished does not silently beat a later outside change" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.002"/>
+  <testcase name="moving the drafts to another place puts every unsaved text there before forgetting its own" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.001"/>
+  <testcase name="before a file is written its draft holds the text being written, marked as a save that has begun" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.002"/>
+  <testcase name="a saving draft over the version its save started from is the newer text, without a conflict" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.001"/>
+  <testcase name="a look at storage after a failed write neither reloads the remains nor calls them a conflict" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.001"/>
+  <testcase name="a change made outside after a failed write is still a conflict" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.002"/>
+  <testcase name="a draft that cannot be written does not stop the save" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.003"/>
+  <testcase name="after a write cut short by the death of the process the next life has the whole text over the remains, without a conflict" classname="com.inkyandroid.core.project.CutShortSaveTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

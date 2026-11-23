@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.project.NavigationHistoryTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:34.806Z" hostname="runnervm0hi8g" time="0.002">
+  <properties/>
+  <testcase name="the oldest steps are dropped beyond the limit" classname="com.inkyandroid.core.project.NavigationHistoryTest" time="0.002"/>
+  <testcase name="back and forward walk the steps and stop at the ends" classname="com.inkyandroid.core.project.NavigationHistoryTest" time="0.0"/>
+  <testcase name="reset forgets everything" classname="com.inkyandroid.core.project.NavigationHistoryTest" time="0.0"/>
+  <testcase name="the steps of a removed file are dropped and the current step moves to the nearest older one" classname="com.inkyandroid.core.project.NavigationHistoryTest" time="0.0"/>
+  <testcase name="removing the only file's steps empties the history" classname="com.inkyandroid.core.project.NavigationHistoryTest" time="0.0"/>
+  <testcase name="a step added after going back drops the steps ahead" classname="com.inkyandroid.core.project.NavigationHistoryTest" time="0.0"/>
+  <testcase name="a step in the same file on the same row is not added again" classname="com.inkyandroid.core.project.NavigationHistoryTest" time="0.0"/>
+  <testcase name="a step is added after the current one and becomes current" classname="com.inkyandroid.core.project.NavigationHistoryTest" time="0.0"/>
+  <testcase name="the steps of a renamed file follow it" classname="com.inkyandroid.core.project.NavigationHistoryTest" time="0.0"/>
+  <testcase name="an empty history has no step and goes nowhere" classname="com.inkyandroid.core.project.NavigationHistoryTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.live.LiveSessionRequestsTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:33.172Z" hostname="runnervm0hi8g" time="0.711">
+  <properties/>
+  <testcase name="exportCompilesTheTextAsItIsNowWithoutDisturbingThePlayer" classname="com.inkyandroid.core.live.LiveSessionRequestsTest" time="0.007"/>
+  <testcase name="simultaneousEditsFromSeveralThreadsAlwaysEndInACompile" classname="com.inkyandroid.core.live.LiveSessionRequestsTest" time="0.621"/>
+  <testcase name="runtimePathsAreLookedUpInTheStoryBeingPlayed" classname="com.inkyandroid.core.live.LiveSessionRequestsTest" time="0.005"/>
+  <testcase name="onARealThreadEditsFromManyThreadsEndInTheLastText" classname="com.inkyandroid.core.live.LiveSessionRequestsTest" time="0.065"/>
+  <testcase name="statisticsCountTheProjectAsItIsNow" classname="com.inkyandroid.core.live.LiveSessionRequestsTest" time="0.006"/>
+  <testcase name="exportIsRefusedWhileTheInkHasErrors" classname="com.inkyandroid.core.live.LiveSessionRequestsTest" time="0.004"/>
+  <testcase name="exportUsesTheLiveCompilationWhenTheProjectIsUnchanged" classname="com.inkyandroid.core.live.LiveSessionRequestsTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

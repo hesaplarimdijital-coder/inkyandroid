@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.ui.extras.StatisticsScreenshotTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:46.639Z" hostname="runnervm0hi8g" time="0.372">
+  <properties/>
+  <testcase name="tabletCountingDark" classname="com.inkyandroid.ui.extras.StatisticsScreenshotTest" time="0.125"/>
+  <testcase name="phoneLight" classname="com.inkyandroid.ui.extras.StatisticsScreenshotTest" time="0.117"/>
+  <testcase name="dexDark" classname="com.inkyandroid.ui.extras.StatisticsScreenshotTest" time="0.119"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

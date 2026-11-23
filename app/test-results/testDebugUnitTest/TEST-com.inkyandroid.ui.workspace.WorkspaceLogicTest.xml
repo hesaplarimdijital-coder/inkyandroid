@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.ui.workspace.WorkspaceLogicTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:47.215Z" hostname="runnervm0hi8g" time="0.258">
+  <properties/>
+  <testcase name="theOutlineIsUpstreamsKnotsView" classname="com.inkyandroid.ui.workspace.WorkspaceLogicTest" time="0.016"/>
+  <testcase name="aPositionIsAnOffsetWhateverTheLineBreaks" classname="com.inkyandroid.ui.workspace.WorkspaceLogicTest" time="0.008"/>
+  <testcase name="theSymbolKeysTypeAsAWriterExpects" classname="com.inkyandroid.ui.workspace.WorkspaceLogicTest" time="0.009"/>
+  <testcase name="issuesAreGroupedByFileInTheProjectsOrderAndCountedAsTheyAre" classname="com.inkyandroid.ui.workspace.WorkspaceLogicTest" time="0.007"/>
+  <testcase name="markersAreZeroBasedGravestFirstAndARuntimeWarningIsDrawnAsAnError" classname="com.inkyandroid.ui.workspace.WorkspaceLogicTest" time="0.006"/>
+  <testcase name="storyMarkupDrawsTheWebPlayersLittleHtmlAndShowsEverythingElseAsWritten" classname="com.inkyandroid.ui.workspace.WorkspaceLogicTest" time="0.209"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

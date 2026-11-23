@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.storage.ProjectOpeningTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:29.185Z" hostname="runnervm0hi8g" time="0.203">
+  <properties/>
+  <testcase name="viewIntentsWithContentUrisAreFilesToOpen" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.007"/>
+  <testcase name="theManifestOffersInkyForInkFilesFromOtherApps" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.013"/>
+  <testcase name="aFileInAGrantedFolderOpensAsThatFoldersProject" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.013"/>
+  <testcase name="grantingTheFoldersOfASingleFileUpgradesTheProject" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.016"/>
+  <testcase name="theProcessInstanceKeepsInternalProjectsInTheAppsFiles" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.008"/>
+  <testcase name="aReadOnlyFileCanBeReadButNotSaved" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.011"/>
+  <testcase name="aFileOutsideGrantedFoldersOpensAloneAndOnlyItsOwnPathExists" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.015"/>
+  <testcase name="aFolderWithOneMainFileOpensAtOnceAndKeepsItsPermission" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.01"/>
+  <testcase name="withoutFindDocumentPathAnotherProvidersFileOpensAlone" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.008"/>
+  <testcase name="aFileFromAnotherProviderIsRecognisedByNameInTheGrantedFolder" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.007"/>
+  <testcase name="theExternalStorageIdSchemeGivesTheParentFolder" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.005"/>
+  <testcase name="severalPossibleMainFilesAreAskedForAndTheAnswerIsRemembered" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.014"/>
+  <testcase name="binaryFilesAreNotOpened" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.008"/>
+  <testcase name="aPickedFolderCanTakeANewProjectWithoutBeingScanned" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.017"/>
+  <testcase name="anIncludeCycleStillLeavesAChoice" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.011"/>
+  <testcase name="thePickerContractsAskForPersistableAccessAndStartWhereTold" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.007"/>
+  <testcase name="aMissingFileFails" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.009"/>
+  <testcase name="aFolderThatCannotBeReadFails" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.007"/>
+  <testcase name="aFolderWithoutInkFilesSaysSoAndCanGetANewProject" classname="com.inkyandroid.storage.ProjectOpeningTest" time="0.014"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

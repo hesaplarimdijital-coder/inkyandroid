@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.project.ConflictAnswerTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:34.431Z" hostname="runnervm0hi8g" time="0.059">
+  <properties/>
+  <testcase name="load theirs keeps both texts before it replaces mine, because an undo may replace theirs in turn" classname="com.inkyandroid.core.project.ConflictAnswerTest" time="0.038"/>
+  <testcase name="a look at storage before the editor reported the loaded version takes a newer version as a reload" classname="com.inkyandroid.core.project.ConflictAnswerTest" time="0.002"/>
+  <testcase name="the kept versions of a project are capped, the oldest go first" classname="com.inkyandroid.core.project.ConflictAnswerTest" time="0.011"/>
+  <testcase name="keep mine keeps the other version before it writes over it" classname="com.inkyandroid.core.project.ConflictAnswerTest" time="0.001"/>
+  <testcase name="undoing the loaded version is the writer's text again, unsaved" classname="com.inkyandroid.core.project.ConflictAnswerTest" time="0.001"/>
+  <testcase name="typing before that report leaves the file unsaved" classname="com.inkyandroid.core.project.ConflictAnswerTest" time="0.002"/>
+  <testcase name="when the texts cannot be kept nothing is replaced" classname="com.inkyandroid.core.project.ConflictAnswerTest" time="0.001"/>
+  <testcase name="a kept version can be forgotten" classname="com.inkyandroid.core.project.ConflictAnswerTest" time="0.002"/>
+  <testcase name="an editor that reports the loaded version a moment later leaves the file saved" classname="com.inkyandroid.core.project.ConflictAnswerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

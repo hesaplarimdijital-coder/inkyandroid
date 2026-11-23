@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.session.NoTextLostTest" tests="24" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:26.317Z" hostname="runnervm0hi8g" time="0.684">
+  <properties/>
+  <testcase name="with autosave a process killed between the draft and the save loses nothing, and the next start saves" classname="com.inkyandroid.session.NoTextLostTest" time="0.039"/>
+  <testcase name="bringing back a kept version keeps the text it replaces first" classname="com.inkyandroid.session.NoTextLostTest" time="0.031"/>
+  <testcase name="a process killed in the middle of a save leaves the old file or the new one, and the draft" classname="com.inkyandroid.session.NoTextLostTest" time="0.032"/>
+  <testcase name="storage that cannot be reached is reported and changes nothing" classname="com.inkyandroid.session.NoTextLostTest" time="0.021"/>
+  <testcase name="a failed autosave keeps the text, the unsaved state and the draft, and says so" classname="com.inkyandroid.session.NoTextLostTest" time="0.04"/>
+  <testcase name="going to the background writes the drafts at once" classname="com.inkyandroid.session.NoTextLostTest" time="0.022"/>
+  <testcase name="a new include that was never saved comes back with its text after the process died" classname="com.inkyandroid.session.NoTextLostTest" time="0.029"/>
+  <testcase name="a save typed with Ctrl+S right after typing has its draft before storage is touched" classname="com.inkyandroid.session.NoTextLostTest" time="0.027"/>
+  <testcase name="keep mine writes my text over the outside version, and keeps the outside version" classname="com.inkyandroid.session.NoTextLostTest" time="0.023"/>
+  <testcase name="a failed save gives the screens the failure itself, for a sentence in the user's language" classname="com.inkyandroid.session.NoTextLostTest" time="0.027"/>
+  <testcase name="an autosave cut short in the middle of a character by the death of the process loses nothing" classname="com.inkyandroid.session.NoTextLostTest" time="0.026"/>
+  <testcase name="load theirs shows the outside version, and my text stays among the kept versions, also after the process died" classname="com.inkyandroid.session.NoTextLostTest" time="0.027"/>
+  <testcase name="text whose save failed survives the death of the process as well" classname="com.inkyandroid.session.NoTextLostTest" time="0.043"/>
+  <testcase name="with autosave going to the background saves" classname="com.inkyandroid.session.NoTextLostTest" time="0.022"/>
+  <testcase name="typing during a slow save is kept and saved by the next autosave" classname="com.inkyandroid.session.NoTextLostTest" time="0.023"/>
+  <testcase name="a file changed outside without unsaved changes is reloaded into its editor when the window gains focus" classname="com.inkyandroid.session.NoTextLostTest" time="0.019"/>
+  <testcase name="typed text is in the drafts a second after the last keystroke and comes back after the process died" classname="com.inkyandroid.session.NoTextLostTest" time="0.024"/>
+  <testcase name="retry after a failed save saves and clears the banner and the draft" classname="com.inkyandroid.session.NoTextLostTest" time="0.021"/>
+  <testcase name="typing that never pauses is still journaled every five seconds" classname="com.inkyandroid.session.NoTextLostTest" time="0.03"/>
+  <testcase name="a kept version of a file that left the project changes nothing" classname="com.inkyandroid.session.NoTextLostTest" time="0.05"/>
+  <testcase name="autosave notices an outside change by itself, without a look at storage first" classname="com.inkyandroid.session.NoTextLostTest" time="0.027"/>
+  <testcase name="a draft written over a version that changed while the app was dead comes back as a conflict, both sides intact" classname="com.inkyandroid.session.NoTextLostTest" time="0.028"/>
+  <testcase name="a write that fails half way keeps the draft, and the retry writes over the remains without a conflict" classname="com.inkyandroid.session.NoTextLostTest" time="0.026"/>
+  <testcase name="a file changed outside while it has unsaved changes is a conflict, and autosave does not overwrite either side" classname="com.inkyandroid.session.NoTextLostTest" time="0.021"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.storage.ProjectLibraryTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:28.840Z" hostname="runnervm0hi8g" time="0.342">
+  <properties/>
+  <testcase name="anExportFileIsWrittenAndVerified" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.057"/>
+  <testcase name="internalProjectsAreListedWithTheirMainFileAndDeleted" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.02"/>
+  <testcase name="anOpenProjectKeepsItsPermissionWhenItLeavesTheList" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.043"/>
+  <testcase name="theListKeepsUpstreamsFiveAndGivesBackPermissionsNothingUses" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.028"/>
+  <testcase name="aDamagedRecentFileStartsEmpty" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.013"/>
+  <testcase name="withAProjectsFolderNewProjectsGoThereWithoutAsking" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.022"/>
+  <testcase name="aLostExportWriteFails" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.014"/>
+  <testcase name="referencesSurviveTheirStringForm" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.009"/>
+  <testcase name="namesBecomeFolderNames" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.008"/>
+  <testcase name="theWebExportFillsAFolderAndOverwritesWhatIsThere" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.019"/>
+  <testcase name="clearEmptiesTheListAndReleasesWhatOnlyItHeld" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.025"/>
+  <testcase name="withoutAProjectsFolderNewProjectsAreInternal" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.011"/>
+  <testcase name="openingPutsAProjectFirstAndTheListSurvivesTheProcess" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.014"/>
+  <testcase name="anInternalProjectIsCopiedOutToAFolderAndBackIn" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.029"/>
+  <testcase name="entriesWhoseStorageIsGoneAreRemovedOthersStay" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.02"/>
+  <testcase name="storageProblemsHaveSentencesInBothLanguages" classname="com.inkyandroid.storage.ProjectLibraryTest" time="0.007"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

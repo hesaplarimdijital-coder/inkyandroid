@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.project.DirectoryProjectStoreTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:34.570Z" hostname="runnervm0hi8g" time="0.041">
+  <properties/>
+  <testcase name="list finds every file at any depth with root-relative slash paths" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.002"/>
+  <testcase name="a path that leaves the root is refused" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.008"/>
+  <testcase name="write refuses a path that is a folder" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.002"/>
+  <testcase name="a root that does not exist yet has no files" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.001"/>
+  <testcase name="list skips names that start with a dot" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.001"/>
+  <testcase name="rename never overwrites" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.003"/>
+  <testcase name="read strips a byte order mark and nothing else" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.002"/>
+  <testcase name="a file that is not UTF-8 fails to read instead of being read damaged" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.002"/>
+  <testcase name="write creates the file and its parent folders and returns what stat reports" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.003"/>
+  <testcase name="stat is null for a missing file and for a folder" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.001"/>
+  <testcase name="line endings come back as stored and are written as given" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.002"/>
+  <testcase name="delete removes the file" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.003"/>
+  <testcase name="the display name is the folder's name unless one is given" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.0"/>
+  <testcase name="reading or deleting a missing file is NoSuchFileException" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.002"/>
+  <testcase name="a write that fails leaves the old file whole" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.003"/>
+  <testcase name="write replaces the content and leaves no temporary file behind" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.002"/>
+  <testcase name="rename moves the file, creating folders, and keeps the content" classname="com.inkyandroid.core.project.DirectoryProjectStoreTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

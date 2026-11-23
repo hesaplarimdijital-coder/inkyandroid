@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.ui.extras.DocsScreenshotTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:41.504Z" hostname="runnervm0hi8g" time="2.924">
+  <properties/>
+  <testcase name="dexFindLight" classname="com.inkyandroid.ui.extras.DocsScreenshotTest" time="0.728"/>
+  <testcase name="phoneContentsSheetEnglishLight" classname="com.inkyandroid.ui.extras.DocsScreenshotTest" time="0.42"/>
+  <testcase name="phoneExamplesLight" classname="com.inkyandroid.ui.extras.DocsScreenshotTest" time="0.517"/>
+  <testcase name="tabletExamplesDark" classname="com.inkyandroid.ui.extras.DocsScreenshotTest" time="0.404"/>
+  <testcase name="phoneLargeFontDark" classname="com.inkyandroid.ui.extras.DocsScreenshotTest" time="0.246"/>
+  <testcase name="phoneStartDark" classname="com.inkyandroid.ui.extras.DocsScreenshotTest" time="0.247"/>
+  <testcase name="dexListsDark" classname="com.inkyandroid.ui.extras.DocsScreenshotTest" time="0.358"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

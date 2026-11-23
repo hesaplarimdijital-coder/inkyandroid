@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.project.InkProjectSyncTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:34.789Z" hostname="runnervm0hi8g" time="0.016">
+  <properties/>
+  <testcase name="the app's own save is not an outside change even when storage reports another time for it later" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="a new ink file found on storage joins the project as an unused file" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="renaming a file outside is its removal and the arrival of an unused file" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="when storage cannot be listed nothing changes and the failure is thrown" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="a file removed outside whose editor holds a change it has not reported yet stays, with the change" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="a file that was not on storage and appears there untouched by the user takes storage's text" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.0"/>
+  <testcase name="nothing changed, nothing happens and nothing is read" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="the main file stays when it is removed outside" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="storage that tells no modification times is compared by content" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="a new file that an INCLUDE was already waiting for is included" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.0"/>
+  <testcase name="the settings file being added, changed or removed is reported" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="a file loaded through an INCLUDE that the listing does not show is not taken for deleted" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="a file changed outside without unsaved changes is reloaded silently" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="a changed file that cannot be read is reported and keeps its text" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="the app's own save is not an outside change" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="a file changed outside while it has unsaved changes is left alone and reported as a conflict" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <testcase name="a conflict is reported once and stays until it is resolved" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.0"/>
+  <testcase name="a file removed outside without unsaved changes leaves the project" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.0"/>
+  <testcase name="a file removed outside while it has unsaved changes stays, and saving creates it again" classname="com.inkyandroid.core.project.InkProjectSyncTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

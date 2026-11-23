@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.settings.AppSettingsTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:28.705Z" hostname="runnervm0hi8g" time="0.124">
+  <properties/>
+  <testcase name="one instance serves the whole process" classname="com.inkyandroid.settings.AppSettingsTest" time="0.009"/>
+  <testcase name="a last session without an active file means the main file" classname="com.inkyandroid.settings.AppSettingsTest" time="0.012"/>
+  <testcase name="the defaults are autosave on and every editor and player option on" classname="com.inkyandroid.settings.AppSettingsTest" time="0.01"/>
+  <testcase name="an inspector tab this version does not know reads as the player" classname="com.inkyandroid.settings.AppSettingsTest" time="0.021"/>
+  <testcase name="every setting survives a restart" classname="com.inkyandroid.settings.AppSettingsTest" time="0.019"/>
+  <testcase name="the inspector's share stays where both panes have room" classname="com.inkyandroid.settings.AppSettingsTest" time="0.011"/>
+  <testcase name="a change is seen by whoever observes the setting" classname="com.inkyandroid.settings.AppSettingsTest" time="0.013"/>
+  <testcase name="an editor face this version does not know reads as monospace" classname="com.inkyandroid.settings.AppSettingsTest" time="0.009"/>
+  <testcase name="the last session survives a restart with its places" classname="com.inkyandroid.settings.AppSettingsTest" time="0.009"/>
+  <testcase name="a damaged last session is no last session" classname="com.inkyandroid.settings.AppSettingsTest" time="0.007"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

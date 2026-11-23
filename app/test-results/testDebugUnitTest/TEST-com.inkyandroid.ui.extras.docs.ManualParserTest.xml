@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.ui.extras.docs.ManualParserTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:17:47.060Z" hostname="runnervm0hi8g" time="0.153">
+  <properties/>
+  <testcase name="everyLinkInsideTheManualResolves" classname="com.inkyandroid.ui.extras.docs.ManualParserTest" time="0.045"/>
+  <testcase name="inlineStylesAndLinksAreSpansOfThePlainText" classname="com.inkyandroid.ui.extras.docs.ManualParserTest" time="0.017"/>
+  <testcase name="findLooksInEveryBlockIgnoringCase" classname="com.inkyandroid.ui.extras.docs.ManualParserTest" time="0.017"/>
+  <testcase name="everyHeadingHasItsOwnAnchorAndTheContentsReachItsSections" classname="com.inkyandroid.ui.extras.docs.ManualParserTest" time="0.009"/>
+  <testcase name="nestedListsQuotesRulesAndFencesAreFlattenedWithTheirDepth" classname="com.inkyandroid.ui.extras.docs.ManualParserTest" time="0.011"/>
+  <testcase name="theExamplesAreCodeBlocksAsWritten" classname="com.inkyandroid.ui.extras.docs.ManualParserTest" time="0.009"/>
+  <testcase name="theSectionOfABlockIsTheLastContentsEntryBeforeIt" classname="com.inkyandroid.ui.extras.docs.ManualParserTest" time="0.009"/>
+  <testcase name="everyHeadingOfTheManualIsABlock" classname="com.inkyandroid.ui.extras.docs.ManualParserTest" time="0.011"/>
+  <testcase name="anchorsAreGitHubs" classname="com.inkyandroid.ui.extras.docs.ManualParserTest" time="0.008"/>
+  <testcase name="theHandWrittenTableOfContentsIsDropped" classname="com.inkyandroid.ui.extras.docs.ManualParserTest" time="0.009"/>
+  <testcase name="theListsOfTheManualHaveMarkersAndDepth" classname="com.inkyandroid.ui.extras.docs.ManualParserTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

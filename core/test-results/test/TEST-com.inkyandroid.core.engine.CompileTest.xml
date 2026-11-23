@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.engine.CompileTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:28.271Z" hostname="runnervm0hi8g" time="1.262">
+  <properties/>
+  <testcase name="aProjectOfSeveralFilesCompilesToJson" classname="com.inkyandroid.core.engine.CompileTest" time="0.1"/>
+  <testcase name="statisticsAreThereForInkWithErrors" classname="com.inkyandroid.core.engine.CompileTest" time="0.013"/>
+  <testcase name="aMissingMainFileIsAnErrorNotAnException" classname="com.inkyandroid.core.engine.CompileTest" time="0.015"/>
+  <testcase name="todosAndWarningsDoNotStopACompile" classname="com.inkyandroid.core.engine.CompileTest" time="0.012"/>
+  <testcase name="allVisitsAreCountedAsInkyAsksInklecateTo" classname="com.inkyandroid.core.engine.CompileTest" time="0.006"/>
+  <testcase name="includesResolveAgainstTheMainFilesFolderAlsoInsideIncludedFiles" classname="com.inkyandroid.core.engine.CompileTest" time="0.018"/>
+  <testcase name="todosWarningsAndErrorsOfMeaningComeOnlyOnceParsingIsClean" classname="com.inkyandroid.core.engine.CompileTest" time="0.016"/>
+  <testcase name="statisticsCountWhatInklecateCounts" classname="com.inkyandroid.core.engine.CompileTest" time="0.016"/>
+  <testcase name="parseErrorsOfEveryFileAreAllReportedInOrder" classname="com.inkyandroid.core.engine.CompileTest" time="0.02"/>
+  <testcase name="nestingDeeperThanTheParsersStackIsAnErrorNotACrash" classname="com.inkyandroid.core.engine.CompileTest" time="0.023"/>
+  <testcase name="anIncludeThatLeavesTheProjectIsAMissingFile" classname="com.inkyandroid.core.engine.CompileTest" time="0.007"/>
+  <testcase name="aFileThatNothingIncludesIsNotCompiled" classname="com.inkyandroid.core.engine.CompileTest" time="0.006"/>
+  <testcase name="largeAndOddInputsCompile" classname="com.inkyandroid.core.engine.CompileTest" time="0.992"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

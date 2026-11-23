@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.engine.InkExportTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:32.331Z" hostname="runnervm0hi8g" time="0.077">
+  <properties/>
+  <testcase name="exportedFoldersAreWrittenForTheNodeCheck" classname="com.inkyandroid.core.engine.InkExportTest" time="0.047"/>
+  <testcase name="theBundledFilesAreTheUnchangedOriginals" classname="com.inkyandroid.core.engine.InkExportTest" time="0.016"/>
+  <testcase name="theWebPlayerIsUpstreamsFiveFiles" classname="com.inkyandroid.core.engine.InkExportTest" time="0.004"/>
+  <testcase name="theScriptIsNamedAfterTheMainFileButNeverMainJs" classname="com.inkyandroid.core.engine.InkExportTest" time="0.003"/>
+  <testcase name="theTitleIsTheTitleTagOrElseTheFoldersName" classname="com.inkyandroid.core.engine.InkExportTest" time="0.003"/>
+  <testcase name="storyJsIsTheJsonInAVariable" classname="com.inkyandroid.core.engine.InkExportTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.inkyandroid.core.project.InkProjectEditingTest" tests="29" skipped="0" failures="0" errors="0" timestamp="2026-11-23T03:16:34.682Z" hostname="runnervm0hi8g" time="0.061">
+  <properties/>
+  <testcase name="add include refuses a name that cannot be a file in the project" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="add include with a main file without includes puts the INCLUDE line at the very top" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.0"/>
+  <testcase name="the main file is never deleted" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="saving after add include writes the main file first and creates the new file with its folder" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="settle runs the pending parses without waiting for their delay" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="rename moves the file on storage and rewrites the INCLUDE lines that name it" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.002"/>
+  <testcase name="a parser that throws leaves the file with what it had" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.002"/>
+  <testcase name="add include puts the INCLUDE line directly after the last include line" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="the text and the editor of a renamed file follow it" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.002"/>
+  <testcase name="removing an INCLUDE line makes the file spare again, it stays in the project" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="rename refuses the main file, an existing path and a bad name" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.002"/>
+  <testcase name="add include refuses a path that exists on storage even if the project has not seen it" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.0"/>
+  <testcase name="typing an INCLUDE line of a file that is on storage but not in the project loads it" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="add include edits the main file through its editor, as an edit that can be undone" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="delete removes the file from storage and from the project and leaves the INCLUDE line" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="add include creates an empty unsaved file and writes nothing" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="add include refuses a path that is already in the project" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="typing copies nothing, the text is pulled when the parse is due" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.031"/>
+  <testcase name="detaching the editor leaves its text with the project" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="an edit makes the file unsaved at once" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="renaming a file that was never saved touches no storage" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.0"/>
+  <testcase name="typing an INCLUDE line of a file that does not exist creates nothing and asks storage only once" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="deleting a file that was never saved touches no storage, one already gone is fine" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="a delete that storage refuses keeps the file" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="a rename that storage refuses changes nothing" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="add include keeps the main file's line endings" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="symbols are parsed two hundred milliseconds after the last change" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="rename rewrites through the editor of an open file" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <testcase name="a new parser parses every file again" classname="com.inkyandroid.core.project.InkProjectEditingTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
