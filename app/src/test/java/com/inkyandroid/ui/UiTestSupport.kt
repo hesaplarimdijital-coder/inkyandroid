@@ -109,8 +109,55 @@ fun ComposeTestRule.awaitStory(session: ProjectSession, status: CompileStatus = 
 fun ComposeTestRule.waitFor(timeoutMillis: Long = TIMEOUT_MS, condition: () -> Boolean) {
     waitUntil(timeoutMillis) {
         androidx.compose.runtime.snapshots.Snapshot.sendApplyNotifications()
-        org.robolectric.shadows.ShadowLooper.shadowMainLooper().idle()
+        runDueMainTasks()
         condition()
+    }
+}
+
+/**
+ * Runs the main looper's messages that are due, at most [limit] of them. Never the looper's own
+ * `idle()`: a popup that is open re-posts its position check every frame, and an unbounded idle
+ * then spins for ever (once seen: a test held the machine's build lock for a quarter of an hour).
+ */
+fun runDueMainTasks(limit: Int = 1_000) {
+    val looper = org.robolectric.shadows.ShadowLooper.shadowMainLooper()
+    var ran = 0
+    while (ran < limit && !looper.isIdle) {
+        looper.runOneTask()
+        ran++
+    }
+}
+
+/**
+ * Fails a test that runs longer than [seconds] instead of letting it hold the machine's shared build
+ * lock: the test's thread is interrupted (the waits here sleep between looks, so they notice), and
+ * if it is still running half a minute later, stuck where nothing notices, the test JVM is ended
+ * with the threads' stacks on stderr, so that Gradle reports the failure and lets go of the lock.
+ */
+class TestTimeLimit(private val seconds: Long = 90) : org.junit.rules.TestRule {
+    override fun apply(base: org.junit.runners.model.Statement, description: org.junit.runner.Description) = object : org.junit.runners.model.Statement() {
+        override fun evaluate() {
+            val test = Thread.currentThread()
+            val guard = Thread({
+                try {
+                    Thread.sleep(seconds * 1_000)
+                    test.interrupt()
+                    Thread.sleep(30_000)
+                    System.err.println("${description.displayName} still runs ${seconds + 30} s after it started; ending the test JVM")
+                    Thread.getAllStackTraces().forEach { (thread, stack) -> System.err.println(thread.name + "\n  " + stack.take(120).joinToString("\n  ")) }
+                    Runtime.getRuntime().halt(3)
+                } catch (finished: InterruptedException) {
+                    // the test ended in time
+                }
+            }, "test time limit").apply { isDaemon = true }
+            guard.start()
+            try {
+                base.evaluate()
+            } finally {
+                guard.interrupt()
+            }
+            if (Thread.interrupted()) throw AssertionError("${description.displayName} ran longer than $seconds s")
+        }
     }
 }
 

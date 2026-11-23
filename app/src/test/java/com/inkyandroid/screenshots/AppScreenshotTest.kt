@@ -1,5 +1,6 @@
 package com.inkyandroid.screenshots
 
+import com.inkyandroid.ui.TestTimeLimit
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import androidx.activity.ComponentActivity
@@ -54,6 +55,10 @@ import java.io.FileOutputStream
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class AppScreenshotTest {
+
+    // a test that hangs fails within its limit instead of holding the machine's shared build lock
+    @get:Rule(order = Int.MIN_VALUE)
+    val limit = TestTimeLimit()
 
     // a window nobody has touched hands its focus to the first control and draws a focus ring there
     @get:Rule(order = 0)

@@ -32,6 +32,10 @@ import org.robolectric.annotation.Config
 @Config(qualifiers = AppBehaviourTest.PHONE)
 class AppBehaviourTest {
 
+    // a test that hangs fails within its limit instead of holding the machine's shared build lock
+    @get:Rule(order = Int.MIN_VALUE)
+    val limit = TestTimeLimit()
+
     @get:Rule
     val compose = createAndroidComposeRule<ComponentActivity>()
 

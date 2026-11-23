@@ -1,5 +1,6 @@
 package com.inkyandroid
 
+import com.inkyandroid.ui.TestTimeLimit
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isSelectable
@@ -17,6 +18,10 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(qualifiers = "tr-w411dp-h891dp-xxhdpi")
 class MainActivityTest {
+
+    // a test that hangs fails within its limit instead of holding the machine's shared build lock
+    @get:Rule(order = Int.MIN_VALUE)
+    val limit = TestTimeLimit()
 
     @get:Rule
     val compose = createAndroidComposeRule<MainActivity>()
