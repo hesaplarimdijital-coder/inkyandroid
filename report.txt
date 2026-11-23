@@ -1,0 +1,215 @@
+Inky device smoke: profile tablet, sdk_gphone64_x86_64, Android 17 (API 37), Physical size: 2560x1600, density 320
+tablet: keyboard apps switched off: com.google.android.inputmethod.latin, com.google.android.tts (of com.google.android.inputmethod.latin, com.google.android.tts)
+installed app-release.apk
+
+== Scenario 1: The app: write and play, issues, files, lifecycle, Turkish; the large window's workspace
+[01] large-cold-start: PASS   (01-large-cold-start.png, 2560x1600 px, 1280 dp wide)
+     do: locale en-US; cold_start
+     device language already en-US
+     launch: COLD 2386 ms
+     checks: seen 'File'; seen 'Edit'; seen 'View'; seen 'Story'; seen 'Help'; seen 'First story.ink'; seen 'Once upon a time'; played 'There were two choices.'; new process 4506
+     visible: Back | Forward | First story.ink | Hide the inspector | Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[02] large-write-line: PASS   (02-large-write-line.png, 2560x1600 px, 1280 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; type Smoke line from keys.; key ENTER; wait 2
+     checks: seen 'Smoke line from keys.'; played 'Smoke line from keys.'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[03] large-choose: PASS   (03-large-choose.png, 2560x1600 px, 1280 dp wide)
+     do: tap There were two choices.
+     checks: played 'They lived happily ever after.'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Turn 2 | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | They lived happily ever after. | End of story | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[04] large-rewind: PASS   (04-large-rewind.png, 2560x1600 px, 1280 dp wide)
+     do: tap Rewind a single choice
+     checks: played 'There were two choices.'; not played 'They lived happily ever after.'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[05] large-restart: PASS   (05-large-restart.png, 2560x1600 px, 1280 dp wide)
+     do: tap There were two choices.; tap Restart story
+     checks: played 'Smoke line from keys.'; played 'There were two choices.'; not played 'They lived happily ever after.'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[06] large-palette: PASS   (06-large-palette.png, 2560x1600 px, 1280 dp wide)
+     do: key CTRL+K
+     checks: seen 'Knots and stitches'
+     visible: Back | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Outline | Watches | Hide the inspector | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Issues | Projects | Docs | First story | First story.ink | Settings | Collapse sidebar | Esc | All | Files | Knots and stitches | Text | Snippets | Screens | Knot (main section) | Basic structure | Stitch (sub-section) | Divert | Ending indicator
+[07] large-palette-closed: PASS   (07-large-palette-closed.png, 2560x1600 px, 1280 dp wide)
+     do: key ESCAPE
+     checks: absent 'Knots and stitches'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[08] large-find: PASS   (08-large-find.png, 2560x1600 px, 1280 dp wide)
+     do: tap_field 1; key CTRL+F
+     checks: seen 'Match case'
+     visible: Back | Forward | First story.ink | Hide the inspector | Show replace | Find | Match case | Whole word | Regular expression | Previous match | Next match | Close search | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[09] large-find-closed: PASS   (09-large-find-closed.png, 2560x1600 px, 1280 dp wide)
+     do: key ESCAPE
+     checks: absent 'Match case'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[10] large-file-menu: PASS   (10-large-file-menu.png, 2560x1600 px, 1280 dp wide)
+     do: tap File
+     checks: seen 'New project…'; seen 'Export to JSON…'
+     visible: New project… | Ctrl+N | New included ink file… | Ctrl+Alt+N | Open folder… | Ctrl+O | Open file… | Ctrl+Shift+O | Recent projects | Save project | Ctrl+S | Reload from storage | F5 | Kept versions… | Export to JSON… | Ctrl+Shift+S | Export for web… | Export story.js only… | Ctrl+Alt+S | New window | Ctrl+Shift+N | Close project | Ctrl+W
+[11] large-error-in-issues: PASS   (11-large-error-in-issues.png, 2560x1600 px, 1280 dp wide)
+     do: key ESCAPE; tap_field 1; key CTRL+MOVE_HOME; type -> smoke_missing_knot; key ENTER; wait 3; tap Issues
+     checks: seen '1 error'; played 'smoke_missing_knot'
+     visible: Back | Forward | First story.ink | 1 issue | 1 | Hide the inspector | -> smoke_missing_knot
+Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Error on line 1: Divert target not found: '-> smoke_missing_knot' | Resize the inspector | Player | Issues | Outline | Watches | 1 error | Error, Line 1, Divert target not found: '-> smoke_missing_knot' | Divert target not found: '-> smoke_missing_knot' | Line 1 | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[12] large-error-fixed: PASS   (12-large-error-fixed.png, 2560x1600 px, 1280 dp wide)
+     do: tap_field 1; key CTRL+MOVE_HOME; key SHIFT+DPAD_DOWN; key DEL; wait 3
+     checks: seen 'No issues'; not played 'smoke_missing_knot'
+     visible: Back | Forward | First story.ink | Hide the inspector | Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | No issues | Errors, warnings and TODO notes of the project are listed here as you type. | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[13] large-typed-then-force-stopped: PASS   (13-large-typed-then-force-stopped.png, 2560x1600 px, 1280 dp wide)
+     do: tap Player; tap_field 1; key CTRL+MOVE_HOME; type keptword; key ENTER; wait 3; force_stop; launch
+     launch: COLD 1026 ms
+     checks: seen 'keptword'; seen 'Smoke line from keys.'; new process 6001
+     visible: Back | Forward | First story.ink | Hide the inspector | keptword
+Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | keptword | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[14] large-rotated-rail: PASS   (14-large-rotated-rail.png, 1600x2560 px, 800 dp wide)
+     do: rotate flip
+     rotated: 2560x1600 -> 1600x2560 px
+     checks: seen 'keptword'; seen 'Write'; seen 'Files'; same process 6001
+     visible: Back | Forward | First story.ink | Hide the inspector | keptword
+Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | keptword | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Write | Search or run a command | Menus | Files | Projects | Docs | Settings
+[15] large-rotated-back: PASS   (15-large-rotated-back.png, 2560x1600 px, 1280 dp wide)
+     do: rotate natural
+     rotated: 1600x2560 -> 2560x1600 px
+     checks: seen 'keptword'; same process 6001
+     visible: Back | Forward | First story.ink | Hide the inspector | keptword
+Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | keptword | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[16] large-background-foreground: PASS   (16-large-background-foreground.png, 2560x1600 px, 1280 dp wide)
+     do: home; launch
+     launch: HOT 178 ms
+     checks: seen 'keptword'; same process 6001
+     visible: Back | Forward | First story.ink | Hide the inspector | keptword
+Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | keptword | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[17] large-process-death-restored: PASS   (17-large-process-death-restored.png, 2560x1600 px, 1280 dp wide)
+     do: home; kill_background; launch
+     process 6001 killed in the background
+     launch: COLD 964 ms
+     checks: seen 'keptword'; new process 6331
+     visible: Back | Forward | First story.ink | Hide the inspector | keptword
+Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Resize the inspector | Player | Issues | Outline | Watches | Start of the story | Rewind a single choice | Restart story | keptword | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | File | Edit | View | Story | Ink | Help | File, knot, line or text | Ctrl+K | Projects | Docs | First story | Settings | Collapse sidebar
+[18] large-turkish: PASS   (18-large-turkish.png, 2560x1600 px, 1280 dp wide)
+     do: locale tr-TR; cold_start
+     device language switched to tr-TR (framework restarted)
+     launch: COLD 3048 ms
+     checks: seen 'Dosya'; seen 'keptword'; played 'keptword'; new process 8212
+     visible: Geri | İleri | First story.ink | Ayrıntı panelini gizle | keptword
+Smoke line from keys.
+Once upon a time...
+
+ * There were two choices.
+ * There were four lines of content.
+
+- They lived happily ever after.
+    -> END | Ayrıntı panelini boyutlandır | Oynatıcı | Sorunlar | Anahat | İzleme | Hikâyenin başı | Bir seçim geri al | Hikâyeyi baştan başlat | keptword | Smoke line from keys. | Once upon a time... | There were two choices. | There were four lines of content. | Inky | Dosya | Düzen | Görünüm | Hikâye | Ink | Yardım | Dosya, düğüm, satır ya da metin | Ctrl+K | Projeler | Belgeler | First story | Ayarlar | Kenar çubuğunu daralt
+
+language changes: the device language
+RESULT: PASS

@@ -1,0 +1,6 @@
+commit=2b36435c332979fba3677a88debfdbe7ab2e9bde
+profile=tablet
+api=37.0
+device=pixel_tablet
+result=pass
+run=https://github.com/hesaplarimdijital-coder/inkyandroid/actions/runs/45105315316
