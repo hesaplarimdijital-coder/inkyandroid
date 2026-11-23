@@ -89,6 +89,29 @@ class FilesAndProjectsBehaviourTest {
         assertTrue("after the rename the project has $paths", "chapters/two.ink" in paths)
     }
 
+    /** "Undo" on the notice of a deletion puts the file back into its own project only: not into one opened meanwhile. */
+    @Test
+    fun undoingADeletionAfterAnotherProjectOpenedLeavesThatProjectAlone() {
+        val first = UiWorld.project("First", "INCLUDE notes.ink\nHello.\n", mapOf("notes.ink" to "Some notes.\n"))
+        val second = UiWorld.project("Second", "Other.\n")
+        val holder = UiWorld.holder(first)
+        launch(holder)
+        val session = compose.awaitSession(holder)
+        compose.awaitStory(session)
+        compose.runOnUiThread { ui.dialog = WindowDialog.Delete("notes.ink") }
+        compose.waitForIdle()
+        compose.onNodeWithText("Delete").performClick()
+        compose.waitFor { "notes.ink" !in session.project }
+        // the notice still stands while another project is opened in the window
+        compose.runOnUiThread { holder.open(second.encode()) }
+        compose.waitFor { holder.session?.let { it !== session && "Second.ink" in it.project } == true }
+        compose.onNodeWithText("Undo").performClick()
+        compose.waitForIdle()
+        val other = holder.session!!
+        compose.waitFor { true }
+        assertFalse("the deleted file came back in another project", "notes.ink" in other.project)
+    }
+
     /** DeX: the file shown is deleted from its sidebar entry's menu; the main file is shown and marked. */
     @Test
     @Config(qualifiers = DEX)

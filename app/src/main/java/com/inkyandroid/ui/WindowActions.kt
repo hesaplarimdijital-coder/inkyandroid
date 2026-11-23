@@ -243,7 +243,7 @@ class WindowActions(
                         strings.getString(R.string.delete_done, name),
                         actionLabel = if (kept != null) strings.getString(desktopkit.R.string.dk_undo) else null,
                     )
-                    if (answer == ToastResult.ActionPerformed && kept != null) restoreDeleted(path, kept)
+                    if (answer == ToastResult.ActionPerformed && kept != null) restoreDeleted(session, path, kept)
                 }
                 DeleteResult.IsMainFile -> notify(strings.getString(R.string.delete_main))
                 is DeleteResult.NotInProject -> Unit
@@ -252,11 +252,12 @@ class WindowActions(
         }
     }
 
-    private suspend fun restoreDeleted(path: String, kept: String) {
-        // the session that deleted it may be gone by the time "Undo" is tapped
-        val session = session ?: return
-        if (session.addInclude(path, addToMain = false) is AddIncludeResult.Added && kept.isNotEmpty()) {
-            session.document(path)?.buffer?.edit(0, 0, kept)
+    private suspend fun restoreDeleted(deleting: ProjectSession, path: String, kept: String) {
+        // "Undo" puts the file back into the project it was deleted from, and only while that one is open:
+        // another project opened meanwhile (the notice stays a few seconds) must not get it
+        if (session !== deleting) return
+        if (deleting.addInclude(path, addToMain = false) is AddIncludeResult.Added && kept.isNotEmpty()) {
+            deleting.document(path)?.buffer?.edit(0, 0, kept)
         }
     }
 
