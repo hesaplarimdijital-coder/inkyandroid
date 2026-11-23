@@ -118,11 +118,12 @@ IME_WORD = "imeword"
 KEPT_WORD = "keptword"
 MISSING_KNOT = "smoke_missing_knot"
 
-# Where a finger puts the cursor in the editor, in dp from the text field's top left corner, as
-# measured on the emulators: the middle of line n, the first character's left half, the space after
-# a line's end. Scroll to the top first (TOP) so that line 1 is the file's first line.
+# Where a finger puts the cursor in the phone's editor (portrait), in dp from the text field's top
+# left corner, measured in the screenshots: the field starts under the status bar and its text below
+# the glass top bar; the middle of line n, the first character's left half, the space after a line's
+# end. Scroll to the top first (TOP) so that line 1 is the file's first line.
 def line_dy(n):
-    return 18 + (n - 1) * 22.5
+    return 74.3 + (n - 1) * 22.5
 
 
 LINE_START_DX = 58
@@ -146,7 +147,9 @@ SCENARIO_1_PHONE = [
     step("choose", only="phone", do=[["tap", S1["choice"]]], played=[S1["after_choice"]]),
     step("rewind", only="phone", do=[["tap", S1["rewind"]]], played=[S1["choice"]], unplayed=[S1["after_choice"]]),
     step("restart", only="phone", do=[["tap", S1["restart"]]], played=[TYPED, S1["choice"]]),
-    # a word typed on the on-screen keyboard just before an existing word must not replace it
+    # A word typed on the on-screen keyboard just before an existing word must not replace it: with
+    # the cursor put there by a finger, by the Home key, and by the Home key with Enter after the word
+    # (each on a line of its own, typed with key events first). ime-control does the same in a stock field.
     step("insert-on-screen-keyboard-after-tap", only="phone",
          do=[["tap", S1["write"]]] + TOP + [["type", "victimtap"], ["key", "ENTER"],
                                             ["tap_field_at", 1, LINE_START_DX, line_dy(1)], ["ime_type", "tap"],
@@ -156,6 +159,10 @@ SCENARIO_1_PHONE = [
          do=TOP + [["type", "victimkey"], ["key", "ENTER"], ["key", "CTRL+MOVE_HOME"], ["ime_type", "key"],
                    ["hide_keyboard"]],
          expect=["keyvictimkey"]),
+    step("insert-on-screen-keyboard-then-enter", only="phone",
+         do=TOP + [["type", "victimenter"], ["key", "ENTER"], ["key", "CTRL+MOVE_HOME"], ["ime_type", "enter"],
+                   ["key", "ENTER"], ["hide_keyboard"]],
+         expect=["victimenter"]),
     step("error-in-issues", only="phone",
          do=TOP + [["type", "-> " + MISSING_KNOT], ["key", "ENTER"], ["hide_keyboard"], ["wait", 3],
                    ["tap", S1["more"]], ["tap", S1["issues"]]],
@@ -709,12 +716,26 @@ class Smoke:
         time.sleep(1)
         after = self.focused_text()
         word = text.strip().lower()
-        if after is None:
+        if after is None or before is None:
             self.note("typed on the on-screen keyboard; the field could not be read back")
-        elif after.lower().count(word) > (before or "").lower().count(word):
-            self.note(f"typed '{text}' on the on-screen keyboard; the field now holds it")
+        elif after.lower().count(word) <= before.lower().count(word):
+            raise StepFailure(f"typed '{text}' on the on-screen keyboard, but the field reads '{after[:80]}'")
+        elif not self._inserted(before, after, text):
+            # the keyboard's word arrived, but other text changed with it: say where
+            i = next((k for k in range(min(len(before), len(after))) if before[k].lower() != after[k].lower()), 0)
+            raise StepFailure(f"typing '{text}' on the on-screen keyboard changed other text: "
+                              f"before {before[max(0, i - 10):i + 30]!r}, after {after[max(0, i - 10):i + 30]!r}")
         else:
-            raise StepFailure(f"typed '{text}' on the on-screen keyboard, but the field reads '{after[-80:]}'")
+            self.note(f"typed '{text}' on the on-screen keyboard; the field holds it and nothing else changed")
+
+    @staticmethod
+    def _inserted(before, after, text):
+        """Whether after is before with text inserted at one place (letter case aside: the keyboard
+        capitalises the start of a line)."""
+        b, a, t = before.lower(), after.lower(), text.lower()
+        if len(a) != len(b) + len(t):
+            return False
+        return any(a[:k] + a[k + len(t):] == b for k in range(len(a) - len(t) + 1) if a[k:k + len(t)] == t)
 
     def do_key(self, key):
         codes = ["KEYCODE_" + {"CTRL": "CTRL_LEFT", "SHIFT": "SHIFT_LEFT", "ALT": "ALT_LEFT", "META": "META_LEFT"}
@@ -865,10 +886,13 @@ class Smoke:
         # (what the driver looks for) and kills an app that does not respond instead of asking.
         shell("settings put global hide_error_dialogs 1")
         if self.profile == "tablet":
-            # with a keyboard attached, as in DeX, the on-screen keyboard stays away
-            shell("settings put secure show_ime_with_hard_keyboard 0")
-            keyboards = shell("dumpsys input | grep -E 'KeyboardType|Keyboard Layout|Is external'").strip()
-            self.log("tablet keyboards: " + " ".join(keyboards.split())[:300])
+            # With a keyboard attached, as in DeX, no on-screen keyboard covers half the window. The
+            # emulator's keyboard does not keep Gboard away (show_ime_with_hard_keyboard 0 was tried),
+            # so the keyboard apps are switched off: key events reach the editor directly.
+            for ime in shell("ime list -s").split():
+                shell(f"ime disable {ime}")
+            left = " ".join(shell("ime list -s").split()) or "none"
+            self.log(f"tablet: on-screen keyboards switched off (enabled now: {left})")
         if self.profile == "phone":
             # the owner's phone uses three-button navigation, not gestures
             shell("cmd overlay enable-exclusive --category com.android.internal.systemui.navbar.threebutton")
