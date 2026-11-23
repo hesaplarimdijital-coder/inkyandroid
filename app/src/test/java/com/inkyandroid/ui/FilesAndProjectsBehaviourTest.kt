@@ -1,0 +1,96 @@
+package com.inkyandroid.ui
+
+import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.isSelectable
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.inkyandroid.session.ProjectSessionHolder
+import com.inkyandroid.testPrefs
+import desktopkit.shell.ShellTransitions
+import desktopkit.theme.DensityPreference
+import desktopkit.theme.ThemeMode
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertSame
+import org.junit.Assert.assertTrue
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
+
+/**
+ * The project and its files from the screens that change them: the Projects screen, the rename and
+ * delete dialogs, a large window's sidebar. Taken over from review-ui's findings 3 to 5.
+ */
+@RunWith(AndroidJUnit4::class)
+@Config(qualifiers = FilesAndProjectsBehaviourTest.PHONE)
+class FilesAndProjectsBehaviourTest {
+
+    // a test that hangs fails within its limit instead of holding the machine's shared build lock
+    @get:Rule(order = Int.MIN_VALUE)
+    val limit = TestTimeLimit()
+
+    @get:Rule
+    val compose = createAndroidComposeRule<ComponentActivity>()
+
+    private val ui = WindowUi()
+    private val commands = CommandHost()
+
+    private fun launch(holder: ProjectSessionHolder, density: DensityPreference = DensityPreference.Touch) {
+        UiWorld.resetSettings()
+        val prefs = testPrefs(ThemeMode.Light, density)
+        compose.setContent {
+            InkyApp(holder, UiWorld.app.settings, UiWorld.app.storage, ui, prefs = prefs, transitions = ShellTransitions.None, commands = commands)
+        }
+    }
+
+    /** The project marked as open, chosen on the Projects screen, stays open as it is: no close question, nothing saved or dropped. */
+    @Test
+    fun choosingTheOpenProjectOnTheProjectsScreenLeavesItOpen() {
+        val holder = UiWorld.holder(UiWorld.project("Tale", "Hello.\n"))
+        launch(holder)
+        UiWorld.app.settings.updateAutosave(false)
+        val session = compose.awaitSession(holder)
+        compose.awaitStory(session)
+        val editor = session.activeDocument.editorState!!
+        compose.runOnUiThread { editor.replace(editor.length, editor.length, "Unsaved words.\n") }
+        compose.waitFor { session.project.state.value.hasUnsavedChanges }
+        compose.runOnUiThread { assertTrue(commands.perform(Commands.OPEN_RECENT)) }
+        compose.waitForIdle()
+        compose.onAllNodesWithText("Tale")[0].performClick()
+        compose.waitForIdle()
+        assertFalse("tapping the project marked as open asked to save before closing it", session.state.value.closeQuestion)
+        assertSame(session, holder.session)
+        assertTrue(session.project.state.value.hasUnsavedChanges)
+        assertEquals(Routes.WRITE, ui.route)
+    }
+
+    /** DeX: the file shown is deleted from its sidebar entry's menu; the main file is shown and marked. */
+    @Test
+    @Config(qualifiers = DEX)
+    fun deletingTheFileShownInALargeWindowShowsTheMainFile() {
+        val holder = UiWorld.holder(UiWorld.project("Files", "INCLUDE intro.ink\n-> intro\n", mapOf("intro.ink" to "== intro ==\nHi.\n-> END\n")))
+        launch(holder, DensityPreference.Pointer)
+        val session = compose.awaitSession(holder)
+        compose.awaitStory(session)
+        compose.onNode(hasText("intro.ink") and isSelectable()).performClick()
+        compose.waitFor { session.state.value.activePath == "intro.ink" }
+        compose.runOnUiThread { ui.dialog = WindowDialog.Delete("intro.ink") }
+        compose.waitForIdle()
+        compose.onNodeWithText("Delete").performClick()
+        compose.waitFor { "intro.ink" !in session.project }
+        compose.waitForIdle()
+        assertEquals("Files.ink", session.state.value.activePath)
+        compose.onNode(hasText("Files.ink") and isSelectable()).assertIsSelected()
+    }
+
+    companion object {
+        const val PHONE = "en-w411dp-h891dp-xxhdpi"
+        const val DEX = "en-w1920dp-h1080dp-mdpi"
+    }
+}

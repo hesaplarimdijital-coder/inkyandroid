@@ -286,6 +286,11 @@ class WindowActions(
      * that is answered with anything but "Cancel".
      */
     fun openProject(ref: ProjectRef, notice: SingleFileNotice? = null) {
+        // the project that is open (the Projects screen marks it so): nothing to close, nothing to ask
+        if (holder.reference == ref.encode() && session != null) {
+            navigate(Routes.WRITE)
+            return
+        }
         whenClosed {
             ui.singleFile = notice
             holder.open(ref.encode())
