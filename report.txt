@@ -1,0 +1,9 @@
+Inky device smoke: profile tablet, sdk_gphone64_x86_64, Android 17 (API 37), Physical size: 2560x1600, density 320
+tablet: keyboard apps switched off (com.google.android.inputmethod.latin, com.google.android.tts); enabled now: com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME com.google.android.tts/com.google.android.apps.speech.tts.googletts.settings.asr.voiceime.VoiceInputMethodService
+installed app-release.apk
+
+== Scenario ime-experiments: Typing on the on-screen keyboard before an existing word, every way
+
+== Scenario ime-control: The same in a stock text field (keyboard behaviour, not the app)
+
+RESULT: PASS
