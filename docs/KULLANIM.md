@@ -104,9 +104,10 @@ Uygulama kapatılıp açıldığında son proje, açık dosya, imleç ve yan pan
 - **Dışarıda değişen dosyalar:** pencere öne gelince ve Dosya › Depolamadan yeniden yükle (F5) ile
   bakılır. Kaydedilmemiş değişikliği olmayan dosya sessizce yenilenir (imleç ve kaydırma yerinde kalır);
   olan dosyada "Benimkini koru / Depolamadakini yükle" diye sorulur; seçilene kadar hiçbirinin üstüne
-  yazılmaz. Hangisi seçilirse seçilsin, yerine geçen metin Dosya › Saklanan sürümler'de durur; oradan
-  dosyasına geri getirilir ya da unutulur. Klasöre gelen yeni `.ink` dosyaları projeye girer, silinenler
-  çıkar.
+  yazılmaz. Hangisi seçilirse seçilsin, yerine başkası geçen metin Dosya › Saklanan sürümler'de durur
+  ("Benimkini koru"da depolamadaki sürüm; "Depolamadakini yükle"de penceredeki metin, Geri al onu geri
+  getirebildiği için depolamadaki de); oradan dosyasına geri getirilir ya da unutulur. Klasöre gelen yeni
+  `.ink` dosyaları projeye girer, silinenler çıkar.
 - **Proje ayar dosyası** (`<ana dosya>.settings.json`, masaüstündeki gibi): özel parçacıklar
   (`customInkSnippets`) ve komut öneki (`instructionPrefix`). Dosyada bir hata varsa bir şerit söyler.
 

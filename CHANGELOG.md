@@ -28,7 +28,7 @@ Sürümler [SemVer](https://semver.org/lang/tr/) kuralına uyar; `versionCode` h
 - Klasör aç (birden çok aday varsa ana dosya sorulur), dosya aç (klasörüne erişim sonradan verilebilir), dosya yöneticilerinden `.ink` açma, son projeler (Dosya › Son projeler alt menüsü ve Projeler ekranı).
 - `INCLUDE` ile çok dosyalı projeler: dosyalar masaüstündeki gibi gruplanır, kullanılmayan dosyalar ayrı, var olmayan `INCLUDE` dosyaları oluşturulabilir.
 - Yeni ink dosyası ekle (ana dosyaya `INCLUDE` satırıyla); masaüstünde olmayan yeniden adlandırma (`INCLUDE` satırları da değişir) ve silme (bildirimdeki "Geri al" ile geri gelir).
-- Dışarıda değişen dosyalar pencere öne gelince ve F5 ile alınır; kaydedilmemiş değişikliği olan dosyada "benimkini koru / depolamadakini yükle" sorulur, yerine geçen metin Dosya › Saklanan sürümler'de durur.
+- Dışarıda değişen dosyalar pencere öne gelince ve F5 ile alınır; kaydedilmemiş değişikliği olan dosyada "benimkini koru / depolamadakini yükle" sorulur, yerine başkası geçen metin Dosya › Saklanan sürümler'de durur.
 - Proje ayar dosyası: özel parçacıklar (alt menüler, tuşlar) ve komut öneki; hataları bir şeritte.
 - Uygulama yeniden açıldığında son proje, açık dosya, imleç ve yan panelin sekmesi geri gelir.
 
