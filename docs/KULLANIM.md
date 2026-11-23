@@ -28,7 +28,7 @@ arama) durur. Yan panel Ctrl+Alt+B ile açılıp kapanır; kapalıyken düzenley
 Burada bir proje, bir klasör ve içindeki ana ink dosyasıdır; klasördeki bütün `.ink` dosyaları projeye
 aittir (masaüstündeki gibi). Projeler ekranı (telefonda "⋯" › Projeler) hepsinin yeridir:
 
-- **Yeni proje** (Ctrl+N): ad ve yer sorulur: Ayarlar'da seçilen proje klasörü, başka bir klasör ya da
+- **Yeni proje** (Ctrl+N): ad ve yer sorulur: Ayarlar'da seçilen projeler klasörü, başka bir klasör ya da
   uygulamanın içi. Ana dosya projenin adını alır ve masaüstündeki yeni proje metniyle ("Once upon a
   time...") başlar.
 - **Klasör aç** (Ctrl+O): sistemin klasör seçicisi. Klasörde başka hiçbir dosyanın `INCLUDE` etmediği
@@ -39,8 +39,9 @@ aittir (masaüstündeki gibi). Projeler ekranı (telefonda "⋯" › Projeler) h
   ve üstte bir şerit klasöre erişim vermeyi önerir ("Erişim ver"); verilince `INCLUDE` dosyaları
   yüklenir, yenileri eklenebilir.
 - **Son projeler**: son beşi; birine dokununca açılır, satırın menüsünden listeden çıkarılır, "Listeyi
-  temizle" hepsini siler (masaüstündeki File › Open Recent; menüde Dosya › Son kullanılanlar buraya
-  getirir). Artık ulaşılamayan projeler öyle işaretlenir.
+  temizle" hepsini siler (masaüstündeki File › Open Recent; menüde Dosya › Son projeler buraya getirir).
+  Klasörü artık yerinde olmayan ya da erişim izni geri alınmış projeler, Projeler ekranı açılınca
+  listeden kendiliğinden çıkar.
 - **Inky içinde**: uygulamanın kendi depolamasındaki projeler. İzin istemez, hemen açılır; satırın
   menüsünden bir klasöre kopyalanır ya da silinir. İlk açılışta "İlk hikâye" adlı böyle bir proje açılır.
 - **Projeyi kapat** (Ctrl+W). Bir proje aynı anda tek pencerede açıktır; DeX'te ikinci bir pencere
@@ -57,7 +58,7 @@ Uygulama kapatılıp açıldığında son proje, açık dosya, imleç ve yan pan
   ve uygulama arka plana geçince kaydedilir. Ctrl+S (Dosya › Projeyi kaydet) her zaman bütün projeyi
   kaydeder, önce ana dosyayı. Kaydedilmemiş metin ayrıca yazmayı bıraktıktan bir saniye sonra
   uygulamanın içine taslak olarak yazılır: uygulama ya da telefon kapansa bile bir sonraki açılışta geri
-  gelir ve "Kaydedilmemiş değişiklikler geri getirildi" denir. Kaydedilemeyen dosya bir şeritte nedeniyle söylenir, "Yeniden dene"
+  gelir; bir şerit kaç dosyanın kaydedilmemiş değişikliklerinin geri getirildiğini söyler. Kaydedilemeyen dosya bir şeritte nedeniyle söylenir, "Yeniden dene"
   düğmesiyle; metin bu arada cihazda saklı kalır.
 - **Otomatik kaydetme kapalıyken** masaüstündeki gibidir: kaydedilmemiş dosyalar işaretlenir, projeyi
   kapatırken "Kaydet / Kaydetme / Vazgeç" sorulur.
@@ -95,7 +96,8 @@ Uygulama kapatılıp açıldığında son proje, açık dosya, imleç ve yan pan
   silmeden önce sorulur. Ana dosya ikisine de kapalıdır.
 - **Dışarıda değişen dosyalar:** pencere öne gelince ve Dosya › Depolamadan yeniden yükle (F5) ile
   bakılır. Kaydedilmemiş değişikliği olmayan dosya sessizce yenilenir (imleç ve kaydırma yerinde kalır);
-  olan dosyada "Benimkini koru / Ötekini yükle" diye sorulur, sorulana kadar hiçbirinin üstüne yazılmaz.
+  olan dosyada "Benimkini koru / Depolamadakini yükle" diye sorulur; seçilene kadar hiçbirinin üstüne
+  yazılmaz.
   Klasöre gelen yeni `.ink` dosyaları projeye girer, silinenler çıkar.
 - **Proje ayar dosyası** (`<ana dosya>.settings.json`, masaüstündeki gibi): özel parçacıklar
   (`customInkSnippets`) ve komut öneki (`instructionPrefix`). Dosyada bir hata varsa bir şerit söyler.
@@ -111,7 +113,7 @@ Uygulama kapatılıp açıldığında son proje, açık dosya, imleç ve yan pan
   üst çubuğunda, genişte oynatıcının başında (masaüstünün araç çubuğundaki iki düğme).
 - **Metnin kaynağı:** bir paragrafa dokununca onu üreten ink satırı açılır. Fareyle Ctrl ya da Alt basılı
   tıklanır; basılıyken imlecin altındaki sözcüğün altı çizilir (masaüstündeki Alt+tıklama).
-- Etiketler satırın altında `# …` olarak görünür; Hikâye › Etiketler görünsün (ya da Ayarlar) gizler.
+- Etiketler satırın altında `# …` olarak görünür; Hikâye › Etiketleri göster (ya da Ayarlar) gizler.
   Komut önekiyle başlayan satırlar ayrı bir biçimde yazılır.
 - Ink metninde hata varken oynatıcı derlenebilen son hikâyeyi göstermeye devam eder ve bunu söyler;
   "Sorunları göster" sorunlara götürür. Çalışma hataları oynatıcıda satır numarasıyla, dokununca o
@@ -147,8 +149,8 @@ sırayla dolaşır.
 
 Masaüstünün Ink menüsündeki hazır ink parçaları, adları Türkçe (ink'in kendi adları olduğu gibi).
 
-- **DeX ve büyük pencere:** menü çubuğundaki Ink menüsü. Bu sürümde bir kategori, komut paletini o
-  kategorinin parçacıklarıyla açar; kitin iç içe menüleri yayımlanınca alt menü olacak.
+- **DeX ve büyük pencere:** menü çubuğundaki Ink menüsü: masaüstündeki kategoriler sırasıyla; bir
+  kategori seçilince komut paleti o kategorinin parçacıklarıyla açılır, ad yazarak süzülür.
 - **Her düzende:** komut paletinde "Parçacıklar" grubu; adı Türkçe ya da İngilizce yazılarak bulunur,
   kategorisi altında yazar. Telefonda düzenleyicinin üst çubuğunun menüsünde "Parçacık ekle…".
 - Seçilen parçacık imlecin olduğu yere masaüstündeki gibi olduğu gibi yazılır; seçim varsa onun yerine
@@ -183,8 +185,8 @@ Yardım › Show Documentation (F1) penceresinin karşılığıdır; burada da F
 
 ## Proje istatistikleri
 
-Masaüstündeki Story › Word count and more (Ctrl+Shift+C); burada Hikâye › Sözcük sayısı ve daha fazlası,
-telefonda "⋯" altında. Sözcük, düğüm, dikiş, işlev, seçenek, birleşme ve yönlendirme sayılarını ink
+Masaüstündeki Story › Word count and more (Ctrl+Shift+C); burada Hikâye › Proje istatistikleri
+(Ctrl+Shift+C), telefonda "⋯" altında. Sözcük, düğüm, dikiş, işlev, seçenek, birleşme ve yönlendirme sayılarını ink
 derleyicisinin saydığı gibi, masaüstündeki notla birlikte gösterir: düğümlere işlevler dahildir;
 birleşmelere ve yönlendirmelere derleyicinin kendiliğinden eklediği bazıları girebilir; END ve DONE da
 yönlendirme sayılır. Hatalı ink için de sayar.
@@ -212,12 +214,12 @@ Telefonda "⋯" › Ayarlar, genişte kenar çubuğunun ya da rayın altında, C
 
 - **Görünüm:** tema (sistem, açık, koyu, OLED siyah) ve vurgu rengi. Masaüstünün dört teması yerine.
 - **Giriş:** sıkı (fare ve klavye) ya da geniş (dokunmatik) düzen; kendiliğinden seçilir.
-- **Klavye kısayolları:** bütün liste; yalnızca fare ya da donanım klavyesi varken görünür.
 - **Düzenleyici:** yazı tipi (eş aralıklı, orantılı), uzun satırları kaydır, satır numaraları, otomatik
   tamamlama, klavye önerileri (ekran klavyesinin önerileri ve düzeltmeleri).
 - **Oynatıcı:** oynatıcı animasyonu, etiketleri göster.
-- **Dosyalar:** otomatik kaydet; proje klasörü (yeni projelerin yeri: seç, değiştir ya da uygulamanın içinde
-  tut).
+- **Dosyalar:** otomatik kaydet; projeler klasörü (yeni projelerin yeri: seç, değiştir ya da uygulamanın
+  içinde tut).
+- **Klavye kısayolları:** bütün liste; yalnızca fare ya da donanım klavyesi varken görünür.
 - **Hakkında:** sürüm, ink'in sürümü, açık kaynak lisansları, GitHub'da Inky. Masaüstündeki About
   penceresinin karşılığı.
 
@@ -246,7 +248,7 @@ Masaüstü Inky'nin tuşları kitin ortak tuşlarıyla çakışmadıkça aynen k
 | Bir seçim geri al | Ctrl+R | yalnızca düğme (Ctrl+R geliştiricinin "yeniden yükle"siydi) |
 | Hikâyeyi baştan başlat | Ctrl+Shift+R | yalnızca düğme |
 | Satıra git | Ctrl+G her şeye git'i açar | Ctrl+G Ace'in satıra git kutusu |
-| Yorum satırı yap / kaldır | henüz yok (Alt+/ olacak) | Ctrl+/ |
+| Yorum satırı yap / kaldır | — (bu sürümde yok; Ctrl+/ burada kısayol listesidir) | Ctrl+/ |
 | Kılavuzda bul, sonraki, önceki | Ctrl+F, F3, Shift+F3 (Belgeler'de) | — (kılavuzda arama yoktu) |
 | Tam ekran | — | F11 |
 | Pencere ve geliştirici menüleri | — | Ctrl+M, Ctrl+Shift+I … |
