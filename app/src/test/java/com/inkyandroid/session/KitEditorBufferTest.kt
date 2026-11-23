@@ -226,6 +226,25 @@ class KitEditorBufferTest {
     }
 
     @Test
+    fun `an edit of the whole text takes the line breaks of the text put in`() {
+        val (buffer, _) = buffer("one\ntwo\n")
+
+        buffer.edit(0, buffer.text.length, "one\r\ntwo, from the other device\r\n")
+
+        assertEquals("one\r\ntwo, from the other device\r\n", buffer.text.toString())
+        assertTrue("still an edit Undo takes out", buffer.state.canUndo)
+    }
+
+    @Test
+    fun `an edit of part of the text keeps the file's line breaks`() {
+        val (buffer, _) = buffer("one\r\ntwo\r\n")
+
+        buffer.edit(0, 3, "ONE\n")
+
+        assertEquals("ONE\r\n\r\ntwo\r\n", buffer.text.toString())
+    }
+
+    @Test
     fun `a load takes the line breaks of the new text`() {
         val (buffer, _) = buffer("one\ntwo\n")
 

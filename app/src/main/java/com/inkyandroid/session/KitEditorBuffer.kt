@@ -15,9 +15,10 @@ import kotlin.coroutines.CoroutineContext
  *
  * **Line breaks.** The kit's editor knows only `\n`: it turns every `\r\n` and `\r` into `\n`. A
  * file keeps its own line breaks all the same, as in upstream's Ace editor ("auto" mode): the
- * first line break of the text the file was read with decides, [text] gives the editor's text back
- * with it, and the offsets of [edit] count it as stored. (A file that mixes line breaks is written
- * with its first one throughout once it is saved, as upstream does.)
+ * first line break of the text the file was read with (or of a text put in as a whole by [edit])
+ * decides, [text] gives the editor's text back with it, and the offsets of [edit] count it as
+ * stored. (A file that mixes line breaks is written with its first one throughout once it is saved,
+ * as upstream does.)
  *
  * **Changes** are noticed through [CodeEditorState.version], which is snapshot state: [onTextChanged]
  * runs on the main thread once Compose has applied the change (within the frame), never for
@@ -82,6 +83,9 @@ class KitEditorBuffer(
     override fun edit(start: Int, end: Int, replacement: String) {
         val stored = text
         state.replace(lineBreak.toEditor(stored, start), lineBreak.toEditor(stored, end), replacement)
+        // a replacement of the whole text (storage's version, a kept or restored one) brings its own
+        // line breaks, as a load does; a part keeps the file's
+        if (start == 0 && end == stored.length) lineBreak = LineBreak.of(replacement)
     }
 
     override var cursor: TextPosition

@@ -180,6 +180,28 @@ class KitEditorSessionTest {
     }
 
     @Test
+    fun `loading storage's version written with other line breaks leaves the file saved, and writes nothing`() = sessionTest {
+        onStorage("main.ink", story)
+        val session = open(kit = true)
+        val editor = kitEditor(session, "main.ink")
+        editor.state.select(editor.state.length)
+        editor.state.insert("An evening of writing.\n")
+        applied()
+        // the other device writes the file with CRLF
+        onStorage("main.ink", "Three pages\r\nwritten on the tablet.\r\n")
+        session.syncWithStorage()
+        val writesBefore = store.writes.size
+
+        session.resolveConflict("main.ink", keepMine = false)
+        applied()
+        pass(ProjectSession.AUTOSAVE_DELAY_MILLIS)
+
+        assertFalse(session.project.state.value.hasUnsavedChanges)
+        assertEquals("Three pages\r\nwritten on the tablet.\r\n", session.project.text("main.ink").toString())
+        assertEquals("storage's version is not written back", writesBefore, store.writes.size)
+    }
+
+    @Test
     fun `an editor asked for after the session ended is not watched`() = sessionTest {
         onStorage("main.ink", "INCLUDE a.ink\n")
         onStorage("a.ink", "A\n")
