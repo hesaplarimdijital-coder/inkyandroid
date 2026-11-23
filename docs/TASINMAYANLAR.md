@@ -40,6 +40,7 @@ ink'in kendisinin burada nasıl çalıştığını (hikâyenin oynatılışında
 | F-045 | Yüklenmekte olan dosya yarı saydam | Dosyalar proje açılmadan okunur. Okunamayanlar (UTF-8 değil, izin yok) Dosyalar ekranında ayrı listelenir, nedeniyle ve "Yeniden dene" düğmesiyle. |
 | F-046 … F-051 | Proje klasörünün sürekli izlenmesi | Android'in depolama erişimi (SAF) klasör izleyemez: pencere öne geldiğinde ve "Depolamadan yeniden yükle" (F5) ile denetlenir; kurallar upstream'inki. |
 | F-054 | Son açılanlar alt menüsü (5 yol, "Temizle") | Projeler ekranı: son projeler, listeden çıkarma, temizleme. Dosya › Son projeler oraya götürür. Klasörü ya da izni gitmiş projeler, Projeler açılınca listeden çıkar. |
+| F-059 | Kapatma sorusunda "Kaydet" kaydeder, pencere açık kalır | "Kaydet" kaydeder ve projeyi kapatır (sorunun sorulduğu iş, örneğin başka bir projeyi açmak, sürer). |
 | F-080 | Yönlendirme hedefleri ve `INCLUDE` yolları hep altı çizili | Bağlantı renginde gösterilir; fare üstündeyken Ctrl ya da Alt basılıysa altı çizilir ve el imleci çıkar (kitin düzenleyicisi). Dokunmatikte uzun basınca "Tanıma git". |
 | F-090 | Önerilerin fuzzaldrin sıralaması | Öneriler upstream'in kurallarıyla toplanır, kitin eşleştirmesiyle süzülüp sıralanır (büyük/küçük harf ve Türkçe harfler katlanır). |
 | F-094 | Atlanan satır ortalanır | Uzaktaki hedef ekranın üçte birine gelir (kitin düzenleyicisi). |
@@ -50,6 +51,12 @@ ink'in kendisinin burada nasıl çalıştığını (hikâyenin oynatılışında
 | F-172 | %50–%300 yakınlaştırma ön ayarları | Kitin yakınlaştırması, kalıcı. |
 | F-175 | "Etiketler görünsün" pencere başına, kaydedilmez | Uygulamanın ayarı: kaydedilir, bütün pencerelere uygulanır. |
 | F-177 | Görünüm ayarları bir JSON dosyasında | Android'in ayar deposunda. |
+| F-119 | Yeni metin 1 sn'de, satırlar 200 ms arayla belirir | 400 ms'de, 60 ms arayla (kitin hareket süreleri); "Oynatıcı animasyonu" kapalıysa ve sistemin "Animasyonları kaldır" ayarında hiç hareket yok. |
+| F-121 | Bir seçeneğin etiketleri metninin arkasında | Seçeneğin altında, kendi satırında (paragrafların etiketleri gibi). |
+| F-127 | Artık olmayan bir seçim atlanır, oynayış kayarak sürer | Yeniden oynatma o seçimde durur; oradan sonrası yeni seçimlerle sürer. |
+| F-132, F-133 | İzleme ifadesinin varsayılanı `x is {x}`, iki `x` birden seçili; sonuçlar seçeneklerin altında | Yalnızca ilk `x` seçili (çoklu imleç yok, F-072): adı yazınca ikinci `x` elle değişir. Alanda ink renkleri yok. Canlı turda sonuçlar seçeneklerin üstünde. |
+| F-139 | Sorun yokken araç çubuğunda "No issues." | Sorun yokken hiçbir şey yazmaz; sorun sayısı rozetle gelir. |
+| F-168 | Var olan bir klasör adına web için dışa aktarma reddedilir | Aynı addaki klasörün içine yazar, içindeki aynı adlı dosyaları değiştirir. |
 | F-183, F-184 | Belgeler ayrı bir pencerede, başlık listesi yanında, yalnızca koyu temada koyu | Belgeler bir ekrandır (F1): kılavuz uygulamanın kendi yazısıyla çizilir, temanın bütün renklerine uyar; içindekiler (genişte yanda, telefonda alttan açılan sayfa), kılavuzda arama, örneklerin ink renkleri, kopyalama ve düzenleyiciye ekleme, yazı boyu ve kalınan yer eklendi. |
 
 ## Hikâyenin oynatılışı
