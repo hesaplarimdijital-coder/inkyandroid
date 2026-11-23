@@ -1,0 +1,90 @@
+++ head -1
+++ ls apk/app-release.apk
++ APK=apk/app-release.apk
++ adb devices
+List of devices attached
+emulator-5554	device
+
++ ls -l /dev/kvm
+crw-rw-rw- 1 root kvm 10, 232 Nov 23 00:36 /dev/kvm
++ nproc
+4
++ uptime
+ 00:36:38 up 2 min,  0 users,  load average: 3.00, 1.03, 0.37
++ free -m
+               total        used        free      shared  buff/cache   available
+Mem:           15700        5864        1773          46        8444        9835
+Swap:              0           0           0
++ adb shell getprop ro.build.version.release
+17
++ adb shell getprop ro.build.version.sdk
+37
++ adb shell getprop ro.product.model
+sdk_gphone64_x86_64
++ adb shell wm size
+Physical size: 2560x1600
++ adb shell wm density
+Physical density: 320
++ adb shell getprop persist.sys.locale
+
++ adb shell getprop sys.boot_completed
+1
++ adb shell top -b -n 1 -m 15
+Tasks: 273 total,   7 running, 266 sleeping,   0 stopped,   0 zombie
+  Mem:  4006608K total,  3858068K used,   148540K free,   122432K buffers
+ Swap:  3004952K total,        0K used,  3004952K free,  2836980K cached
+300%cpu  54%user  11%nice 100%sys  21%idle   0%iow   4%irq   0%sirq 154%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+  526 system       -3  -8  11G  36M  24M S 50.0   0.9   0:11.79 surfaceflinger
+  652 system       18  -2  18G 437M 319M S 32.1  11.1   0:19.93 system_server
+ 1392 u0_a198      10 -10  16G 172M 105M S 25.0   4.3   0:02.37 com.google.android.apps.nexuslauncher
+ 1694 u0_a179      10 -10  16G 189M 126M R 21.4   4.8   0:00.35 com.google.android.inputmethod.latin
+    1 root         20   0  10G  14M  11M R 10.7   0.3   0:04.43 init second_stage
+ 1598 u0_a209      20   0  16G 221M 163M S  7.1   5.6   0:00.34 com.google.android.gms
+  601 logd         30  10  10G 4.7M 4.0M R  7.1   0.1   0:01.60 logcat -f /dev/hvc1 *:V
+ 1908 shell        20   0  10G 5.2M 4.4M R  3.5   0.1   0:00.01 top -b -n 1 -m 15
+ 1249 radio        20   0  16G 181M 102M S  3.5   4.6   0:00.50 com.android.phone
+ 1105 u0_a189      20   0  16G 256M 149M R  3.5   6.5   0:02.39 com.android.systemui
+  459 statsd       20   0  10G 7.1M 5.7M S  3.5   0.1   0:00.05 statsd
+  323 keystore     20   0  10G  16M  13M S  3.5   0.4   0:00.05 keystore2 /data/misc/keystore
+  296 logd         30  10  10G 7.5M 4.8M S  3.5   0.1   0:00.53 logd
+   69 root         20   0    0    0    0 S  3.5   0.0   0:00.35 [khvcd]
+   18 root         -2   0    0    0    0 I  3.5   0.0   0:00.10 [rcu_preempt]
++ adb root
++ sleep 3
++ adb wait-for-device
++ adb shell id
+uid=0(root) gid=0(root) groups=0(root),1004(input),1007(log),1011(adb),1015(sdcard_rw),1028(sdcard_r),1078(ext_data_rw),1079(ext_obb_rw),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats),3009(readproc),3011(uhid),3012(readtracefs) context=u:r:su:s0
++ adb logcat -G 16M
++ python3 tools/smoke.py apk/app-release.apk smoke-out --profile tablet --scenarios ime-experiments
+Inky device smoke: profile tablet, sdk_gphone64_x86_64, Android 17 (API 37), Physical size: 2560x1600, density 320
+tablet: keyboard apps switched off (com.google.android.inputmethod.latin, com.google.android.tts); enabled now: com.google.android.tts/com.google.android.apps.speech.tts.googletts.settings.asr.voiceime.VoiceInputMethodService
+installed app-release.apk
+
+== Scenario ime-experiments: Typing on the on-screen keyboard before an existing word, every way
+
+RESULT: PASS
++ uptime
+ 00:37:26 up 3 min,  0 users,  load average: 5.35, 1.95, 0.72
++ adb shell top -b -n 1 -m 15
+Tasks: 316 total,   4 running, 312 sleeping,   0 stopped,   0 zombie
+  Mem:  4006608K total,  3841512K used,   165096K free,    48712K buffers
+ Swap:  3004952K total,    50140K used,  2954812K free,  2156352K cached
+300%cpu  96%user  14%nice  79%sys  25%idle   4%iow   7%irq   0%sirq  75%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+  652 system       18  -2  18G 472M 312M S 82.1  12.0   0:41.75 system_server
+ 1598 u0_a209      20   0  16G 308M 214M S 35.7   7.8   0:06.26 com.google.android.gms
+ 1392 u0_a198      10 -10  16G 265M 166M S 32.1   6.7   0:15.59 com.google.android.apps.nexuslauncher
+ 1485 u0_a209      20   0  16G 290M 204M S 14.2   7.4   0:08.97 com.google.android.gms.persistent
+ 1920 u0_a161      20   0  16G 214M 142M S  7.1   5.4   0:01.45 com.google.android.as
+ 1774 u0_a160      20   0  15G 177M 113M S  7.1   4.5   0:01.64 com.google.android.apps.wellbeing
+ 4431 root         20   0  10G 5.5M 4.7M R  3.5   0.1   0:00.02 top -b -n 1 -m 15
+ 1108 u0_a218      20   0  15G 145M  92M R  3.5   3.6   0:00.39 com.google.android.permissioncontroller
+ 1105 u0_a189      20   0  16G 285M 174M S  3.5   7.2   0:05.87 com.android.systemui
+  601 logd         30  10  10G 4.7M 4.0M R  3.5   0.1   0:04.83 logcat -f /dev/hvc1 *:V
+  543 system       -3   0  10G  13M 8.0M S  3.5   0.3   0:01.37 android.hardware.graphics.allocator-service.ranchu
+  357 root         20   0    0    0    0 S  3.5   0.0   0:00.53 [jbd2/dm-6-8]
+   57 root          0 -20    0    0    0 I  3.5   0.0   0:00.08 [kworker/1:1H-kblockd]
+   38 root         20   0    0    0    0 I  3.5   0.0   0:00.04 [kworker/2:0-events]
+ 4377 artd         20   0  11G  19M  16M S  0.0   0.4   0:00.02 artd
++ exit 0
