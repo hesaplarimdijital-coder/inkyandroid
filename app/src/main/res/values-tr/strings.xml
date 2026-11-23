@@ -292,7 +292,7 @@
     </plurals>
     <string name="files_unreadable_title">Okunamayan dosyalar</string>
     <string name="include_needs_folder">Tek dosyalık bir projenin başka bir dosya için klasörü yok: önce klasörüne izin verin (metnin üstündeki şerit bunu önerir).</string>
-    <string name="conflict_kept_note">Hangisini seçerseniz seçin, yerine geçen metin saklanır: Dosya › Saklanan sürümler\'de (depolamadakini yüklemek Geri al ile de geri alınır).</string>
+    <string name="conflict_kept_note">Hangisini seçerseniz seçin, yerine başkası geçen metin saklanır: Dosya › Saklanan sürümler\'de (depolamadakini yüklemek Geri al ile de geri alınır).</string>
     <string name="action_kept_versions">Saklanan sürümler…</string>
     <string name="kept_title">Saklanan sürümler</string>
     <string name="kept_text">Bir çakışmanın yanıtı bir metnin yerine geçmeden önce uygulama onu burada sakladı. Birini dosyasına geri getirin (Geri al onu yeniden çıkarır) ya da unutun.</string>
