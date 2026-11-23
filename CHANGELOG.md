@@ -9,6 +9,7 @@ Sürümler [SemVer](https://semver.org/lang/tr/) kuralına uyar; `versionCode` h
 ### Yazmak
 - Kitin kod düzenleyicisinde ink: Ace'in ink kurallarının birebir taşınmışıyla renklendirme, satır numaraları, uzun satırların kaydırılması, eş aralıklı ya da orantılı yazı, yakınlaştırma.
 - Bul ve değiştir (büyük/küçük harf, tam sözcük, düzenli ifade), masaüstündeki otomatik tamamlama (yönlendirme hedefleri, değişkenler, projenin sözcükleri, ink'in anahtar sözcükleri), Ctrl+Space.
+- Yorum satırı yap / kaldır (Alt+/): seçimin dokunduğu satırlar `// ` ile başlar ya da başlamaz olur; blok yorumu (`/* */`) yok.
 - Tanıma git: Ctrl+ ya da Alt+tıklama, F12, dokunmatikte uzun basınca açılan menü; `INCLUDE` yolu dosyayı açar.
 - Hatalar, uyarılar ve TODO notları düzenleyicinin kenarında ve satırında, iletileriyle.
 - Telefonda ekran klavyesinin üstünde ink'in işaretlerini sunan şerit (`->`, `*`, `{ }`, `<>`, sekme, geri al …).
@@ -24,10 +25,10 @@ Sürümler [SemVer](https://semver.org/lang/tr/) kuralına uyar; `versionCode` h
 
 ### Proje ve dosyalar
 - Proje bir klasör ve ana ink dosyasıdır: Android'in depolama erişimiyle açılan klasörler, uygulamanın içinde tutulan projeler, yeni projelerin oluşturulduğu bir projeler klasörü.
-- Klasör aç (birden çok aday varsa ana dosya sorulur), dosya aç (klasörüne erişim sonradan verilebilir), dosya yöneticilerinden `.ink` açma, son projeler.
+- Klasör aç (birden çok aday varsa ana dosya sorulur), dosya aç (klasörüne erişim sonradan verilebilir), dosya yöneticilerinden `.ink` açma, son projeler (Dosya › Son projeler alt menüsü ve Projeler ekranı).
 - `INCLUDE` ile çok dosyalı projeler: dosyalar masaüstündeki gibi gruplanır, kullanılmayan dosyalar ayrı, var olmayan `INCLUDE` dosyaları oluşturulabilir.
-- Yeni ink dosyası ekle (ana dosyaya `INCLUDE` satırıyla); masaüstünde olmayan yeniden adlandırma (`INCLUDE` satırları da değişir) ve silme.
-- Dışarıda değişen dosyalar pencere öne gelince ve F5 ile alınır; kaydedilmemiş değişikliği olan dosyada "benimkini koru / ötekini yükle" sorulur.
+- Yeni ink dosyası ekle (ana dosyaya `INCLUDE` satırıyla); masaüstünde olmayan yeniden adlandırma (`INCLUDE` satırları da değişir) ve silme (bildirimdeki "Geri al" ile geri gelir).
+- Dışarıda değişen dosyalar pencere öne gelince ve F5 ile alınır; kaydedilmemiş değişikliği olan dosyada "benimkini koru / depolamadakini yükle" sorulur, yerine geçen metin Dosya › Saklanan sürümler'de durur.
 - Proje ayar dosyası: özel parçacıklar (alt menüler, tuşlar) ve komut öneki; hataları bir şeritte.
 - Uygulama yeniden açıldığında son proje, açık dosya, imleç ve yan panelin sekmesi geri gelir.
 
@@ -36,7 +37,7 @@ Sürümler [SemVer](https://semver.org/lang/tr/) kuralına uyar; `versionCode` h
 - Anahat (açık dosyanın düğümleri, dikişleri, işlevleri; imleci izler), sorunlar listesi ve sonraki sorun (Ctrl+.), geri ve ileri (Alt+←, Alt+→).
 
 ### Parçacıklar, belgeler, dışa aktarma
-- Ink menüsünün bütün parçacıkları, adları Türkçe ve İngilizce; menüde, telefonda "Parçacık ekle…" ile ve komut paletinde.
+- Ink menüsünün bütün parçacıkları, adları Türkçe ve İngilizce: kategoriler alt menüdür (telefonda "⋯" sayfasının içinde sayfalar), projenin kendi parçacıkları ayar dosyasındaki gibi iç içe ve tuşlarıyla; komut paletinde de.
 - inkle'ın *Writing with ink* kılavuzu uygulamanın içinde: kendi yazısıyla çizilir, içindekiler, kılavuzda arama, ink renkleriyle örnekler (kopyalama, düzenleyiciye ekleme), yazı boyu, kalınan yer.
 - Üç dışa aktarma: JSON, yalnızca `story.js`, web için (inkjs 2.4.0 ile oynanan sayfa); ink'te hata varken yapılmaz, seçici son yerde açılır.
 - Proje istatistikleri (masaüstündeki "Word count and more"): aynı yedi sayı, aynı not.

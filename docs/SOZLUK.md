@@ -72,3 +72,5 @@ eklenir. ink'in kendi anahtar sözcükleri (`VAR`, `INCLUDE`, `END`, `TODO` …)
 | tags visible | etiketleri göster | Hikâye menüsü ve Ayarlar › Oynatıcı |
 | reload from storage | depolamadan yeniden yükle | F5; dışarıda değişen dosyaları alır |
 | keep mine, load the stored one | benimkini koru, depolamadakini yükle | dışarıda değişen dosyanın sorusu |
+| toggle comment | yorum satırı yap / kaldır | Alt+/; satırların başına `// ` |
+| kept versions | saklanan sürümler | bir çakışmanın yanıtıyla yerine başkası geçen metinler (Dosya menüsü) |

@@ -7,7 +7,9 @@ taşınmayan şeyler nedenleriyle `TASINMAYANLAR.md`'de.
 ## Üç düzen
 
 Uygulama cihaza değil pencerenin genişliğine bakar: DeX'te pencere daraltılınca telefon düzenine, tablet
-yan çevrilince geniş düzene geçer; açık dosya, imleç, kaydırma yeri ve oynatıcı yerinde kalır.
+yan çevrilince geniş düzene geçer; açık dosya, imleç, kaydırma yeri ve oynatıcı yerinde kalır. Yan
+çevrilmiş telefon rayı alır; düzenleyici ile yan panel sığdığı için yan yana durur, dosyanın adı, geri ve
+ileri, yan panel ve menüler üst çubuktadır.
 
 | | Telefon | Tablet | DeX, büyük pencere |
 | --- | --- | --- | --- |
@@ -18,9 +20,10 @@ yan çevrilince geniş düzene geçer; açık dosya, imleç, kaydırma yeri ve o
 | Sorunlar, Projeler, Belgeler | "⋯" | rayda | kenar çubuğunda |
 | Ayarlar | "⋯" | rayın altında | kenar çubuğunun altında |
 
-Masaüstü Inky'nin menülerindeki komutlar geniş pencerede menü çubuğunda, telefonda "⋯" sayfasında
-(Hikâye, Dosya, Ink, Görünüm grupları) ve her düzende komut paletinde (Ctrl+K; telefonda üst çubuktaki
-arama) durur. Yan panel Ctrl+Alt+B ile açılıp kapanır; kapalıyken düzenleyici bütün pencereyi alır
+Masaüstü Inky'nin menülerindeki komutlar geniş pencerede menü çubuğunda, tablette üst çubuğun "≡"
+düğmesinde, telefonda "⋯" sayfasında (Hikâye, Dosya, Ink, Görünüm grupları; alt menüler sayfanın içinde
+yeni bir sayfa olarak açılır) ve her düzende komut paletinde (Ctrl+K; telefonda üst çubuktaki arama)
+durur. Yan panel Ctrl+Alt+B ile açılıp kapanır; kapalıyken düzenleyici bütün pencereyi alır
 (masaüstündeki "odak" temasının karşılığı). Paneller arası ayraç sürüklenir, yeri saklanır.
 
 ## Proje açmak ve oluşturmak
@@ -39,7 +42,8 @@ aittir (masaüstündeki gibi). Projeler ekranı (telefonda "⋯" › Projeler) h
   ve üstte bir şerit klasöre erişim vermeyi önerir ("Erişim ver"); verilince `INCLUDE` dosyaları
   yüklenir, yenileri eklenebilir.
 - **Son projeler**: son beşi; birine dokununca açılır, satırın menüsünden listeden çıkarılır, "Listeyi
-  temizle" hepsini siler (masaüstündeki File › Open Recent; menüde Dosya › Son projeler buraya getirir).
+  temizle" hepsini siler. Masaüstündeki File › Open Recent gibi Dosya › Son projeler de bir alt menüdür:
+  son beş proje (açık olan işaretli) ve "Listeyi temizle"; telefonda "⋯" sayfasında bir sayfa olarak açılır.
   Klasörü artık yerinde olmayan ya da erişim izni geri alınmış projeler, Projeler ekranı açılınca
   listeden kendiliğinden çıkar.
 - **Inky içinde**: uygulamanın kendi depolamasındaki projeler. İzin istemez, hemen açılır; satırın
@@ -64,6 +68,8 @@ Uygulama kapatılıp açıldığında son proje, açık dosya, imleç ve yan pan
   kapatırken "Kaydet / Kaydetme / Vazgeç" sorulur.
 - **Bul ve değiştir:** Ctrl+F, Ctrl+H (telefonda üst çubuğun menüsündeki Bul). Büyük/küçük harf, tam
   sözcük ve düzenli ifade; tümünü değiştirmek tek adımda geri alınır.
+- **Yorum satırı yap / kaldır** (Alt+/; Düzen menüsü): seçimin dokunduğu satırlar `// ` ile başlar ya da
+  başlamaz olur; tek adımda geri alınır. Masaüstündeki blok yorumu (`/* */`) yok.
 - **Otomatik tamamlama:** masaüstündekiyle aynı öneriler (yönlendirme hedefleri, değişkenler, projenin
   sözcükleri, ink'in anahtar sözcükleri, bütün dosyalardan); yazarken açılır, Ctrl+Space ile istenir.
   Görünüm › Otomatik tamamlama ya da Ayarlar'dan kapatılır.
@@ -92,13 +98,15 @@ Uygulama kapatılıp açıldığında son proje, açık dosya, imleç ve yan pan
 - `INCLUDE` satırı yazmak da yeter: dosya klasörde varsa yüklenir. Yoksa "Var olmayan INCLUDE dosyaları"
   altında listelenir; oradan oluşturulabilir (kendiliğinden oluşturulmaz, masaüstündeki gibi).
 - **Yeniden adlandırmak ve silmek** (masaüstünde yok): dosyanın satırındaki menüden (sağ tık, uzun basma,
-  kenar çubuğunda girişin menüsü). Yeniden adlandırınca onu anan `INCLUDE` satırları da yeniden yazılır;
-  silmeden önce sorulur. Ana dosya ikisine de kapalıdır.
+  kenar çubuğunda girişin menüsü). Yeniden adlandırınca bu dosyayı ekleyen `INCLUDE` satırları da yeniden
+  yazılır, dosya klasöründe kalır. Silmeden önce sorulur; silinen dosya bildirimdeki "Geri al" ile geri
+  gelir. Ana dosya ikisine de kapalıdır.
 - **Dışarıda değişen dosyalar:** pencere öne gelince ve Dosya › Depolamadan yeniden yükle (F5) ile
   bakılır. Kaydedilmemiş değişikliği olmayan dosya sessizce yenilenir (imleç ve kaydırma yerinde kalır);
   olan dosyada "Benimkini koru / Depolamadakini yükle" diye sorulur; seçilene kadar hiçbirinin üstüne
-  yazılmaz.
-  Klasöre gelen yeni `.ink` dosyaları projeye girer, silinenler çıkar.
+  yazılmaz. Hangisi seçilirse seçilsin, yerine geçen metin Dosya › Saklanan sürümler'de durur; oradan
+  dosyasına geri getirilir ya da unutulur. Klasöre gelen yeni `.ink` dosyaları projeye girer, silinenler
+  çıkar.
 - **Proje ayar dosyası** (`<ana dosya>.settings.json`, masaüstündeki gibi): özel parçacıklar
   (`customInkSnippets`) ve komut öneki (`instructionPrefix`). Dosyada bir hata varsa bir şerit söyler.
 
@@ -149,14 +157,17 @@ sırayla dolaşır.
 
 Masaüstünün Ink menüsündeki hazır ink parçaları, adları Türkçe (ink'in kendi adları olduğu gibi).
 
-- **DeX ve büyük pencere:** menü çubuğundaki Ink menüsü: masaüstündeki kategoriler sırasıyla; bir
-  kategori seçilince komut paleti o kategorinin parçacıklarıyla açılır, ad yazarak süzülür.
+- **DeX, büyük pencere ve tablet:** Ink menüsü (tablette üst çubuğun "≡" düğmesinde): masaüstündeki
+  kategoriler sırasıyla ve aralarındaki çizgilerle, her biri parçacıklarının alt menüsü.
+- **Telefonda:** "⋯" › Ink › Parçacık ekle; kategoriler aynı sayfanın içinde yeni sayfalar olarak açılır.
 - **Her düzende:** komut paletinde "Parçacıklar" grubu; adı Türkçe ya da İngilizce yazılarak bulunur,
-  kategorisi altında yazar. Telefonda düzenleyicinin üst çubuğunun menüsünde "Parçacık ekle…".
+  kategorisi altında yazar. Telefonda düzenleyicinin üst çubuğunun menüsündeki "Parçacık ekle…" paleti bu
+  grupla açar.
 - Seçilen parçacık imlecin olduğu yere masaüstündeki gibi olduğu gibi yazılır; seçim varsa onun yerine
   geçer; tek adımda geri alınır.
-- **Projenin kendi parçacıkları:** proje ayar dosyasındaki `customInkSnippets` (alt menüler, ayraçlar,
-  `accelerator` ile tuşlar dahil) Ink menüsünün sonunda ve palette; tuşları DeX'te çalışır.
+- **Projenin kendi parçacıkları:** proje ayar dosyasındaki `customInkSnippets`, Ink menüsünün sonunda bir
+  çizgiden sonra, ayar dosyasında yazıldığı gibi iç içe (alt menüler, ayraçlar) ve `accelerator` ile
+  verilen tuşlarıyla; tuşlar donanım klavyesiyle çalışır. Palette de listelenirler.
 
 ## Belgeler: ink kılavuzu
 
@@ -248,7 +259,7 @@ Masaüstü Inky'nin tuşları kitin ortak tuşlarıyla çakışmadıkça aynen k
 | Bir seçim geri al | Ctrl+R | yalnızca düğme (Ctrl+R geliştiricinin "yeniden yükle"siydi) |
 | Hikâyeyi baştan başlat | Ctrl+Shift+R | yalnızca düğme |
 | Satıra git | Ctrl+G her şeye git'i açar | Ctrl+G Ace'in satıra git kutusu |
-| Yorum satırı yap / kaldır | — (bu sürümde yok; Ctrl+/ burada kısayol listesidir) | Ctrl+/ |
+| Yorum satırı yap / kaldır | Alt+/ (yalnızca satır yorumu `// `; blok yorumu yok) | Ctrl+/ (Ctrl+/ burada kısayol listesidir) |
 | Kılavuzda bul, sonraki, önceki | Ctrl+F, F3, Shift+F3 (Belgeler'de) | — (kılavuzda arama yoktu) |
 | Tam ekran | — | F11 |
 | Pencere ve geliştirici menüleri | — | Ctrl+M, Ctrl+Shift+I … |

@@ -15,9 +15,9 @@ olarak kurulur.
 ## Neler var
 
 - **Yazmak:** ink'i masaüstü Inky'nin kurallarıyla renklendiren düzenleyici (Ace'in ink kipinin birebir
-  taşınmışı), bul ve değiştir, masaüstündeki otomatik tamamlama, tanıma git (Ctrl+ ya da Alt+tıklama,
-  F12, dokunmatikte uzun basma), kenarda hata, uyarı ve TODO işaretleri, yakınlaştırma, eş aralıklı ya da
-  orantılı yazı. Telefonda klavyenin üstünde ink'in işaretlerini sunan bir şerit.
+  taşınmışı), bul ve değiştir, masaüstündeki otomatik tamamlama, satır yorumu (Alt+/), tanıma git (Ctrl+
+  ya da Alt+tıklama, F12, dokunmatikte uzun basma), kenarda hata, uyarı ve TODO işaretleri, yakınlaştırma,
+  eş aralıklı ya da orantılı yazı. Telefonda klavyenin üstünde ink'in işaretlerini sunan bir şerit.
 - **Oynatmak:** hikâye yazdıkça yeniden derlenir ve yapılan seçimlerle baştan oynatılır; bir seçim geri
   alma, baştan başlatma, etiketler, bir paragraftan onu üreten ink satırına gitme, çalışma hataları
   satırlarına bağlantı olarak, izleme ifadeleri. Sonu gelmeyen döngüler uygulamayı kilitlemez.
@@ -27,7 +27,8 @@ olarak kurulur.
   (kapatılabilir) ve her zaman taslaklar: kaydedilmemiş metin uygulama kapansa da kaybolmaz.
 - **Gezinmek:** her şeye git (dosyalar, düğümler, dikişler, metin, satır numarası, çalışma yolu), anahat,
   sorunlar listesi, sonraki sorun, geri ve ileri.
-- **Masaüstündeki ekler:** Ink menüsünün parçacıkları (adları Türkçe) ve projenin kendi parçacıkları;
+- **Masaüstündeki ekler:** Ink menüsünün parçacıkları kategorileriyle alt menülerde (adları Türkçe) ve
+  projenin kendi parçacıkları tuşlarıyla;
   üç dışa aktarma (JSON, `story.js`, web için); proje istatistikleri; inkle'ın *Writing with ink*
   kılavuzu, uygulamanın içinde, içindekiler, arama ve ink renkleriyle.
 - **Her pencere düzeninde:** telefonda alt çubuk, tablette ray ve yan yana düzenleyici ile oynatıcı,
