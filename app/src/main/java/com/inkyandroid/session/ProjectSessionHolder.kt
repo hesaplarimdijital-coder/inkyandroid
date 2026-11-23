@@ -153,10 +153,12 @@ class SessionEnvironment(
     internal fun isSameProject(one: String, other: String): Boolean = opener.identity(one) == opener.identity(other)
 
     /**
-     * Removes the drafts and kept versions of [reference]'s project: it was deleted. Call it once
-     * no window has the project open any more (after the job of [ProjectSessionHolder.closed]).
+     * Removes the drafts and kept versions of [reference]'s project: it was deleted. Refused
+     * ([ProjectOpenElsewhereException]) while any window has the project open or is giving it back:
+     * a live journal writes there. Call it after the job of [ProjectSessionHolder.closed].
      */
     suspend fun forgetDrafts(reference: String) {
+        if (synchronized(windows) { windows.containsKey(opener.identity(reference)) }) throw ProjectOpenElsewhereException(reference)
         val folder = draftsFolder(reference)
         withContext(io) {
             if (!folder.deleteRecursively() && folder.exists()) throw IOException("Cannot remove ${folder.path}")
@@ -265,6 +267,12 @@ class ProjectSessionHolder(private val environment: SessionEnvironment) : ViewMo
      * window's project for it, since such a request is refused ([declined]).
      */
     fun isOpenElsewhere(reference: String): Boolean = environment.isOpenElsewhere(reference, this)
+
+    /**
+     * Removes the drafts and kept versions of [reference]'s deleted project
+     * ([SessionEnvironment.forgetDrafts]); refused while any window has it open.
+     */
+    suspend fun forgetDrafts(reference: String) = environment.forgetDrafts(reference)
 
     /** The window has told the user why its last request was declined. */
     fun dismissDeclined() {

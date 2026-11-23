@@ -23,7 +23,6 @@ import com.inkyandroid.ui.Commands
 import com.inkyandroid.ui.FolderPurpose
 import com.inkyandroid.ui.InkIcons
 import com.inkyandroid.ui.WindowActions
-import com.inkyandroid.ui.WindowDialog
 import com.inkyandroid.ui.WindowUi
 import desktopkit.components.DeskIcons
 import desktopkit.components.DeskListRow
@@ -86,7 +85,7 @@ fun ProjectsScreen(storage: ProjectStorage, openReference: String?, ui: WindowUi
                         open = ref.encode() == openReference,
                         menu = listOf(
                             MenuEntry.Item(copyOut, { actions.pickFolder(FolderPurpose.CopyOut(ref)) }, icon = InkIcons.Export),
-                            MenuEntry.Item(delete, { ui.dialog = WindowDialog.DeleteProject(ref) }, icon = DeskIcons.Delete, destructive = true),
+                            MenuEntry.Item(delete, { actions.askDeleteInternal(ref) }, icon = DeskIcons.Delete, destructive = true),
                         ),
                         onClick = { actions.openProject(ref) },
                     )

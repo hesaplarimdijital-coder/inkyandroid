@@ -30,7 +30,6 @@ import com.inkyandroid.R
 import com.inkyandroid.core.live.LiveState
 import com.inkyandroid.ink.inkSyntax
 import com.inkyandroid.session.ProjectSession
-import com.inkyandroid.session.SessionEnvironment
 import com.inkyandroid.session.ProjectOpenElsewhereException
 import com.inkyandroid.session.ProjectSessionHolder
 import com.inkyandroid.session.SessionState
@@ -151,7 +150,6 @@ fun InkyApp(
             palette.filter = group
         }
         actions.newWindow = activity?.let { host -> { DeskWindows.openNewWindow(host) } }
-        actions.forgetDrafts = { reference -> SessionEnvironment.of(context).forgetDrafts(reference) }
         actions.copyText = { text ->
             context.getSystemService(android.content.ClipboardManager::class.java)?.setPrimaryClip(android.content.ClipData.newPlainText(text.take(CLIP_LABEL_LENGTH), text))
         }

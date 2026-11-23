@@ -82,9 +82,6 @@ class WindowActions(
     /** Opens the system's picker for an ink file; its answer comes back through [filePicked]. */
     var launchFilePicker: (Uri?) -> Unit = {}
 
-    /** Removes the drafts and kept versions of a deleted project (the session environment's). */
-    var forgetDrafts: suspend (reference: String) -> Unit = {}
-
     /** Steps the zoom of the text in front: +1 larger, -1 smaller, 0 back to the theme's size. False when no text is in front. */
     var zoom: (Int) -> Boolean = { false }
 
@@ -345,15 +342,19 @@ class WindowActions(
             return
         }
         // another window has it: refused before this window's project is asked to close for it
-        if (holder.isOpenElsewhere(ref.encode())) {
-            notify(strings.getString(R.string.project_open_elsewhere_title), BannerTone.Warning)
-            return
-        }
+        if (refusedAsOpenElsewhere(ref)) return
         whenClosed {
             ui.singleFile = notice
             holder.open(ref.encode())
             navigate(Routes.WRITE)
         }
+    }
+
+    /** Says so and is true when another window has [ref]'s project open: a project is open in one window at a time. */
+    private fun refusedAsOpenElsewhere(ref: ProjectRef): Boolean {
+        if (!holder.isOpenElsewhere(ref.encode())) return false
+        notify(strings.getString(R.string.project_open_elsewhere_title), BannerTone.Warning)
+        return true
     }
 
     /** "Close project". */
@@ -516,15 +517,23 @@ class WindowActions(
         scope.launch { storage.recents.clear() }
     }
 
+    /** "Delete the project…": asks first, unless another window has it open (then says so and asks nothing). */
+    fun askDeleteInternal(ref: ProjectRef.Internal) {
+        if (refusedAsOpenElsewhere(ref)) return
+        ui.dialog = WindowDialog.DeleteProject(ref)
+    }
+
     /** Deletes a project that is kept inside the app, after the question was answered. */
     fun deleteInternal(ref: ProjectRef.Internal) {
         ui.dialog = null
+        // another window is writing in it (it may have been opened there while the question was up)
+        if (refusedAsOpenElsewhere(ref)) return
         scope.launch {
             try {
                 // the open project's last flush ends before its drafts go and its folder is removed: else the
                 // save races the delete, and a later project of the same name inherits the dead one's drafts
                 if (holder.reference == ref.encode()) holder.closed()?.join()
-                forgetDrafts(ref.encode())
+                holder.forgetDrafts(ref.encode())
                 storage.recents.remove(ref)
                 storage.internalProjects.delete(ref)
             } catch (failed: IOException) {

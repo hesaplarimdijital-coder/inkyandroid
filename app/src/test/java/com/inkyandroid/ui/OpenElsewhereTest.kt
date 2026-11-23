@@ -13,6 +13,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertSame
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -69,5 +70,40 @@ class OpenElsewhereTest {
         compose.waitFor { "after the notice" in stored(beta) }
         assertSame("the other window's project is untouched", other.session, other.session)
         assertEquals("One.\n", stored(alpha))
+    }
+
+    @Test
+    fun deletingAProjectAnotherWindowHasOpenIsRefusedAndItsDraftsStay() {
+        val alpha = UiWorld.project("Alpha", "One.\n")
+        val beta = UiWorld.project("Beta", "Two.\n")
+        UiWorld.resetSettings()
+        UiWorld.app.settings.updateAutosave(false)
+        val other = UiWorld.holder(alpha)
+        compose.waitFor { other.session != null }
+        val holder = UiWorld.holder(beta)
+        val prefs = testPrefs(ThemeMode.Light, DensityPreference.Pointer)
+        compose.setContent {
+            InkyApp(holder, UiWorld.app.settings, UiWorld.app.storage, ui, prefs = prefs, transitions = ShellTransitions.None, commands = commands)
+        }
+        compose.awaitSession(holder)
+        // the other window has text that is only in its drafts
+        val theirs = other.session!!
+        val editor = theirs.activeDocument.editorState!!
+        compose.runOnUiThread { editor.replace(editor.length, editor.length, "Unsaved in the other window.\n") }
+        compose.waitFor { theirs.project.state.value.hasUnsavedChanges }
+        // as when that window went to the background: its drafts are written at once
+        compose.runOnUiThread { theirs.flushInBackground() }
+        val drafts = UiWorld.environment.draftsFolder(alpha.encode())
+        compose.waitFor { drafts.listFiles().orEmpty().isNotEmpty() }
+
+        // the Projects screen's "Delete the project…" on Alpha, answered with Delete
+        compose.runOnUiThread { ui.dialog = WindowDialog.DeleteProject(alpha) }
+        compose.onAllNodesWithText("Delete")[0].performClick()
+        compose.waitFor { compose.onAllNodesWithText("This project is open in another window").fetchSemanticsNodes().isNotEmpty() }
+
+        assertEquals(listOf(alpha), runBlocking { UiWorld.app.storage.internalProjects.list() }.filter { it == alpha })
+        assertEquals("One.\n", stored(alpha))
+        assertTrue("the other window's drafts are where its journal writes them", drafts.listFiles().orEmpty().isNotEmpty())
+        assertFalse(theirs.state.value.closed)
     }
 }

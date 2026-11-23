@@ -519,6 +519,23 @@ class ProjectSessionHolderTest {
     }
 
     @Test
+    fun `the drafts of a project some window has open are never forgotten`() = test {
+        val root = folder("story").apply { File(this, "main.ink").writeText(story) }
+        val environment = environment(mapOf("ref" to root)).also { it.settings.updateAutosave(false) }
+        val other = ProjectSessionHolder(environment)
+        other.open("ref")
+        pass()
+        other.editor("main.ink").type(written)
+        pass(ProjectSession.DRAFT_DELAY_MILLIS)
+        val holder = ProjectSessionHolder(environment)
+
+        val refused = runCatching { holder.forgetDrafts("ref") }.exceptionOrNull()
+
+        assertTrue(refused is ProjectOpenElsewhereException)
+        assertEquals(listOf(written), FileDraftStore(environment.draftsFolder("ref"), main).load().map { it.text })
+    }
+
+    @Test
     fun `a new window beside the one that has the last project open starts without a project`() = test {
         val root = folder("story").apply { File(this, "main.ink").writeText(story) }
         val environment = environment(mapOf("ref" to root))
