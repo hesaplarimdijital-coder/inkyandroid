@@ -1,0 +1,31 @@
+Inky for Android
+Copyright (c) 2026 hesaplarimdijital-coder
+
+An Android port of inkle's Inky, licensed under the MIT License (see LICENSE).
+
+It contains or ships the following third-party parts:
+
+- Inky (https://github.com/inkle/inky) and ink (https://github.com/inkle/ink),
+  Copyright (c) 2016 inkle Ltd., MIT License. The port follows Inky's design; the
+  launcher icon is made from Inky's own icon (resources/Icon1024.png).
+
+- blade-ink and blade-ink-compiler 1.3.3 (com.bladecoder.ink, https://github.com/bladecoder/blade-ink-java),
+  the Java port of ink's runtime and compiler, by Rafael Garcia. Its Maven artifacts
+  declare the Apache License, Version 2.0; the LICENSE file of its source repository is
+  the MIT License, Copyright (c) 2016 Rafael Garcia. Both permit this use.
+
+- desktop-kit (https://github.com/hesaplarimdijital-coder/desktop-kit), Apache License,
+  Version 2.0. It bundles:
+  - the IBM Plex Sans and IBM Plex Mono typefaces, Copyright (c) 2017 IBM Corp. with
+    Reserved Font Name "Plex", SIL Open Font License, Version 1.1;
+  - Haze (dev.chrisbanes.haze), Copyright 2023 Christopher Banes and the Haze project
+    contributors, Apache License, Version 2.0.
+
+- commonmark-java (org.commonmark:commonmark, https://github.com/commonmark/commonmark-java),
+  Copyright (c) 2015, Atlassian Pty Ltd, BSD 2-Clause License: reads the bundled ink manual.
+
+- The ink manual "Writing with ink" (app/src/main/assets/docs/WritingWithInk.md), from Inky's
+  repository, Copyright (c) 2016 inkle Ltd., MIT License.
+
+AndroidX, Jetpack Compose and kotlinx.coroutines are used under the Apache License,
+Version 2.0.

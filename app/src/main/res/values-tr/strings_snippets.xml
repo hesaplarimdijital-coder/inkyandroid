@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- app-extras: the names of the built-in snippets of the Ink menu, by the ids of :core's InkSnippets. -->
+<!-- Turkish: the descriptive words translated, ink's own names (functions, keywords) kept as written; terms as in docs/SOZLUK.md -->
+<resources>
+    <string name="snippets_group">Parçacıklar</string>
+    <string name="snippet_category_basic_structure">Temel yapı</string>
+    <string name="snippet_knot">Düğüm (ana bölüm)</string>
+    <string name="snippet_stitch">Dikiş (alt bölüm)</string>
+    <string name="snippet_divert">Yönlendirme</string>
+    <string name="snippet_ending">Bitiş işareti</string>
+    <string name="snippet_category_choices">Seçenekler</string>
+    <string name="snippet_choice_basic">Basit seçenek</string>
+    <string name="snippet_choice_sticky">Kalıcı seçenek</string>
+    <string name="snippet_choice_suppressed">Yazılmayan seçenek</string>
+    <string name="snippet_choice_mixed">Çıktısı karışık seçenek</string>
+    <string name="snippet_category_variables">Değişkenler</string>
+    <string name="snippet_variable_global">Genel değişken</string>
+    <string name="snippet_variable_temporary">Geçici değişken</string>
+    <string name="snippet_variable_modify">Değişkeni değiştirme</string>
+    <string name="snippet_variable_type">Değişkenin türünü öğrenme</string>
+    <string name="snippet_category_inline_logic">Satır içi mantık</string>
+    <string name="snippet_inline_condition">Koşul</string>
+    <string name="snippet_category_multiline_logic">Çok satırlı mantık</string>
+    <string name="snippet_multiline_condition">Koşul</string>
+    <string name="snippet_category_comments">Yorumlar</string>
+    <string name="snippet_comment_line">Tek satırlık yorum</string>
+    <string name="snippet_comment_block">Blok yorum</string>
+    <string name="snippet_category_list_handling">Listelerle çalışma</string>
+    <string name="snippet_list_pop">Liste: pop</string>
+    <string name="snippet_list_pop_random">Liste: pop_random</string>
+    <string name="snippet_list_next_prev">Liste: LIST_NEXT ve LIST_PREV</string>
+    <string name="snippet_list_item_is_member_of">Liste: list_item_is_member_of</string>
+    <string name="snippet_list_random_subset">Liste: list_random_subset</string>
+    <string name="snippet_list_random_subset_of_size">Liste: list_random_subset_of_size</string>
+    <string name="snippet_list_string_to_list">Liste: string_to_list</string>
+    <string name="snippet_category_useful_functions">Yararlı işlevler</string>
+    <string name="snippet_logic_maybe">Mantık: maybe</string>
+    <string name="snippet_math_divisor">Matematik: divisor</string>
+    <string name="snippet_math_abs">Matematik: abs</string>
+    <string name="snippet_flow_came_from">Akış: came_from</string>
+    <string name="snippet_flow_seen_very_recently">Akış: seen_very_recently</string>
+    <string name="snippet_flow_seen_more_recently_than">Akış: seen_more_recently_than</string>
+    <string name="snippet_flow_seen_this_scene">Akış: seen_this_scene</string>
+    <string name="snippet_flow_thread_in_tunnel">Akış: thread_in_tunnel</string>
+    <string name="snippet_print_a_or_an">Yazdırma: a (ya da an)</string>
+    <string name="snippet_print_uppercase">Yazdırma: UPPERCASE</string>
+    <string name="snippet_print_number">Yazdırma: print_number</string>
+    <string name="snippet_print_list_with_commas">Yazdırma: list_with_commas</string>
+    <string name="snippet_category_useful_systems">Yararlı sistemler</string>
+    <string name="snippet_system_list_items_as_integers">Tamsayı değişkeni olarak liste öğeleri</string>
+    <string name="snippet_system_swing_variables">Salınım değişkenleri</string>
+    <string name="snippet_system_storylets">Hikâyecikler</string>
+    <string name="snippet_category_full_stories">Tam hikâyeler</string>
+    <string name="snippet_story_crime_scene">Olay yeri (Writing with Ink’ten)</string>
+    <string name="snippet_story_swindlestones">Swindlestones (Sorcery!’den)</string>
+    <string name="snippet_story_pontoon">Pontoon oyunu (Overboard!’dan)</string>
+    <string name="snippet_story_intercept">The Intercept</string>
+</resources>

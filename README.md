@@ -1,174 +1,155 @@
-![](resources/icon-small.jpg)
-
-# Inky
-
-**Inky** is an editor for [ink](http://www.inklestudios.com/ink), inkle's markup language for writing interactive narrative in games, as used in [80 Days](http://www.inklestudios.com/80days). It's an IDE (integrated development environment), because it gives you a single app that lets you play in the editor as you write, and fix any bugs in your code.
-
-![](resources/screenshot.gif)
-
-## Features
-
-- **Play as you write**: The play pane remembers the choices that you made, so when Inky recompiles, it fast-forwards to the last point you were at in the flow.
-- **Syntax highlighting**
-- **As-you-type error highlighting**. Inky is constantly compiling, allowing you to fix errors early.
-- **Issue browser**: Lists errors, warnings and TODOs in your **ink**,  and allows you to jump to the exact line number and file in the source.
-- **Jump to definition**: Divert targets (like `-> theStreet`) are hyperlinked can be followed by alt-clicking.
-- **Support multi-file projects**: - Inky automatically infers your story's structure from the `INCLUDE` lines, meaning that there's no need for an additional project file. To create a new include file, simply type `INCLUDE yourfile.ink` where you want to include it.
-- **Export to JSON**: Although this isn't necessary if you're using the [ink-Unity-integration plugin](https://assetstore.unity.com/packages/tools/integration/ink-unity-integration-60055), Inky allows you to export to ink's compiled JSON format, which is especially useful in other ink runtime implementations, such as [inkjs](https://github.com/y-lohse/inkjs), for running **ink** on the web.
-- **File watching**: Modern text editors, including Inky, watch for changes to files on disk, so that if you change them it reflects those changes. This is especially helpful if you keep your **ink** in source control.
-
-## Project status
-
-Inky has been used extensively on multiple projects by different developers. Nevertheless, it isn't as robust or feature complete as many other text editors you may have used, since it's specialist software made by game developers in their spare time.
-
-The informal [TODO.md](TODO.md) lists some missing features and known issues. If you want to discuss one, or request a new fix or feature, please [create a github issue](http://www.github.com/inkle/inky/issues).
-
-To keep up to date with the latest news about ink [sign up for the mailing list](http://www.inklestudios.com/ink#signup).
-
-## Download
-
-### Mac, Windows and Linux
-
-[Download the latest release](http://www.github.com/inkle/inky/releases/latest)
-
-## Project settings file
-
-**Warning: For the technically inclined - you need to understand what a JSON file is to do the following!**
-
-To customise Inky settings for your specific ink project, create a JSON file with the same name as your main ink file, except with a `.settings.json` extension. For example, if your main ink file is called `my_great_story.ink`, then name your JSON file `my_great_story.settings.json`.
-
-Here is an example settings file:
-
-    {
-        "customInkSnippets": [
-            {
-                "name": "Heaven's Vault",
-                "submenu": [
-                    {
-                        "name": "Camera",
-                        "ink": ">>> CAMERA: Wide shot"
-                    },
-                    {
-                        "separator": true
-                    },
-                    {
-                        "name": "Walk",
-                        "ink": ">>> WALK: TheInscription"
-                    },
-                    {
-                        "name": "More snippets",
-                        "submenu": [
-                            {
-                                "name": "A snippet in a submenu",
-                                "ink": "This snippet of ink came from a submenu."
-                            },
-                        ]
-                    }
-                ]
-            }
-        ],
-
-        "instructionPrefix": ">>>"
-    }
-
-* `customInkSnippets` - this array allows your to add your own project-specific ink snippets to the Ink menu. There are three types of item you can add to the array:
-    * **An ink snippet**: Requires `name` for the name of the menu item and `ink` for the snippet of ink it will insert into the editor.
-    * **A separator**: Use `{"separator": true}` to add a horizonal line separator into the menu at this point.
-    * **A sub-menu**: To nest more snippets into a sub-menu, use `name` for the sub-menu name, and then `submenu` with another array in the same format.
-
-
-* `instructionPrefix` - A common convention is to use a particular text format in ink to instruct the game to perform certain actions rather than presenting the text verbatim to players.
-
-    For example, at inkle we would write something like `>>> CAMERA: BigSwoop` in ink. The `>>>` isn't directly built into ink, and this entire text is simply passed through as plain text. But we have custom game code to interpret it and turn it into an action that takes place in-game. To help support this within Inky, you can define an *instructionPrefix*, if you have a particular consistent way of writing these actions. 
-    
-    When Inky sees this, it will highlight the line of text both in the editor and player views, so that you can clearly see that it's not part of the game text itself.
-
-
-## Implementation details
-
-Inky is built using:
-
-* [Electron](http://electron.atom.io/), a framework by GitHub to build cross-platform Desktop app using HTML, CSS and JavaScript.
-* [Ace](https://ace.c9.io/#nav=about), a full-featured code editor built for the web.
-* [Photon](http://photonkit.com/), for some of the components. However, the dependency could probably be removed, since its only used for small portions of the CSS.
-
-Inky includes a copy of **inklecate**, the command line **ink** compiler.
-
-## Help develop Inky!
-
-Take a look at the [issues page](https://github.com/inkle/inky/issues) for an issue with a "help wanted" label. We try to provide some basic instructions on how to get started with the development of the feature whenever we add the label.
-
-To build the project:
-
-* Install [node.js](https://nodejs.org/en/) if you don't already have it
-* Clone the repo
-* On Mac, double-click the `INSTALL_AND_RUN.command` script. On Windows, open Powershell, cd into the app directory, and type `npm install`, then `npm start`.
-* For subsequent runs, if no npm packages have changed, you can run the `RUN.command` script on Mac, or type `npm start` in the shell (on Windows).
-
-### Linux
-
-Tested on a fresh **Ubuntu 16.04 LTS** VM installation (_equivalent processes should work for other distributions_)
-
-* Install build tools
-
-`sudo apt-get install -y dkms build-essential linux-headers-generic linux-headers-$(uname -r)`
-
-* Pre-requisites
-
-`sudo apt install git`
-
-`sudo apt install curl`
-
-* Install node and npm
-
-`curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -`
-
-`sudo apt-get install -y nodejs`
-
-* Install mono as per http://www.mono-project.com/download/stable/#download-lin
-
-`sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF`
-
-`echo "deb http://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list`
-
-`sudo apt-get update`
-
-`sudo apt-get install mono-complete`
-
-* Clone the inky repo
-
-`git clone https://github.com/inkle/inky.git`
-
-* Test inklecate_win with mono (_should output usage info_)
-
-`mono app/main-process/ink/inklecate_win.exe`
-
-* Install and run inky
-
-`./INSTALL_AND_RUN.command`
-
-* For subsequent runs, if no npm packages have changed, launch inky as below (otherwise re-run previous step):
-
-`./RUN.command`
-
-### Translation
-
-Translation files are located under `app/main-process/i18n/`.  
-If a particular locale file is missing (or if it's missing some keys), you can generate it with the following command: `cd app && npm run generate-locale -- <locale> ./main-process/i18n/`.
-
-## License
-
-**Inky** and **ink** are released under the MIT license. Although we don't require attribution, we'd love to know if you decide to use **ink** a project! Let us know on [Twitter](http://www.twitter.com/inkleStudios) or [by email](mailto:info@inklestudios.com).
-
-### The MIT License (MIT)
-Copyright (c) 2016 inkle Ltd.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
--
-
-*Inky is named after a black cat based in Cambridge, UK.*
+# Inky (Android)
+
+inkle'ın [Inky](https://github.com/inkle/inky) düzenleyicisinin Android'e taşınmış hâli: etkileşimli
+hikâye dili [ink](https://github.com/inkle/ink) ile yazmak ve yazılanı hemen oynatmak için. Kişisel
+kullanım içindir; telefonda, tablette ve Samsung DeX'te çalışır. Kotlin ile yazılır, arayüzün tamamı
+[desktop-kit](https://github.com/hesaplarimdijital-coder/desktop-kit) ile çizilir. Bu depo
+inkle/inky'nin bir çatalıdır; Electron uygulaması geçmişte ve upstream'de durur. Play'de değildir; APK
+olarak kurulur.
+
+> **Durum:** 0.1.0, ilk sürüm. Masaüstü Inky 0.15.2'nin özellik listesinin tamamı ya uygulamada ya da
+> nedeniyle birlikte `docs/TASINMAYANLAR.md`'de. Uygulama Robolectric'te ekran görüntüleriyle ve
+> emülatörde (bir telefon, bir tablet) sınandı; gerçek bir telefonda, tablette ve DeX'te henüz denenmedi:
+> denenmesi gerekenler `docs/CIHAZ-TESTLERI.md`'de. Yapılanlar `CHANGELOG.md`'de.
+
+## Neler var
+
+- **Yazmak:** ink'i masaüstü Inky'nin kurallarıyla renklendiren düzenleyici (Ace'in ink kipinin birebir
+  taşınmışı), bul ve değiştir, masaüstündeki otomatik tamamlama, satır yorumu (Alt+/), tanıma git (Ctrl+
+  ya da Alt+tıklama, F12, dokunmatikte uzun basma), kenarda hata, uyarı ve TODO işaretleri, yakınlaştırma,
+  eş aralıklı ya da orantılı yazı. Telefonda klavyenin üstünde ink'in işaretlerini sunan bir şerit.
+- **Oynatmak:** hikâye yazdıkça yeniden derlenir ve yapılan seçimlerle baştan oynatılır; bir seçim geri
+  alma, baştan başlatma, etiketler, bir paragraftan onu üreten ink satırına gitme, çalışma hataları
+  satırlarına bağlantı olarak, izleme ifadeleri. Sonu gelmeyen döngüler uygulamayı kilitlemez.
+- **Proje:** bir klasör ve içindeki ana ink dosyası; `INCLUDE` ile çok dosyalı projeler, yeni dosya
+  ekleme, yeniden adlandırma, silme. Klasörler Android'in depolama erişimiyle (SAF) açılır; ayrıca
+  uygulamanın içinde tutulan projeler ve yeni projelerin oluşturulduğu bir projeler klasörü. Otomatik kaydetme
+  (kapatılabilir) ve her zaman taslaklar: kaydedilmemiş metin uygulama kapansa da kaybolmaz.
+- **Gezinmek:** her şeye git (dosyalar, düğümler, dikişler, metin, satır numarası, çalışma yolu), anahat,
+  sorunlar listesi, sonraki sorun, geri ve ileri.
+- **Masaüstündeki ekler:** Ink menüsünün parçacıkları kategorileriyle alt menülerde (adları Türkçe) ve
+  projenin kendi parçacıkları tuşlarıyla;
+  üç dışa aktarma (JSON, `story.js`, web için); proje istatistikleri; inkle'ın *Writing with ink*
+  kılavuzu, uygulamanın içinde, içindekiler, arama ve ink renkleriyle.
+- **Her pencere düzeninde:** telefonda alt çubuk, tablette ray ve yan yana düzenleyici ile oynatıcı,
+  DeX'te menü çubuğu, kenar çubuğunda projenin dosyaları, klavye kısayolları ve birden çok pencere.
+  Açık, koyu ve OLED tema; Türkçe ve İngilizce.
+
+Nasıl kullanıldığı ekran ekran `docs/KULLANIM.md`'de.
+
+## Kurulum ve güncelleme
+
+Her sürümün imzalı APK'sı [Releases](https://github.com/hesaplarimdijital-coder/inkyandroid/releases)
+sayfasındadır (`Inky-<sürüm>.apk`).
+
+**Elle:** telefonda ya da tablette sürüm sayfasını aç, APK'ya dokunup indir, indirileni aç. Android "bu
+kaynaktan yüklemeye izin ver" diye sorarsa tarayıcıya izin ver. Yeni sürüm eskisinin üstüne kurulur.
+
+**Obtainium ile (isteğe bağlı):** [Obtainium](https://github.com/ImranR98/Obtainium) uygulamayı sürüm
+sayfasından kurar ve yeni sürüm çıkınca haber verir. **Add App** › adres:
+`https://github.com/hesaplarimdijital-coder/inkyandroid`, sonra **Add** ve **Install**. Ön sürümleri de
+istersen **Include Pre-releases**'i aç.
+
+Bütün sürümler aynı anahtarla imzalıdır (aşağıda); güncelleme eskisinin üstüne gelir, projeler, taslaklar
+ve ayarlar kalır.
+
+**İlk açılış:** uygulama "İlk hikâye" adlı, uygulamanın içinde tutulan bir projeyle açılır; hemen yazılıp
+oynatılabilir. Kendi klasörlerin için Projeler › Klasör aç (Ctrl+O); yeni projelerin bir klasörde
+oluşması için Ayarlar › Dosyalar › Projeler klasörü (örneğin `Documents/Inky`).
+
+## Belgeler
+
+| Dosya | İçerik |
+| --- | --- |
+| `docs/KULLANIM.md` | Masaüstü Inky'nin her özelliğine telefonda, tablette ve DeX'te nereden ulaşılır |
+| `docs/KISAYOLLAR.md` | Bütün klavye kısayolları, masaüstünden farklarıyla |
+| `docs/TASINMAYANLAR.md` | Masaüstünden farklı olan ve taşınmayan her şey, nedeniyle; ink'in burada çalışışındaki farklar |
+| `docs/SOZLUK.md` | ink ve Inky kavramlarının arayüzdeki Türkçe karşılıkları |
+| `docs/CIHAZ-TESTLERI.md` | Telefonda, tablette ve DeX'te elle denenecekler, doğrusu ve bilinen sınırlarıyla |
+| `docs/BAKIM.md` | Güncellerken bakılacaklar; emülatörde duman testi |
+
+## Cihazda denenecekler
+
+Robolectric ve emülatörün gösteremediği her şey (depolama sağlayıcıları, dosya yöneticileri, izinler, DeX,
+klavyeler, hız, dışa aktarılan web sayfası) madde madde, neyin doğru sayılacağıyla ve bilinen sınırlarıyla
+`docs/CIHAZ-TESTLERI.md`'de: S24'te ve Tab S11 Ultra'da (DeX dahil) sürümden önce bir kez denenir.
+
+## Yapı
+
+| Modül | İçerik |
+| --- | --- |
+| `:core` | Saf Kotlin/JVM, Android'siz; JVM testleriyle sınanır. `syntax` (ink'in renklendiricisi, Ace'in kurallarıyla), `symbols` (düğümler, dikişler, değişkenler, `INCLUDE`'lar), `completion`, `search` (her şeye git), `snippets`, `settings` (proje ayar dosyası), `project` (proje modeli, taslaklar, gezinme geçmişi), `engine` (derleme, oynatma, izleme, istatistik, dışa aktarma; ink'in derleyicisi ve çalıştırıcısı [blade-ink](https://github.com/bladecoder/blade-ink-java) 1.3.3, ink 1.2 düzeyinde, modülün kendi API'sinin dışında kalır), `live` (yazdıkça derleyip oynatan oturum). |
+| `:app` | Android uygulaması: `storage` (SAF ve uygulama içi projeler, son projeler, dışa aktarma yazıcıları), `session` (penceredeki açık proje, otomatik kaydetme, taslaklar, geri yükleme), `settings`, `ink` (çekirdek ile kitin düzenleyicisi arasındaki bağlar), `ui` (kabuk, menüler, düzenleyici, oynatıcı, dosyalar, projeler; `ui.extras`: belgeler, ayarlar, istatistikler, dışa aktarma, parçacık adları). |
+
+Araçlar desktop-kit ile aynıdır: Android Gradle eklentisi 9.4.1, Gradle 9.8.2, Kotlin 2.4.20; `minSdk` 34,
+`compileSdk` 37, `targetSdk` 36. Testler Java 21 ister (Robolectric 4.17, API 36). Bütün sürümler
+`gradle/libs.versions.toml`'da sabittir.
+
+## Derleme ve testler
+
+```
+./gradlew :core:test :app:testDebugUnitTest :app:assembleRelease
+```
+
+- Bağımlılıklar Google Maven, Maven Central ve (yalnızca desktop-kit için) JitPack'ten iner.
+- `:core`'un testleri saf JVM'de koşar (yaklaşık 350). Renklendirici Ace'in kendi çıktılarıyla,
+  derleyici ve oynatıcı resmî inklecate 1.2.0'ın çıktılarıyla karşılaştırılır; bu çıktıları üreten
+  betikler `core/src/test/golden/`'da, bilinen farklar
+  `core/src/test/resources/com/inkyandroid/core/golden/engine/KNOWN-DIFFERENCES.md`'de.
+- `:app`'in testleri Robolectric'te koşar (yaklaşık 300): oturum, depolama, ekranların davranışı ve
+  ekranların telefon, tablet ve DeX boyutlarında, açık ve koyu temada ekran görüntüleri
+  (`app/build/outputs/screenshots`; başvuru görüntüleri `app/src/test/screenshots`).
+- CI (`.github/workflows/ci.yml`) her çekme isteğinde ve `master`'a her gönderimde derler, testleri
+  çalıştırır, ekran görüntülerini başvurularla karşılaştırır ve APK'yı çıktı olarak yükler (`inky-apk`).
+  Çekme isteklerinde derleme günlüğü ve test sonuçları `ci/logs-pr-<numara>`, ekran görüntüleri
+  `ci/screenshots-pr-<numara>` dalına konur.
+- Emülatörde duman testi (`.github/workflows/smoke.yml`) istek üzerine çalışır; nasıl, `docs/BAKIM.md`'de.
+
+## Sürüm çıkarma
+
+Sürümler [SemVer](https://semver.org/lang/tr/) kuralına uyar; `versionCode` her sürümde bir artar.
+
+1. Sürümü taşıyan PR `master`'a birleşir (`app/build.gradle.kts`'teki `versionName` ve `CHANGELOG.md`'deki
+   bölüm o PR'ın son commit'idir).
+2. GitHub'da **Releases › Draft a new release**: etiket `versionName` ile aynı ("v" yok), hedef `master`,
+   başka hiçbir şey yazmadan **Publish release**.
+3. `.github/workflows/release.yml` uygulamayı o etiketten sabit anahtarla derler, APK'nın imzasını
+   denetler, `Inky-<sürüm>.apk` dosyasını sürüme ekler, sürümün metnini `CHANGELOG.md`'deki bölümden
+   doldurur ve adında "-" olan sürümü ön sürüm olarak işaretler.
+
+Etiket `master` üzerinde değilse ya da `versionName` ile uyuşmuyorsa iş akışı durur ve nedenini söyler.
+`CHANGELOG.md`'de her madde tek satırdır: sürüm notlarında satır sonları olduğu gibi görünür.
+
+## İmza
+
+Kurulabilir her APK aynı sabit anahtarla (PKCS12, takma adı `inky`) imzalanır; yoksa yeni sürüm
+eskisinin üstüne kurulamaz. Anahtar depoda durmaz: CI onu `SIGNING_KEYSTORE_BASE64` ve
+`SIGNING_KEYSTORE_PASSWORD` gizli değişkenlerinden okur ve her derlemede APK'nın şu sertifikayla
+imzalandığını denetler:
+
+```
+SHA-256 14:67:49:EF:7E:16:D8:65:B9:1B:99:D5:C8:C4:21:14:BC:BA:66:27:D1:67:35:E4:91:C1:94:B4:DA:36:E7:8D
+```
+
+Yerelde aynı anahtarla derlemek için `INKY_KEYSTORE_FILE` anahtar dosyasını, `INKY_KEYSTORE_PASSWORD`
+şifresini gösterir. Bunlar yoksa derleme makinenin geçici debug anahtarıyla imzalar; böyle bir APK sabit
+anahtarla imzalanmış bir kurulumun üstüne kurulamaz. **Anahtar kaybolursa güncelleme yapılamaz:**
+uygulamayı kaldırıp yeniden kurmak gerekir. Anahtarın ve şifresinin bir yedeği GitHub dışında da
+(parola yöneticisinde) durmalıdır.
+
+## Teşekkür ve lisans
+
+- [Inky](https://github.com/inkle/inky) ve [ink](https://github.com/inkle/ink): inkle Ltd., MIT lisansı.
+  Bu uygulama Inky'nin tasarımını izler; başlatıcı simgesi Inky'nin kendi simgesinden yapıldı. *Writing
+  with ink* kılavuzu, parçacıklar, örnek hikâyeler ve web için dışa aktarmanın şablonu Inky'nin
+  deposundan, değiştirilmeden gelir.
+- [blade-ink](https://github.com/bladecoder/blade-ink-java): Rafael Garcia; ink'in Java portu (MIT;
+  Maven paketleri Apache-2.0 der).
+- [inkjs](https://github.com/y-lohse/inkjs) 2.4.0: inkle Ltd. ve inkjs katkıcıları, MIT; web için dışa
+  aktarılan sayfa onunla oynar.
+- [desktop-kit](https://github.com/hesaplarimdijital-coder/desktop-kit): Apache-2.0; IBM Plex yazı
+  tipleri (OFL 1.1) ve Haze (Apache-2.0) ile.
+- [commonmark-java](https://github.com/commonmark/commonmark-java): Atlassian, BSD-2-Clause; kılavuzu okur.
+
+Uygulama MIT lisansıyla dağıtılır (`LICENSE`); üçüncü taraf parçaların ayrıntısı `NOTICE`'ta, lisans
+metinleri uygulamada Ayarlar › Hakkında › Açık kaynak lisansları'nda.

@@ -1,0 +1,1 @@
+{"first": 3, "evaluate": {"after": [0], "inputs": ["x", "x + 1", "x == 15", "x > 3 and x < 100", "name", "colours", "LIST_COUNT(colours)", "some_knot", "\"x is {x}\"", "\"{name} has {x} and {colours}\"", "\"plain words\"", "\"{x + 1} then {x * 2}\"", "nope", "\"{nope}\"", "x +", "\"{double(x)}\"", "double(x)"]}}

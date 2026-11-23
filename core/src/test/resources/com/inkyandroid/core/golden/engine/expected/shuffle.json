@@ -1,0 +1,147 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "main.ink",
+ "files": [
+  "main.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 9,
+  "knots": 0,
+  "stitches": 0,
+  "functions": 0,
+  "choices": 2,
+  "gathers": 1,
+  "diverts": 4
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "Shuffled: heads. Number: 93.\n"
+   },
+   {
+    "choices": [
+     [
+      "Again",
+      []
+     ],
+     [
+      "Stop",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Shuffled: edge. Number: 86.\n"
+   },
+   {
+    "choices": [
+     [
+      "Again",
+      []
+     ],
+     [
+      "Stop",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Shuffled: tails. Number: 80.\n"
+   },
+   {
+    "choices": [
+     [
+      "Again",
+      []
+     ],
+     [
+      "Stop",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Shuffled: heads. Number: 73.\n"
+   },
+   {
+    "choices": [
+     [
+      "Again",
+      []
+     ],
+     [
+      "Stop",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Shuffled: tails. Number: 94.\n"
+   },
+   {
+    "choices": [
+     [
+      "Again",
+      []
+     ],
+     [
+      "Stop",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Shuffled: edge. Number: 36.\n"
+   },
+   {
+    "choices": [
+     [
+      "Again",
+      []
+     ],
+     [
+      "Stop",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Shuffled: tails. Number: 92.\n"
+   },
+   {
+    "choices": [
+     [
+      "Again",
+      []
+     ],
+     [
+      "Stop",
+      []
+     ]
+    ]
+   }
+  ]
+ }
+}

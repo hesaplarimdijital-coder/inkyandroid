@@ -1,0 +1,1996 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "swindlestones.ink",
+ "files": [
+  "swindlestones.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 497,
+  "knots": 28,
+  "stitches": 12,
+  "functions": 24,
+  "choices": 24,
+  "gathers": 6,
+  "diverts": 196
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "You pull up a seat at the table. The Half-Orc opposite picks his teeth with a dagger.\n"
+   },
+   {
+    "text": "'Ready?' he grumbles. He tosses you a stack of dice.\n"
+   },
+   {
+    "choices": [
+     [
+      "'What's the game?'",
+      []
+     ],
+     [
+      "Roll the dice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'What's the game?' you ask.\n"
+   },
+   {
+    "text": "'Swindlestones,' the Half-Orc replies. 'A game of luck and brains.' He chuckles. 'And <i>looks.</i>'\n"
+   },
+   {
+    "choices": [
+     [
+      "'Tell me the rules.'",
+      []
+     ],
+     [
+      "Roll the dice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'Tell me the rules.'\n"
+   },
+   {
+    "text": "'You roll behind your hand. I roll behind mine. You say, \"There are 2 ones on the table,\" or something like that. I call to say, no, I do not believe it - or I say something higher. Higher number, or more dice. When called, we see who is right. Loser loses dice. No dice, loser is loser.'\n"
+   },
+   {
+    "choices": [
+     [
+      "'I understand.'",
+      []
+     ],
+     [
+      "'So the bids keep going up?'",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'I understand.'\n"
+   },
+   {
+    "text": "'Is simple. Now, play.'\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll the dice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You gather up your five dice and throw them behind your palm, getting <b>one 1, three 2s and one 4</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and snorts.\n"
+   },
+   {
+    "text": "'Your bet first,' the Half-Orc grumbles.\n"
+   },
+   {
+    "choices": [
+     [
+      "Bet one ...",
+      []
+     ],
+     [
+      "Bet two ...",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ],
+     [
+      "Bet eight ...",
+      []
+     ],
+     [
+      "Bet nine ...",
+      []
+     ],
+     [
+      "Bet ten ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet one 1",
+      []
+     ],
+     [
+      "Bet one 2",
+      []
+     ],
+     [
+      "Bet one 3",
+      []
+     ],
+     [
+      "Bet one 4",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'I bet <b>one 1</b>,' you declare.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>two 4s</b>. Next, you.'\n"
+   },
+   {
+    "text": "[ You have <b>one 1, three 2s and one 4</b> ]\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ],
+     [
+      "Bet eight ...",
+      []
+     ],
+     [
+      "Bet nine ...",
+      []
+     ],
+     [
+      "Bet ten ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "'I call,' you declare.\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b>one 1, three 2s and one 4</b>, he has <b>one 1, one 2 and three 4s</b>. That puts <b>four 4s </b> on the table.\n"
+   },
+   {
+    "text": "The Half-Orc nods in deep satisfaction, as you push one of your dice away.\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You gather up your four dice and throw them behind your palm, getting <b>two 1s, one 2 and one 4</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and chuckles.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>one 2</b>. What say you?'\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet one ...",
+      []
+     ],
+     [
+      "Bet two ...",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ],
+     [
+      "Bet eight ...",
+      []
+     ],
+     [
+      "Bet nine ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "'I call,' you declare.\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b>two 1s, one 2 and one 4</b>, he has <b> one 2, two 3s and two 4s</b>. That puts <b>two 2s </b> on the table.\n"
+   },
+   {
+    "text": "The Half-Orc nods in deep satisfaction, as you push one of your dice away.\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You gather up your three dice and throw them behind your palm, getting <b>one 1 and two 3s</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and chuckles.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>three 4s</b>. Now - you.'\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ],
+     [
+      "Bet eight ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "'I call,' you declare.\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b>one 1 and two 3s</b>, he has <b> one 2, one 3 and three 4s</b>. That puts <b>three 4s </b> on the table.\n"
+   },
+   {
+    "text": "The Half-Orc nods in deep satisfaction, as you push one of your dice away.\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You gather up your two dice and throw them behind your palm, getting <b>one 1 and one 4</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and snorts.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>three 3s</b>. Too big for you, I think.'\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "'I call,' you declare.\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b>one 1 and one 4</b>, he has <b> two 2s and three 3s</b>. That puts <b>three 3s </b> on the table.\n"
+   },
+   {
+    "text": "The Half-Orc nods in deep satisfaction, as you push one of your dice away.\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You roll the remaining dice behind your palm, getting <b>one 1</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and chuckles.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>one 1</b>. You, now.'\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet one ...",
+      []
+     ],
+     [
+      "Bet two ...",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "'I call,' you declare.\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b>one 1</b>, he has <b>one 1, one 2, two 3s and one 4</b>. That puts <b>two 1s </b> on the table.\n"
+   },
+   {
+    "text": "You toss your last dice, and the creature reaches across the table to scoop the pile of gold into his lap.\n"
+   },
+   {
+    "text": "'I say you loser from moment you sit on chair,' he grumbles with delight. 'Loser face.'\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-1": [
+   {
+    "text": "You pull up a seat at the table. The Half-Orc opposite picks his teeth with a dagger.\n"
+   },
+   {
+    "text": "'Ready?' he grumbles. He tosses you a stack of dice.\n"
+   },
+   {
+    "choices": [
+     [
+      "'What's the game?'",
+      []
+     ],
+     [
+      "Roll the dice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'What's the game?' you ask.\n"
+   },
+   {
+    "text": "'Swindlestones,' the Half-Orc replies. 'A game of luck and brains.' He chuckles. 'And <i>looks.</i>'\n"
+   },
+   {
+    "choices": [
+     [
+      "'Tell me the rules.'",
+      []
+     ],
+     [
+      "Roll the dice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'Tell me the rules.'\n"
+   },
+   {
+    "text": "'You roll behind your hand. I roll behind mine. You say, \"There are 2 ones on the table,\" or something like that. I call to say, no, I do not believe it - or I say something higher. Higher number, or more dice. When called, we see who is right. Loser loses dice. No dice, loser is loser.'\n"
+   },
+   {
+    "choices": [
+     [
+      "'I understand.'",
+      []
+     ],
+     [
+      "'So the bids keep going up?'",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "'So the bids keep going up?'\n"
+   },
+   {
+    "text": "The Half-Orc nods.\n"
+   },
+   {
+    "text": "'Is simple. Now, play.'\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll the dice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You gather up your five dice and throw them behind your palm, getting <b>one 1, three 3s and one 4</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and snorts.\n"
+   },
+   {
+    "text": "'Your bet first,' the Half-Orc grumbles.\n"
+   },
+   {
+    "choices": [
+     [
+      "Bet one ...",
+      []
+     ],
+     [
+      "Bet two ...",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ],
+     [
+      "Bet eight ...",
+      []
+     ],
+     [
+      "Bet nine ...",
+      []
+     ],
+     [
+      "Bet ten ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 7
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet eight 1s",
+      []
+     ],
+     [
+      "Bet eight 2s",
+      []
+     ],
+     [
+      "Bet eight 3s",
+      []
+     ],
+     [
+      "Bet eight 4s",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": "'I bet <b>eight 4s</b>,' you declare.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I call.'\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b>one 1, three 3s and one 4</b>, he has <b>one 1, three 2s and one 3</b>. That puts only <b>one 4</b> on the table.\n"
+   },
+   {
+    "text": "The Half-Orc nods in deep satisfaction, as you push one of your dice away.\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You gather up your four dice and throw them behind your palm, getting <b>one 1, one 3 and two 4s</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and chuckles.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>one 4</b>. Your turn.'\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet two ...",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ],
+     [
+      "Bet eight ...",
+      []
+     ],
+     [
+      "Bet nine ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 6
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet seven 1s",
+      []
+     ],
+     [
+      "Bet seven 2s",
+      []
+     ],
+     [
+      "Bet seven 3s",
+      []
+     ],
+     [
+      "Bet seven 4s",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "'I bet <b>seven 2s</b>,' you declare.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I call.'\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b>one 1, one 3 and two 4s</b>, he has <b>one 1, one 2, one 3 and two 4s</b>. That puts only <b>one 2</b> on the table.\n"
+   },
+   {
+    "text": "The Half-Orc nods in deep satisfaction, as you push one of your dice away.\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You gather up your three dice and throw them behind your palm, getting <b> three 3s</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and snorts.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>one 4</b>. '\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet two ...",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ],
+     [
+      "Bet eight ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 7
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet eight 1s",
+      []
+     ],
+     [
+      "Bet eight 2s",
+      []
+     ],
+     [
+      "Bet eight 3s",
+      []
+     ],
+     [
+      "Bet eight 4s",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'I bet <b>eight 1s</b>,' you declare.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I call.'\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b> three 3s</b>, he has <b>one 1, one 2, two 3s and one 4</b>. That puts only <b>one 1</b> on the table.\n"
+   },
+   {
+    "text": "The Half-Orc nods in deep satisfaction, as you push one of your dice away.\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You gather up your two dice and throw them behind your palm, getting <b> two 2s</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and chuckles.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>three 1s</b>. You, now.'\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet five 1s",
+      []
+     ],
+     [
+      "Bet five 2s",
+      []
+     ],
+     [
+      "Bet five 3s",
+      []
+     ],
+     [
+      "Bet five 4s",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 4
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "'I call,' you declare.\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b> two 2s</b>, he has <b>two 1s, one 2, one 3 and one 4</b>. That puts only <b>two 1s </b> on the table.\n"
+   },
+   {
+    "text": "The Half-Orc grumbles with irritation, and he tosses one of his dice away.\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You gather up your two dice and throw them behind your palm, getting <b>one 1 and one 4</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his four dice and chuckles.\n"
+   },
+   {
+    "text": "'Your bet first,' the Half-Orc grumbles.\n"
+   },
+   {
+    "choices": [
+     [
+      "Bet one ...",
+      []
+     ],
+     [
+      "Bet two ...",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet three 1s",
+      []
+     ],
+     [
+      "Bet three 2s",
+      []
+     ],
+     [
+      "Bet three 3s",
+      []
+     ],
+     [
+      "Bet three 4s",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "'I bet <b>three 2s</b>,' you declare.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I call.'\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b>one 1 and one 4</b>, he has <b>one 1 and three 3s</b>. That puts only <b>zero 2</b> on the table.\n"
+   },
+   {
+    "text": "The Half-Orc nods in deep satisfaction, as you push one of your dice away.\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You roll the remaining dice behind your palm, getting <b> one 4</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his four dice and snorts.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>one 4</b>. What say you?'\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet two ...",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet three 1s",
+      []
+     ],
+     [
+      "Bet three 2s",
+      []
+     ],
+     [
+      "Bet three 3s",
+      []
+     ],
+     [
+      "Bet three 4s",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'I bet <b>three 1s</b>,' you declare.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I call.'\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b> one 4</b>, he has <b> two 2s and two 4s</b>. That puts only <b>zero 1</b> on the table.\n"
+   },
+   {
+    "text": "You toss your last dice, and the creature reaches across the table to scoop the pile of gold into his lap.\n"
+   },
+   {
+    "text": "'I say you loser from moment you sit on chair,' he grumbles with delight. 'Loser face.'\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-2": [
+   {
+    "text": "You pull up a seat at the table. The Half-Orc opposite picks his teeth with a dagger.\n"
+   },
+   {
+    "text": "'Ready?' he grumbles. He tosses you a stack of dice.\n"
+   },
+   {
+    "choices": [
+     [
+      "'What's the game?'",
+      []
+     ],
+     [
+      "Roll the dice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'What's the game?' you ask.\n"
+   },
+   {
+    "text": "'Swindlestones,' the Half-Orc replies. 'A game of luck and brains.' He chuckles. 'And <i>looks.</i>'\n"
+   },
+   {
+    "choices": [
+     [
+      "'Tell me the rules.'",
+      []
+     ],
+     [
+      "Roll the dice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'Tell me the rules.'\n"
+   },
+   {
+    "text": "'You roll behind your hand. I roll behind mine. You say, \"There are 2 ones on the table,\" or something like that. I call to say, no, I do not believe it - or I say something higher. Higher number, or more dice. When called, we see who is right. Loser loses dice. No dice, loser is loser.'\n"
+   },
+   {
+    "choices": [
+     [
+      "'I understand.'",
+      []
+     ],
+     [
+      "'So the bids keep going up?'",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'I understand.'\n"
+   },
+   {
+    "text": "'Is simple. Now, play.'\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll the dice",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You gather up your five dice and throw them behind your palm, getting <b>one 1, one 2, two 3s and one 4</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and chuckles.\n"
+   },
+   {
+    "text": "'Your bet first,' the Half-Orc grumbles.\n"
+   },
+   {
+    "choices": [
+     [
+      "Bet one ...",
+      []
+     ],
+     [
+      "Bet two ...",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ],
+     [
+      "Bet eight ...",
+      []
+     ],
+     [
+      "Bet nine ...",
+      []
+     ],
+     [
+      "Bet ten ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet three 1s",
+      []
+     ],
+     [
+      "Bet three 2s",
+      []
+     ],
+     [
+      "Bet three 3s",
+      []
+     ],
+     [
+      "Bet three 4s",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "'I bet <b>three 3s</b>,' you declare.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>five 3s</b>. Next, you.'\n"
+   },
+   {
+    "text": "[ You have <b>one 1, one 2, two 3s and one 4</b> ]\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ],
+     [
+      "Bet eight ...",
+      []
+     ],
+     [
+      "Bet nine ...",
+      []
+     ],
+     [
+      "Bet ten ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet six 1s",
+      []
+     ],
+     [
+      "Bet six 2s",
+      []
+     ],
+     [
+      "Bet six 3s",
+      []
+     ],
+     [
+      "Bet six 4s",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 4
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ],
+     [
+      "Bet eight ...",
+      []
+     ],
+     [
+      "Bet nine ...",
+      []
+     ],
+     [
+      "Bet ten ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet five 4s",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'I bet <b>five 4s</b>,' you declare.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I call.'\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b>one 1, one 2, two 3s and one 4</b>, he has <b>one 1, two 2s and two 3s</b>. That puts only <b>one 4</b> on the table.\n"
+   },
+   {
+    "text": "The Half-Orc nods in deep satisfaction, as you push one of your dice away.\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You gather up your four dice and throw them behind your palm, getting <b>one 1, one 2, one 3 and one 4</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and snorts.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>one 4</b>. '\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet two ...",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ],
+     [
+      "Bet eight ...",
+      []
+     ],
+     [
+      "Bet nine ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 6
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet seven 1s",
+      []
+     ],
+     [
+      "Bet seven 2s",
+      []
+     ],
+     [
+      "Bet seven 3s",
+      []
+     ],
+     [
+      "Bet seven 4s",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": "'I bet <b>seven 4s</b>,' you declare.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I call.'\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b>one 1, one 2, one 3 and one 4</b>, he has <b> three 2s, one 3 and one 4</b>. That puts only <b>two 4s </b> on the table.\n"
+   },
+   {
+    "text": "The Half-Orc nods in deep satisfaction, as you push one of your dice away.\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You gather up your three dice and throw them behind your palm, getting <b> two 2s and one 3</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and chuckles.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>one 2</b>. Your turn.'\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet one ...",
+      []
+     ],
+     [
+      "Bet two ...",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ],
+     [
+      "Bet eight ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 8
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet eight 1s",
+      []
+     ],
+     [
+      "Bet eight 2s",
+      []
+     ],
+     [
+      "Bet eight 3s",
+      []
+     ],
+     [
+      "Bet eight 4s",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": "'I bet <b>eight 4s</b>,' you declare.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I call.'\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b> two 2s and one 3</b>, he has <b> one 2, two 3s and two 4s</b>. That puts only <b>two 4s </b> on the table.\n"
+   },
+   {
+    "text": "The Half-Orc nods in deep satisfaction, as you push one of your dice away.\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You gather up your two dice and throw them behind your palm, getting <b> one 3 and one 4</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and snorts.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>one 3</b>. I have you, yes.'\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet one ...",
+      []
+     ],
+     [
+      "Bet two ...",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ],
+     [
+      "Bet seven ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "'I call,' you declare.\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b> one 3 and one 4</b>, he has <b>two 1s, two 2s and one 3</b>. That puts <b>two 3s </b> on the table.\n"
+   },
+   {
+    "text": "The Half-Orc nods in deep satisfaction, as you push one of your dice away.\n"
+   },
+   {
+    "choices": [
+     [
+      "Roll again",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You roll the remaining dice behind your palm, getting <b> one 2</b>.\n"
+   },
+   {
+    "text": "The Half-Orc rolls his five dice and snorts.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>one 3</b>. You, now.'\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet one ...",
+      []
+     ],
+     [
+      "Bet two ...",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet two 1s",
+      []
+     ],
+     [
+      "Bet two 2s",
+      []
+     ],
+     [
+      "Bet two 3s",
+      []
+     ],
+     [
+      "Bet two 4s",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": "'I bet <b>two 4s</b>,' you declare.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I bet <b>three 2s</b>. What say you?'\n"
+   },
+   {
+    "text": "[ You have <b> one 2</b> ]\n"
+   },
+   {
+    "choices": [
+     [
+      "Call!",
+      []
+     ],
+     [
+      "Bet three ...",
+      []
+     ],
+     [
+      "Bet four ...",
+      []
+     ],
+     [
+      "Bet five ...",
+      []
+     ],
+     [
+      "Bet six ...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": ""
+   },
+   {
+    "choices": [
+     [
+      "Bet four 1s",
+      []
+     ],
+     [
+      "Bet four 2s",
+      []
+     ],
+     [
+      "Bet four 3s",
+      []
+     ],
+     [
+      "Bet four 4s",
+      []
+     ],
+     [
+      "BACK",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 3
+   },
+   {
+    "text": "'I bet <b>four 4s</b>,' you declare.\n"
+   },
+   {
+    "text": "'Let's see now,' the Half-Orc murmurs, scratching his chin with a hooked nail. 'I call.'\n"
+   },
+   {
+    "text": "The dice are revealed. Alongside my <b> one 2</b>, he has <b>one 1, three 2s and one 4</b>. That puts only <b>one 4</b> on the table.\n"
+   },
+   {
+    "text": "You toss your last dice, and the creature reaches across the table to scoop the pile of gold into his lap.\n"
+   },
+   {
+    "text": "'I say you loser from moment you sit on chair,' he grumbles with delight. 'Loser face.'\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

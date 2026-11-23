@@ -1,0 +1,193 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "storylets.ink",
+ "files": [
+  "storylets.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 38,
+  "knots": 10,
+  "stitches": 0,
+  "functions": 5,
+  "choices": 2,
+  "gathers": 2,
+  "diverts": 24
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "The beginning!\n"
+   },
+   {
+    "choices": [
+     [
+      "Visit the Avocado Witch",
+      []
+     ],
+     [
+      "Visit the Crumpet King",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You visit the witch.\n"
+   },
+   {
+    "choices": [
+     [
+      "Visit the Crumpet King",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You visit the king.\n"
+   },
+   {
+    "choices": [
+     [
+      "Now you have met the King, visit the Banana Boy!",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You visit the boy.\n"
+   },
+   {
+    "text": "There was nothing else to do.\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-1": [
+   {
+    "text": "The beginning!\n"
+   },
+   {
+    "choices": [
+     [
+      "Visit the Avocado Witch",
+      []
+     ],
+     [
+      "Visit the Crumpet King",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You visit the witch.\n"
+   },
+   {
+    "choices": [
+     [
+      "Visit the Crumpet King",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You visit the king.\n"
+   },
+   {
+    "choices": [
+     [
+      "Now you have met the King, visit the Banana Boy!",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You visit the boy.\n"
+   },
+   {
+    "text": "There was nothing else to do.\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-2": [
+   {
+    "text": "The beginning!\n"
+   },
+   {
+    "choices": [
+     [
+      "Visit the Avocado Witch",
+      []
+     ],
+     [
+      "Visit the Crumpet King",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You visit the witch.\n"
+   },
+   {
+    "choices": [
+     [
+      "Visit the Crumpet King",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You visit the king.\n"
+   },
+   {
+    "choices": [
+     [
+      "Now you have met the King, visit the Banana Boy!",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "You visit the boy.\n"
+   },
+   {
+    "text": "There was nothing else to do.\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

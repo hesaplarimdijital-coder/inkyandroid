@@ -1,0 +1,20 @@
+{
+ "stackNodes": [],
+ "lines": [
+  ["punctuation.definition.comment.json0",["punctuation.definition.comment.json","/*"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tDoes a list item originate from a particular list? Returns false if testing ()."]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tUsage: "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tLIST Fruits = apple, banana, melon"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tLIST Veggies = carrot, cucumber "]],
+  ["punctuation.definition.comment.json0"],
+  ["punctuation.definition.comment.json0",["comment.block.json","\t~ temp x = apple"]],
+  ["punctuation.definition.comment.json0",["comment.block.json","\tI eat the {list_item_is_member_of(x, Fruits):fruit|vegetable}."]],
+  ["punctuation.definition.comment.json0"],
+  ["start",["punctuation.definition.comment.json","*/"]],
+  ["start"],
+  ["start",["flow.knot.declaration.punctuation","==="],["flow.knot.declaration"," "],["flow.knot.declaration.function","function"],["flow.knot.declaration"," "],["flow.knot.declaration.name","list_item_is_member_of"],["flow.knot.declaration.parameters","(k, list)"],["flow.knot.declaration"," "]],
+  ["start",["logic.tilda","   \t~ return k && LIST_ALL(list) ? k"]]
+ ]
+}

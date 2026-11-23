@@ -1,0 +1,4 @@
+{
+ "instructionPrefix": "(",
+ "error": "SyntaxError: Invalid regular expression: /(\\s*)(()(.*)/: Unterminated group"
+}

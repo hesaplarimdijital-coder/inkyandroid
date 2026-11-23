@@ -1,0 +1,1568 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "pontoon_example.ink",
+ "files": [
+  "pontoon_example.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 888,
+  "knots": 30,
+  "stitches": 0,
+  "functions": 29,
+  "choices": 25,
+  "gathers": 18,
+  "diverts": 205
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "VO: I throw two ten-pound notes onto the table.\n"
+   },
+   {
+    "text": "VO: Carstairs collects together all the cards, and riffles them before dealing the first two cards.\n"
+   },
+   {
+    "text": "CARSTAIRS: First card is an Eight in Clubs.\n"
+   },
+   {
+    "text": "CARSTAIRS: And the dealer... gets the Two of Diamonds.\n"
+   },
+   {
+    "text": "CARSTAIRS: You can fold, or make a bet to stay in.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Pass.\n"
+   },
+   {
+    "text": "VO: Carstairs takes the stake and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... three hundred and eighty pounds left ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Keep going?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: Hit me.\n"
+   },
+   {
+    "text": "V: Twenty pounds.\n"
+   },
+   {
+    "text": "CARSTAIRS: The pot stands at twenty pounds.\n"
+   },
+   {
+    "text": "VO: Carstairs deals out my first card face up .\n"
+   },
+   {
+    "text": "CARSTAIRS: The lady has the Seven of Hearts.\n"
+   },
+   {
+    "text": "CARSTAIRS: And it's a Four in Diamonds for me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Fold.\n"
+   },
+   {
+    "text": "VO: Carstairs collects the pot and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... I'm down to three hundred and sixty pounds ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Have you had enough?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: Let's try again.\n"
+   },
+   {
+    "text": "VO: I toss in my ante.\n"
+   },
+   {
+    "text": "VO: Carstairs spins me a new card from the deck.\n"
+   },
+   {
+    "text": "CARSTAIRS: The lady gets a Nine in Clubs.\n"
+   },
+   {
+    "text": "CARSTAIRS: And I have the Queen of Spades.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Pass.\n"
+   },
+   {
+    "text": "VO: Carstairs scoops up the money from the table and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... three hundred and forty pounds left ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Again?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: Another!\n"
+   },
+   {
+    "text": "VO: Carstairs passes me an opening card from the top of the deck.\n"
+   },
+   {
+    "text": "CARSTAIRS: the Nine of Hearts.\n"
+   },
+   {
+    "text": "CARSTAIRS: Dealer has the Jack of Diamonds.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Fold.\n"
+   },
+   {
+    "text": "VO: Carstairs takes the money and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... I'm down to three hundred and twenty pounds ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Again?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: Deal.\n"
+   },
+   {
+    "text": "VO: Carstairs tosses over my first card face up .\n"
+   },
+   {
+    "text": "CARSTAIRS: The lady receives the Two of Hearts.\n"
+   },
+   {
+    "text": "CARSTAIRS: And it's the Four of Spades for me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Fold.\n"
+   },
+   {
+    "text": "VO: Carstairs collects the stake and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... I'm down to three hundred pounds ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Have you had enough?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: Hit me.\n"
+   },
+   {
+    "text": "VO: Carstairs deals out a new card from the top of the deck.\n"
+   },
+   {
+    "text": "CARSTAIRS: a Ten in Clubs.\n"
+   },
+   {
+    "text": "CARSTAIRS: Dealer gets... the King of Diamonds.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Pass.\n"
+   },
+   {
+    "text": "VO: Carstairs takes the pot and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... two hundred and eighty pounds left ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Keep going?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: Deal.\n"
+   },
+   {
+    "text": "VO: Carstairs tosses over my first card face up .\n"
+   },
+   {
+    "text": "CARSTAIRS: First out is the Five of Clubs.\n"
+   },
+   {
+    "text": "CARSTAIRS: And it's the Jack of Hearts for me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Fold.\n"
+   },
+   {
+    "text": "VO: Carstairs takes the money off the table and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... I'm down to two hundred and sixty pounds ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Again?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: Another!\n"
+   },
+   {
+    "text": "VO: Carstairs spins me my first card face up .\n"
+   },
+   {
+    "text": "CARSTAIRS: The lady has the Jack of Clubs.\n"
+   },
+   {
+    "text": "CARSTAIRS: And it's the Ace of Spades for me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Pass.\n"
+   },
+   {
+    "text": "VO: Carstairs scoops up the stake and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... two hundred and forty pounds left ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Keep going?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: I'll play another round.\n"
+   },
+   {
+    "text": "VO: Carstairs passes me an opening card from the deck.\n"
+   },
+   {
+    "text": "CARSTAIRS: a Ten in Spades.\n"
+   },
+   {
+    "text": "CARSTAIRS: And I have a Seven in Diamonds.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Pass.\n"
+   },
+   {
+    "text": "VO: Carstairs takes the pot and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... two hundred and twenty pounds left ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Have you had enough?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: I'll play a little more.\n"
+   },
+   {
+    "text": "VO: Carstairs deals out my first card face up .\n"
+   },
+   {
+    "text": "CARSTAIRS: The lady receives the Three of Spades.\n"
+   },
+   {
+    "text": "CARSTAIRS: And it's the Queen of Hearts for me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Fold.\n"
+   },
+   {
+    "text": "VO: Carstairs scoops up the pot and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... I'm down to two hundred pounds ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Have you had enough?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: I'm not finished yet.\n"
+   },
+   {
+    "text": "VO: Carstairs spins me an opening card from the top of the deck.\n"
+   },
+   {
+    "text": "CARSTAIRS: The lady gets the Two of Clubs.\n"
+   },
+   {
+    "text": "CARSTAIRS: Dealer has the Eight of Hearts.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet 100",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Pass.\n"
+   },
+   {
+    "text": "VO: Carstairs collects the stake and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... one hundred and eighty pounds left ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Keep going?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: I'll play a little more.\n"
+   },
+   {
+    "text": "VO: Carstairs tosses over a new card from the deck.\n"
+   },
+   {
+    "text": "CARSTAIRS: First out is the Six of Spades.\n"
+   },
+   {
+    "text": "CARSTAIRS: And I have the Three of Hearts.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet 100",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Fold.\n"
+   },
+   {
+    "text": "VO: Carstairs takes the money and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... I'm down to one hundred and sixty pounds ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Again?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: I'll play another round.\n"
+   },
+   {
+    "text": "VO: Carstairs passes me my first card face up .\n"
+   },
+   {
+    "text": "CARSTAIRS: The lady gets the Two of Spades.\n"
+   },
+   {
+    "text": "CARSTAIRS: And it's the Nine of Spades for me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet 100",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Fold.\n"
+   },
+   {
+    "text": "VO: Carstairs scoops up the pot and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... I'm down to one hundred and forty pounds ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Have you had enough?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: I'm not finished yet.\n"
+   },
+   {
+    "text": "VO: Carstairs tosses over an opening card from the top of the deck.\n"
+   },
+   {
+    "text": "CARSTAIRS: First card is the Queen of Clubs.\n"
+   },
+   {
+    "text": "CARSTAIRS: Dealer gets... a Ten in Hearts.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet 100",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Pass.\n"
+   },
+   {
+    "text": "VO: Carstairs takes the money and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... one hundred and twenty pounds left ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Again?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: I'll play a little more.\n"
+   },
+   {
+    "text": "VO: Carstairs passes me my first card face up .\n"
+   },
+   {
+    "text": "CARSTAIRS: the Six of Diamonds.\n"
+   },
+   {
+    "text": "CARSTAIRS: And it's the Three of Diamonds for me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet 100",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Fold.\n"
+   },
+   {
+    "text": "VO: Carstairs takes the stake and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... I'm down to one hundred pounds ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Keep going?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: I'm not finished yet.\n"
+   },
+   {
+    "text": "VO: Carstairs deals out my first card face up .\n"
+   },
+   {
+    "text": "CARSTAIRS: The lady has the King of Clubs.\n"
+   },
+   {
+    "text": "CARSTAIRS: And it's a Five in Spades for me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet 100",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Pass.\n"
+   },
+   {
+    "text": "VO: Carstairs collects the stake and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... eighty pounds left ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Keep going?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: I'd better be lucky this time!\n"
+   },
+   {
+    "text": "VO: Carstairs spins me a new card from the deck.\n"
+   },
+   {
+    "text": "CARSTAIRS: First out is a Nine in Diamonds.\n"
+   },
+   {
+    "text": "CARSTAIRS: And I have an Eight in Spades.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet 100",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Pass.\n"
+   },
+   {
+    "text": "VO: Carstairs takes the pot and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... sixty pounds left ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Again?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "VO: Carstairs tosses over my first card face up .\n"
+   },
+   {
+    "text": "CARSTAIRS: The lady receives the Four of Hearts.\n"
+   },
+   {
+    "text": "CARSTAIRS: And it's the Seven of Spades for me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet 100",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Fold.\n"
+   },
+   {
+    "text": "VO: Carstairs collects the money off the table and gathers up the cards.\n"
+   },
+   {
+    "text": "V: You've cleaned me out!\n"
+   },
+   {
+    "text": "CARSTAIRS: I'm sorry to hear that, Mrs V.\n"
+   },
+   {
+    "text": "CARSTAIRS: Thanks for the game.\n"
+   },
+   {
+    "text": "VO: He tucks his winnings into his waistcoat pocket and grins like an idiot.\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-1": [
+   {
+    "text": "VO: I throw two ten-pound notes onto the table.\n"
+   },
+   {
+    "text": "VO: Carstairs collects together all the cards, and riffles them before dealing the first two cards.\n"
+   },
+   {
+    "text": "CARSTAIRS: First card is the Five of Spades.\n"
+   },
+   {
+    "text": "CARSTAIRS: And the dealer... gets a Four in Spades.\n"
+   },
+   {
+    "text": "CARSTAIRS: You can fold, or make a bet to stay in.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Pass.\n"
+   },
+   {
+    "text": "VO: Carstairs takes the stake and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... three hundred and eighty pounds left ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Keep going?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: Another!\n"
+   },
+   {
+    "text": "V: Twenty pounds.\n"
+   },
+   {
+    "text": "CARSTAIRS: The pot stands at twenty pounds.\n"
+   },
+   {
+    "text": "VO: Carstairs tosses over my first card face up .\n"
+   },
+   {
+    "text": "CARSTAIRS: The lady has the Three of Clubs.\n"
+   },
+   {
+    "text": "CARSTAIRS: And it's a Ten in Clubs for me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "V: I put in fifty pounds .\n"
+   },
+   {
+    "text": "CARSTAIRS: The stake is seventy pounds.\n"
+   },
+   {
+    "text": "VO: He hands out a second card, face-down.\n"
+   },
+   {
+    "text": "CARSTAIRS: Take a look, don't let me see.\n"
+   },
+   {
+    "text": "V: ... a Six in Diamonds: total of nine ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "VO: He deals one more for himself, face down.\n"
+   },
+   {
+    "choices": [
+     [
+      "Stick  on nine",
+      []
+     ],
+     [
+      "Twist",
+      []
+     ],
+     [
+      "Buy for fifty",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "CARSTAIRS: Final bet is seventy pounds.\n"
+   },
+   {
+    "text": "CARSTAIRS: Let's see what I have...\n"
+   },
+   {
+    "text": "CARSTAIRS: the Ten of Clubs and the Queen of Clubs face up.\n"
+   },
+   {
+    "text": "CARSTAIRS: for a total of twenty.\n"
+   },
+   {
+    "text": "CARSTAIRS: Dealer sticks on twenty.\n"
+   },
+   {
+    "text": "VO: I lay my cards down.\n"
+   },
+   {
+    "text": "V: I've got only nine.\n"
+   },
+   {
+    "text": "CARSTAIRS: Dealer wins!\n"
+   },
+   {
+    "text": "VO: Carstairs collects the money from the table and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... I'm down to three hundred and ten pounds ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Again?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: Perhaps later.\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-2": [
+   {
+    "text": "VO: I throw two ten-pound notes onto the table.\n"
+   },
+   {
+    "text": "VO: Carstairs collects together all the cards, and riffles them quickly before dealing the first two cards.\n"
+   },
+   {
+    "text": "CARSTAIRS: First card is the Eight of Hearts.\n"
+   },
+   {
+    "text": "CARSTAIRS: And the dealer... gets the Two of Spades.\n"
+   },
+   {
+    "text": "CARSTAIRS: You can fold, or make a bet to stay in.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Pass.\n"
+   },
+   {
+    "text": "VO: Carstairs takes the money from the table and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... three hundred and eighty pounds left ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Again?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: Deal.\n"
+   },
+   {
+    "text": "V: Twenty pounds.\n"
+   },
+   {
+    "text": "CARSTAIRS: The pot stands at twenty pounds.\n"
+   },
+   {
+    "text": "VO: Carstairs passes me my first card face up .\n"
+   },
+   {
+    "text": "CARSTAIRS: The lady gets a Queen in Diamonds.\n"
+   },
+   {
+    "text": "CARSTAIRS: And it's a Nine in Hearts for me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Fold",
+      []
+     ],
+     [
+      "Bet 50",
+      []
+     ],
+     [
+      "Bet higher...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "V: Fold.\n"
+   },
+   {
+    "text": "VO: Carstairs collects the pot and gathers up the cards.\n"
+   },
+   {
+    "text": "V: ... I'm down to three hundred and sixty pounds ...\n"
+   },
+   {
+    "tags": [
+     "thought"
+    ]
+   },
+   {
+    "text": "CARSTAIRS: Have you had enough?\n"
+   },
+   {
+    "choices": [
+     [
+      "Play another round",
+      []
+     ],
+     [
+      "Stop playing",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "\n"
+   },
+   {
+    "text": "V: Perhaps later.\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

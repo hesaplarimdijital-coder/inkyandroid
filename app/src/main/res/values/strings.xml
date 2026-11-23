@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Inky</string>
+    <!-- storage (com.inkyandroid.storage): begin -->
+    <string name="storage_error_permission_lost">Inky may no longer use this folder. Open it again to grant access.</string>
+    <string name="storage_error_not_found">The file or folder is no longer there.</string>
+    <string name="storage_error_already_exists">A file with this name already exists.</string>
+    <string name="storage_error_folder_too_large">This folder holds too many files to be a story project. Pick the folder of the story itself.</string>
+    <string name="storage_error_not_text">This file is not UTF-8 text, so Inky does not open it.</string>
+    <string name="storage_error_read_only">This file was shared read-only. Grant access to its folder to save it.</string>
+    <string name="storage_error_provider_failed">The storage did not carry out the request. Try again.</string>
+    <!-- storage: end -->
+    <!-- ui (com.inkyandroid.ui): begin -->
+    <!-- navigation -->
+    <string name="nav_write">Write</string>
+    <string name="nav_play">Play</string>
+    <string name="nav_files">Files</string>
+    <string name="nav_issues">Issues</string>
+    <string name="nav_projects">Projects</string>
+    <string name="nav_docs">Docs</string>
+    <string name="nav_unused_files">Unused files</string>
+    <!-- menus (the menu bar, the "⋯" sheet, the palette) -->
+    <string name="menu_file">File</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_story">Story</string>
+    <string name="menu_ink">Ink</string>
+    <!-- commands -->
+    <string name="action_new_project">New project…</string>
+    <string name="action_new_include">New included ink file…</string>
+    <string name="action_open_folder">Open folder…</string>
+    <string name="action_open_file">Open file…</string>
+    <string name="action_open_recent">Recent projects</string>
+    <string name="action_insert_snippet">Insert snippet…</string>
+    <string name="action_clear_recent">Clear</string>
+    <string name="action_save">Save project</string>
+    <string name="action_reload">Reload from storage</string>
+    <string name="action_close_project">Close project</string>
+    <string name="action_export_json">Export to JSON…</string>
+    <string name="action_export_web">Export for web…</string>
+    <string name="action_export_js">Export story.js only…</string>
+    <string name="action_undo">Undo</string>
+    <string name="action_redo">Redo</string>
+    <string name="action_cut">Cut</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_paste">Paste</string>
+    <string name="action_select_all">Select all</string>
+    <string name="action_find">Find…</string>
+    <string name="action_replace">Find and replace…</string>
+    <string name="action_toggle_comment">Toggle comment</string>
+    <string name="action_complete">Show suggestions</string>
+    <string name="action_zoom_in">Zoom in</string>
+    <string name="action_zoom_out">Zoom out</string>
+    <string name="action_zoom_reset">Actual size</string>
+    <string name="action_toggle_inspector">Show or hide the side pane</string>
+    <string name="action_show_player">Show the player</string>
+    <string name="action_show_issues">Show the issues</string>
+    <string name="action_show_outline">Show the outline</string>
+    <string name="action_show_watches">Show the watches</string>
+    <string name="action_autocomplete">Auto-complete</string>
+    <string name="action_play_animation">Play view animation</string>
+    <string name="action_tags_visible">Tags visible</string>
+    <string name="action_goto_anything">Go to anything…</string>
+    <string name="action_goto_line">Go to line…</string>
+    <string name="action_goto_definition">Go to definition</string>
+    <string name="action_next_issue">Next issue</string>
+    <string name="action_back">Back</string>
+    <string name="action_forward">Forward</string>
+    <string name="action_add_watch">Add watch expression…</string>
+    <string name="action_statistics">Word count and more</string>
+    <string name="action_step_back">Rewind a single choice</string>
+    <string name="action_restart">Restart story</string>
+    <string name="action_documentation">Show documentation</string>
+    <string name="action_play">Play</string>
+    <string name="action_rename">Rename…</string>
+    <string name="action_delete">Delete…</string>
+    <string name="action_rename_confirm">Rename</string>
+    <string name="action_retry">Try again</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_add">Add</string>
+    <string name="action_create">Create</string>
+    <string name="action_close">Close</string>
+    <!-- the command palette ("Go to anything") -->
+    <string name="palette_hint">File, knot, line or text</string>
+    <string name="palette_group_goto">Go to</string>
+    <string name="palette_group_files">Files</string>
+    <string name="palette_group_symbols">Knots and stitches</string>
+    <string name="palette_group_text">Text</string>
+    <string name="palette_group_screens">Screens</string>
+    <string name="palette_group_projects">Projects</string>
+    <string name="palette_goto_line">Go to line %1$d</string>
+    <string name="no_picker">There is no app on this device to pick files with.</string>
+    <string name="snippet_inserted">Inserted into %1$s</string>
+    <string name="action_show">Show</string>
+    <string name="shortcuts_in_editor">in the editor</string>
+    <string name="palette_line_place">%1$s – line %2$d</string>
+    <string name="palette_symbol_place">in %1$s · %2$s – line %3$d</string>
+    <string name="palette_runtime_path_lookup">Look up internal runtime path %1$s</string>
+    <string name="palette_runtime_path_unknown">No place in the ink was found for the runtime path %1$s</string>
+    <!-- the player -->
+    <string name="player_end">End of story</string>
+    <string name="player_stale">The ink has errors. This is the last story that compiled.</string>
+    <string name="player_show_issues">Show the issues</string>
+    <string name="player_errors_title">The ink has errors</string>
+    <string name="player_crash_title">The ink compiler failed</string>
+    <string name="player_crash_text">The compiler stopped on this text with an unexpected error. Your text is safe; undoing the last change usually brings the story back.</string>
+    <string name="player_crash_diagnostic">Diagnostic information</string>
+    <string name="player_silent_title">The story says nothing yet</string>
+    <string name="player_silent_description">Text you write at the top of the main file is played here as you type.</string>
+    <string name="player_stopped_lines">The story kept producing text without reaching a choice, and was stopped.</string>
+    <string name="player_stopped_time">This turn took too long and was stopped. A loop without an end is the usual cause.</string>
+    <string name="player_stopped_failure">The story could not go on from here.</string>
+    <string name="player_stopped_depth">The story called functions or tunnels inside one another without end, and was stopped.</string>
+    <string name="player_compiling">Compiling the story</string>
+    <string name="player_open_source">Go to the ink of this line</string>
+    <string name="player_status_turn">Turn %1$d</string>
+    <string name="player_status_start">Start of the story</string>
+    <string name="player_status_errors">Ink has errors</string>
+    <string name="player_title">Player</string>
+    <string name="issue_at_line">Line %1$d: %2$s</string>
+    <string name="watch_result">Watch %1$s: %2$s</string>
+    <string name="watch_failed">Watch %1$s failed: %2$s</string>
+    <!-- issues -->
+    <string name="issues_none_title">No issues</string>
+    <string name="issues_none_description">Errors, warnings and TODO notes of the project are listed here as you type.</string>
+    <string name="issues_project_wide">Whole project</string>
+    <string name="issue_kind_error">Error</string>
+    <string name="issue_kind_runtime_error">Runtime error</string>
+    <string name="issue_kind_warning">Warning</string>
+    <string name="issue_kind_runtime_warning">Runtime warning</string>
+    <string name="issue_kind_todo">TODO</string>
+    <string name="issue_line">Line %1$d</string>
+    <!-- outline -->
+    <string name="outline_title">Outline</string>
+    <string name="outline_content">Content</string>
+    <string name="outline_functions">Functions</string>
+    <string name="outline_externals">Externals</string>
+    <string name="outline_empty">Knots, stitches and functions are indexed here</string>
+    <string name="outline_current">cursor is here</string>
+    <!-- watches -->
+    <string name="watches_title">Watches</string>
+    <string name="watches_every_turn">Every turn:</string>
+    <string name="watches_empty_title">Nothing is watched</string>
+    <string name="watches_empty_description">A watch expression is ink text evaluated after every turn, such as “x is {x}”. Its result shows in the player.</string>
+    <string name="watches_add">Add watch expression</string>
+    <string name="watches_expression">Watch expression</string>
+    <string name="watches_remove">Remove this watch</string>
+    <!-- files -->
+    <string name="files_main">Main ink file</string>
+    <string name="files_unsaved">unsaved changes</string>
+    <string name="files_not_on_storage">not saved yet</string>
+    <string name="files_conflict">changed outside Inky</string>
+    <string name="files_missing_title">Included files that do not exist</string>
+    <string name="files_missing_create">Create</string>
+    <string name="files_add_include">Add new include</string>
+    <string name="files_root_folder">Main folder</string>
+    <string name="include_title">New included ink file</string>
+    <string name="include_name">Enter new ink filename:</string>
+    <string name="include_placeholder">Folder/inkFileName.ink</string>
+    <string name="include_add_to_main">Add to main ink</string>
+    <string name="include_add_to_main_hint">Writes an INCLUDE line for the new file into the main file.</string>
+    <string name="include_exists">Could not create new include file at %1$s because it already exists.</string>
+    <string name="include_invalid">This is not a usable file name.</string>
+    <string name="include_added">%1$s added</string>
+    <string name="rename_title">Rename file</string>
+    <string name="rename_name">New name</string>
+    <string name="rename_hint">INCLUDE lines that name the file are rewritten.</string>
+    <string name="rename_exists">A file named %1$s already exists.</string>
+    <string name="rename_main">The main file cannot be renamed: the project is named after it.</string>
+    <string name="rename_failed">The file could not be renamed: %1$s</string>
+    <string name="rename_done">Renamed to %1$s</string>
+    <string name="delete_title">Delete %1$s?</string>
+    <string name="delete_text">The file is removed from the project and from storage. INCLUDE lines that name it stay as they are.</string>
+    <string name="delete_main">The main file cannot be deleted.</string>
+    <string name="delete_failed">The file could not be deleted: %1$s</string>
+    <string name="delete_done">%1$s deleted</string>
+    <string name="delete_confirm">Delete</string>
+    <!-- saving, storage, drafts -->
+    <string name="save_done">Project saved</string>
+    <string name="save_nothing">Everything is saved already</string>
+    <string name="save_failed_title">Could not save</string>
+    <string name="save_failed_one">%1$s: %2$s Your text is kept on this device until it can be saved.</string>
+    <string name="conflict_title">%1$s changed outside Inky</string>
+    <string name="conflict_text">The file on storage and your unsaved text differ. Nothing is overwritten until you choose.</string>
+    <string name="conflict_keep_mine">Keep mine</string>
+    <string name="conflict_load_theirs">Load from storage</string>
+    <string name="storage_problem_title">The project folder cannot be reached</string>
+    <string name="draft_problem_title">Unsaved text could not be secured on this device</string>
+    <string name="reload_done">Up to date with storage</string>
+    <string name="settings_problem_title">Project settings error</string>
+    <string name="settings_problem_empty">Project settings file appeared to be empty: %1$s</string>
+    <string name="settings_problem_json">Project settings file appeared to be invalid JSON: %1$s: %2$s</string>
+    <string name="settings_problem_entry">Project settings file %1$s: “%2$s” is not understood and was left out.</string>
+    <string name="close_question_title">Would you like to save changes before exiting?</string>
+    <string name="close_question_text">Your changes will be lost if you don\'t save.</string>
+    <string name="close_save">Save</string>
+    <string name="close_dont_save">Don\'t save</string>
+    <!-- the editor -->
+    <string name="editor_label">Ink editor, %1$s</string>
+    <string name="editor_placeholder">Write your story here</string>
+    <string name="editor_unsaved_mark">%1$s •</string>
+    <string name="editor_no_definition">No definition found for “%1$s”</string>
+    <string name="editor_no_include">There is no file named “%1$s” in the project</string>
+    <string name="editor_not_a_link">Put the cursor on a divert target or an INCLUDE path first</string>
+    <string name="keys_strip">Ink symbols</string>
+    <string name="keys_tab">Tab</string>
+    <string name="keys_insert">Insert %1$s</string>
+    <string name="completion_keyword">Ink keyword</string>
+    <string name="completion_divert">Divert target</string>
+    <string name="completion_variable">Variable</string>
+    <string name="completion_vocabulary">Vocabulary</string>
+    <!-- projects -->
+    <string name="projects_recent">Recent projects</string>
+    <string name="projects_recent_none">None</string>
+    <string name="projects_on_device">Inside Inky</string>
+    <string name="projects_start">Start</string>
+    <string name="projects_open_current">Open now</string>
+    <string name="projects_remove_recent">Remove from the list</string>
+    <string name="projects_copy_out">Copy to a folder…</string>
+    <string name="projects_delete_internal">Delete the project…</string>
+    <string name="projects_delete_title">Delete the project “%1$s”?</string>
+    <string name="projects_delete_text">The project is kept inside Inky only. Deleting it removes its files for good.</string>
+    <string name="projects_kind_folder">Folder</string>
+    <string name="projects_kind_internal">Inside Inky</string>
+    <string name="projects_kind_single">Single file</string>
+    <string name="projects_row_subtitle">%1$s · %2$s</string>
+    <string name="projects_opening">Opening %1$s</string>
+    <string name="projects_failed_title">The project could not be opened</string>
+    <string name="projects_choose">Choose a project</string>
+    <string name="new_project_title">New project</string>
+    <string name="new_project_name">Project name</string>
+    <string name="new_project_where">Where</string>
+    <string name="new_project_in_folder">Projects folder (%1$s)</string>
+    <string name="new_project_pick">Another folder…</string>
+    <string name="new_project_internal">Inside Inky</string>
+    <string name="new_project_internal_hint">Kept in the app\'s own storage. It can be copied to a folder later.</string>
+    <string name="new_project_folder_hint">Creates a folder with this name and a main ink file in it.</string>
+    <string name="new_project_invalid">This name cannot be used for a folder.</string>
+    <string name="main_file_title">Which file is the main ink file?</string>
+    <string name="main_file_text">Several files in this folder are not included by any other. The story starts in the main file.</string>
+    <string name="no_ink_title">No ink files in “%1$s”</string>
+    <string name="no_ink_text">Start a new project in this folder?</string>
+    <string name="single_file_banner">Only this file is open. Grant access to its folder so that INCLUDE files load and new ones can be added.</string>
+    <string name="single_file_read_only">This file was shared read-only. Grant access to its folder to save changes.</string>
+    <string name="single_file_grant">Grant access</string>
+    <string name="single_file_wrong_folder">Pick the folder that holds %1$s.</string>
+    <string name="copy_done">Copied to %1$s</string>
+    <string name="copy_skipped">Copied to %1$s; %2$d files that are not text were left out</string>
+    <string name="not_text">%1$s is not UTF-8 text, so Inky does not open it.</string>
+    <string name="sample_project_name">First story</string>
+    <string name="no_project_title">No project is open</string>
+    <string name="no_project_description">Open a folder or an ink file, or start a new project.</string>
+    <plurals name="player_errors_description">
+        <item quantity="one">%d error keeps the story from playing. It plays here as soon as the ink compiles.</item>
+        <item quantity="other">%d errors keep the story from playing. It plays here as soon as the ink compiles.</item>
+    </plurals>
+    <plurals name="issues_count">
+        <item quantity="one">%d issue</item>
+        <item quantity="other">%d issues</item>
+    </plurals>
+    <plurals name="issues_errors">
+        <item quantity="one">%d error</item>
+        <item quantity="other">%d errors</item>
+    </plurals>
+    <plurals name="issues_warnings">
+        <item quantity="one">%d warning</item>
+        <item quantity="other">%d warnings</item>
+    </plurals>
+    <plurals name="issues_todos">
+        <item quantity="one">%d TODO</item>
+        <item quantity="other">%d TODOs</item>
+    </plurals>
+    <plurals name="save_failed_many">
+        <item quantity="one">%d file could not be saved. Your text is kept on this device until it can be.</item>
+        <item quantity="other">%d files could not be saved. Your text is kept on this device until they can be.</item>
+    </plurals>
+    <plurals name="restored_files">
+        <item quantity="one">Unsaved changes of %d file were restored from this device.</item>
+        <item quantity="other">Unsaved changes of %d files were restored from this device.</item>
+    </plurals>
+    <plurals name="files_issue_count">
+        <item quantity="one">%d issue</item>
+        <item quantity="other">%d issues</item>
+    </plurals>
+    <plurals name="reload_report">
+        <item quantity="one">%d file was brought up to date with storage</item>
+        <item quantity="other">%d files were brought up to date with storage</item>
+    </plurals>
+    <string name="project_open_elsewhere_title">This project is open in another window</string>
+    <string name="project_open_elsewhere_text">A project is open in one window at a time, so that its unsaved text stays in one place. Choose another project here, or go on in the other window.</string>
+    <plurals name="project_drafts_kept">
+        <item quantity="one">The unsaved text of %d file is kept and comes back when the project opens again.</item>
+        <item quantity="other">The unsaved text of %d files is kept and comes back when the project opens again.</item>
+    </plurals>
+    <string name="files_unreadable_title">Files that could not be read</string>
+    <string name="include_needs_folder">A project of a single file has no folder for another file: grant its folder first (the banner above the text offers it).</string>
+    <string name="conflict_kept_note">Whichever you choose, the text it replaces is kept: under File › Kept versions (loading from storage can also be undone).</string>
+    <string name="action_kept_versions">Kept versions…</string>
+    <string name="kept_title">Kept versions</string>
+    <string name="kept_text">Before a conflict\'s answer replaced a text, the app kept it here. Bring one back into its file (Undo takes it out again), or forget it.</string>
+    <string name="kept_empty">No text was kept: a conflict\'s answer keeps the text it replaces here.</string>
+    <string name="kept_mine">Your text</string>
+    <string name="kept_theirs">From storage</string>
+    <string name="kept_restore">Bring back</string>
+    <string name="kept_forget">Forget</string>
+    <string name="kept_restored">%1$s has the kept text again; Undo takes it out</string>
+    <string name="kept_copied">%1$s is no longer in the project: its kept text is on the clipboard</string>
+    <string name="kept_too_long">%1$s is no longer in the project, and its kept text is too long for the clipboard: add a new ink file at %1$s, then bring the text back into it</string>
+    <string name="kept_just_now">just now</string>
+    <!-- ui: end -->
+</resources>

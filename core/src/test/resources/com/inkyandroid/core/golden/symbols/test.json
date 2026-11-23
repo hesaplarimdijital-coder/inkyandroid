@@ -1,0 +1,22 @@
+{
+ "root": [],
+ "topLevelKeys": [],
+ "topLevelValues": [],
+ "includes": [],
+ "lastIncludeRow": -1,
+ "globalTags": [],
+ "dictionaryTags": [],
+ "divertTargets": [],
+ "variables": [],
+ "externals": [],
+ "vocabWords": ["This","test","ink","file","that","useful","for","automatically","loading","some","content","during","development"],
+ "symbolAtRow": [null,null,null,null,null,null],
+ "flowAtRow": [
+  {},
+  {},
+  {},
+  {},
+  {},
+  {}
+ ]
+}

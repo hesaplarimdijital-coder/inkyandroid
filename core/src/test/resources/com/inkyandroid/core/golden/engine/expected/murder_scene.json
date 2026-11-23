@@ -1,0 +1,1511 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "murder_scene.ink",
+ "files": [
+  "murder_scene.ink"
+ ],
+ "compile": {
+  "success": true,
+  "issues": []
+ },
+ "statistics": {
+  "words": 1186,
+  "knots": 8,
+  "stitches": 4,
+  "functions": 6,
+  "choices": 51,
+  "gathers": 14,
+  "diverts": 77
+ },
+ "transcripts": {
+  "first": [
+   {
+    "text": "The bedroom. This is where it happened. Now to look for clues.\n"
+   },
+   {
+    "choices": [
+     [
+      "The bed...",
+      []
+     ],
+     [
+      "The desk...",
+      []
+     ],
+     [
+      "The window...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The bed was low to the ground, but not so low something might not roll underneath. It was still neatly made.\n"
+   },
+   {
+    "choices": [
+     [
+      "Lift the bedcover",
+      []
+     ],
+     [
+      "Test the bed",
+      []
+     ],
+     [
+      "Look under the bed",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I lifted back the bedcover. The duvet underneath was crumpled.\n"
+   },
+   {
+    "choices": [
+     [
+      "Remove the cover",
+      []
+     ],
+     [
+      "Remake the bed",
+      []
+     ],
+     [
+      "Test the bed",
+      []
+     ],
+     [
+      "Look under the bed",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Careful not to disturb anything beneath, I removed the cover entirely. The duvet below was rumpled.\n"
+   },
+   {
+    "text": "Not the work of the maid, who was conscientious to a point. Clearly this had been thrown on in a hurry.\n"
+   },
+   {
+    "choices": [
+     [
+      "Pull back the duvet",
+      []
+     ],
+     [
+      "Remake the bed",
+      []
+     ],
+     [
+      "Test the bed",
+      []
+     ],
+     [
+      "Look under the bed",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I pulled back the duvet. Beneath it was a sheet, sticky with blood.\n"
+   },
+   {
+    "text": "Either the body had been moved here before being dragged to the floor - or this is was where the murder had taken place.\n"
+   },
+   {
+    "choices": [
+     [
+      "Remake the bed",
+      []
+     ],
+     [
+      "Test the bed",
+      []
+     ],
+     [
+      "Look under the bed",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Carefully, I pulled the bedsheets back into place, trying to make it seem undisturbed.\n"
+   },
+   {
+    "choices": [
+     [
+      "Test the bed",
+      []
+     ],
+     [
+      "Look under the bed",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I pushed the bed with spread fingers. It creaked a little, but not so much as to be obnoxious.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look under the bed",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Lying down, I peered under the bed, but could make nothing out.\n"
+   },
+   {
+    "choices": [
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I took a step back from the bed and looked around.\n"
+   },
+   {
+    "choices": [
+     [
+      "The desk...",
+      []
+     ],
+     [
+      "The window...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I turned my attention to the desk. A lamp sat in one corner, a neat, empty in-tray in the other. There was nothing else out.\n"
+   },
+   {
+    "text": "Leaning against the desk was a wooden cane.\n"
+   },
+   {
+    "choices": [
+     [
+      "Pick up the cane",
+      []
+     ],
+     [
+      "Turn on the lamp",
+      []
+     ],
+     [
+      "Look at the in-tray",
+      []
+     ],
+     [
+      "Open a drawer",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I picked up the wooden cane. It was heavy, and unmarked.\n"
+   },
+   {
+    "choices": [
+     [
+      "Turn on the lamp",
+      []
+     ],
+     [
+      "Look at the in-tray",
+      []
+     ],
+     [
+      "Open a drawer",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I flicked the light switch. The light gleamed on the polished tabletop.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look at the in-tray",
+      []
+     ],
+     [
+      "Open a drawer",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I regarded the in-tray, but there was nothing to be seen. Either the victim's papers were taken, or his line of work had seriously dried up. Or the in-tray was all for show.\n"
+   },
+   {
+    "choices": [
+     [
+      "Open a drawer",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I tried a drawer at random. Locked.\n"
+   },
+   {
+    "choices": [
+     [
+      "Open a drawer",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I tried another drawer. Also locked.\n"
+   },
+   {
+    "choices": [
+     [
+      "Open a drawer",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I tried a third drawer. Unsurprisingly, locked as well.\n"
+   },
+   {
+    "choices": [
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I took a step away from the desk once more.\n"
+   },
+   {
+    "choices": [
+     [
+      "Move the light to the floor",
+      []
+     ],
+     [
+      "Swoosh the cane",
+      []
+     ],
+     [
+      "The window...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I picked the light up and set it down on the floor.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look under the bed",
+      []
+     ],
+     [
+      "Swoosh the cane",
+      []
+     ],
+     [
+      "The window...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I peered under the bed. Something glinted back at me.\n"
+   },
+   {
+    "choices": [
+     [
+      "Reach for it",
+      []
+     ],
+     [
+      "Knock it with the cane",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I fished with one arm under the bed, but whatever it was, it had been kicked far enough back that I couldn't get my fingers on it.\n"
+   },
+   {
+    "choices": [
+     [
+      "Knock it with the cane",
+      []
+     ],
+     [
+      "Stand up",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Positioning the cane above the carpet, I gave the glinting thing a sharp tap. It slid out from the under the foot of the bed.\n"
+   },
+   {
+    "choices": [
+     [
+      "Stand up",
+      []
+     ],
+     [
+      "Look under the bed once more",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Satisfied, I stood up, and saw I had knocked free a bloodied knife.\n"
+   },
+   {
+    "choices": [
+     [
+      "Move the light back to the desk",
+      []
+     ],
+     [
+      "Pick up the knife",
+      []
+     ],
+     [
+      "The window...",
+      []
+     ],
+     [
+      "Leave the room",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I moved the light back to the desk, setting it down where it had originally been.\n"
+   },
+   {
+    "choices": [
+     [
+      "Pick up the knife",
+      []
+     ],
+     [
+      "The window...",
+      []
+     ],
+     [
+      "Leave the room",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Careful not to touch the handle, I lifted the blade from the carpet.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look at the knife",
+      []
+     ],
+     [
+      "The window...",
+      []
+     ],
+     [
+      "Leave the room",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The blood was dry enough. Dry enough to show up partial prints on the hilt!\n"
+   },
+   {
+    "choices": [
+     [
+      "The window...",
+      []
+     ],
+     [
+      "Leave the room",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I went over to the window and peered out. A dismal view of the little brook that ran down beside the house.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look down at the brook",
+      []
+     ],
+     [
+      "Look at the glass",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I watched the little stream rush past for a while. The house probably had damp but otherwise, it told me nothing.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look at the glass",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The glass in the window was greasy. No one had cleaned it in a while, inside or out.\n"
+   },
+   {
+    "choices": [
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I leant back from the glass. My breath had steamed up the pane a little.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look at the steam",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "A cold day outside. Natural my breath should steam.\n"
+   },
+   {
+    "text": "But I could see a few fingerprints, as though someone hadpressed their palm against it. They faded as I watched.\n"
+   },
+   {
+    "choices": [
+     [
+      "Compare the prints on the knife and the window",
+      []
+     ],
+     [
+      "Breathe on the glass",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Holding the bloodied knife near the window, I breathed to bring out the prints once more, and compared them as best I could.\n"
+   },
+   {
+    "text": "Hardly scientific, but they seemed very similar - very similiar indeed.\n"
+   },
+   {
+    "choices": [
+     [
+      "Breathe on the glass",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I breathed gently on the glass once more. The fingerprints reappeared.\n"
+   },
+   {
+    "choices": [
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I looked away from the dreary glass. The steam from my breath faded.\n"
+   },
+   {
+    "choices": [
+     [
+      "Leave the room",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I'd seen enough. I switched off the lamp, then turned and left the room.\n"
+   },
+   {
+    "text": "My police contact, Joe, was waiting in the hall. 'So?' he demanded. 'Did you find anything interesting?'\n"
+   },
+   {
+    "choices": [
+     [
+      "'Nothing.'",
+      []
+     ],
+     [
+      "'I found the murder weapon.'",
+      []
+     ],
+     [
+      "'The body was moved to the bed at some point.'",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'Nothing.'\n"
+   },
+   {
+    "text": "He shrugged. 'Shame.' 'Not much to go on.'\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-1": [
+   {
+    "text": "The bedroom. This is where it happened. Now to look for clues.\n"
+   },
+   {
+    "choices": [
+     [
+      "The bed...",
+      []
+     ],
+     [
+      "The desk...",
+      []
+     ],
+     [
+      "The window...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The bed was low to the ground, but not so low something might not roll underneath. It was still neatly made.\n"
+   },
+   {
+    "choices": [
+     [
+      "Lift the bedcover",
+      []
+     ],
+     [
+      "Test the bed",
+      []
+     ],
+     [
+      "Look under the bed",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "Lying down, I peered under the bed, but could make nothing out.\n"
+   },
+   {
+    "choices": [
+     [
+      "Lift the bedcover",
+      []
+     ],
+     [
+      "Test the bed",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I lifted back the bedcover. The duvet underneath was crumpled.\n"
+   },
+   {
+    "choices": [
+     [
+      "Remove the cover",
+      []
+     ],
+     [
+      "Remake the bed",
+      []
+     ],
+     [
+      "Test the bed",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "I pushed the bed with spread fingers. It creaked a little, but not so much as to be obnoxious.\n"
+   },
+   {
+    "choices": [
+     [
+      "Remove the cover",
+      []
+     ],
+     [
+      "Remake the bed",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Careful not to disturb anything beneath, I removed the cover entirely. The duvet below was rumpled.\n"
+   },
+   {
+    "text": "Not the work of the maid, who was conscientious to a point. Clearly this had been thrown on in a hurry.\n"
+   },
+   {
+    "choices": [
+     [
+      "Pull back the duvet",
+      []
+     ],
+     [
+      "Remake the bed",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "Carefully, I pulled the bedsheets back into place, trying to make it seem undisturbed.\n"
+   },
+   {
+    "choices": [
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I took a step back from the bed and looked around.\n"
+   },
+   {
+    "choices": [
+     [
+      "The desk...",
+      []
+     ],
+     [
+      "The window...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I went over to the window and peered out. A dismal view of the little brook that ran down beside the house.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look down at the brook",
+      []
+     ],
+     [
+      "Look at the glass",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "I looked away from the dreary glass.\n"
+   },
+   {
+    "choices": [
+     [
+      "The desk...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I turned my attention to the desk. A lamp sat in one corner, a neat, empty in-tray in the other. There was nothing else out.\n"
+   },
+   {
+    "text": "Leaning against the desk was a wooden cane.\n"
+   },
+   {
+    "choices": [
+     [
+      "Pick up the cane",
+      []
+     ],
+     [
+      "Turn on the lamp",
+      []
+     ],
+     [
+      "Look at the in-tray",
+      []
+     ],
+     [
+      "Open a drawer",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I flicked the light switch. The light gleamed on the polished tabletop.\n"
+   },
+   {
+    "choices": [
+     [
+      "Pick up the cane",
+      []
+     ],
+     [
+      "Look at the in-tray",
+      []
+     ],
+     [
+      "Open a drawer",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I picked up the wooden cane. It was heavy, and unmarked.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look at the in-tray",
+      []
+     ],
+     [
+      "Open a drawer",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I tried a drawer at random. Locked.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look at the in-tray",
+      []
+     ],
+     [
+      "Open a drawer",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I regarded the in-tray, but there was nothing to be seen. Either the victim's papers were taken, or his line of work had seriously dried up. Or the in-tray was all for show.\n"
+   },
+   {
+    "choices": [
+     [
+      "Open a drawer",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I took a step away from the desk once more.\n"
+   },
+   {
+    "choices": [
+     [
+      "Move the light to the floor",
+      []
+     ],
+     [
+      "Swoosh the cane",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I was still holding the cane: I gave it an experimental swoosh. It was heavy indeed, though not heavy enough to be used as a bludgeon.\n"
+   },
+   {
+    "text": "But it might have been useful in self-defence. Why hadn't the victim reached for it? Knocked it over?\n"
+   },
+   {
+    "choices": [
+     [
+      "Move the light to the floor",
+      []
+     ],
+     [
+      "Leave the room",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I picked the light up and set it down on the floor.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look under the bed",
+      []
+     ],
+     [
+      "Leave the room",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I'd seen enough. I switched off the lamp, then turned and left the room.\n"
+   },
+   {
+    "text": "My police contact, Joe, was waiting in the hall. 'So?' he demanded. 'Did you find anything interesting?'\n"
+   },
+   {
+    "choices": [
+     [
+      "'Nothing.'",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'Nothing.'\n"
+   },
+   {
+    "text": "He shrugged. 'Shame.' 'Not much to go on.'\n"
+   },
+   {
+    "end": true
+   }
+  ],
+  "random-2": [
+   {
+    "text": "The bedroom. This is where it happened. Now to look for clues.\n"
+   },
+   {
+    "choices": [
+     [
+      "The bed...",
+      []
+     ],
+     [
+      "The desk...",
+      []
+     ],
+     [
+      "The window...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "The bed was low to the ground, but not so low something might not roll underneath. It was still neatly made.\n"
+   },
+   {
+    "choices": [
+     [
+      "Lift the bedcover",
+      []
+     ],
+     [
+      "Test the bed",
+      []
+     ],
+     [
+      "Look under the bed",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I lifted back the bedcover. The duvet underneath was crumpled.\n"
+   },
+   {
+    "choices": [
+     [
+      "Remove the cover",
+      []
+     ],
+     [
+      "Remake the bed",
+      []
+     ],
+     [
+      "Test the bed",
+      []
+     ],
+     [
+      "Look under the bed",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "Careful not to disturb anything beneath, I removed the cover entirely. The duvet below was rumpled.\n"
+   },
+   {
+    "text": "Not the work of the maid, who was conscientious to a point. Clearly this had been thrown on in a hurry.\n"
+   },
+   {
+    "choices": [
+     [
+      "Pull back the duvet",
+      []
+     ],
+     [
+      "Remake the bed",
+      []
+     ],
+     [
+      "Test the bed",
+      []
+     ],
+     [
+      "Look under the bed",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "I pushed the bed with spread fingers. It creaked a little, but not so much as to be obnoxious.\n"
+   },
+   {
+    "choices": [
+     [
+      "Pull back the duvet",
+      []
+     ],
+     [
+      "Remake the bed",
+      []
+     ],
+     [
+      "Look under the bed",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "Carefully, I pulled the bedsheets back into place, trying to make it seem undisturbed.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look under the bed",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I took a step back from the bed and looked around.\n"
+   },
+   {
+    "choices": [
+     [
+      "The desk...",
+      []
+     ],
+     [
+      "The window...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I went over to the window and peered out. A dismal view of the little brook that ran down beside the house.\n"
+   },
+   {
+    "choices": [
+     [
+      "Look down at the brook",
+      []
+     ],
+     [
+      "Look at the glass",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "I looked away from the dreary glass.\n"
+   },
+   {
+    "choices": [
+     [
+      "The desk...",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I turned my attention to the desk. A lamp sat in one corner, a neat, empty in-tray in the other. There was nothing else out.\n"
+   },
+   {
+    "text": "Leaning against the desk was a wooden cane.\n"
+   },
+   {
+    "choices": [
+     [
+      "Pick up the cane",
+      []
+     ],
+     [
+      "Turn on the lamp",
+      []
+     ],
+     [
+      "Look at the in-tray",
+      []
+     ],
+     [
+      "Open a drawer",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "I picked up the wooden cane. It was heavy, and unmarked.\n"
+   },
+   {
+    "choices": [
+     [
+      "Turn on the lamp",
+      []
+     ],
+     [
+      "Look at the in-tray",
+      []
+     ],
+     [
+      "Open a drawer",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I regarded the in-tray, but there was nothing to be seen. Either the victim's papers were taken, or his line of work had seriously dried up. Or the in-tray was all for show.\n"
+   },
+   {
+    "choices": [
+     [
+      "Turn on the lamp",
+      []
+     ],
+     [
+      "Open a drawer",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I tried a drawer at random. Locked.\n"
+   },
+   {
+    "choices": [
+     [
+      "Turn on the lamp",
+      []
+     ],
+     [
+      "Open a drawer",
+      []
+     ],
+     [
+      "Something else?",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 2
+   },
+   {
+    "text": "I took a step away from the desk once more.\n"
+   },
+   {
+    "choices": [
+     [
+      "Turn on lamp",
+      []
+     ],
+     [
+      "Swoosh the cane",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I was still holding the cane: I gave it an experimental swoosh. It was heavy indeed, though not heavy enough to be used as a bludgeon.\n"
+   },
+   {
+    "text": "But it might have been useful in self-defence. Why hadn't the victim reached for it? Knocked it over?\n"
+   },
+   {
+    "choices": [
+     [
+      "Turn on lamp",
+      []
+     ],
+     [
+      "Leave the room",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 1
+   },
+   {
+    "text": "I'd seen enough. I turned and left the room.\n"
+   },
+   {
+    "text": "My police contact, Joe, was waiting in the hall. 'So?' he demanded. 'Did you find anything interesting?'\n"
+   },
+   {
+    "choices": [
+     [
+      "'Nothing.'",
+      []
+     ]
+    ]
+   },
+   {
+    "chose": 0
+   },
+   {
+    "text": "'Nothing.'\n"
+   },
+   {
+    "text": "He shrugged. 'Shame.' 'Not much to go on.'\n"
+   },
+   {
+    "end": true
+   }
+  ]
+ }
+}

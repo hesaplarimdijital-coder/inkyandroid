@@ -1,0 +1,23 @@
+{
+ "reference": "inklecate 1.2.0",
+ "main": "list_with_commas.ink",
+ "files": [
+  "list_with_commas.ink"
+ ],
+ "compile": {
+  "success": false,
+  "issues": [
+   "ERROR: 'list_with_commas.ink' line 21: Function call target not found: '-> pop'"
+  ]
+ },
+ "statistics": {
+  "words": 2,
+  "knots": 2,
+  "stitches": 0,
+  "functions": 2,
+  "choices": 0,
+  "gathers": 0,
+  "diverts": 4
+ },
+ "transcripts": {}
+}
