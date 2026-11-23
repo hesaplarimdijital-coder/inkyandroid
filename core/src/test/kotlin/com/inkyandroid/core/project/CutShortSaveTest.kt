@@ -223,6 +223,54 @@ class CutShortSaveTest {
         assertEquals(written, store.textOf("main.ink"))
     }
 
+    // ------------------------------------------------------------------ a "saving" draft whose save had finished (review R2)
+
+    @Test
+    fun `a saving draft left behind by a save that finished does not silently beat a later outside change`() = projectTest {
+        store.put("main.ink", "Version A.\n")
+        val first = open(writeAhead = journal)
+        first.edit("main.ink").type("Version B, written on the phone.\n")
+        assertEquals(SaveResult.Saved, first.save("main.ink"))
+        // the process dies before the flush that removes the draft of the saved file
+        assertTrue(drafts.drafts.getValue("main.ink").saving)
+        // the other device changes the file afterwards, through the synced folder
+        store.put("main.ink", "Version C, three pages written on the tablet.\n")
+
+        val secondJournal = DraftJournal(drafts) { now }
+        val second = open(writeAhead = secondJournal)
+        val report = secondJournal.restore(second)
+        second.saveAll()
+
+        assertEquals(listOf("main.ink"), report.conflicts)
+        assertEquals("both texts are there", "Version B, written on the phone.\n", second.text("main.ink").toString())
+        assertEquals("the tablet's text is not overwritten without asking", "Version C, three pages written on the tablet.\n", store.textOf("main.ink"))
+    }
+
+    @Test
+    fun `a saving draft over the version its save started from is the newer text, without a conflict`() = projectTest {
+        store.put("main.ink", story)
+        // the process died after the draft and before the write touched storage
+        drafts.drafts["main.ink"] = Draft("main.ink", written, TextHash.of(story), 1L, saving = true)
+        val project = open(writeAhead = journal)
+
+        val report = journal.restore(project)
+
+        assertEquals(listOf("main.ink"), report.restored)
+        assertFalse(project.file("main.ink").hasConflict)
+    }
+
+    @Test
+    fun `remains that are not a beginning of the draft's text, as an overwrite in place leaves them, are a conflict`() = projectTest {
+        // a provider without truncation writes over the old text: the new beginning, then the old end
+        store.put("main.ink", written.take(20) + story.drop(20).ifEmpty { "the old end\n" })
+        drafts.drafts["main.ink"] = Draft("main.ink", written, TextHash.of(story), 1L, saving = true)
+        val project = open(writeAhead = journal)
+
+        val report = journal.restore(project)
+
+        assertEquals("neither text is replaced without the writer's word", listOf("main.ink"), report.conflicts)
+    }
+
     @Test
     fun `a main file cut in the middle of a character opens with the text its save was writing`() {
         val root = temporary.newFolder("project")

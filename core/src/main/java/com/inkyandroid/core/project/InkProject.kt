@@ -40,8 +40,8 @@ class ParsedInk(
 
 /** What storage holds of one path, as a restore of drafts needs to know it ([InkProject.storedVersion]). */
 internal sealed interface StoredVersion {
-    /** Text with this [hash]. */
-    data class Text(val hash: String, val stored: StoredFile) : StoredVersion
+    /** Text with this [hash]; [text] itself for a file the project does not have (it has its own copy of the others). */
+    data class Text(val hash: String, val stored: StoredFile, val text: String? = null) : StoredVersion
 
     /** A file that cannot be read as text (or storage could not be asked: [stored] is null then). */
     data class Unreadable(val stored: StoredFile?) : StoredVersion
@@ -713,7 +713,8 @@ class InkProject private constructor(
             return StoredVersion.Unreadable(null)
         }
         try {
-            StoredVersion.Text(TextHash.of(store.read(path)), stored)
+            val text = store.read(path)
+            StoredVersion.Text(TextHash.of(text), stored, text)
         } catch (unreadable: IOException) {
             StoredVersion.Unreadable(stored)
         }

@@ -105,8 +105,10 @@ interface WriteAhead {
  *   storage still holds that version the draft is simply the newer text; if storage holds another
  *   version (or one that cannot be read) the draft is restored *and* the file is marked as a
  *   conflict, so the user chooses and neither text is lost; if storage holds exactly the draft's
- *   text the draft is obsolete. A draft of a save that never finished ([Draft.saving]) wins over
- *   whatever storage holds: that is the remains of the save, and the next save writes over it.
+ *   text the draft is obsolete. A draft of a save that was not seen to finish ([Draft.saving]) wins,
+ *   without a conflict, only over what can be all that save left on storage (the version it started
+ *   from, nothing, a file cut mid-character, a beginning of its text); over anything else, which may be
+ *   another device's writing after the save had in fact finished, it is a conflict like any other.
  *
  * Used from the project's thread; its operations run one at a time.
  */
@@ -146,7 +148,7 @@ class DraftJournal(
                     obsolete.add(path)
                     continue
                 }
-                draft.saving -> false
+                draft.saving -> !isRemainsOfItsSave(draft, version, project)
                 version is StoredVersion.Absent -> false
                 version is StoredVersion.Text && version.hash == draft.baseHash -> false
                 else -> true
@@ -156,6 +158,20 @@ class DraftJournal(
             (if (conflict) conflicts else restored).add(path)
         }
         return DraftRestoreReport(restored, conflicts, obsolete)
+    }
+
+    /**
+     * Whether what storage holds of a file can be all that the save [draft] was written for left
+     * there: the version the save started from (it never touched storage), nothing, a file cut in
+     * the middle of a character, or a beginning of the draft's text (a truncating write cut short).
+     * Anything else may be someone else's text written after the save had finished (the other
+     * device, through a synced folder): never replaced without the writer's word.
+     */
+    private fun isRemainsOfItsSave(draft: Draft, version: StoredVersion, project: InkProject): Boolean = when (version) {
+        StoredVersion.Absent, is StoredVersion.Unreadable -> true
+        // at restore time no editor is attached: the project's own copy of a file it has is storage's text
+        is StoredVersion.Text -> version.hash == draft.baseHash ||
+            (version.text ?: project.text(draft.path))?.let { remains -> draft.text.startsWith(remains) } == true
     }
 
     /**
